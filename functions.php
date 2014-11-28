@@ -263,7 +263,7 @@ function getActionInfo($action_id) {
 }
 
 function actionAssistSave($action) {
-$SQL="DELETE QUICK FROM Action_Assistant WHERE action_id = ".$action["action_id"];
+$SQL="DELETE QUICK FROM Action_Assistant WHERE action_id = ".$action["id"];
 $result = mysql_query($SQL) or die("Query failed: (actionAssistSave) " . mysql_error());
 foreach($action["assist_id"] as $inx => $assist_id) {
 	$data=actionAssistItem($action,"assist_id",$inx);
@@ -299,10 +299,12 @@ function actionAssistItem($action,$type,$inx=0) {
 	$data["createPerson_id"]	=$action["modifyPerson_id"];
 	$data["modifyDatetime"]		=$data["createDatetime"];
 	$data["modifyPerson_id"]	=$data["createPerson_id"];
-	$data["action_id"]			=$action_id;
+	$data["action_id"]			=$action["id"];
 	$data["assistantType_id"]	=$tid;
-	if ($type!="assist_name") {	$data["person_id"]=$action[$type][$inx];} else {
-								$data["freeInput"]=$action[$type];}
+	if ($type!="assist_name") {
+		if ($tid==1) {$data["person_id"]=$action[$type][$inx];} else {$data["person_id"]=$action[$type];}
+	} else {
+			$data["freeInput"]=$action[$type];}
 	return $data;
 }
 
