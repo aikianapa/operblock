@@ -220,11 +220,11 @@ if (!isset($_action["index"])) {$_action["index"]=0;}
 $action["status"]=get_action_status($_POST["action_id"],$action,$_action);
 mysqlSaveItem("Action",$action);
 jdbSaveItem("Action",$_action);
+$action=array_merge($action,$_action);
+actionAssistSave($action);
 $res=0;
 return json_encode($res);
 }
-
-
 
 function zamglav_multi_approve() {
 	$date=$_POST["date"];

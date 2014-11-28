@@ -213,7 +213,8 @@ function getActionInfo($action_id) {
 	$action["blood"]=$Client["blood"]; 
 	$action["externalId"]=$Event["externalId"];
 	$action["orgStr_id"]=$Creator["orgStructure_id"];
-	$action["orgStructure"]=$Creator["orgStructure"]; 
+	$action["orgStructure"]=$Creator["orgStructure"];
+	$action=actionAssistRead($action);
 	$action["orgStrBoss"]=json_decode(getOrgStrBossName(),true)["fullName"];
 	$Diag=patientGetDiagnosis($action["event_id"]);
 	$brigada=""; $i=0; 
@@ -259,6 +260,50 @@ function getActionInfo($action_id) {
 			</ul>";
   } else {print_r($action);	}
 	return $action;
+}
+
+function actionAssistSave($action) {
+$SQL="DELETE QUICK FROM Action_Assistant WHERE action_id = ".$action["action_id"];
+$result = mysql_query($SQL) or die("Query failed: (actionAssistSave) " . mysql_error());
+foreach($action["assist_id"] as $inx => $assist_id) {
+	$data=actionAssistItem($action,"assist_id",$inx);
+	mysqlSaveItem("Action_Assistant",$data);
+}
+$data=actionAssistItem($action,"assist_name"); mysqlSaveItem("Action_Assistant",$data);
+$data=actionAssistItem($action,"dejur_id"); mysqlSaveItem("Action_Assistant",$data);
+$data=actionAssistItem($action,"hemo_id"); mysqlSaveItem("Action_Assistant",$data);
+}
+
+function actionAssistRead($action) {
+$SQL="SELECT * FROM Action_Assistant WHERE action_id = ".$action["id"];
+$res = mysql_query($SQL) or die("Query failed (actionAssistRead): " . mysql_error());
+while($data = mysql_fetch_array($res)) {
+	$assist=array();
+	if ($data["assistantType_id"]==1 AND $data["person_id"]>0) { $assist[]=$data["person_id"];}
+	if ($data["assistantType_id"]==1 AND $data["freeInput"]>"") { $action["assist_name"]=$data["person_id"];}
+	if ($data["assistantType_id"]==5) {$action["dejur_id"]=$data["person_id"];}
+	if ($data["assistantType_id"]==4) {$action["hemo_id"]=$data["person_id"];}
+}
+$action["assist_id"]=$assist;
+return $action;
+}
+
+function actionAssistItem($action,$type,$inx=0) {
+	if ($type=="assist_name") 	{$tid=1;}
+	if ($type=="assist_id") 	{$tid=1;}
+	if ($type=="dejur_id") 		{$tid=5;}
+	if ($type=="hemo_id") 		{$tid=4;}
+	$data=array();
+	$data["id"]="_new";
+	$data["createDatetime"]		=date("Y-m-d H:i:s");
+	$data["createPerson_id"]	=$action["modifyPerson_id"];
+	$data["modifyDatetime"]		=$data["createDatetime"];
+	$data["modifyPerson_id"]	=$data["createPerson_id"];
+	$data["action_id"]			=$action_id;
+	$data["assistantType_id"]	=$tid;
+	if ($type!="assist_name") {	$data["person_id"]=$action[$type][$inx];} else {
+								$data["freeInput"]=$action[$type];}
+	return $data;
 }
 
 function getPersonInfo($person_id) {
