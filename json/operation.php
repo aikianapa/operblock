@@ -1,0 +1,467 @@
+<?
+include_once($_SERVER['DOCUMENT_ROOT']."/engine/functions.php");
+engineSettingsRead();
+include($_SERVER['DOCUMENT_ROOT']."/dbconnect.php");
+include($_SERVER['DOCUMENT_ROOT']."/functions.php");
+$mode=$_GET["mode"];
+if (is_callable($mode)) {echo @$mode();}
+
+// =================================================
+
+// function get_action_status() - в functions.php
+
+function getSessId() {
+	return json_encode(session_id());
+}
+
+
+function nazn_sisteran_list() {
+$orgId=$_GET["orgId"];
+$SQL="SELECT * FROM Person as a
+INNER JOIN rbUserProfile as b ON a.userProfile_id=b.id
+WHERE b.code='anestezsister_ob' ";
+$result = mysql_query($SQL) or die("Query failed: (nazn_sister_list) " . mysql_error());
+$array=array();
+while($data = mysql_fetch_array($result)) {
+ $array[]=$data;
+}
+mysql_free_result($result);
+return json_encode($array);
+}
+
+function insert_properties() {
+	$data=json_decode($_POST["data"],1);
+	insertProperties($data,$_POST["action_id"],$_POST["person_id"],$_POST["actionType_id"]);
+}
+
+function get_diagnoses() {
+$event_id=$_GET["event_id"];
+$diagnoses=patientGetDiagnosis($event_id);
+return json_encode($diagnoses);
+}
+
+function get_table_data() {
+	$date=$_GET["date"];
+	$orgStr_id=$_GET["orgStr_id"];
+	$tid=$_GET["tid"];
+	$data=getTableData($date,$orgStr_id,$tid);
+	return json_encode($data);
+}
+
+function sisteran_spisanie_submit() {
+ return sisterob_spisanie_submit();
+}
+
+function sisterob_spisanie_submit() {
+		$action_id = $_POST["action_id"];
+		$person_id = $_POST["person_id"];
+		//$dateTime = $_POST["dateTime"];
+		$drugs=$_POST["drugs"];
+		$_action=jdbReadItem("Action",$action_id);
+		$action=mysqlReadItem("Action",$action_id);
+    if ($_GET["mode"]=="sisterob_spisanie_submit") {$role="ob";}
+		if ($_GET["mode"]=="sisteran_spisanie_submit") {$role="an"; }
+		$dateTime=$action["begDate"];
+		$Item=array();	
+		$Item["id"]="";
+		$Item["createDatetime"]=date("Y-m-d h:i:s");
+		$Item["createPerson_id"]=$person_id;
+    if ($_action["spisanie_$role"]>"") {$Item=mysqlReadItem("PharmacyWritingOff",$_action["spisanie_$role"]);}
+  
+		$Item["modifyDatetime"]=date("Y-m-d h:i:s");
+		$Item["modifyPerson_id"]=$person_id;
+		$Item["dateTime"]=date("Y-m-d h:i:s",strtotime($dateTime));
+		$Item["number"]=NULL;
+		$Item["type"]=1	;
+		$Item["action_id"]=$action_id;
+		$error=mysqlSaveItem("PharmacyWritingOff",$Item);
+		$ins_id=mysql_insert_id();
+		if ($ins_id>"") $_action["spisanie_$role"]=$ins_id;
+		jdbSaveItem("Action",$_action);
+		$SQL="DELETE QUICK FROM PharmacyWritingOff_Items WHERE master_id = ".$_action["spisanie_$role"];
+		$result = mysql_query($SQL) or die("Query failed: (sisterob_spisanie_submit - DELETE) " . mysql_error());
+		foreach($drugs as $key => $data) {
+			$Drugs=array();
+			$Drugs["master_id"]=$_action["spisanie_$role"];
+			$Drugs["nomenclature_id"]="".$key;
+			$Drugs["qnt"]=$data;
+      if ($Drugs["qnt"]>0) {	mysqlSaveItem("PharmacyWritingOff_Items",$Drugs); }
+		}
+		if ($error=="") $error=0;
+		$res["error"]=$error;
+		mysql_free_result($result);
+		return json_encode($res);
+}
+
+function zavnazn_get_data() {
+	$action=getActionInfo($_GET["action_id"]);
+	$_operation["operation"]=jdbReadItem("Operation",$_GET["action_id"]);
+	$res=array_merge($action,$_operation);
+	return json_encode($res);
+}
+
+function mainsister_set_table() {
+	$_action=jdbReadItem("Action",$_GET["action_id"]);
+	$action=mysqlReadItem("Action",$_GET["action_id"]);
+	$_action["table"]=$_GET["table"];
+	$_action["index"]=$_GET["idx"];
+	$_action["orgid"]=$_GET["oid"]; // Если операция перенесена на стол не своего отделения
+	$action["status"]=get_action_status($_GET["action_id"],$action,$_action);
+	jdbSaveItem("Action",$_action);
+	mysqlSaveItem("Action",$action);
+}
+
+function mainsister_set_oproom() {
+	$date=$_GET["date"];
+	$oper=$_GET["oper"];
+	$oid=$_GET["oid"];
+	$tid=$_GET["tid"];
+	$index=$_GET["idx"];
+	$oprooms=jdbReadItem("opRooms",$_GET["date"]);
+	$oprooms["id"]=$date;
+	$oprooms[$oid][$tid]=array();
+	$oprooms[$oid][$tid]["index"]=$index;
+	$oprooms[$oid][$tid]["oper"]=$oper;
+	if ($oper=="") { unset ($oprooms[$oid][$tid]); } 
+	print_r($oprooms);
+	jdbSaveItem("opRooms",$oprooms);
+}
+
+
+function mainsister_get_oproom() {
+	$date=$_GET["date"];
+	$oprooms=jdbReadItem("opRooms",$_GET["date"]);
+	unset($oprooms["id"]);
+	return json_encode($oprooms);
+}
+
+function mainsis_oproom_submit() {
+	$actions=$_POST["aid"];
+	$oper=$_POST["oper_id"];
+	$date=$_POST["begDate"];
+	mainsis_oproom_aprove($date,$oper);
+	unset($_POST["aid"]);
+	unset($_POST["oper_id"]);
+	unset($_POST["person_id"]);
+	foreach($actions as $action_id) {
+		$_POST["action_id"]=$action_id;	
+		zavnazn_oper_submit();
+	}
+}
+
+function mainsis_oproom_aprove($date,$oper,$res=TRUE) {
+	$oprooms=jdbReadItem("opRooms",$date);
+	if ($res==TRUE) {
+		$oprooms["approve"][$oper]=TRUE;	
+	} else {
+		unset($oprooms["approve"][$oper]);
+	}
+	jdbSaveItem("opRooms",$oprooms);
+}
+
+function mainsister_oper_submit() {
+	unset($_POST["oper_id"]);
+	unset($_POST["person_id"]);
+	zavnazn_oper_submit();
+}
+
+function zavedan_oproom_submit() {
+	$actions=$_POST["aid"];
+	unset($_POST["aid"]);
+	unset($_POST["oper_id"]);
+	unset($_POST["person_id"]);
+	foreach($actions as $action_id) {
+		$_POST["action_id"]=$action_id;	
+		zavnazn_oper_submit();
+	}
+}
+
+function epicriz_submit() { popup_submit("epicriz"); }
+function histology_submit() {popup_submit("histology");}
+function citology_submit() { popup_submit("citology"); }
+function imuno_submit() { popup_submit("imuno"); }
+function popup_submit($name) {
+	$_action=jdbReadItem("Action",$_POST["action_id"]);
+	if (!isset($_action["id"])) {$_action["id"]=$_POST["action_id"];}
+	unset($_POST["action_id"]);
+	foreach($_POST as $key => $val) {$_action[$name][$key]=$val;}
+	jdbSaveItem("Action",$_action);	
+}
+
+function zavnazn_oper_submit() {
+// Подтверждение назначения на операцию завотделением
+$action=mysqlReadItem("Action",$_POST["action_id"]);
+$_action=jdbReadItem("Action",$_POST["action_id"]);
+$_action["id"]=$_POST["action_id"];
+if (date("Y",strtotime($_POST["begDate"]))>"1970") {$action["plannedEndDate"]="";}
+$action["modifyDatetime"]=date("Y-m-d H:i:s");
+if (isset($_POST["begDate"])) {$action["begDate"]=date("Y-m-d 00:00:00",strtotime($_POST["begDate"]));}
+if (isset($_SESSION["user_id"])) {$action["modifyPerson_id"]=$_SESSION["user_id"];}
+if (isset($_POST["note"])) {$action["note"]=$_POST["note"];}
+if (isset($_POST["isUrgent"])) {$action["isUrgent"]=$_POST["isUrgent"];} 
+if (isset($_POST["modifyPerson_id"])) {$action["modifyPerson_id"]=$_POST["modifyPperson_id"];}
+if (isset($_POST["person_id"])) {$action["person_id"]=$_POST["person_id"];}
+if (isset($_POST["assist_name"])) {$_action["assist_name"]=$_POST["assist_name"];}
+if (isset($_POST["assist_id"])) {$_action["assist_id"]=$_POST["assist_id"];}
+if (isset($_POST["hemo_id"])) {$_action["hemo_id"]=$_POST["hemo_id"];}
+if (isset($_POST["person_id"])) {$_action["person_id"]=$_POST["person_id"];}
+if (isset($_POST["dejur_id"])) {$_action["dejur_id"]=$_POST["dejur_id"];}
+if (isset($_POST["an_person_id"])) {$_action["an_person_id"]=$_POST["an_person_id"];}
+if (isset($_POST["an_sister_id"])) {$_action["an_sister_id"]=$_POST["an_sister_id"];}
+if (isset($_POST["an_posobie"])) {$_action["an_posobie"]=$_POST["an_posobie"];}
+if (isset($_POST["operSister_id"])) {$_action["operSister_id"]=$_POST["operSister_id"];}
+if (isset($_POST["sanitar"])) {$_action["sanitar"]=$_POST["sanitar"];}
+if (isset($_POST["zam_ok"])) {$_action["zam_ok"]=$_POST["zam_ok"];}
+if (isset($_POST["assist_id"])) {$_action["zav_ok"]=1;}
+if (isset($_POST["operSister_id"])) {$_action["sis_ok"]=1;}
+if (isset($_POST["begTime"])) {$_action["begTime"]=$_POST["begTime"];}
+if (!isset($_action["index"])) {$_action["index"]=0;}
+$action["status"]=get_action_status($_POST["action_id"],$action,$_action);
+mysqlSaveItem("Action",$action);
+jdbSaveItem("Action",$_action);
+$res=0;
+return json_encode($res);
+}
+
+
+
+function zamglav_multi_approve() {
+	$date=$_POST["date"];
+	$aid=$_POST["aid"];
+	foreach($aid as $action_id) {
+		$_POST=array();
+		$_POST["action_id"]=$action_id;
+		$_POST["begDate"]=$date;
+		$_POST["zam_ok"]=1;
+		$_POST["status"]=1;
+		zavnazn_oper_submit();
+	}
+}
+
+function check_approved_table() {
+	$res=checkApprovedTable($_GET["date"],$_GET["orgStr_id"],$_GET["tid"]);
+	return  json_encode($res);
+}
+
+function check_approved_oproom() {
+	$res=checkApprovedOproom($_GET["date"],$_GET["oper"]);
+	return  json_encode($res);
+}
+
+function zavtable_check_operation() {
+	$multiflds=array("person_id","hemo_id","assist_id","assist_name","dejur_id","note");
+	$data=$_POST["data"];
+	$acts_id=explode($_POST["actions"],",");
+	$res=array();
+	foreach($acts_id as $k => $action_id) {
+		$action=mysqlReadItem("Action",$action_id);
+		$_action=jdbReadItem("Action",$action_id);
+		$action=array_merge($action,$_action);
+		foreach($multiflds as $key => $val) {
+			if (isset($action[$val]) AND $action[$val]!=$data["val"]) {
+				$res[$action_id]=$action_id;
+				$res[$action_id][$val]["from"]=$action[$val];
+				$res[$action_id][$val]["to"]=$data[$val]; 
+			}
+		}		
+	}
+	return json_encode($res);
+	
+}
+
+function zavtable_copytable() {
+	$_POST["begDate"]=$_POST["workDate"];
+	foreach($_GET["aid"] as $key => $action_id) {
+		$_POST["action_id"]=$action_id;
+		 zavnazn_oper_submit();
+	}
+}
+
+function zavtable_submit() { 
+	$Item=jdbReadItem("Tables",$_POST["workDate"]);
+	$Item["id"]=$_POST["workDate"];
+	$fld=array("person_id","hemo_id","assist_id","assist_name","dejur_id","note");
+	// РАБОТАЕТ
+	$data=array();
+	foreach($fld as $key => $val) {$data[$val]=$_POST[$val]; 	}
+	$Item[$_POST["orgStr_id"]][$_POST["table"]]=$data;
+	$error=jdbSaveItem("Tables",$Item);
+	if ($error=="") {$error=0;}
+	$res["error"]=$error;
+	return json_encode($res);
+}
+
+ 
+function nazn_oper_submit() {
+// Запись нового назначения на операцию
+$Item=$_POST;
+$Item["createDatetime"]=date( "Y-m-d H:i:s" );
+$Item["plannedEndDate"]=date("Y-m-d H:i:s", strtotime($Item["plannedEndDate"]));
+$Item["modifyDatetime"]=$Item["createDatatime"];
+$Item["modufyPerson_id"]=$Item["createPerson_id"];
+if ($Item["isUrgent"]=="on" OR $Item["isUrgent"]==1) {$Item["isUrgent"]=1; $Item["status"]=1;} else {$Item["isUrgent"]=0; $Item["status"]=0;}
+
+$error=mysqlSaveItem("Action",$Item);
+$res["id"]=mysql_insert_id();
+if ($error=="") {$error=0;}
+$res["error"]=$error;
+return json_encode($res);
+}
+
+function hirurg_oper_submit() {
+$_POST["id"]=$_POST["action_id"];
+$Item=$_POST;
+unset($_POST["action_id"]);
+$error=jdbSaveItem("Operation",$Item); 
+if ($error=="") {$error=0; }
+	$action=mysqlReadItem("Action",$Item["action_id"]);
+	$action["status"]=2;
+	$action["endDate"]=$Item["endDate"];
+	$error=mysqlSaveItem("Action",$action);
+$res["error"]=$error;
+return json_encode($res);
+}
+
+function cancel_operation() {
+	$action["modifyDatetime"]=date("Y-m-d H:i:s");
+	$action["modufyPerson_id"]=$_POST["person_id"];
+	$action=mysqlReadItem("Action",$_POST["action_id"]);
+	$_action=jdbReadItem("Action",$_POST["action_id"]);
+	$action["status"]=3;
+	$_action["cancelNote"]=$_POST["cancelNote"];
+	mysqlSaveItem("Action",$action);
+	jdbSaveItem("Action",$_action); 
+	return 0;
+}
+
+function nazn_oper_list() {
+$orgStrId=$_GET["orgStrId"];
+//UPDATE `ActionType` SET serviceType = 4 WHERE class=2 AND (name like '%опера%' OR name like '%хирур%') 
+$SQL="SELECT * FROM ActionType  INNER JOIN OrgStructure_ActionType ON ActionType.id = OrgStructure_ActionType.actionType_id 
+		WHERE ActionType.serviceType = 4  AND class=2
+		ORDER BY name ASC";
+$result = mysql_query($SQL) or die("Query failed: (nazn_oper_list) " . mysql_error());
+$array=array();
+while($data = mysql_fetch_array($result)) {
+	$Item["id"]=$data["actionType_id"];
+	$Item["name"]=$data["title"];
+	$array[]=$Item;	
+}
+mysql_free_result($result);
+return json_encode($array);
+}
+
+function nazn_orgstr_list() {
+$orgId=$_GET["orgId"];
+$SQL="SELECT * FROM OrgStructure 
+		WHERE organisation_id = $orgId
+		AND hasHospitalBeds = 1
+		ORDER BY code ASC";
+$result = mysql_query($SQL) or die("Query failed: (nazn_orgstr_list) " . mysql_error());
+$array=array();
+while($data = mysql_fetch_array($result)) {
+	$Item["id"]=$data["id"];
+	$Item["name"]=$data["name"];
+	$Item["code"]=$data["code"];
+	$array[]=$Item;	
+}
+mysql_free_result($result);
+return json_encode($array);
+}
+
+function nazn_person_list() {
+$orgStrId=$_GET["orgStrId"];
+$SQL="SELECT a.* FROM Person as a 
+INNER JOIN OrgStructure as b ON a.orgStructure_id=b.id
+INNER JOIN rbSpeciality as c ON a.speciality_id=c.id
+WHERE b.name LIKE '%хирург%' and c.name NOT LIKE '%сестр%' AND retired=0 
+ORDER BY lastname";
+$result = mysql_query($SQL) or die("Query failed: (nazn_person_list) " . mysql_error());
+$array=array();
+while($data = mysql_fetch_array($result)) {
+	$array[]=$data;
+}
+mysql_free_result($result);
+return json_encode($array);
+}
+
+function nazn_hirurg_list() {
+$orgStrId=$_GET["orgStrId"];
+
+$SQL="SELECT a.* FROM Person as a 
+INNER JOIN OrgStructure as b ON a.orgStructure_id=b.id
+INNER JOIN rbSpeciality as c ON a.speciality_id=c.id
+WHERE b.name LIKE '%хирург%' and c.name NOT LIKE '%сестр%' AND retired=0 
+ORDER BY lastname";
+
+$result = mysql_query($SQL) or die("Query failed: (nazn_hirurg_list) " . mysql_error());
+$array=array();
+while($data = mysql_fetch_array($result)) {
+	$array[]=$data;
+}
+mysql_free_result($result);
+return json_encode($array);
+}
+
+function nazn_sister_list() {
+$orgId=$_GET["orgId"];
+$SQL="SELECT * FROM rbSpeciality INNER JOIN Person ON Person.speciality_id = rbSpeciality.id 
+	WHERE Person.deleted = 0 
+	AND Person.org_id = '$orgId' 
+	AND ( rbSpeciality.name LIKE '%сестр%' )  
+	ORDER BY Person.lastName ASC";
+$result = mysql_query($SQL) or die("Query failed: (nazn_sister_list) " . mysql_error());
+$array=array();
+while($data = mysql_fetch_array($result)) {
+	$array[]=$data;
+}
+mysql_free_result($result);
+return json_encode($array);
+}
+
+function nazn_sisterop_list() {
+$orgId=$_GET["orgId"];
+$SQL="SELECT * FROM Person as a
+INNER JOIN rbUserProfile as b ON a.userProfile_id=b.id
+WHERE b.code='sisterob' ";
+$result = mysql_query($SQL) or die("Query failed: (nazn_sisterop_list) " . mysql_error());
+$array=array();
+while($data = mysql_fetch_array($result)) {
+	$array[]=$data;
+}
+mysql_free_result($result);
+return json_encode($array);
+}
+
+function nazn_assist_list() {
+$orgId=$_GET["orgId"];
+$SQL="SELECT * FROM Person as a
+INNER JOIN OrgStructure as b ON a.orgStructure_id=b.id
+WHERE b.hasHospitalBeds=1 AND a.speciality_id IS NOT NULL AND a.retired=0";
+$result = mysql_query($SQL) or die("Query failed: (nazn_assist_list) " . mysql_error());
+$array=array();
+while($data = mysql_fetch_array($result)) {
+	$array[]=$data;
+	
+}
+mysql_free_result($result);
+return json_encode($array);
+}
+
+function nazn_anest_list() {
+$orgId=$_GET["orgId"];
+$SQL="SELECT a.* FROM Person as a 
+INNER JOIN OrgStructure as b ON a.orgStructure_id=b.id
+INNER JOIN rbSpeciality as c ON a.speciality_id=c.id
+WHERE b.name LIKE '%анестез%' and c.name NOT LIKE '%сестр%' AND retired=0 
+ORDER BY lastname";
+$result = mysql_query($SQL) or die("Query failed: (nazn_assist_list) " . mysql_error());
+$array=array();
+while($data = mysql_fetch_array($result)) {
+	$array[]=$data;
+	
+}
+mysql_free_result($result);
+return json_encode($array);
+}
+?>

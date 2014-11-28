@@ -1,0 +1,21 @@
+DirectoryIndex index.php
+AddDefaultCharset UTF-8
+
+RewriteBase /
+RewriteEngine On
+
+<IfModule mod_headers.c>
+  Header set Access-Control-Allow-Origin http://doctorroom
+</IfModule>
+
+RewriteRule ^json/ - [L]
+
+RewriteRule ^login\.htm$ /index.php?form=login&mode=show [L]
+
+RewriteRule ^(.*)\/(.*)\/(.*)\.htm$ /index.php?form=$1&mode=$2&id=$3 [L]
+RewriteRule ^(.*)\/(.*)\.htm$ /index.php?form=$1&mode=show&id=$2 [L]
+RewriteRule ^(.*)\.htm$ /index.php?form=page&mode=show&id=$1 [L]
+
+RewriteRule ^tnc-(.*)-\/(.*)\/(.*)\/(.*)\.(.*)$ /engine/imagegd.php?size=$1&form=$2&item=$3&img=$4.$5&type=crop [L]
+RewriteRule ^tnf-(.*)-\/(.*)\/(.*)\/(.*)\.(.*)$ /engine/imagegd.php?size=$1&form=$2&item=$3&img=$4.$5&type=fit [L]
+

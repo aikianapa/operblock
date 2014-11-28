@@ -1,0 +1,149 @@
+<div data-role="page" data-theme="a" id="sisterobList" data-url="/sisterob/list/list.htm?null=&person_id={{person_id}}" data-ajax="false">
+<div data-role="header"  data-position="fixed"><h2>Медсестра оперблока</h2></div>
+
+
+<div data-role="content" >
+<br />
+		<h2>Список назначеных операций</h2>
+		<div data-role="fieldcontain"><label>Рабочая дата</label><input type="datepicker" data-role="date" data-inline="true" required name="workDate"></div>
+
+    <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="display: inline-block;">
+        <legend>Состояние:</legend>
+        <input type="radio" name="status" id="status-all" value="all" checked="checked">
+        <label for="status-all">Все операции</label>
+        <input type="radio" name="status" id="status-on" value="on">
+        <label for="status-on">Назначеные</label>
+        <input type="radio" name="status" id="status-off" value="off">
+        <label for="status-off">Выполненные</label>
+    </fieldset>
+
+    <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="display: inline-block;">
+        <legend>Списание:</legend>
+        <input type="radio" name="spisan" id="spisan-all" value="all" checked="checked">
+        <label for="spisan-all">Все операции</label>
+        <input type="radio" name="spisan" id="spisan-on" value="on">
+        <label for="spisan-on">Произведено</label>
+        <input type="radio" name="spisan" id="spisan-off" value="off">
+        <label for="spisan-off">Не произведено</label>
+    </fieldset>
+		
+		<table data-role="table" class="ui-responsive" id="clientlist">
+		<thead><tr><th>№ ИБ</th><th>Ф.И.О.</th><th>Операция</th><th>Дата операции</th><th>Диагноз</th><th>Врач</th><th>Палата</th><th>&nbsp;</th></tr></thead>
+		<tbody>
+		<div data-role="foreach" from="result">
+		<tr aid="{{action_id}}" class="status-{{status}}" sid="{{spisanie_ob}}">
+		<td>{{externalId}}</td>
+		<td>{{client}} ({{age}} лет)</td>
+		<td>{{operation}}</td>
+		<td>{{begDate}}</td>
+		<td>{{diagnose}}</td>
+		<td>{{person}}</td>
+		<td>{{palata}}</td>
+		<td><a href="#printMenu" data-rel="popup" data-transition="slideup" class="ui-btn ui-corner-all ui-shadow ui-icon-action ui-btn-icon-notext">Печать</a></td>
+		</tr></div>
+		</tbody></table>
+
+
+	<div data-role="popup" id="printMenu" data-theme="a">
+        <ul data-role="listview" data-inset="true" style="min-width:210px;">
+            <li data-role="list-divider">Выберите действие</li>
+            <li><a href="/json/print_forms.php?mode=spisanie_1"  target="_blank">Печать</a></li>
+            <!--li><a href="/json/print_forms.php?mode=spisanie_2"  target="_blank" >Списание (с ценами)</a></li-->
+        </ul>
+	</div>
+
+
+</div>
+
+<div data-role="footer" data-position="fixed">
+<div class="notify"></div>
+<h2>{{_SETTINGS_footer}}</h2>
+</div>
+</div>
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+$("div[data-url^='/sisterob/list/list.htm']:hidden").remove();	
+});
+
+
+$(document).on("pageinit",function(){
+$( "table" ).disableSelection();
+
+$('input[type=datetime]').datetimepicker({
+	lang:'ru', format:'Y-m-d', formatDate:'Y-m-d', timepicker:false
+});
+
+	$("a[href=#printMenu]").on("click",function(){ $( document ).data( "action", $(this).parents("tr").attr("aid")); });
+	$("#printMenu a").on("click",function(){
+		$(this).attr("href",$(this).attr("href")+"&action="+$( document ).data( "action"));
+	});
+	
+		var page=$("#sisterobList");
+		page.find("#sisterobSpis").dialog();
+		zaved_nazn_submit();
+		page.find("#clientlist tbody tr, #tables ul li").on("dblclick",function(){
+      if ($(this).hasClass("status-1") || $(this).hasClass("status-2")) {
+			if ($(this).hasClass("sid")) {
+				footer_notify("Списание уже было произведено","error");
+			} else {
+				$.mobile.loading( "show",{
+				text: 'Подождите, идёт доступ к базе данных 1С.',
+				textVisible: true
+				} ); 
+				var aid=$(this).attr("aid");
+				document.location.href="/sisterob/spisanie/"+aid+".htm";
+			}
+      } else {
+        footer_notify("Только для завершённых операций!","error");
+      }
+		});
+		
+	page.find("#clientlist tbody tr").each(function(){
+			var sid=$(this).attr("sid");
+			if (sid>0) {$(this).addClass("sid");}
+	});
+
+	page.find("input[name=spisan],input[name=status]").on("change",function(){
+		var spisan=page.find("input[name=spisan]:checked").val();
+		var status=page.find("input[name=status]:checked").val();
+		page.find("#clientlist tbody tr").each(function(){
+			$(this).addClass("ui-hidden");
+			$(this).addClass("ui-hidden-1");
+			if (spisan=="all") {$(this).removeClass("ui-hidden");}
+			if (spisan=="on" && $(this).hasClass("sid")) {$(this).removeClass("ui-hidden");}
+			if (spisan=="off" && !$(this).hasClass("sid")) {$(this).removeClass("ui-hidden");}
+			if (status=="all" && status=="all" ) {$(this).removeClass("ui-hidden-1");}
+			if (status=="on" && !$(this).hasClass("status-2")) {$(this).removeClass("ui-hidden-1");}
+			if (status=="off" && $(this).hasClass("status-2")) {$(this).removeClass("ui-hidden-1");} 
+		});
+	});
+});
+
+function zaved_nazn_submit() {
+$( "#sisterobSpis form a.submit" ).on( "click", function(  ) {
+	if (checkRequired($( "#sisterobSpis form"))) {
+	var formdata=$("#sisterobSpis form").serialize() ;
+	$.post("/json/operation.php?mode=sisterobSpis_oper_submit",formdata,function(data){
+		console.log(data);
+
+		footer_notify("Операция назначена","success");
+//		}
+	});
+	} else { 
+		footer_notify("Не заполнены обязательные поля","error");	
+	} 
+});
+}
+
+
+
+</script>
+
+<link rel="stylesheet" href="/style.css" />
+<style>
+#sisterobSpis {width:100%;}
+#sisterobSpis form {padding:10px; }
+.filter {display:inline; width: 250px; font-weight: bold;} 
+</style>
