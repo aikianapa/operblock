@@ -396,6 +396,29 @@ while($data = mysql_fetch_array($res)) {$item=$data["name"];}
 return $item;
 }
 
+function getOperationsByPerson($month,$year,$person_id,$role="person_id") {
+		$start="$year-$month-01";
+		$stop="$year-$month-31";
+$SQL="SELECT * FROM Action as a 
+  INNER JOIN ActionType as b ON a.actionType_id = b.id 
+  INNER JOIN Person as c ON a.setPerson_id=c.id
+  WHERE b.serviceType = 4 
+  AND ( begDate BETWEEN '$start' AND '$stop' OR (plannedEndDate BETWEEN '$start' AND '$stop'  AND ( begDate like '1970%' OR begDate IS NULL )) )
+  ORDER BY status DESC ";
+		$res = mysql_query($SQL) or die("Query failed: " . mysql_error());
+		$data=array();
+		while($a = mysql_fetch_array($res)) {
+			$action=getActionInfo($a[0]);
+			if ($action[$role]==$person_id) {
+			if (date("Y",strtotime($action["begDate"]))=="1970" OR $action["begDate"] == NULL) {
+					$curdate=date("d",strtotime($action["plannedEndDate"]));
+			} else {	$curdate=date("d",strtotime($action["begDate"]));}
+			if (!isset($data[$curdate][$action["status"]])) {$data[$curdate][$action["status"]]=1;} else {$data[$curdate][$action["status"]]++;}
+			}
+		}
+	return json_encode($data);
+}
+
 function getOperationsByDate($month,$year,$oid="") {
 		$start="$year-$month-01";
 		$stop="$year-$month-31";

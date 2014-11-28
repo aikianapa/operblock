@@ -3,9 +3,16 @@
 
 
 <div data-role="content" >
-<br />
-		<h2>Список назначеных операций</h2>
+<div data-role="tabs" id="tabs">
+		<div data-role="navbar"><ul>
+			  <li><a href="#tab-1" data-ajax="false" class="ui-btn-active">Назначенные операции</a></li>
+			   <li><a href="#tab-3" data-ajax="false">Календарь</a></li>
+		</ul></div>
+
+
+		<div id="tab-1" class="ui-body-d ui-content">
 		<div data-role="fieldcontain"><label>Рабочая дата</label><input type="datepicker" data-role="date" data-inline="true" required name="workDate"></div>
+		<input type="hidden" name="person_id">
 
     <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="display: inline-block;">
         <legend>Состояние:</legend>
@@ -51,7 +58,11 @@
             <!--li><a href="/json/print_forms.php?mode=spisanie_2"  target="_blank" >Списание (с ценами)</a></li-->
         </ul>
 	</div>
-
+	</div>
+	<div id="tab-3" class="ui-body-d ui-content">
+	<div data-role="header"><h3>Операционный календарь</h3></div>
+		<div id="calendar"></div>
+	</div>
 
 </div>
 
@@ -64,7 +75,8 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-$("div[data-url^='/sisterob/list/list.htm']:hidden").remove();	
+$("div[data-url^='/sisterob/list/list.htm']:hidden").remove();
+sisterob_get_calendar();
 });
 
 
@@ -120,6 +132,18 @@ $('input[type=datetime]').datetimepicker({
 		});
 	});
 });
+
+function sisterob_get_calendar() {
+var person_id=$("#sisterobList input[name=person_id]").val();
+var workDate=$("#sisterobList input[name=workDate]").val();
+$.get("/forms/calendar.php?sisterob_id="+person_id+"&date="+workDate,function(data){ 
+	$("#sisterobList  #calendar").html(data);
+	var head1=$("#tab-3 h3").html();
+	var head2=$("#calendar h2:first-child").html();
+	$("#calendar h2:first-child").remove();
+	$("#tab-3 h3").html(head1+" ("+head2+")");
+});
+}
 
 function zaved_nazn_submit() {
 $( "#sisterobSpis form a.submit" ).on( "click", function(  ) {

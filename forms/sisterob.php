@@ -9,6 +9,7 @@ $Item=array();
 $out=formGetForm($form,$mode);
 $Item["result"]=sisterobListItems() ;
 if (isset($_COOKIE["workDate"])) {$Item["workDate"]=$_COOKIE["workDate"];} else {$Item["workDate"]=date("Y-m-d");}
+$Item["person_id"]=$_SESSION["person_id"];
 $out=contentSetData($out,$Item);
 return $out;
 }
