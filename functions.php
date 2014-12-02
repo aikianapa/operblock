@@ -258,6 +258,7 @@ function getActionInfo($action_id) {
 				<li>Группа крови: $action[blood]</li>
 				<li>Дата поступления: $action[client_begDate]</li>
 			</ul>";
+	$action["action_id"]=$action_id;
   } else {print_r($action);	}
 	return $action;
 }
