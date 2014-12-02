@@ -278,10 +278,10 @@ $data=actionAssistItem($action,"hemo_id"); mysqlSaveItem("Action_Assistant",$dat
 function actionAssistRead($action) {
 $SQL="SELECT * FROM Action_Assistant WHERE action_id = ".$action["id"];
 $res = mysql_query($SQL) or die("Query failed (actionAssistRead): " . mysql_error());
+$assist=array();
 while($data = mysql_fetch_array($res)) {
-	$assist=array();
 	if ($data["assistantType_id"]==1 AND $data["person_id"]>0) { $assist[]=$data["person_id"];}
-	if ($data["assistantType_id"]==1 AND $data["freeInput"]>"") { $action["assist_name"]=$data["person_id"];}
+	if ($data["assistantType_id"]==1 AND $data["freeInput"]>"") { $action["assist_name"]=$data["freeInput"];}
 	if ($data["assistantType_id"]==5) {$action["dejur_id"]=$data["person_id"];}
 	if ($data["assistantType_id"]==4) {$action["hemo_id"]=$data["person_id"];}
 }
@@ -615,8 +615,16 @@ function get_action_status($action_id="", $action="", $_action="") {
 	// status 2 - (синий) проведена
 	// stasus 3 - (красный) отменена
 	// status 4 - (жёлтый) утверждена завотдел и старшей сестрой
+}
+
+function actionBeforeSaveItem($Item) {
+if (isset($Item["status"]) AND $Item["status"]!=2 AND $Item["status"]!=3) {
+	// В базе должно быть - Статус выполнения: 0-Начато, 1-Ожидание, 2-Закончено, 3-Отменено, 4-Без результата
 	
 }
+return $Item;
+}
+
 
 function getSpisanieItems($id) {
   
