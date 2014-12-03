@@ -617,13 +617,13 @@ function get_action_status($action_id="", $action="", $_action="") {
 	// status 4 - (жёлтый) утверждена завотдел и старшей сестрой
 }
 
-function actionBeforeSaveItem($Item) {
+/*function actionBeforeSaveItem($Item) {
 if (isset($Item["status"]) AND $Item["status"]!=2 AND $Item["status"]!=3) {
 	// В базе должно быть - Статус выполнения: 0-Начато, 1-Ожидание, 2-Закончено, 3-Отменено, 4-Без результата
 	
 }
 return $Item;
-}
+}*/
 
 
 function getSpisanieItems($id) {

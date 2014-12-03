@@ -104,6 +104,7 @@ function zavnazn_get_data() {
 function mainsister_set_table() {
 	$_action=jdbReadItem("Action",$_GET["action_id"]);
 	$action=mysqlReadItem("Action",$_GET["action_id"]);
+	$_action["id"]=$_GET["action_id"];
 	$_action["table"]=$_GET["table"];
 	$_action["index"]=$_GET["idx"];
 	$_action["orgid"]=$_GET["oid"]; // Если операция перенесена на стол не своего отделения
@@ -124,7 +125,6 @@ function mainsister_set_oproom() {
 	$oprooms[$oid][$tid]["index"]=$index;
 	$oprooms[$oid][$tid]["oper"]=$oper;
 	if ($oper=="") { unset ($oprooms[$oid][$tid]); } 
-	print_r($oprooms);
 	jdbSaveItem("opRooms",$oprooms);
 }
 
