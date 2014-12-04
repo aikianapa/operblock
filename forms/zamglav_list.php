@@ -12,7 +12,7 @@
 		<div id="tab-1" class="ui-body-d ui-content">
 		<div data-role="header"><a href="#zamglavMenu" data-rel="popup" class="ui-btn ui-btn-inline ui-icon-bars ui-btn-icon-left ui-corner-all">Меню</a><h2>Список назначеных операций</h2></div>
 		<table data-role="table" class="ui-responsive" id="clientlist">
-		<thead><tr><th>Утв.</th><th>№ ИБ</th><th>Ф.И.О.</th><th>Операция</th><th>Дата операции</th><th>Диагноз</th><th>Врач</th><th>Палата</th></tr></thead>
+		<thead><tr><th>Утв.</th><th>№ ИБ</th><th>Ф.И.О.</th><th>Операция</th><th>Дата операции</th><th>Диагноз</th><th>Врач</th><th>Палата</th><th>&nbsp;</th></tr></thead>
 		<tbody>
 		<div data-role="foreach" from="result">
 		<tr aid="{{action_id}}" class="status-{{status}}">
@@ -24,6 +24,7 @@
 		<td>{{diagnose}}</td>
 		<td>{{person}}</td>
 		<td>{{palata}}</td>
+		<td><a href="#" class="nazn-btn ui-btn ui-corner-all ui-shadow ui-icon-action ui-btn-icon-notext">Назначить</a></td>
 		</tr></div>
 		</tbody></table>
 	</div>

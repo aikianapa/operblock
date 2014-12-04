@@ -199,18 +199,17 @@ $action["modifyDatetime"]=date("Y-m-d H:i:s");
 if (isset($_POST["begDate"])) {$action["begDate"]=date("Y-m-d 00:00:00",strtotime($_POST["begDate"]));}
 if (isset($_SESSION["user_id"])) {$action["modifyPerson_id"]=$_SESSION["user_id"];}
 if (isset($_POST["note"])) {$action["note"]=$_POST["note"];}
-if (isset($_POST["isUrgent"])) {$action["isUrgent"]=$_POST["isUrgent"];} 
+if (isset($_POST["isUrgent"])) {$action["isUrgent"]=$_POST["isUrgent"]; } 
 if (isset($_POST["modifyPerson_id"])) {$action["modifyPerson_id"]=$_POST["modifyPperson_id"];}
-if (isset($_POST["person_id"])) {$action["person_id"]=$_POST["person_id"];}
 if (isset($_POST["assist_name"])) {$_action["assist_name"]=$_POST["assist_name"];}
-if (isset($_POST["assist_id"])) {$_action["assist_id"]=$_POST["assist_id"];}
+if (isset($_POST["assist_id"])) {$_action["assist_id"]=$_POST["assist_id"]; $role="zavnazn";}
 if (isset($_POST["hemo_id"])) {$_action["hemo_id"]=$_POST["hemo_id"];}
 if (isset($_POST["person_id"])) {$_action["person_id"]=$_POST["person_id"];}
 if (isset($_POST["dejur_id"])) {$_action["dejur_id"]=$_POST["dejur_id"];}
-if (isset($_POST["an_person_id"])) {$_action["an_person_id"]=$_POST["an_person_id"];}
+if (isset($_POST["an_person_id"])) {$_action["an_person_id"]=$_POST["an_person_id"]; $role="anest";}
 if (isset($_POST["an_sister_id"])) {$_action["an_sister_id"]=$_POST["an_sister_id"];}
 if (isset($_POST["an_posobie"])) {$_action["an_posobie"]=$_POST["an_posobie"];}
-if (isset($_POST["operSister_id"])) {$_action["operSister_id"]=$_POST["operSister_id"];}
+if (isset($_POST["operSister_id"])) {$_action["operSister_id"]=$_POST["operSister_id"]; $role="mainsister";}
 if (isset($_POST["sanitar"])) {$_action["sanitar"]=$_POST["sanitar"];}
 if (isset($_POST["zam_ok"])) {$_action["zam_ok"]=$_POST["zam_ok"];}
 if (isset($_POST["assist_id"])) {$_action["zav_ok"]=1;}
@@ -221,7 +220,8 @@ $action["status"]=get_action_status($_POST["action_id"],$action,$_action);
 mysqlSaveItem("Action",$action);
 jdbSaveItem("Action",$_action);
 $action=array_merge($action,$_action);
-actionAssistSave($action);
+if (isset($_POST["assist_id"]) AND isset($_POST["an_person_id"])) {$role="zamglav";}
+actionAssistSave($action,$role);
 $res=0;
 return json_encode($res);
 }

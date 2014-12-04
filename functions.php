@@ -263,16 +263,53 @@ function getActionInfo($action_id) {
 	return $action;
 }
 
-function actionAssistSave($action) {
-$SQL="DELETE QUICK FROM Action_Assistant WHERE action_id = ".$action["id"];
-$result = mysql_query($SQL) or die("Query failed: (actionAssistSave) " . mysql_error());
-foreach($action["assist_id"] as $inx => $assist_id) {
-	$data=actionAssistItem($action,"assist_id",$inx);
-	mysqlSaveItem("Action_Assistant",$data);
+function actionAssistSave($action,$role="zavnazn") {
+$r=array(); $where="";
+$r["zavnazn"]=array(1,4,5); // id в справочнике rbActionAssistantType
+$r["mainsister"]=array(6,7);
+$r["anest"]=array(8,9);
+foreach ($r[$role] as $val) {
+	if ($where=="") { 	$where.=" assistantType_id = ".$val;} else {
+						$where.=" OR assistantType_id = ".$val;}
 }
-$data=actionAssistItem($action,"assist_name"); mysqlSaveItem("Action_Assistant",$data);
-$data=actionAssistItem($action,"dejur_id"); mysqlSaveItem("Action_Assistant",$data);
-$data=actionAssistItem($action,"hemo_id"); mysqlSaveItem("Action_Assistant",$data);
+if ($where>"") {
+		$SQL="DELETE QUICK FROM Action_Assistant WHERE action_id = ".$action["id"]." AND (".$where.")";
+} else {
+		$SQL="DELETE QUICK FROM Action_Assistant WHERE action_id = ".$action["id"];
+}
+$result = mysql_query($SQL) or die("Query failed: (actionAssistSave) " . mysql_error());
+switch($role) {
+	case "zavnazn":
+		foreach($action["assist_id"] as $inx => $assist_id) {
+			$data=actionAssistItem($action,"assist_id",$inx);
+			mysqlSaveItem("Action_Assistant",$data);
+		}
+		$data=actionAssistItem($action,"assist_name"); mysqlSaveItem("Action_Assistant",$data);
+		$data=actionAssistItem($action,"dejur_id"); mysqlSaveItem("Action_Assistant",$data);
+		$data=actionAssistItem($action,"hemo_id"); mysqlSaveItem("Action_Assistant",$data);
+		break;
+	case "mainsister":
+		$data=actionAssistItem($action,"operSister_id"); mysqlSaveItem("Action_Assistant",$data);
+		$data=actionAssistItem($action,"sanitar"); mysqlSaveItem("Action_Assistant",$data);
+		break;
+	case "anest":
+		$data=actionAssistItem($action,"an_person_id"); mysqlSaveItem("Action_Assistant",$data);
+		$data=actionAssistItem($action,"an_sister_id"); mysqlSaveItem("Action_Assistant",$data);
+		break;
+	case "zamglav":
+		foreach($action["assist_id"] as $inx => $assist_id) {
+			$data=actionAssistItem($action,"assist_id",$inx);
+			mysqlSaveItem("Action_Assistant",$data);
+		}
+		$data=actionAssistItem($action,"assist_name"); mysqlSaveItem("Action_Assistant",$data);
+		$data=actionAssistItem($action,"dejur_id"); mysqlSaveItem("Action_Assistant",$data);
+		$data=actionAssistItem($action,"hemo_id"); mysqlSaveItem("Action_Assistant",$data);
+		$data=actionAssistItem($action,"operSister_id"); mysqlSaveItem("Action_Assistant",$data);
+		$data=actionAssistItem($action,"sanitar"); mysqlSaveItem("Action_Assistant",$data);
+		$data=actionAssistItem($action,"an_person_id"); mysqlSaveItem("Action_Assistant",$data);
+		$data=actionAssistItem($action,"an_sister_id"); mysqlSaveItem("Action_Assistant",$data);
+		break;
+}
 }
 
 function actionAssistRead($action) {
@@ -284,6 +321,10 @@ while($data = mysql_fetch_array($res)) {
 	if ($data["assistantType_id"]==1 AND $data["freeInput"]>"") { $action["assist_name"]=$data["freeInput"];}
 	if ($data["assistantType_id"]==5) {$action["dejur_id"]=$data["person_id"];}
 	if ($data["assistantType_id"]==4) {$action["hemo_id"]=$data["person_id"];}
+	if ($data["assistantType_id"]==6) {$action["operSister_id"]=$data["person_id"];}
+	if ($data["assistantType_id"]==7) {$action["sanitar"]=$data["freeInput"];}
+	if ($data["assistantType_id"]==8) {$action["an_person_id"]=$data["person_id"];}
+	if ($data["assistantType_id"]==9) {$action["an_sister_id"]=$data["person_id"];}
 }
 $action["assist_id"]=$assist;
 return $action;
@@ -294,6 +335,10 @@ function actionAssistItem($action,$type,$inx=0) {
 	if ($type=="assist_id") 	{$tid=1;}
 	if ($type=="dejur_id") 		{$tid=5;}
 	if ($type=="hemo_id") 		{$tid=4;}
+	if ($type=="operSister_id") {$tid=6;}
+	if ($type=="sanitar") 		{$tid=7;}
+	if ($type=="an_person_id") 	{$tid=8;}
+	if ($type=="an_sister_id") 	{$tid=9;}
 	$data=array();
 	$data["id"]="_new";
 	$data["createDatetime"]		=date("Y-m-d H:i:s");
@@ -302,7 +347,7 @@ function actionAssistItem($action,$type,$inx=0) {
 	$data["modifyPerson_id"]	=$data["createPerson_id"];
 	$data["action_id"]			=$action["id"];
 	$data["assistantType_id"]	=$tid;
-	if ($type!="assist_name") {
+	if ($type!="assist_name" AND $type!="sanitar") {
 		if ($tid==1) {$data["person_id"]=$action[$type][$inx];} else {$data["person_id"]=$action[$type];}
 	} else {
 			$data["freeInput"]=$action[$type];}

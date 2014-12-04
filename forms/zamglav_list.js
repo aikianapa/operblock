@@ -10,26 +10,7 @@ $(document).ready(function(){
 			$("#oprooms").show("fade");  
 		},200);
 		$("#zamglavList #tables").remove();
-});
-
-$("#zamglav").on("pageshow",function(){
-	var action_id=$("#zamglav input[name=action_id]").val();
-	if ($("#zamglav input[name=action_id]").val()=="") {
-		$("#zamglav").hide();
-		$.mobile.loading( "show" );
-		$.mobile.changePage( "#zamglavList", { changeHash: true }); 
-	}
-	var details=$("#zamglavList #clientlist").html();
-	$("#zamglav table#client").hide().html(details);
-	$("#zamglav table#client tbody tr[aid!="+action_id+"]").remove();
-	$("#zamglav table#client").show();
-
-});
-
-
-$(document).on("pageinit",function(){
-		var page=$("#zamglavList"); 
-		zamglav_get_calendar();
+		var page=$("#zamglavList");
 		page.find("#clientlist tbody tr, #tables ul li").on("dblclick",function(){
 			if (!$(this).parents("div").hasClass("approved")) {
 				$("#zamglav form")[0].reset();
@@ -50,6 +31,29 @@ $(document).on("pageinit",function(){
 				$.mobile.changePage( "#zamglav", { transition: "slideup", changeHash: true }); 
 			}	
 		});
+		page.find(".nazn-btn").on("click",function(){
+			$(this).parents("tr").trigger("dblclick");
+		});		
+});
+
+$("#zamglav").on("pageshow",function(){
+	var action_id=$("#zamglav input[name=action_id]").val();
+	if ($("#zamglav input[name=action_id]").val()=="") {
+		$("#zamglav").hide();
+		$.mobile.loading( "show" );
+		$.mobile.changePage( "#zamglavList", { changeHash: true }); 
+	}
+	var details=$("#zamglavList #clientlist").html();
+	$("#zamglav table#client").hide().html(details);
+	$("#zamglav table#client tbody tr[aid!="+action_id+"]").remove();
+	$("#zamglav table#client").show();
+
+});
+
+
+$(document).on("pageinit",function(){
+		var page=$("#zamglavList"); 
+		zamglav_get_calendar();
 
 });
 
