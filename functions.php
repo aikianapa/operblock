@@ -36,10 +36,13 @@ function getActionPropertyFormData($Item,$form) {
 	foreach($form as $field) {
 		$prop_id=getActionPropertyTypeId($action_id,$field["id"]);
 		$type=$field["type"];
-		$SQL = "SELECT value FROM ActionProperty_{$type} WHERE id = $prop_id ";
-		$res=mysql_query($SQL) or die("Query failed getActionPropertyFormData() [1]: " . mysql_error());
-		while($data = mysql_fetch_array($res)) {
-			$Item[$field["name"]]=$data["value"];
+		if ($type>"" AND $prop_id>"") {
+			$SQL = "SELECT value FROM ActionProperty_{$type} WHERE id = $prop_id ";
+			echo $SQL;
+			$res=mysql_query($SQL) or die("Query failed getActionPropertyFormData() [1]: " . mysql_error());
+			while($data = mysql_fetch_array($res)) {
+				$Item[$field["name"]]=$data["value"];
+			}
 		}
 	}
 	}
