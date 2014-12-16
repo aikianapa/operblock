@@ -16,7 +16,7 @@ function getActionTypeForm($SQL) {
 $result = mysql_query($SQL) or die("Query failed: " . mysql_error());
 $array=array(); $Item="";
 while($data = mysql_fetch_array($result)) {
-	$Item["id"]=$data[3]; 
+	$Item["id"]=$data[3];
 	$Item["aType"]=$data[5]; 
 	$Item["idx"]=$data["idx"]; 
 	$Item["name"]="fld_".$data["idx"];
@@ -28,6 +28,22 @@ while($data = mysql_fetch_array($result)) {
 }
 mysql_free_result();
 return $array;
+}
+
+function getActionPropertyFormData($Item,$form) {
+	$action_id=$Item["id"];
+	if ($action_id!="_new" AND $action_id!="") {
+	foreach($form as $field) {
+		$prop_id=getActionPropertyTypeId($action_id,$field["id"]);
+		$type=$field["type"];
+		$SQL = "SELECT value FROM ActionProperty_{$type} WHERE id = $prop_id ";
+		$res=mysql_query($SQL) or die("Query failed getActionPropertyFormData() [1]: " . mysql_error());
+		while($data = mysql_fetch_array($res)) {
+			$Item[$field["name"]]=$data["value"];
+		}
+	}
+	}
+	return $Item;
 }
 
 function prepInput($Item) {
@@ -66,23 +82,30 @@ function prepInput($Item) {
 	}
 	return $inp;
 }
+
+function getActionProperties($action_id) {
+
+}
  
 function insertProperties($array,$action_id,$person_id,$actionType_id){
 $action=mysqlReadItem("Action",$action_id);
-$Item["createDatetime"]=date( "Y-m-d H:i:s" );
-$Item["begDate"]=date("Y-m-d H:i:s" );
-$Item["modifyDatetime"]=$Item["createDatatime"];
-$Item["modufyPerson_id"]=$person_id;
-$Item["actionType_id"]=$actionType_id;
+if ($action=="") {
+	$action["id"]="_new";
+	$action["createDatetime"]=date( "Y-m-d H:i:s" );
+	$action["begDate"]=date("Y-m-d H:i:s" );
+	$action["modifyDatetime"]=$action["createDatatime"];
+	$action["modufyPerson_id"]=$person_id;
+	$action["plannedEndDate"]=date("Y-m-d",strtotime($action["plannedEndDate"]));
+	$action["actionType_id"]=$actionType_id;
+	$action["event_id"]=$action["event_id"];
+	$error=mysqlSaveItem("Action",$action);
+	$action["id"]=mysql_insert_id();
+}
 $pattern=substr(mysqlReadItem("ActionType",$actionType_id)["name"],0,8)."%";
-$Item["event_id"]=$action["event_id"];
-$action["plannedEndDate"]=date("Y-m-d",strtotime($action["plannedEndDate"]));
-$error=mysqlSaveItem("Action",$Item);
-$action_new=mysql_insert_id();
 $values['modifyDatetime'] = $values['createDatetime'] = '"' . date('Y-m-d H:i:s') . '"';
 $values['modifyPerson_id'] = $values['createPerson_id'] = $person_id;
-$values['action_id']=$action_new; 
-for ($i=0; $i<count($array); $i++){ 
+$values['action_id']=$action["id"];
+foreach ($array as $i => $field){ 
 	if ($array[$i]['type']=='JobTicket') {
 		$res=mysql_query("SELECT a.id,a.datetime FROM Job_Ticket as a
 					INNER JOIN Job as b ON a.master_id=b.id
@@ -94,17 +117,19 @@ for ($i=0; $i<count($array); $i++){
 		$jobticket_id=$data["id"];
 		}	
 	}
-  
-  
-  $values['type_id']=$array[$i]['type_id'];
-  $out = array();
-   foreach ($values AS $k => $v) {
-    $out[] = "{$k}={$v}";
-   }
-  $out = implode(',', $out);
-  mysql_query("INSERT INTO ActionProperty SET {$out}") or die ("Query failed 1: " . mysql_error());
-  $trigger="http://".$_SERVER["HTTP_HOST"]."/json/operlog.php?mode=add_trigger&uid=".$person_id."&trigger=ActionProperty";
-  echo file_get_contents($trigger);
+  $values['type_id']=$array[$i]['type_id']; // работает через js
+  if ($values['type_id']=="") $values['type_id']=$array[$i]['id']; // работает через php
+	if ($values['type_id']>"") {
+		  $out = array();
+		   foreach ($values AS $k => $v) {
+			$out[] = "{$k}={$v}";
+		   }
+		  $out = implode(',', $out);
+		  $SQL="INSERT INTO ActionProperty SET {$out}";
+		  mysql_query($SQL) or die ("Query failed 1: " . mysql_error());
+	}
+//  $trigger="http://".$_SERVER["HTTP_HOST"]."/json/operlog.php?mode=add_trigger&uid=".$person_id."&trigger=ActionProperty";
+//  echo file_get_contents($trigger);
   $id=mysql_insert_id();
   $value=$array[$i]['value'];
   $type=$array[$i]['type']; 
@@ -114,40 +139,63 @@ for ($i=0; $i<count($array); $i++){
 		$thread_id=mysql_thread_id();
 		mysql_query("UPDATE Job_Ticket SET resTimestamp={$values['modifyDatetime']} ,resConnectionid=$thread_id WHERE id={$jobticket_id}") or die("Query failed 2: " . mysql_error());
 	}
-	$SQL="INSERT INTO `ActionProperty_{$type}` SET id={$id}, value='{$value}' ";
-  mysql_query($SQL) or die("Query failed 3: " . mysql_error());
+	if ($type>"") {
+		$SQL="INSERT INTO `ActionProperty_{$type}` SET id={$id}, value='{$value}' ";
+		mysql_query($SQL) or die("Query failed 3: " . mysql_error());
+	}
  	}
 }
 
 
 
 function updateProperties($array,$action_id,$person_id,$actionType_id){
-
-
 $values['modifyDatetime']  = '"' . date('Y-m-d H:i:s') . '"';
 $values['modifyPerson_id'] = $person_id;
- 
-for ($i=0; $i<count($array); $i++){ 
-	
-  
-  $values['type_id']=$array[$i]['type_id'];
+for ($i=0; $i<count($array); $i++){
+  $values['type_id']=$array[$i]['type_id']; // работает через js
+  if ($values['type_id']=="") $values['type_id']=$array[$i]['id']; // работает через php
+  if ($values['type_id']>"") {
   $out = array();
    foreach ($values AS $k => $v) {
     $out[] = "{$k}={$v}";
    }
   $out = implode(',', $out);
-  mysql_query("UPDATE ActionProperty SET {$out}") or die ("Query failed 1: " . mysql_error());
-  $id=mysql_insert_id();
+  $id=getActionPropertyTypeId($action_id,$values['type_id']);
+  $SQL="UPDATE ActionProperty SET {$out} WHERE id={$id}";
+  mysql_query($SQL) or die ("Query failed updateProperties() [1]: " . mysql_error());
   $value=$array[$i]['value'];
   $type=$array[$i]['type']; 
 	
-	$SQL="UPDATE ActionProperty_{$type}` SET id={$id}, value='{$value}' ";
-  mysql_query($SQL) or die("Query failed 4: " . mysql_error());
- 	}
-
-	
- 	
+	$SQL="UPDATE ActionProperty_{$type} SET value='{$value}' WHERE id={$id}";
+	mysql_query($SQL) or die("Query failed updateProperties() [2]: " . mysql_error());
 }
+ 	}
+}
+
+function getActionPropertyTypeId($action_id,$type_id) {
+$id=FALSE;
+$SQL="SELECT id FROM ActionProperty WHERE action_id = $action_id AND type_id = $type_id LIMIT 1";
+$res=mysql_query($SQL) or die("Query failed getActionPropertyTypeId() [1]: " . mysql_error());
+while($data = mysql_fetch_array($res)) {
+		$id=$data["id"];
+}	
+return $id;
+}
+
+function getActionTypeByName($name,$like=FALSE) {
+	$result=FALSE;
+	if ($like==TRUE) {
+		$SQL="SELECT id FROM ActionType WHERE name LIKE '".$name."' LIMIT 1";
+	} else {
+		$SQL="SELECT id FROM ActionType WHERE name = '".$name."' LIMIT 1";
+	}
+	$res=mysql_query($SQL);
+	while($data = mysql_fetch_array($res)) {
+		$result=$data["id"];
+	}
+	return $result;
+}
+
 
 function getZamglavName() {
 	$name="";
