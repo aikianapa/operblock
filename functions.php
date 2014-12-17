@@ -13,6 +13,12 @@ function prepareSessions() {
 }
 
 function getActionTypeForm($SQL) {
+if (substr($SQL,0,7)!="SELECT ") {
+	$SQL="SELECT a.name, a.idx, a.typeName, a.id, a.valueDomain, b.id FROM ActionPropertyType as a
+	INNER JOIN ActionType as b ON a.actionType_id=b.id
+	WHERE b.name='$SQL'   
+	ORDER BY a.idx	";
+}
 $result = mysql_query($SQL) or die("Query failed: " . mysql_error());
 $array=array(); $Item="";
 while($data = mysql_fetch_array($result)) {
@@ -38,7 +44,6 @@ function getActionPropertyFormData($Item,$form) {
 		$type=$field["type"];
 		if ($type>"" AND $prop_id>"") {
 			$SQL = "SELECT value FROM ActionProperty_{$type} WHERE id = $prop_id ";
-			echo $SQL;
 			$res=mysql_query($SQL) or die("Query failed getActionPropertyFormData() [1]: " . mysql_error());
 			while($data = mysql_fetch_array($res)) {
 				$Item[$field["name"]]=$data["value"];
@@ -154,25 +159,25 @@ foreach ($array as $i => $field){
 function updateProperties($array,$action_id,$person_id,$actionType_id){
 $values['modifyDatetime']  = '"' . date('Y-m-d H:i:s') . '"';
 $values['modifyPerson_id'] = $person_id;
-for ($i=0; $i<count($array); $i++){
-  $values['type_id']=$array[$i]['type_id']; // работает через js
-  if ($values['type_id']=="") $values['type_id']=$array[$i]['id']; // работает через php
-  if ($values['type_id']>"") {
-  $out = array();
-   foreach ($values AS $k => $v) {
-    $out[] = "{$k}={$v}";
-   }
-  $out = implode(',', $out);
-  $id=getActionPropertyTypeId($action_id,$values['type_id']);
-  $SQL="UPDATE ActionProperty SET {$out} WHERE id={$id}";
-  mysql_query($SQL) or die ("Query failed updateProperties() [1]: " . mysql_error());
-  $value=$array[$i]['value'];
-  $type=$array[$i]['type']; 
-	
-	$SQL="UPDATE ActionProperty_{$type} SET value='{$value}' WHERE id={$id}";
-	mysql_query($SQL) or die("Query failed updateProperties() [2]: " . mysql_error());
+foreach($array as $property) {
+	$values['type_id']=$property['type_id']; // работает через js
+	if ($values['type_id']=="") $values['type_id']=$property['id']; // работает через php
+	if ($values['type_id']>"") {
+		$out = array();
+		foreach ($values AS $k => $v) {   $out[] = "{$k}={$v}";   }
+		$out = implode(',', $out);
+		$id=getActionPropertyTypeId($action_id,$values['type_id']);
+		if ($id>"") {
+			  $SQL="UPDATE ActionProperty SET {$out} WHERE id={$id}";
+			  mysql_query($SQL) or die ("Query failed updateProperties() [1]: " . mysql_error());
+			  $value=$property['value'];
+			  $type=$property['type']; 
+				$SQL="UPDATE ActionProperty_{$type} SET value='{$value}' WHERE id={$id}";
+				echo $SQL;
+				mysql_query($SQL) or die("Query failed updateProperties() [2]: " . mysql_error());
+		}
+	}
 }
- 	}
 }
 
 function getActionPropertyTypeId($action_id,$type_id) {
