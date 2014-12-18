@@ -19,14 +19,14 @@ function morfoNazn_list($form,$mode,$id,$datatype) {
 parse_str($_SERVER["REQUEST_URI"]);
 $out=formGetForm($form,$mode);
 $actionType_id=getActionTypeByName("Патоморфологические исследования");
-	$SQL="SELECT * FROM Action AS a
+	$SQL="SELECT a.id FROM Action AS a
 	INNER JOIN ActionType AS b
 	WHERE a.actionType_id = b.id
 	AND a.event_id = ".$event_id."
 	AND b.group_id = ".$actionType_id." LIMIT 10 ";
 	$res=mysql_query($SQL) or die ("Query failed morfoNazn_list(): " . mysql_error());
 	while($data = mysql_fetch_array($res)) {
-			$result[]=$data;
+			$result[]=getActionInfo($data["id"]);
 	}
 
 $Item["result"]=$result;
@@ -38,6 +38,9 @@ function morfoReadNazn($id) {
 $action=mysqlReadItem("Action",$id);
 $action["action_id"]=$id;
 if ($action["isUrgent"]==1) $action["isUrgent"]="on";
+$form=morfoNaznForm($action["actionType_id"]);
+$action["morfoNazn"]=$form;
+$action=getActionPropertyFormData($action,$form);
 return $action;
 }
 
