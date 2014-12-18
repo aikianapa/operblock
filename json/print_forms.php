@@ -557,6 +557,20 @@ function oproom() {
 	return $out->htmlOuter();
 }
 
+function morfoNazn() {
+include_once($_SERVER['DOCUMENT_ROOT']."/forms/morfoNazn.php");
+$action=getActionInfo($_GET["action"]);
+$out=file_get_contents($_SERVER['DOCUMENT_ROOT']."/forms/print_$_GET[mode].php");
+$form=morfoNaznForm($action["actionType_id"]);
+//$action["morfoNazn"]=$form;
+$action=getActionPropertyFormData($action,$form);
+$Action=getActionInfo($_GET["action"]);
+$action["sex"]=$action["_Client"]["sex"];
+$out=contentSetData($out,$action);
+return $out->htmlOuter();
+}
+
+
 function epicriz() {
 $out=file_get_contents($_SERVER['DOCUMENT_ROOT']."/forms/print_$_GET[mode].php");
 $_action=jdbReadItem("Action",$_GET["action"]);

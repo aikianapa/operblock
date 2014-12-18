@@ -1,4 +1,4 @@
-<div data-role="page" data-theme="a" id="morfoNaznList" data-url="/morfoNazn/list/list.htm?null=&person_id={{person_id}}" data-ajax="false">
+<div data-role="page" data-theme="a" id="morfoNaznList" data-ajax="false">
 <div data-role="header"  data-position="fixed"><h2>Назнеченные исследования</h2></div>
 
 
@@ -12,6 +12,9 @@
 <input type="datepicker" data-role="date" data-mini="true" name="endDate" data-clear-btn="true"></div></div>
 </div>
 <input type="hidden" name="person_id">
+<input type="hidden" name="event_id">
+<input type="hidden" name="client_id">
+<input type="hidden" name="atid_id">
 
 
     <fieldset data-role="controlgroup" data-type="horizontal"  style="display: inline-block;">
@@ -42,7 +45,7 @@
         <ul data-role="listview" data-inset="true" style="min-width:210px;">
             <li data-role="list-divider">Выберите действие</li>
             <li><a href="" data-transition="flip">Назначение</a></li>
-            <li><a href="" data="/json/print_forms.php?mode=spisanie_1&role=an"  target="_blank">Печать</a></li>
+            <li><a href="" data="/json/print_forms.php?mode=morfoNazn"  target="_blank">Печать</a></li>
         </ul>
 	</div>
 
@@ -54,7 +57,6 @@
 </div>
 
 <script type="text/javascript">
-	
 $(document).ready(function(){
 $("div[data-url^='/morfoNazn/list/list.htm']:hidden").remove();
 });
@@ -67,8 +69,8 @@ $("#morfoNaznList").on("pageshow",function(){
 	morfoStatus("#clientlist");
 });
 
-$(document).on("pageinit",function(){
-morfoNaznSubmit();
+$("#morfoNaznList").on("pageinit",function(){
+$.mobile.changePage( "/morfoNazn/edit/_new.htm"+document.location.search, { transition: "none", changeHash: true });
 $( "table" ).disableSelection();
 
 $('input[type=datetime]').datetimepicker({
@@ -82,19 +84,16 @@ $('input[type=datetime]').datetimepicker({
 
 	$("a[href=#printMenu]").on("click",function(){ 
     $( document ).data( "action", $(this).parents("tr").attr("aid")); 
-    var sid = $(this).parents("tr").attr("sid");
-		if (sid=="") {
-//			$("#printMenu a").parents("li").addClass("ui-disabled"); 
-		} else {
-//			$("#printMenu a").parents("li").removeClass("ui-disabled");  
-		}
+
   });
 	$("#printMenu a").on("click",function(){
 		if ($(this).attr("data")>"") {
 			$(this).attr("href",$(this).attr("data")+"&action="+$( document ).data( "action"));
 		} else {
-			$(this).attr("href","/morfoNazn/edit/"+$( document ).data("action")+".htm");
+			$.mobile.changePage( "/morfoNazn/edit/"+$( document ).data("action")+".htm", { transition: "flip", changeHash: true });
+			//$(this).attr("href","/morfoNazn/edit/"+$( document ).data("action")+".htm");
 		}
+		$("#printMenu").popup("close");
 	});
 	
 	var page=$("#morfoNaznList");
@@ -111,22 +110,21 @@ $('input[type=datetime]').datetimepicker({
 		
 });
 
+// форма назначения =========================
+
+$(document).on("pageinit",function(){
+morfoNaznSubmit();
+});
 
 function morfoNaznSubmit() {
 	$("a.submit").on("click",function(){
 		var formdata=$("form#morfoNazn").serialize();
-		$.post("/json/morfology.php?mode=morfo_reg_submit",formdata,function(data){
-				setTimeout('$.mobile.changePage( "/morfoNazn/list/list.htm", { transition: "flip", changeHash: true });',300);
+		$.post("/json/morfology.php?mode=morfo_nazn_submit",formdata,function(data){
+				setTimeout('$.mobile.back();',500);
 		});
 
 	});
-	$("a.list").on("click",function(){
-		var eid=$("form#morfoNazn input[name=event_id]").val();
-		setTimeout('$.mobile.changePage( "/morfoNazn/list/list.htm", { transition: "flip", changeHash: true });',300);
-	});
 }
-
-
 
 </script>
 

@@ -13,6 +13,7 @@ if ($_POST["isUrgent"]=="on") {$_POST["isUrgent"]=1;} else  {$_POST["isUrgent"]=
 if ($_POST["action_id"]!="_new" AND $_POST["action_id"]!="") {
 	$Action=mysqlReadItem("Action",$_POST["action_id"]);
 } else {
+	if ($_POST["person_id"]=="") $_POST["person_id"]=3701;
 	$Action=array();
 	$Action["id"]=$_POST["id"]=$_POST["action_id"];
 	$Action["actionType_id"]=$_POST["actionType_id"];
@@ -26,7 +27,7 @@ if ($_POST["action_id"]!="_new" AND $_POST["action_id"]!="") {
 	$Action["isUrgent"]=$_POST["isUrgent"];
 	$Action["plannedEndDate"]=date("Y-m-d H:i:s",strtotime($_POST["plannedEndDate"]));
 	mysqlSaveItem("Action",$Action);
-	if ($_POST["id"]=="_new" OR $_POST["id"]=="") {$Action["id"]=mysql_insert_id();}
+	if ($_POST["action_id"]=="_new" OR $_POST["action_id"]=="") {$Action["id"]=mysql_insert_id();}
 	$SQL="SELECT a.name, a.idx, a.typeName, a.id, a.valueDomain, b.id FROM ActionPropertyType as a
 	INNER JOIN ActionType as b ON a.actionType_id=b.id
 	WHERE b.id=".$_POST["actionType_id"]."
@@ -36,7 +37,14 @@ if ($_POST["action_id"]!="_new" AND $_POST["action_id"]!="") {
 		$fldset[$i]["value"]=$_POST[$fld["name"]];
 		if ($fld["type"]=="JobTicket") {unset($fldset[$i]);}
 	}
-	insertProperties($fldset,$Action["id"],$Action["setPerson_id"],$Action["actionType_id"]);
+	if ($_POST["action_id"]=="_new" OR $_POST["action_id"]=="") {
+		insertProperties($fldset,$Action["id"],$Action["setPerson_id"],$Action["actionType_id"]);
+	} else {
+		print_r($Action["id"]);
+		print_r($Action["setPerson_id"]);
+		print_r($Action["actionType_id"]);
+		updateProperties($fldset,$Action["id"],$Action["setPerson_id"],$Action["actionType_id"]);
+	}
 }
 
 function morfo_reg_submit() {

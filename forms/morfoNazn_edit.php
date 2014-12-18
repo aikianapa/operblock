@@ -16,36 +16,9 @@
 </div>
 </div>
 <a href="#" class="submit ui-btn ui-btn-inline ui-corner-all">Сохранить</a>
-<a href="#" class="list ui-btn ui-btn-inline ui-corner-all">Отмена</a>
+<a href="#"  data-rel="back" class="list ui-btn ui-btn-inline ui-corner-all">Отмена</a>
 
 </form>
 </div>
 </div>
 
-<script type="text/javascript">
-
-$(document).on("pageinit",function(){
-commonFormWidgets();
-morfoNaznSubmit();
-});
-
-
-
-function morfoNaznSubmit() {
-	$("a.submit").on("click",function(){
-		var formdata=$("form#morfoNazn").serialize();
-		$.post("/json/morfology.php?mode=morfo_nazn_submit",formdata,function(data){
-			console.log(data);
-				//setTimeout('$.mobile.changePage( "/morfoNazn/list/list.htm", { transition: "flip", changeHash: true });',300);
-		});
-
-	});
-	$("a.list").on("click",function(){
-		var eid=$("form#morfoNazn input[name=event_id]").val();
-		setTimeout('$.mobile.changePage( "/morfoNazn/list/list.htm?null=&event_id='+eid+'", { transition: "flip", changeHash: true });',300);
-	});
-}
-
-
-
-</script>
