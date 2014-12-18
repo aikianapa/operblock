@@ -22,6 +22,21 @@ datatime_picker_init();
 });
 
 
+function morfoStatus(list) {
+	var actions=[];
+	$(list).find("tr[aid]").each(function(i){
+		actions[i]=$(this).attr("aid");
+	});
+	$.post("/json/morfology.php?mode=morfo_get_status",	{data: JSON.stringify(actions)},function(data){
+		var data=$.parseJSON(data);
+			$.each(data, function(key, value) {
+					var line=$(list).find("tr[aid="+key+"]");
+					line.removeClass("status-0 status-1 status-2 status-3 status-4");
+					line.addClass("status-"+value);
+			}); 
+	});
+}
+
 function add_trigger(uid,trigger) {
 $.get("/json/operlog.php?mode=add_trigger&uid="+uid+"&trigger="+trigger,function(data){
 		return data;
