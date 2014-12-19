@@ -39,9 +39,12 @@ $actionType_id=getActionTypeByName("Патоморфологические ис�
 	while($data = mysql_fetch_array($res)) {
 			$result[]=getActionInfo($data["id"]);
 	}
-
-$Item["result"]=$result;
-pq($out)->find("div[data-role=content]")->prepend("<div class='ref ui-hidden'>".$_SERVER["HTTP_REFERER"]."</div>");
+	$Item["result"]=$result;
+	$path_ref=parse_url($_SERVER["HTTP_REFERER"]); $path_ref=$path_ref["path"];
+	$path_uri=parse_url($_SERVER["SCRIPT_URI"]); $path_uri=$path_uri["path"]; 
+	if ($path_ref!=$path_uri) {
+		pq($out)->find("div[data-role=content]")->prepend("<div class='ref ui-hidden'>1</div>");
+	}
 $out=contentSetData($out,$Item);
 return $out;
 }

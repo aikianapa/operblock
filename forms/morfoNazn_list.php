@@ -70,7 +70,7 @@ $("#morfoNaznList").on("pageshow",function(){
 });
 
 $("#morfoNaznList").on("pageinit",function(){
-if ($("#morfoNaznList div.ref").html()=="") {
+if ($("#morfoNaznList div.ref").length) {
 	$.mobile.changePage( "/morfoNazn/edit/_new.htm"+document.location.search, { transition: "none", changeHash: true });
 }
 $( "table" ).disableSelection();
