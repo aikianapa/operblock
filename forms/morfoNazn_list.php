@@ -14,7 +14,7 @@
 <input type="hidden" name="person_id">
 <input type="hidden" name="event_id">
 <input type="hidden" name="client_id">
-<input type="hidden" name="atid_id">
+<input type="hidden" name="atid">
 
 
     <fieldset data-role="controlgroup" data-type="horizontal"  style="display: inline-block;">
@@ -70,7 +70,9 @@ $("#morfoNaznList").on("pageshow",function(){
 });
 
 $("#morfoNaznList").on("pageinit",function(){
-$.mobile.changePage( "/morfoNazn/edit/_new.htm"+document.location.search, { transition: "none", changeHash: true });
+if ($("#morfoNaznList div.ref").html()=="") {
+	$.mobile.changePage( "/morfoNazn/edit/_new.htm"+document.location.search, { transition: "none", changeHash: true });
+}
 $( "table" ).disableSelection();
 
 $('input[type=datetime]').datetimepicker({

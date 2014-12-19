@@ -41,6 +41,7 @@ $actionType_id=getActionTypeByName("Патоморфологические ис�
 	}
 
 $Item["result"]=$result;
+pq($out)->find("div[data-role=content]")->prepend("<div class='ref ui-hidden'>".$_SERVER["HTTP_REFERER"]."</div>");
 $out=contentSetData($out,$Item);
 return $out;
 }

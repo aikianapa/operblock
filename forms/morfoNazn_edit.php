@@ -17,8 +17,9 @@
 </div>
 <a href="#" class="submit ui-btn ui-btn-inline ui-corner-all">Сохранить</a>
 <a href="#"  data-rel="back" class="list ui-btn ui-btn-inline ui-corner-all">Отмена</a>
-
+<a href="#cancelOp" class="ui-btn ui-btn-inline ui-btn-icon-left ui-icon-delete ui-corner-all" style="float:right;" data-rel="popup">Отменить исследование</a>
 </form>
 </div>
+<div data-role="include" src="/forms/cancel_morfo.php"></div> 
 </div>
 
