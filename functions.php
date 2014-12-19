@@ -75,11 +75,11 @@ function prepInput($Item) {
 			break;
 		case "Enum":
 			$option="";
-			$enum=explode('",',$Item["enum"]); 
-			foreach($enum as $value) {
+			$enum=explode('",',$Item["enum"]);
+			foreach($enum as $key => $value) {
 				$value=trim(str_replace('"',"",$value));
-				if ($value=="*") $value=""; 
-				$option.="<option>$value</option>";
+				if ($value=="*") $value="Все"; 
+				$option.="<option value='{$key}'>$value</option>";
 			}
 			if ($option>"") {
 				$inp="<select name='$name' $add>$option</select>"; 
