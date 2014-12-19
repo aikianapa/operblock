@@ -43,6 +43,7 @@ function getActionPropertyFormData($Item,$form) {
 		$prop_id=getActionPropertyTypeId($action_id,$field["id"]);
 		$type=$field["type"];
 		if ($type>"" AND $prop_id>"") {
+			if ($type=="Text") {$type="String";}
 			$SQL = "SELECT value FROM ActionProperty_{$type} WHERE id = $prop_id ";
 			$res=mysql_query($SQL) or die("Query failed getActionPropertyFormData() [1]: " . mysql_error());
 			while($data = mysql_fetch_array($res)) {
@@ -148,6 +149,7 @@ foreach ($array as $i => $field){
 		mysql_query("UPDATE Job_Ticket SET resTimestamp={$values['modifyDatetime']} ,resConnectionid=$thread_id WHERE id={$jobticket_id}") or die("Query failed 2: " . mysql_error());
 	}
 	if ($type>"") {
+		if ($type=="Text") {$type="String";}
 		$SQL="INSERT INTO `ActionProperty_{$type}` SET id={$id}, value='{$value}' ";
 		mysql_query($SQL) or die("Query failed 3: " . mysql_error());
 	}
@@ -171,7 +173,8 @@ foreach($array as $property) {
 			  $SQL="UPDATE ActionProperty SET {$out} WHERE id={$id}";
 			  mysql_query($SQL) or die ("Query failed updateProperties() [1]: " . mysql_error());
 			  $value=$property['value'];
-			  $type=$property['type']; 
+			  $type=$property['type'];
+			  if ($type=="Text") {$type="String";}
 				$SQL="UPDATE ActionProperty_{$type} SET value='{$value}' WHERE id={$id}";
 				echo $SQL;
 				mysql_query($SQL) or die("Query failed updateProperties() [2]: " . mysql_error());

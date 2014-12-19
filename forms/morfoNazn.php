@@ -38,7 +38,8 @@ $actionType_id=getActionTypeByName("Патоморфологические ис�
 	ORDER BY a.begDate DESC LIMIT 10 ";
 	$res=mysql_query($SQL) or die ("Query failed morfoNazn_list(): " . mysql_error());
 	while($data = mysql_fetch_array($res)) {
-			$result[]=getActionInfo($data["id"]);
+			$action=getActionInfo($data["id"]);
+			$result[]=$action;
 	}
 	$Item["result"]=$result;
 	$path_ref=parse_url($_SERVER["HTTP_REFERER"]); $path_ref=$path_ref["path"];
