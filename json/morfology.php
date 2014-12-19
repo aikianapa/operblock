@@ -40,9 +40,6 @@ if ($_POST["action_id"]!="_new" AND $_POST["action_id"]!="") {
 	if ($_POST["action_id"]=="_new" OR $_POST["action_id"]=="") {
 		insertProperties($fldset,$Action["id"],$Action["setPerson_id"],$Action["actionType_id"]);
 	} else {
-		print_r($Action["id"]);
-		print_r($Action["setPerson_id"]);
-		print_r($Action["actionType_id"]);
 		updateProperties($fldset,$Action["id"],$Action["setPerson_id"],$Action["actionType_id"]);
 	}
 }

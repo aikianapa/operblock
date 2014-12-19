@@ -91,7 +91,6 @@ $('input[type=datetime]').datetimepicker({
 			$(this).attr("href",$(this).attr("data")+"&action="+$( document ).data( "action"));
 		} else {
 			$.mobile.changePage( "/morfoNazn/edit/"+$( document ).data("action")+".htm", { transition: "flip", changeHash: true });
-			//$(this).attr("href","/morfoNazn/edit/"+$( document ).data("action")+".htm");
 		}
 		$("#printMenu").popup("close");
 	});

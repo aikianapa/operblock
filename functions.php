@@ -315,7 +315,7 @@ function getActionInfo($action_id) {
 				<li>Дата поступления: $action[client_begDate]</li>
 			</ul>";
 	$action["action_id"]=$action_id;
-  } else {print_r($action);	}
+  } else {	}
 	return $action;
 }
 

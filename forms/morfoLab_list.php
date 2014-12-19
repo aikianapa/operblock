@@ -41,8 +41,10 @@
 	<div data-role="popup" id="printMenu" data-theme="a">
         <ul data-role="listview" data-inset="true" style="min-width:210px;">
             <li data-role="list-divider">Выберите действие</li>
-            <li><a href="" data-transition="flip">Исследование</a></li>
-            <li><a href="" data="/json/print_forms.php?mode=spisanie_1&role=an"  target="_blank">Печать</a></li>
+            <li><a href="#nazn" data-transition="flip">Назначение</a></li>
+            <li><a href="#reg" data-transition="flip">Регистрация</a></li>
+            <li><a href="#lab" data-transition="flip">Исследование</a></li>
+            <li><a href="" data="/json/print_forms.php?mode=morfoNazn"  target="_blank">Печать</a></li>
         </ul>
 	</div>
 
@@ -57,6 +59,21 @@
 	
 $(document).ready(function(){
 $("div[data-url^='/morfoLab/list/list.htm']:hidden").remove();
+	$("a[href=#printMenu]").on("click",function(){ 
+		$( document ).data( "action", $(this).parents("tr").attr("aid")); 
+	});
+	$("#printMenu a").on("click",function(){
+		if ($(this).attr("data")>"") {
+			$(this).attr("href",$(this).attr("data")+"&action="+$( document ).data( "action"));
+		} else {
+			if ($(this).attr("href")=="#nazn") {var form="morfoNazn";}
+			if ($(this).attr("href")=="#reg") {var form="morfoReg";}
+			if ($(this).attr("href")=="#lab") {var form="morfoLab";}
+			
+			$.mobile.changePage( "/"+form+"/edit/"+$( document ).data("action")+".htm", { transition: "flip", changeHash: true });
+		}
+		$("#printMenu").popup("close");
+	});
 });
 
 $(document).on("pageshow",function(){
@@ -75,23 +92,6 @@ $('input[type=datetime]').datetimepicker({
 	lang:'ru', format:'Y-m-d', formatDate:'Y-m-d', timepicker:false
 });
 
-	$("a[href=#printMenu]").on("click",function(){ 
-    $( document ).data( "action", $(this).parents("tr").attr("aid")); 
-    var sid = $(this).parents("tr").attr("sid");
-		if (sid=="") {
-//			$("#printMenu a").parents("li").addClass("ui-disabled"); 
-		} else {
-//			$("#printMenu a").parents("li").removeClass("ui-disabled");  
-		}
-  });
-	$("#printMenu a").on("click",function(){
-		if ($(this).attr("data")>"") {
-			$(this).attr("href",$(this).attr("data")+"&action="+$( document ).data( "action"));
-		} else {
-			$(this).attr("href","/morfoLab/edit/"+$( document ).data("action")+".htm");
-		}
-	});
-	
 	var page=$("#morfoLabList");
 	page.find("input[name=status]").on("change",function(){
 		var status=page.find("input[name=status]:checked").val();
@@ -117,10 +117,6 @@ function morfoLabSubmit() {
 				setTimeout('$.mobile.changePage( "/morfoLab/list/list.htm", { transition: "flip", changeHash: true });',300);
 		});
 
-	});
-	$("a.list").on("click",function(){
-		var eid=$("form#morfoLab input[name=event_id]").val();
-		setTimeout('$.mobile.changePage( "/morfoLab/list/list.htm", { transition: "flip", changeHash: true });',300);
 	});
 }
 
