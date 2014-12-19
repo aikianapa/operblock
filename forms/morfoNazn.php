@@ -11,6 +11,7 @@ if ($id!="_new" AND $id!="") {
 	$Item=morfoNewNazn();
 	$Item["morfoNazn"]=morfoNaznForm();
 }
+if ($Item["person_id"]=="") {$Item["person_id"]=$_SESSION["user_id"];}
 $out=contentSetData($out,$Item);
 return $out;
 }

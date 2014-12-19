@@ -124,4 +124,18 @@ function morfo_get_status() {
 	return json_encode($res);
 }
 
+function cancel_morfo() {
+	if ($_POST["filter"]==1) {
+		$action=mysqlReadItem("Action",$_POST["action_id"]);
+		$_action=jdbReadItem("Action",$_POST["action_id"]);
+		$action["modifyPerson_id"]=$_POST["person_id"];
+		$action["modifyDatetime"]=date("Y-m-d H:i:s");
+		$action["status"]=3;
+		$_action["cancelNote"]=$_POST["cancelNote"];
+		mysqlSaveItem("Action",$action);
+		jdbSaveItem("Action",$_action); 
+		return 0;
+	}
+}
+
 ?>
