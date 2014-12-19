@@ -123,6 +123,7 @@ function morfoNaznSubmit() {
 		var formdata=$("form#morfoNazn").serialize();
 		$.post("/json/morfology.php?mode=morfo_nazn_submit",formdata,function(data){
 				setTimeout('$.mobile.back();',500);
+				top.postMessage('addAction', '*');  
 		});
 
 	});
@@ -140,7 +141,8 @@ function cancel_op_init() {
 			var formdata=$("#cancelOp form").serialize() ;
 			$.post("/json/morfology.php?mode=cancel_morfo",formdata,function(data){
 				$("#cancelOp").popup("close");
-				setTimeout(function(){ $.mobile.back(); },500); 
+				setTimeout(function(){ $.mobile.back(); },500);
+				top.postMessage('addAction', '*'); 
 			});
 		} else {
 			$.mobile.loading( "hide" );

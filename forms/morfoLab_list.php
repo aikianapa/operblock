@@ -86,6 +86,7 @@ $("#morfoLabList").on("pageshow",function(){
 
 $(document).on("pageinit",function(){
 morfoLabSubmit();
+cancel_op_init();
 $( "table" ).disableSelection();
 
 $('input[type=datetime]').datetimepicker({
@@ -120,7 +121,27 @@ function morfoLabSubmit() {
 	});
 }
 
+// форма отмены исследования
 
+	$("#cancelOp").on("pageshow",function(){
+		$("#cancelOp form")[0].reset();
+	});
+
+function cancel_op_init() {
+	$("#cancelOp a.cancel_op").on("click",function(){
+		if ( $("#cancelOp select[name=filter]").val()==1 && $("#cancelOp textarea[name=cancelNote]").val()>" "  ) {
+			var formdata=$("#cancelOp form").serialize() ;
+			$.post("/json/morfology.php?mode=cancel_morfo",formdata,function(data){
+				$("#cancelOp").popup("close");
+				setTimeout(function(){ $.mobile.back(); },500);
+				top.postMessage('addAction', '*'); 
+			});
+		} else {
+			$.mobile.loading( "hide" );
+			return false;
+		}
+	});
+}	
 
 </script>
 
