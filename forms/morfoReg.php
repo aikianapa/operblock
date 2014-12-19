@@ -5,7 +5,7 @@ if ($_SESSION["user_id"]=="") {$_SESSION["person_id"]=$_SESSION["user_id"]=$Item
 function morfoReg_list($form,$mode,$id,$datatype) {
 parse_str($_SERVER["REQUEST_URI"]);
 if (isset($_COOKIE["workDate"])) {$Item["date1"]=$_COOKIE["workDate"];} else {$Item["date1"]=date("Y-m-d ");}
-if (isset($_COOKIE["endDate"]) AND $_COOKIE["endDate"]>"") {
+if (isset($_COOKIE["endDate"]) AND $_COOKIE["endDate"]>"" AND ($_COOKIE["endDate"]!=$_COOKIE["workDate"]) ) {
   $Item["date2"]=$_COOKIE["endDate"];
 } else {$Item["date2"]=date("Y-m-d",strtotime($Item["date1"])+86400); }
 $Item["workDate"]=$Item["date1"];
@@ -15,6 +15,7 @@ $actionType_id=getActionTypeByName("Патоморфологические ис�
 	$SQL="SELECT * FROM Action AS a
 	INNER JOIN ActionType AS b
 	WHERE a.actionType_id = b.id
+	AND a.deleted = 0 
 	AND b.group_id = ".$actionType_id."
 	AND ( (a.begDate BETWEEN '{$Item["workDate"]}' AND '{$Item["endDate"]}' ) 
 	OR 
