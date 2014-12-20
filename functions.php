@@ -737,7 +737,7 @@ function getSpisanieItems($id) {
 
 			$SQL="SELECT * FROM StockMotion_Item
 				WHERE master_id = '$id' ";
-			$result = mysql_query($SQL) or die("Query failed: (get_spisanie_nomenclature) " . mysql_error());	
+			$result = mysql_query($SQL) or die("Query failed: getSpisanieItems() " . mysql_error());	
 			while($data = mysql_fetch_array($result)) {
  				$array[]=$data;
 			}

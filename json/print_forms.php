@@ -278,9 +278,9 @@ function spisanie_1() {
 	$Action["externalId"]=$Event["externalId"];
 	$Action["operation"]=$ActionType["title"];
 	$Action["opertime"]=date("H:i:s",strtotime($Action["endDate"])-strtotime($Action["begDate"]));
-	$Spisanie=mysqlReadItem("PharmacyWritingOff",$Action["spisanie_$role"]);
+	$Spisanie=mysqlReadItem("StockMotion",$Action["spisanie_$role"]);
   $spisanie=json_decode(getSpisanieItems($Action["spisanie_$role"]),true);
-	$SQL="SELECT * FROM PharmacyWritingOff_Items
+	$SQL="SELECT * FROM StockMotion_Item
     WHERE master_id = ".$Spisanie["id"];
   if ($role=="ob") {$drugslist=getDrugs();} else {$drugslist=getDrugs("043000046");}
 	$result = mysql_query($SQL) or die("Query failed: (spisanie_1()) " . mysql_error());
