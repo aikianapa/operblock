@@ -596,7 +596,8 @@ if ($Action["transfusiton_req"]==1) {$Action["transfusiton_req"]="требует
 $Action["externalId"]=$Event["externalId"];
 $Action["doc_date"]=currentDocDate();
 $Action["operation"]=$ActionType["title"];
-$Action["orgStrBoss"]=json_decode(getOrgStrBossName($Person[orgStructure_id]),true)["fullName"]; 
+$Action["orgStrBoss"]=json_decode(getOrgStrBossName($Person[orgStructure_id]),true)["fullName"];
+foreach($_action["epicriz"] as $key => $val) {$Action[$key]=$val; }
 foreach ($Action as $key => $data) {
 	$data=nl2br($data);
 	$Action[$key]=$data;
