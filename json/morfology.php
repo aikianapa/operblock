@@ -59,6 +59,7 @@ function morfo_reg_submit() {
 		$Action["status"]=0;
 	}
 	$Action["status"]=$_POST["status"];
+	if ($Action["status"]<=2) {morfo_set_status($Action["parent_id"],$Action["status"]);}
 	$fldset=getActionTypeForm('Регистрация биоматериала');
 	foreach($fldset as $i => $fld) {
 		$fldset[$i]["value"]=$_POST[$fld["name"]];

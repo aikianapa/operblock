@@ -23,8 +23,8 @@
         <input type="radio" name="status" id="status-off" value="off">
         <label for="status-off">Выполненные</label>
     </fieldset>
-
-		<table data-role="table" class="ui-responsive" id="clientlist">
+    <input id="filterTable-input" data-type="search" style="display: inline-block;">
+		<table data-role="table" data-filter="true" data-input="#filterTable-input" class="ui-responsive" id="clientlist">
 		<thead><tr><th>№ ИБ</th><th>Ф.И.О.&nbsp;пациента</th><th>Исследование</th><th>Дата назначения</th><th>Врач</th><th>&nbsp;</th></tr></thead>
 		<tbody>
 		<div data-role="foreach" from="result">

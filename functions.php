@@ -273,6 +273,7 @@ function getActionInfo($action_id) {
 	$action["externalId"]=$Event["externalId"];
 	$action["orgStr_id"]=$Creator["orgStructure_id"];
 	$action["orgStructure"]=$Creator["orgStructure"];
+	$action["orgStrShort"]=$Creator["orgStrShort"];
 	$action=actionAssistRead($action);
 	$action["orgStrBoss"]=json_decode(getOrgStrBossName(),true)["fullName"];
 	$Diag=patientGetDiagnosis($action["event_id"]);

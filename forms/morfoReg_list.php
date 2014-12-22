@@ -23,14 +23,15 @@
         <input type="radio" name="status" id="status-off" value="off">
         <label for="status-off">Выполненные</label>
     </fieldset>
-
-		<table data-role="table" class="ui-responsive" id="clientlist">
-		<thead><tr><th>№ ИБ</th><th>Ф.И.О.&nbsp;пациента</th><th>Исследование</th><th>Дата назначения</th><th>Врач</th><th>&nbsp;</th></tr></thead>
+    <input id="filterTable-input" data-type="search" style="display: inline-block;">
+		<table data-role="table" data-filter="true" data-input="#filterTable-input" class="ui-responsive" id="clientlist">
+		<thead><tr><th>№ ИБ</th><th>Ф.И.О.&nbsp;пациента</th><th>Отделение</th><th>Исследование</th><th>Дата назначения</th><th>Врач</th><th>&nbsp;</th></tr></thead>
 		<tbody>
 		<div data-role="foreach" from="result">
 		<tr aid="{{action_id}}" class="status-{{status}}" sid="{{spisanie_an}}">
 		<td>{{externalId}}</td>
 		<td>{{client}}<br />({{age}} лет)</td>
+		<td>{{orgStrShort}}</td>
 		<td>{{operation}}</td>
 		<td>{{begDate}}</td>
 		<td>{{person}}</td>
@@ -42,7 +43,7 @@
         <ul data-role="listview" data-inset="true" style="min-width:210px;">
             <li data-role="list-divider">Выберите действие</li>
             <li><a href="" data-transition="flip">Регистрация</a></li>
-            <li><a href="" data="/json/print_forms.php?mode=spisanie_1&role=an"  target="_blank">Печать</a></li>
+            <li><a href="" data="/json/print_forms.php?mode="  target="_blank">Печать</a></li>
         </ul>
 	</div>
 
