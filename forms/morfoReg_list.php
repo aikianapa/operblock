@@ -4,6 +4,7 @@
 
 <div data-role="content" >
 
+<div class="filter">
 <div>
 <div  style="display:inline;font-weight:bold;margin-left:20px; "> Рабочая дата <div style="display:inline-block">
 <input type="datepicker" data-role="date" data-mini="true"  required name="workDate"></div></div>
@@ -23,7 +24,9 @@
         <input type="radio" name="status" id="status-off" value="off">
         <label for="status-off">Выполненные</label>
     </fieldset>
+    <a href="" class="print_list ui-btn ui-corner-all ui-btn-inline" target="_blank">Печать журнала</a>
     <input id="filterTable-input" data-type="search" style="display: inline-block;">
+</div>
 		<table data-role="table" data-filter="true" data-input="#filterTable-input" class="ui-responsive" id="clientlist">
 		<thead><tr><th>№ ИБ</th><th>Ф.И.О.&nbsp;пациента</th><th>Отделение</th><th>Исследование</th><th>Дата назначения</th><th>Врач</th><th>&nbsp;</th></tr></thead>
 		<tbody>
@@ -58,4 +61,3 @@
 
 
 <link rel="stylesheet" href="/style.css" />
-

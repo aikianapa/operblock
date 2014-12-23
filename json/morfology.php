@@ -1,11 +1,11 @@
 <?
+include_once($_SERVER['DOCUMENT_ROOT']."/engine/phpQuery/phpQuery.php");
 include_once($_SERVER['DOCUMENT_ROOT']."/engine/functions.php");
 engineSettingsRead();
-include($_SERVER['DOCUMENT_ROOT']."/dbconnect.php");
-include($_SERVER['DOCUMENT_ROOT']."/functions.php");
+include_once($_SERVER['DOCUMENT_ROOT']."/dbconnect.php");
+include_once($_SERVER['DOCUMENT_ROOT']."/functions.php");
 $mode=$_GET["mode"];
-if (is_callable($mode)) {echo @$mode();}
-
+if (is_callable($mode)) {echo @$mode();} else {echo "No function: ".$mode;}
 // =================================================
 
 function morfo_nazn_submit() {
@@ -115,6 +115,20 @@ function morfo_set_status($parent_id,$status=0) {
 	mysql_query($SQL) or die ("Query failed morfo_set_status() [2]: " . mysql_error());
 }
 
+function morfo_actions_list() {
+$actionType_id=getActionTypeByName("Патоморфологические исследования");
+$SQL="SELECT * FROM ActionType WHERE group_id = $actionType_id ORDER BY name ASC";
+$result = mysql_query($SQL) or die("Query failed: (nazn_oper_list) " . mysql_error());
+$array=array();
+while($data = mysql_fetch_array($result)) {
+	$Item["id"]=$data["id"];
+	$Item["name"]=$data["title"];
+	$array[]=$Item;	
+}
+mysql_free_result($result);
+return json_encode($array);
+}
+
 function morfo_get_status() {
 	$data=json_decode($_POST["data"],TRUE);
 	$res=array();
@@ -138,5 +152,87 @@ function cancel_morfo() {
 		return 0;
 	}
 }
+
+function report_orgstr() {
+$out=file_get_contents($_SERVER['DOCUMENT_ROOT']."/forms/morfoReport_1.php");
+$date=$ndate=date("Y-m-d");
+$where="";
+if ($_POST["begDateR"]>"") {$date=$_POST["begDateR"]; $Item["begDate"]=$_POST["begDateR"];}
+if ($_POST["endDateR"]>"") {$ndate=$_POST["endDateR"]; $Item["endDate"]=$_POST["endDateR"];}
+if (isset($_POST["urgent"]) AND !isset($_POST["planed"])) { $where.=" AND isUrgent = 1 "; }
+if (isset($_POST["planed"]) AND !isset($_POST["urgent"])) { $where.=" AND isUrgent = 0 "; }
+if (is_array($_POST["orgStr"])) {
+	$where.=" AND (";
+	foreach ($_POST["orgStr"] as $orgStr) { $where.=" c.orgStructure_id = $orgStr OR"; }
+	$where=substr($where,0,-3).")";
+}
+if (is_array($_POST["actionType_id"])) {
+	$where.=" AND (";
+	foreach ($_POST["actionType_id"] as $atype) { $where.=" a.actionType_id = $atype OR"; }
+	$where=substr($where,0,-3).")";
+}
+$actionType_id=getActionTypeByName("Патоморфологические исследования");
+
+$SQL="SELECT a.id FROM Action as a INNER JOIN ActionType as b on a.ActionType_id=b.id INNER JOIN Person as c ON a.setPerson_id=c.id
+	WHERE b.group_id=$actionType_id 
+	AND ( (a.begDate BETWEEN '$date' AND '$ndate 23:59:59' ) OR ( a.plannedEndDate BETWEEN '$date' AND '$ndate 23:59:59' ) )
+	$where ORDER BY a.id DESC ";
+		$org=array();
+		$res = mysql_query($SQL) or die("Query failed: " . mysql_error()); 
+		while($a = mysql_fetch_array($res)) {
+			$action["id"]=$a[0];
+			$action=getActionInfo($action["id"]);
+			$action["count"]=1;
+			if ($action["isUrgent"]==1) {$action["isUrgent"]="urgent";} else {$action["isUrgent"]="planed";}
+			if (!isset($action["problem"])) $action["problem"]="";
+			$counter++; $action["counter"]=$counter;
+			if (!isset($_POST["problem"])) {$result[]=$action;} else {
+					if ($action["problem"]>"") {$result[]=$action;}
+			}
+			if (!in_array($action["orgStr_id"],$org)) {$org[$action["orgStr_id"]]["oid"]=$action["orgStr_id"]; $org[$action["orgStr_id"]]["name"]=$action["orgStructure"];}
+		}
+		$Item["result"]=$result;
+		$Item["org"]=$org;
+$out=contentSetData($out,$Item);
+// Сортируем строки
+foreach(pq($doc)->find("table tr.action") as $otd) {
+	$oid=pq($otd)->attr("oid");
+	$urg=pq($otd)->attr("urg");
+	$type=pq($otd)->attr("type");
+	$line=pq($doc)->find("table div.".$urg."[oid=".$oid."]")->find("tr[type=".$type."]");
+	if ($line->length() AND !isset($_POST["details"])) {
+		$line->find("td.count")->html( $line->find("td.count")->html() + 1 );
+		pq($otd)->remove();
+	} else {
+		pq($doc)->find("table div.".$urg."[oid=".$oid."]")->append($otd);
+	}
+}
+
+// Считаем итоги
+$total_urg=0; $total_pln=0;
+foreach(pq($doc)->find("table div.otd") as $otd) {
+	$urgent=0; $planed=0;
+	foreach(pq($otd)->find("div.urgent")->find("tr > td.count") as $urg) {
+		$urgent+=pq($urg)->text();
+	}
+	pq($otd)->find("div.urgent")->next("tr.total")->find("td.count")->html($urgent);
+	foreach(pq($otd)->find("div.planed")->find("tr > td.count") as $pln) {
+		$planed+=pq($pln)->text(); 
+	}
+	pq($otd)->find("div.planed")->next("tr.total")->find("td.count")->html($planed);
+	pq($otd)->next("tr.total")->find("td.count")->html( $urgent + $planed);
+	$total_urg+=$urgent; $total_pln+=$planed;
+}
+pq($doc)->find("table tr.total_urg")->find("td.count")->html($total_urg);
+pq($doc)->find("table tr.total_pln")->find("td.count")->html($total_pln);
+pq($doc)->find("table tr.total_otd")->find("td.count")->html($total_urg+$total_pln);
+
+// Преобразуем формат
+if (!isset($_POST["details"])) {pq($doc)->find("td.details")->remove();} else {
+	pq($doc)->find("tr[type]")->find("td.count")->remove();
+}
+return $out;
+}
+
 
 ?>
