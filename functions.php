@@ -65,7 +65,7 @@ function prepInput($Item) {
 			$inp="<input name='$name' $add >";
 			break;
 		case "Text":
-			$inp="<textarea name='$name' $add ></textarea>";
+			$inp="<textarea name='$name' $add >{{".$name."}}</textarea>";
 			break;
 		case "JobTicket":
 			$inp="<input type='hidden' name='$name' $add>";
@@ -137,8 +137,7 @@ foreach ($array as $i => $field){
 		  $SQL="INSERT INTO ActionProperty SET {$out}";
 		  mysql_query($SQL) or die ("Query failed 1: " . mysql_error());
 	}
-//  $trigger="http://".$_SERVER["HTTP_HOST"]."/json/operlog.php?mode=add_trigger&uid=".$person_id."&trigger=ActionProperty";
-//  echo file_get_contents($trigger);
+
   $id=mysql_insert_id();
   $value=$array[$i]['value'];
   $type=$array[$i]['type']; 
@@ -568,6 +567,32 @@ $SQL="SELECT * FROM Action as a
 			} else {	$curdate=date("d",strtotime($action["begDate"]));}
 			if (!isset($data[$curdate][$action["status"]])) {$data[$curdate][$action["status"]]=1;} else {$data[$curdate][$action["status"]]++;}
 			}
+		}
+	return json_encode($data);
+}
+
+
+function getMorfoActions($month,$year) {
+		$start="$year-$month-01";
+		$stop="$year-$month-31";
+	$actionType_id=getActionTypeByName("Патоморфологические исследования");
+	$SQL="SELECT * FROM Action AS a
+	INNER JOIN ActionType AS b
+	WHERE a.actionType_id = b.id
+	AND a.deleted = 0 
+	AND b.group_id = ".$actionType_id."
+	AND ( (a.begDate BETWEEN '{$start}' AND '{$stop} 23:59:59' ) 
+	OR 
+	( a.plannedEndDate BETWEEN '{$start}' AND '{$stop} 23:59:59' ) )
+	ORDER BY a.begDate DESC ";
+		$res = mysql_query($SQL) or die("Query failed: " . mysql_error());
+		$data=array();
+		while($action = mysql_fetch_array($res)) {
+			if (date("Y",strtotime($action["begDate"]))=="1970" OR $action["begDate"] == NULL) {
+					$curdate=date("d",strtotime($action["plannedEndDate"]));
+			} else {	$curdate=date("d",strtotime($action["begDate"]));}
+			if (!isset($data[$curdate][$action["status"]])) {$data[$curdate][$action["status"]]=1;} else {$data[$curdate][$action["status"]]++;}
+		
 		}
 	return json_encode($data);
 }

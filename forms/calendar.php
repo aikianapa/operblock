@@ -67,8 +67,8 @@ function draw_calendar($month,$year){
 
 function monthData($month,$year,$calendar) {
 	if (isset($_GET["sisterob_id"])) {$oper=json_decode(getOperationsByPerson($month,$year,$_GET["sisterob_id"],"operSister_id"));	}
-	if (isset($_GET["sisteran_id"])) {$oper=json_decode(getOperationsByPerson($month,$year,$_GET["sisteran_id"],"an_sister_id"));	} 
-
+	if (isset($_GET["sisteran_id"])) {$oper=json_decode(getOperationsByPerson($month,$year,$_GET["sisteran_id"],"an_sister_id"));	}
+	if (isset($_GET["morfo"])) {$oper=json_decode(getMorfoActions($month,$year));	} 
 	if (!isset($oper)) $oper=json_decode(getOperationsByDate($month,$year,$_GET["oid"]),1);
 	// status 0 - (серый) назначена
 	// status 1 - (зелёный) утверждена замглавврача

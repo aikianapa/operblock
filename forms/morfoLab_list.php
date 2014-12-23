@@ -55,95 +55,9 @@
 </div>
 </div>
 
-<script type="text/javascript">
-	
-$(document).ready(function(){
-$("div[data-url^='/morfoLab/list/list.htm']:hidden").remove();
-	$("a[href=#printMenu]").on("click",function(){ 
-		$( document ).data( "action", $(this).parents("tr").attr("aid")); 
-	});
-	$("#printMenu a").on("click",function(){
-		if ($(this).attr("data")>"") {
-			$(this).attr("href",$(this).attr("data")+"&action="+$( document ).data( "action"));
-		} else {
-			if ($(this).attr("href")=="#nazn") {var form="morfoNazn";}
-			if ($(this).attr("href")=="#reg") {var form="morfoReg";}
-			if ($(this).attr("href")=="#lab") {var form="morfoLab";}
-			
-			$.mobile.changePage( "/"+form+"/edit/"+$( document ).data("action")+".htm", { transition: "flip", changeHash: true });
-		}
-		$("#printMenu").popup("close");
-	});
-});
 
-$(document).on("pageshow",function(){
-	commonFormWidgets();
-});
+<script type="text/javascript" src="/forms/morfoForms.js"></script>
 
-$("#morfoLabList").on("pageshow",function(){
-	morfoStatus("#clientlist");
-});
-
-$(document).on("pageinit",function(){
-morfoLabSubmit();
-cancel_op_init();
-$( "table" ).disableSelection();
-
-$('input[type=datetime]').datetimepicker({
-	lang:'ru', format:'Y-m-d', formatDate:'Y-m-d', timepicker:false
-});
-
-	var page=$("#morfoLabList");
-	page.find("input[name=status]").on("change",function(){
-		var status=page.find("input[name=status]:checked").val();
-		page.find("#clientlist tbody tr").each(function(){
-			$(this).addClass("ui-hidden");
-			if (status=="all") {$(this).removeClass("ui-hidden");}
-			if (status=="on" && !$(this).hasClass("status-2")) {$(this).removeClass("ui-hidden");}
-			if (status=="off" && $(this).hasClass("status-2")) {$(this).removeClass("ui-hidden");} 
-		});
-	});
-
-		$("input[name=endDate]").on("change",function(){
-			set_cookie("endDate",$(this).val());
-			$("input[name=workDate]").trigger("change");
-		});
-		
-});
-
-function morfoLabSubmit() {
-	$("a.submit").on("click",function(){
-		var formdata=$("form#morfoLab").serialize();
-		$.post("/json/morfology.php?mode=morfo_lab_submit",formdata,function(data){
-				setTimeout('$.mobile.changePage( "/morfoLab/list/list.htm", { transition: "flip", changeHash: true });',300);
-		});
-
-	});
-}
-
-// форма отмены исследования
-
-	$("#cancelOp").on("pageshow",function(){
-		$("#cancelOp form")[0].reset();
-	});
-
-function cancel_op_init() {
-	$("#cancelOp a.cancel_op").on("click",function(){
-		if ( $("#cancelOp select[name=filter]").val()==1 && $("#cancelOp textarea[name=cancelNote]").val()>" "  ) {
-			var formdata=$("#cancelOp form").serialize() ;
-			$.post("/json/morfology.php?mode=cancel_morfo",formdata,function(data){
-				$("#cancelOp").popup("close");
-				setTimeout(function(){ $.mobile.back(); },500);
-				top.postMessage('addAction', '*'); 
-			});
-		} else {
-			$.mobile.loading( "hide" );
-			return false;
-		}
-	});
-}	
-
-</script>
 
 <link rel="stylesheet" href="/style.css" />
 

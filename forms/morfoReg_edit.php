@@ -19,7 +19,7 @@
         <option value="1">Да</option>
     </select>
 <a href="#" class="submit ui-btn ui-btn-inline ui-corner-all">Сохранить</a>
-<a href="#" class="list ui-btn ui-btn-inline ui-corner-all">Отмена</a>
+<a href="#" data-rel="back" class="list ui-btn ui-btn-inline ui-corner-all">Отмена</a>
 
 </form>
 </div>

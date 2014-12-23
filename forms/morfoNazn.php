@@ -22,21 +22,20 @@ $SETTINGS=$_SESSION['settings'];
 if (isset($_COOKIE["workDate"])) {$Item["date1"]=$_COOKIE["workDate"];} else {$Item["date1"]=date("Y-m-d ");}
 if (isset($_COOKIE["endDate"]) AND $_COOKIE["endDate"]>"" AND ($_COOKIE["endDate"]!=$_COOKIE["workDate"]) ) {
   $Item["date2"]=$_COOKIE["endDate"];
-} else {$Item["date2"]=date("Y-m-d",strtotime($Item["date1"])+86400); }
-$Item["workDate"]=$Item["date1"];
-$Item["endDate"]=$Item["date2"];
+} else {$Item["date2"]=date("Y-m-d",strtotime($Item["date1"])); }
+$Item["workDate"]=$Item["date1"]; $Item["endDate"]=$Item["date2"];
 $out=formGetForm($form,$mode);
 $actionType_id=getActionTypeByName("Патоморфологические исследования");
 	$SQL="SELECT a.id FROM Action AS a
 	INNER JOIN ActionType AS b
 	WHERE a.actionType_id = b.id
-	AND a.deleted = 0 
+	AND a.deleted = 0
 	AND a.event_id = ".$event_id."
 	AND b.group_id = ".$actionType_id."
-	AND ( (a.begDate BETWEEN '{$Item["workDate"]}' AND '{$Item["endDate"]}' ) 
+	AND ( (a.begDate BETWEEN '{$Item["workDate"]}' AND '{$Item["endDate"]} 23:59:59' ) 
 	OR 
-	( a.plannedEndDate BETWEEN '{$Item["workDate"]}' AND '{$Item["endDate"]}' ) )
-	ORDER BY a.begDate DESC LIMIT 10 ";
+	( a.plannedEndDate BETWEEN '{$Item["workDate"]}' AND '{$Item["endDate"]} 23:59:59' ) )
+	ORDER BY a.begDate DESC ";
 	$res=mysql_query($SQL) or die ("Query failed morfoNazn_list(): " . mysql_error());
 	while($data = mysql_fetch_array($res)) {
 			$action=getActionInfo($data["id"]);
