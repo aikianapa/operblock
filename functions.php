@@ -414,12 +414,23 @@ function actionAssistItem($action,$type,$inx=0) {
 }
 
 function getPersonInfo($person_id) {
-	$Person=mysqlReadItem("Person",$person_id); 
+	$Person=mysqlReadItem("Person",$person_id);
+	$Profile=mysqlReadItem("rbUserProfile",$Person["userProfile_id"]);
 	$Person["personShort"]=$Person["lastName"]." ".substr($Person["firstName"],0,2).".".substr($Person["patrName"],0,2).".";
 	$Person["person"]=$Person["lastName"]." ".$Person["firstName"]." ".$Person["patrName"];
 	$Person["orgStructure"]=getOrgStrName($Person["orgStructure_id"]);
 	$Person["orgStrShort"]=getOrgStrName($Person["orgStructure_id"],"code");
+	$Person["userProfile_code"]=$Profile["code"];
+	$Person["userProfile_name"]=$Profile["name"];
 	return $Person;
+}
+
+function checkAllow() {
+$person=getPersonInfo($_SESSION["user_id"]);
+if (!isset($_SESSION["allow"])) { $res=TRUE; } else {
+	if (in_array($person["userProfile_name"],$_SESSION["allow"])) {$res=TRUE;} else {$res=FALSE;}
+}
+return $res;
 }
 
 function getClientPalata($event_id) {
