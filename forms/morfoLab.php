@@ -40,48 +40,9 @@ return $out;
 
 function morfoLab_edit($form,$mode,$id,$datatype) {
 $out=formGetForm($form,$mode);
-$Item=morfoReadLab($id);
+$Item=morfoReadLabAction($id);
 $out=contentSetData($out,$Item);
 return $out;
-}
-
-
-function morfoReadRegAction($id) {
-$actionType_id=getActionTypeByName('Регистрация биоматериала');
-$Action=mysqlReadItem("Action",$id);
-$SQL="SELECT * FROM Action WHERE actionType_id = $actionType_id AND parent_id = $id LIMIT 1";
-$res=mysql_query($SQL) or die ("Query failed morfoReadReg(): " . mysql_error());
-$Item=array();
-while($data = mysql_fetch_array($res)) {	$Item=$data;	}
-return $Item;
-}
-
-function morfoReadLab($id) {
-$actionType_id=getActionTypeByName('Исследование');
-$Action=mysqlReadItem("Action",$id);
-$actionInfo=getActionInfo($id);
-$SQL="SELECT * FROM Action WHERE actionType_id = $actionType_id AND parent_id = $id LIMIT 1";
-$res=mysql_query($SQL) or die ("Query failed morfoReadReg(): " . mysql_error());
-$Item=array();
-$Item["action_id"]="_new";
-$Item["parent_id"]=$id;
-$Item["event_id"]=$Action["event_id"];
-$Item["person_id"]=$_SESSION["user_id"];
-$Item["actionType_id"]=$actionType_id;
-while($data = mysql_fetch_array($res)) {
-	$Item=$data;
-	$Item["action_id"]=$Item["id"];
-	$Item["person_id"]=$_SESSION["user_id"];
-}
-$form=getActionTypeForm('Исследование');
-$Item["morfoLab"]=$form;
-$Item=getActionPropertyFormData($Item,$form);
-if ($Item["action_id"]=="_new") {
-	$Item["fld_0"]=$actionInfo["client"];
-	$Item["fld_1"]=$actionInfo["age"];
-	$Item["fld_2"]=$actionInfo["orgStr_id"];
-}
-return $Item;
 }
 
 ?>

@@ -113,7 +113,7 @@ function morfoRegSubmit() {
 
 // =============== morfoLab =================
 function morfoLabSubmit() {
-	$("a.submit").on("click",function(){
+	$("#morfoLab a.submit").on("click",function(){
 		var formdata=$("form#morfoLab").serialize();
 		$.post("/json/morfology.php?mode=morfo_lab_submit",formdata,function(data){
 				setTimeout('$.mobile.back();',500);
@@ -134,7 +134,8 @@ function morfoNaznSubmit() {
 	$("#morfoNazn a.submit").on("click",function(){
 		var formdata=$("form#morfoNazn").serialize();
 		$.post("/json/morfology.php?mode=morfo_nazn_submit",formdata,function(data){
-				setTimeout('$.mobile.back();',500);
+				//setTimeout('$.mobile.back();',500);
+				setTimeout(" document.location.href='/morfoNazn/list/list.htm"+document.location.search+"';$.mobile.back();",500);
 				top.postMessage('addAction', '*');  
 		});
 
