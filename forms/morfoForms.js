@@ -67,6 +67,7 @@ $("#morfoReportList").on("pageinit",function(){
 	$("a.print_list").on("click",function(){
 		var begDate=$("#morfoReportList input[name=workDate]").val();
 		var endDate=$("#morfoReportList input[name=endDate]").val();
+		$("#morfoReportList").next("#report").remove();
 		$("#morfoReportList").after('<div id="report" class="print-area">'+$("#morfoReportList #tab-1").html()+'</div>');
 		$("#morfoReportList").next("#report").prepend("<h2>Журнал исследований c "+begDate+" по "+endDate+"</h2>");
 		print("#report");
