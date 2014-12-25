@@ -1,7 +1,7 @@
 <?
 include_once($_SERVER['DOCUMENT_ROOT']."/functions.php");
 prepareSessions();
-$_SESSION["allow"]=array("Врач ЛД","Заведующий ЛД");
+$_SESSION["allow"]=array("Врач ЛД","Заведующий ЛД","Лаборант ЛД");
 
 function morfoLab_list($form,$mode,$id,$datatype) {
 $SETTINGS=$_SESSION['settings'];

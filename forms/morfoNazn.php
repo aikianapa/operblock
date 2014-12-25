@@ -1,7 +1,7 @@
 <?
 include_once($_SERVER['DOCUMENT_ROOT']."/functions.php");
 prepareSessions();
-$_SESSION["allow"]=array("Врач","Регистратор ЛД","Врач ЛД","Заведующий ЛД");
+$_SESSION["allow"]=array("Врач","Регистратор ЛД","Врач ЛД","Заведующий ЛД","Лаборант ЛД");
 
 function morfoNazn_edit($form,$mode,$id,$datatype) {
 $out=formGetForm($form,$mode);
@@ -18,8 +18,6 @@ $role=$_SESSION["user_role"];
 if ($role!="Врач ЛД" && $role!="Заведующий ЛД") {
 	pq($out)->find("a[href=#cancelOp]")->remove();
 	pq($out)->find("div[data-role=include]")->remove();
-}
-if ($role=="Врач") {
 	pq($out)->find("textarea")->attr("readonly",TRUE); // запрещаем поле Результатов исследования
 }
 return $out;
