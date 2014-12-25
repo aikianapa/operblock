@@ -10,6 +10,8 @@ function prepareSessions() {
 	$_SESSION["orgStr"]=$OrgStr["name"];
 	$_SESSION["orgId"]=$OrgStr["organisation_id"];
 	if ($_SESSION["orgId"]=="") {$_SESSION["orgId"]=3147;}
+	$person=getPersonInfo($_SESSION["user_id"]);
+	$_SESSION["user_role"]=$person["userProfile_name"];
 }
 
 function getActionTypeForm($SQL) {
@@ -175,7 +177,6 @@ foreach($array as $property) {
 			  $type=$property['type'];
 			  if ($type=="Text") {$type="String";}
 				$SQL="UPDATE ActionProperty_{$type} SET value='{$value}' WHERE id={$id}";
-				echo $SQL;
 				mysql_query($SQL) or die("Query failed updateProperties() [2]: " . mysql_error());
 		}
 	}
@@ -426,9 +427,8 @@ function getPersonInfo($person_id) {
 }
 
 function checkAllow() {
-$person=getPersonInfo($_SESSION["user_id"]);
 if (!isset($_SESSION["allow"])) { $res=TRUE; } else {
-	if (in_array($person["userProfile_name"],$_SESSION["allow"])) {$res=TRUE;} else {$res=FALSE;}
+	if (in_array($_SESSION["user_role"],$_SESSION["allow"])) {$res=TRUE;} else {$res=FALSE;}
 }
 return $res;
 }

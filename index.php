@@ -1,7 +1,8 @@
 <?
 $start=time();
 session_start();
-parse_str($_SERVER["REQUEST_URI"],$_SESSION["dr"]);
+parse_str($_SERVER["REQUEST_URI"],$tmp);
+if (isset($tmp["person_id"])) {parse_str($_SERVER["REQUEST_URI"],$_SESSION["dr"]);}
 $path=$_SERVER['DOCUMENT_ROOT'];
 $url="http://".$_SERVER['HTTP_HOST'];
 if (!is_file($url."/engine/tpl/".$_GET["form"].".php")) {$tpl="engine/tpl/page.php";} else {$tpl="engine/tpl/".$_GET["form"].".php";}

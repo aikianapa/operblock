@@ -4,6 +4,11 @@ include_once($_SERVER['DOCUMENT_ROOT']."/engine/functions.php");
 engineSettingsRead();
 include_once($_SERVER['DOCUMENT_ROOT']."/dbconnect.php");
 include_once($_SERVER['DOCUMENT_ROOT']."/functions.php");
+parse_str($_SERVER["REQUEST_URI"],$tmp);
+if (isset($tmp["person_id"])) {parse_str($_SERVER["REQUEST_URI"],$_SESSION["dr"]);}
+prepareSessions();
+//$_SESSION["allow"]=array("Врач","Регистратор ЛД","Врач ЛД","Заведующий ЛД");
+//if (!checkAllow()) {die ("Ошибка прав доступа!");}
 $mode=$_GET["mode"];
 if (is_callable($mode)) {echo @$mode();} else {echo "No function: ".$mode;}
 // =================================================
@@ -13,7 +18,6 @@ if ($_POST["isUrgent"]=="on") {$_POST["isUrgent"]=1;} else  {$_POST["isUrgent"]=
 if ($_POST["action_id"]!="_new" AND $_POST["action_id"]!="") {
 	$Action=mysqlReadItem("Action",$_POST["action_id"]);
 } else {
-	if ($_POST["person_id"]=="") $_POST["person_id"]=3701;
 	$Action=array();
 	$Action["id"]=$_POST["id"]=$_POST["action_id"];
 	$Action["actionType_id"]=$_POST["actionType_id"];
@@ -88,6 +92,7 @@ function morfo_lab_submit() {
 		$Action["begDate"]=date("Y-m-d H:i:s");
 		$Action["status"]=0;
 	}
+	if ($Action["person_id"]=="" && $_SESSION["user_role"]=="Врач ЛД") {$Action["person_id"]=$_SESSION["user_id"];}
 	$Action["status"]=$_POST["status"];
 	if ($Action["status"]==2) {morfo_set_status($Action["parent_id"],2);} else {
 		morfo_set_status($Action["parent_id"],$Action["status"]);

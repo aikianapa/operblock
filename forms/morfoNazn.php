@@ -1,6 +1,7 @@
 <?
 include_once($_SERVER['DOCUMENT_ROOT']."/functions.php");
-$_SESSION["allow"]=array("Врач","Врач ЛД","Заведующий ЛД");
+prepareSessions();
+$_SESSION["allow"]=array("Врач","Регистратор ЛД","Врач ЛД","Заведующий ЛД");
 
 function morfoNazn_edit($form,$mode,$id,$datatype) {
 $out=formGetForm($form,$mode);
@@ -12,12 +13,15 @@ if ($id!="_new" AND $id!="") {
 	$Item["morfoNazn"]=morfoNaznForm();
 }
 if ($Item["person_id"]=="") {$Item["person_id"]=$_SESSION["user_id"];}
-$person=getPersonInfo($_SESSION["user_id"]); $role=$person["userProfile_name"];
-if ($role!="Врач ЛД" && $role!="Врач ЛД") {
+if (checkAllow()) {$out=contentSetData($out,$Item);} else {die ("Ошибка прав доступа!");}
+$role=$_SESSION["user_role"];
+if ($role!="Врач ЛД" && $role!="Заведующий ЛД") {
 	pq($out)->find("a[href=#cancelOp]")->remove();
 	pq($out)->find("div[data-role=include]")->remove();
 }
-if (checkAllow()) {$out=contentSetData($out,$Item);} else {die ("Ошибка прав доступа!");}
+if ($role=="Врач") {
+	pq($out)->find("textarea")->attr("readonly",TRUE); // запрещаем поле Результатов исследования
+}
 return $out;
 }
 
@@ -53,6 +57,7 @@ $actionType_id=getActionTypeByName("Патоморфологические ис�
 	if ($path_ref!=$path_uri) {
 		pq($out)->find("div[data-role=content]")->prepend("<div class='ref ui-hidden'>1</div>");
 	}
+$Item["person_id"]=$_SESSION["person_id"];
 $out=contentSetData($out,$Item);
 return $out;
 }

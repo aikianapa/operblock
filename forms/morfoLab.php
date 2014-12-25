@@ -1,6 +1,7 @@
 <?
 include_once($_SERVER['DOCUMENT_ROOT']."/functions.php");
-if ($_SESSION["user_id"]=="") {$_SESSION["person_id"]=$_SESSION["user_id"]=$Item["person_id"]=3701;}
+prepareSessions();
+$_SESSION["allow"]=array("Врач ЛД","Заведующий ЛД");
 
 function morfoLab_list($form,$mode,$id,$datatype) {
 $SETTINGS=$_SESSION['settings'];
@@ -31,8 +32,8 @@ $actionType_id=getActionTypeByName("Патоморфологические ис�
 			$result[]=$action;
 		}
 	}
-
-$Item["result"]=$result;
+$Item["person_id"]=$_SESSION["person_id"];
+if (checkAllow()) {$Item["result"]=$result;} else {die ("Ошибка прав доступа!");}
 $out=contentSetData($out,$Item);
 return $out;
 }

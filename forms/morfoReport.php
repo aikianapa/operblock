@@ -1,8 +1,7 @@
 <? 
 include_once($_SERVER['DOCUMENT_ROOT']."/functions.php");
 prepareSessions();
-if ($_SESSION["user_id"]=="") {$_SESSION["person_id"]=$_SESSION["user_id"]=$Item["person_id"]=3701;}
-$_SESSION["allow"]=array("Врач","Врач ЛД","Заведующий ЛД");
+$_SESSION["allow"]=array("Врач ЛД","Заведующий ЛД");
 
 function morfoReport_list($form,$mode,$id,$datatype) {
 parse_str($_SERVER["REQUEST_URI"]);
@@ -35,15 +34,15 @@ $actionType_id=getActionTypeByName("Патоморфологические ис�
 		$action=getActionPropertyFormData($action,$form);
 		$action["morfoResult"]=$action["fld_19"];
 		$action["morfoPrev"]=$action["fld_1"];
-		$action["person"]="";
 		$result[]=$action;
 	}
-$person=getPersonInfo($_SESSION["user_id"]); $role=$person["userProfile_name"];
-if ($role=="Врач ЛД") {
+if ($_SESSION["user_role"]=="Врач ЛД") {
 	pq($out)->find("div#tab-2")->remove();
+	pq($out)->find("div#tab-3")->remove();
 	pq($out)->find("div[data-role=navbar]")->remove();
 }
 if (checkAllow()) {$Item["result"]=$result;} else {die ("Ошибка прав доступа!");}
+$Item["person_id"]=$_SESSION["person_id"];
 $Item["repForm"]=prepReportForm();
 $out=prepReportFormSelects($out);
 $out=contentSetData($out,$Item);
