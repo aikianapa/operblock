@@ -56,6 +56,7 @@ function getActionPropertyFormData($Item,$form) {
 		$type=$field["type"];
 		if ($type>"" AND $prop_id>"") {
 			if ($type=="Text") {$type="String";}
+			if ($type=="JobTicket") {$type="Job_Ticket";}
 			$SQL = "SELECT value FROM ActionProperty_{$type} WHERE id = $prop_id ";
 			$res=mysql_query($SQL) or die("Query failed getActionPropertyFormData() [1]: " . mysql_error());
 			while($data = mysql_fetch_array($res)) {
