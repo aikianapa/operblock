@@ -21,6 +21,7 @@ $content["head"]->append('<script language="javascript" src="/engine/js/function
 $content["head"]->append('<link rel="stylesheet" href="/engine/engine.css" type="text/css" />');
 $content["head"]->append('<link rel="stylesheet" href="/style.css" type="text/css" />');
 $content["head"]->append('<script type="text/javascript" src="/js/scripts.js"></script>');
+$content["head"]->append('<script type="text/javascript" src="/js/jquery.selection.js"></script>');
 }
 
 $content=phpQuery::newDocument(engine($content));

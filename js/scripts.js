@@ -1,7 +1,7 @@
 $(document).ready(function(){
 	//$("form").submit(function(event){  	event.preventDefault();	});
 	datatime_picker_init();
-
+	copypaste();
 });
 
 $(document).on("pageinit",function(){
@@ -21,6 +21,23 @@ datatime_picker_init();
 	calendarInit();
 });
 
+function copypaste() {
+
+	$("input,textarea").on("click",function(){
+		$(window).data("curInput",$(this));
+	});
+	
+	$("a[href=#copypaste]").on("click",function(){
+		var selectedText = $.selection('get');
+		var that=$(window).data("curInput");
+		if (that!=undefined) {
+			that.selection('insert', {
+				text: selectedText,
+				mode: 'before'
+			});
+		}
+	});
+}
 
 function morfoStatus(list) {
 	var actions=[];

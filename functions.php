@@ -1,5 +1,5 @@
 <?
-include("morfo_func.php");
+include($_SERVER['DOCUMENT_ROOT']."/morfo_func.php");
 function prepareSessions() {
 	$_SESSION["user_id"]=$_SESSION["dr"]["person_id"];
 	$_SESSION["person_id"]=$_SESSION["dr"]["person_id"];
@@ -36,6 +36,16 @@ while($data = mysql_fetch_array($result)) {
 }
 mysql_free_result();
 return $array;
+}
+
+function getRusDate($date) {
+	$date=strtotime($date);
+	$d=date("d",$date);
+	$m=date("m",$date)*1;
+	$y=date("Y",$date);
+	$mon=array("","января","февраля","марта","апреля","мая","июня","июля","августа","сентября","октября","ноября","декабря");
+	$date="&laquo;".$d."&raquo; ".$mon[$m]." ".$y;
+	return $date;
 }
 
 function getActionPropertyFormData($Item,$form) {
@@ -228,12 +238,57 @@ function getClientInfo($client_id,$event_id=0) {
 	if ($Client["sex"]==1) {$Client["sex"]="мужской";} else {$Client["sex"]="женский";} 
 	$Client["client"]=$Client["lastName"]." ".$Client["firstName"]." ".$Client["patrName"];
 	$Client["clientShort"]=$Client["lastName"]." ".substr($Client["firstName"],0,2).".".substr($Client["patrName"],0,2).".";
+	$Client["addressReg"]=getClientAddress($client_id,0);
+	$Client["addressLive"]=getClientAddress($client_id,1);
+	$Client["work"]=getClientWork($client_id);
   $Client["blood"]="";
 	if ($event_id>0) {
 		$Event=mysqlReadItem("Event",$event_id); 
 		$Client["blood"]=getBloodType($Event["client_id"]);
 	}
 	return $Client;
+}
+
+function getClientAddress($client_id,$type=1) {
+	$address=array();
+	// $SQL="SELECT getClientLocAddress({$client_id})";
+	$SQL="SELECT * FROM ClientAddress WHERE client_id = {$client_id}
+		AND type = {$type}
+		AND deleted = 0
+		ORDER BY id LIMIT 1	";
+		$res=mysql_query($SQL) or die("Query failed getActionPropertyFormData() [1]: " . mysql_error());
+		while($data = mysql_fetch_array($res)) {
+			if ($data["address_id"]>0) {
+				$addr=mysqlReadItem("Address",$data["address_id"]);
+				$house=mysqlReadItem("AddressHouse",$addr["house_id"]);
+				$address["city"]=$house["KLADRCode"];
+				$address["street"]=$house["KLADRStreetCode"];
+				$address["number"]=$house["number"];
+				$address["corpus"]=$house["corpus"];
+				$address["flat"]=$addr["flat"];
+				foreach($address as $key => $val) {if ($val=="") {unset($address[$key]);} }
+				$address=implode(", ",$address);
+		} else {
+			if ($type==1) {$fld="freeInput_p";} else {$fld="freeInput";}
+			$address=$data[$fld];
+		}
+		}
+	return $address;
+}
+
+function getClientWork($client_id,$type=1) {
+	$work=array();
+	$SQL="SELECT * FROM ClientWork WHERE client_id = {$client_id}
+		AND deleted = 0
+		ORDER BY id LIMIT 1	";
+		$res=mysql_query($SQL) or die("Query failed getActionPropertyFormData() [1]: " . mysql_error());
+		while($data = mysql_fetch_array($res)) {
+			$work["org"]=$data["freeInput"];
+			$work["post"]=$data["post"];
+			foreach($work as $key => $val) {if ($val=="") {unset($work[$key]);} }
+			$work=implode(", ",$work);
+		}
+	return $work;
 }
 
 function getActionInfo($action_id) {

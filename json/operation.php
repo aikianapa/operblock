@@ -177,6 +177,34 @@ function zavedan_oproom_submit() {
 	}
 }
 
+function epicriz_out_submit() {
+	
+if ($_POST["action_id"]=="_new") {
+	$action=array(); $_action=array();
+	$action["id"]=$_POST["action_id"];
+	$action["id"]=$_POST["id"]=$_POST["action_id"];
+	$action["actionType_id"]=getActionTypeByName("DoctorRoom: Выписной эпикриз");
+	$action["event_id"]=$_POST["event_id"];
+	$action["setPerson_id"]=$_POST["setPerson_id"]=$_POST["person_id"];
+	$action["createPerson_id"]=$action["modifyPerson_id"]=$_POST["person_id"];
+	$action["createDatetime"]=$action["modifyDatetime"]=date("Y-m-d H:i:s");
+	$action["status"]=0;
+	$action["begDate"]=date("Y-m-d H:i:s");
+} else {
+	$action=mysqlReadItem("Action",$_POST["action_id"]);
+	$_action=jdbReadItem("Action",$_POST["action_id"]);
+}
+$epic=array();
+$epic["fld_6"]=$_POST["fld_6"];
+$epic["fld_7"]=$_POST["fld_7"];
+$epic["fld_8"]=$_POST["fld_8"];
+$epic["toOrg"]=$_POST["toOrg"];
+$_action["epic_out"]=$epic;
+mysqlSaveItem("Action",$action);
+if ($_POST["action_id"]=="_new") {$_action["id"]=mysql_insert_id();} {$_action["id"]=$action["id"];}
+jdbSaveItem("Action",$_action);
+}
+
 function epicriz_submit() { popup_submit("epicriz"); }
 function histology_submit() {popup_submit("histology");}
 function citology_submit() { popup_submit("citology"); }
