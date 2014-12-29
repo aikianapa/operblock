@@ -16,9 +16,10 @@ if ($Item["person_id"]=="") {$Item["person_id"]=$_SESSION["user_id"];}
 if (checkAllow()) {$out=contentSetData($out,$Item);} else {die ("Ошибка прав доступа!");}
 $role=$_SESSION["user_role"];
 if ($role!="Врач ЛД" && $role!="Заведующий ЛД") {
-	pq($out)->find("a[href=#cancelOp]")->remove();
-	pq($out)->find("div[data-role=include]")->remove();
-	pq($out)->find("textarea")->attr("readonly",TRUE); // запрещаем поле Результатов исследования
+ pq($out)->find("a[href=#cancelOp]")->remove();
+ pq($out)->find("div[data-role=include]")->remove();
+ pq($out)->find("textarea")->parent("div")->remove(); // удаляем поле Результатов исследования
+ pq($out)->find("input[name=fld_17]")->parent("div")->remove();
 }
 return $out;
 }

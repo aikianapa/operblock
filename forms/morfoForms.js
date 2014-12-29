@@ -45,7 +45,7 @@ $(document).on("pageinit",function(){
 		});
 	});
 	$("#morfoNaznList #clientlist tr").on("click",function(){
-		 top.postMessage('addAction&aid='+$(this).attr("aid")+"&eid="+$(this).attr("eid"), '*'); 
+		 top.postMessage('aid='+$(this).attr("aid")+"&eid="+$(this).attr("eid"), '*'); 
 	});
 		morfoNaznSubmit();
 		morfoRegSubmit();
