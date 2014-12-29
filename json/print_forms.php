@@ -579,6 +579,39 @@ if ($_action["status"]==2) {
 return $out->htmlOuter();
 }
 
+function morfoReg() {
+include_once($_SERVER['DOCUMENT_ROOT']."/forms/morfoReg.php");
+$_action=mysqlReadItem("Action",$_GET["action"]);
+$action=getActionInfo($_GET["action"]);
+$person=getPersonInfo($action["setPerson_id"]);
+$action["person"]=$person["personShort"];
+$actionType_id=getActionTypeByName("Регистрация биоматериала");
+$out=file_get_contents($_SERVER['DOCUMENT_ROOT']."/forms/print_$_GET[mode].php");
+$form=morfoRegForm($actionType_id);
+$Reg=morfoReadReg($action["id"]);
+$Reg=getActionPropertyFormData($Reg,$form);
+foreach($Reg as $key => $val) {$action[$key]=$val;}
+foreach($form as $key => $val) {
+	$field=array();
+	$field["label"]=$val["label"];
+	$field["value"]=$action[$val["name"]];
+	$action["fields"][]=$field;
+}
+$action["sex"]=$action["_Client"]["sex"];
+$action["actionTypeName"]=$action["_ActionType"]["name"];
+$action["docDate"]=currentDocDate();
+$out=contentSetData($out,$action);
+if ($action["fld_1"]>"") {
+	$out->find("span#first")->remove();
+} else { $out->find("span#second")->remove(); }
+if ($_action["status"]==2) {
+
+} else {
+	$out->find("div.result")->remove();
+}
+return $out->htmlOuter();
+}
+
 
 function epicriz() {
 $out=file_get_contents($_SERVER['DOCUMENT_ROOT']."/forms/print_$_GET[mode].php");

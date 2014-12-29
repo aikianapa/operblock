@@ -97,7 +97,7 @@ function morfo_lab_submit() {
 	if ($Action["status"]==2) {morfo_set_status($Action["parent_id"],2);} else {
 		morfo_set_status($Action["parent_id"],$Action["status"]);
 	}
-	$fldset=getActionTypeForm('Исследование');
+	$fldset=getActionTypeForm('Исследование биоматериала');
 	foreach($fldset as $i => $fld) {
 		$fldset[$i]["value"]=$_POST[$fld["name"]];
 		if ($fld["type"]=="JobTicket") {unset($fldset[$i]);}
@@ -113,7 +113,7 @@ function morfo_lab_submit() {
 
 function morfo_set_status($parent_id,$status=0) {
 	$reg=getActionTypeByName('Регистрация биоматериала');
-	$lab=getActionTypeByName('Исследование');
+	$lab=getActionTypeByName('Исследование биоматериала');
 	$SQL="UPDATE Action SET status={$status}, modifyDatetime = '".date("Y-m-d H:i:s")."' WHERE id = {$parent_id} ";
 	mysql_query($SQL) or die ("Query failed morfo_set_status() [1]: " . mysql_error());
 	$SQL="UPDATE Action SET status={$status}, modifyDatetime = '".date("Y-m-d H:i:s")."' WHERE parent_id = {$parent_id} AND ( actionType_id = {$reg} OR actionType_id = {$lab} )";

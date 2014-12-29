@@ -8,13 +8,8 @@
 <input type="hidden" name="event_id">
 <input type="hidden" name="person_id">
 		<table>
-		<tr>
-		<td>Министерство здравоохранения РФ</td>
-		<td rowspan="2" style="vertical-align:middle;">{{orgStr}}</td>
-		</tr>
-		<tr>
-		<td>{{org}}</td>
-		</tr>
+		<tr><td>Министерство здравоохранения РФ</td><td rowspan="2" style="vertical-align:middle;">{{orgStr}}</td></tr>
+		<tr><td>{{org}}</td></tr>
 		</table>
 <br>
 <h2>ВЫПИСНОЙ ЭПИКРИЗ</h2>

@@ -36,7 +36,7 @@ return $Item;
 }
 
 function morfoReadLabAction($id) {
-$actionType_id=getActionTypeByName('Исследование');
+$actionType_id=getActionTypeByName('Исследование биоматериала');
 $Action=mysqlReadItem("Action",$id);
 $actionInfo=getActionInfo($id);
 $SQL="SELECT * FROM Action WHERE actionType_id = $actionType_id AND parent_id = $id LIMIT 1";
@@ -52,7 +52,7 @@ while($data = mysql_fetch_array($res)) {
 	$Item["action_id"]=$Item["id"];
 	//$Item["person_id"]=$_SESSION["user_id"];
 }
-$form=getActionTypeForm('Исследование');
+$form=getActionTypeForm('Исследование биоматериала');
 $Item["morfoLab"]=$form;
 $Item=getActionPropertyFormData($Item,$form);
 if ($Item["action_id"]=="_new") {
