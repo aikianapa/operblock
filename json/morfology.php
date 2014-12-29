@@ -28,6 +28,7 @@ if ($_POST["action_id"]!="_new" AND $_POST["action_id"]!="") {
 	$Action["status"]=0;
 	$Action["begDate"]=date("Y-m-d H:i:s");
 }
+	if ($_POST["fld_19"]>"") {$Action["status"]=2;} 
 	$Action["isUrgent"]=$_POST["isUrgent"];
 	$Action["plannedEndDate"]=date("Y-m-d H:i:s",strtotime($_POST["plannedEndDate"]));
 	mysqlSaveItem("Action",$Action);
@@ -94,7 +95,7 @@ function morfo_lab_submit() {
 	}
 	if ($Action["person_id"]=="" && $_SESSION["user_role"]=="Врач ЛД") {$Action["person_id"]=$_SESSION["user_id"];}
 	$Action["status"]=$_POST["status"];
-	if ($Action["status"]==2) {morfo_set_status($Action["parent_id"],2);} else {
+	if ($Action["status"]==2) {morfo_set_status($Action["parent_id"],1);} else {
 		morfo_set_status($Action["parent_id"],$Action["status"]);
 	}
 	$fldset=getActionTypeForm('Исследование биоматериала');
