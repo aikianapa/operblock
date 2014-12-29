@@ -44,7 +44,9 @@ $(document).on("pageinit",function(){
 			if (status=="off" && $(this).hasClass("status-2")) {$(this).removeClass("ui-hidden");} 
 		});
 	});
-
+	$("#morfoNaznList #clientlist tr").on("click",function(){
+		 top.postMessage('addAction&aid='+$(this).attr("aid")+"&eid="+$(this).attr("eid"), '*'); 
+	});
 		morfoNaznSubmit();
 		morfoRegSubmit();
 		morfoLabSubmit();
