@@ -4,26 +4,20 @@
 <div class="copytext">
 <div id="form-027u"  class="print_page">
 <form method="post">
-		<div style="position:relative; float:right; border:1px #000 solid; padding:8px; margin-bottom:10px; clear:both;">
-		Код формы по ОКУД <u>______________</u><br />
-		Код учреждения по ОКПО <u>___________</u>
-		</div>
 <input type="hidden" name="action_id">
 <input type="hidden" name="event_id">
 <input type="hidden" name="person_id">
 		<table>
 		<tr>
 		<td>Министерство здравоохранения РФ</td>
-		<td>Медицинская документация</td>
+		<td rowspan="2" style="vertical-align:middle;">{{orgStr}}</td>
 		</tr>
 		<tr>
-		<td>Наименование учреждения<br />{{org}}</td>
-		<td>Форма № 027/у<br />Утвержд. Минздравом СССР 04.10.80 № 1030</td>
+		<td>{{org}}</td>
 		</tr>
 		</table>
-<h2>ВЫПИСКА<br><br>
-из медицинской карты амбулаторного, <u>стационарного</u><br>
-(подчеркнуть) больного</h2>
+<br>
+<h2>ВЫПИСНОЙ ЭПИКРИЗ</h2>
 <br />
 		<div class="text">
 		<ol style="list-style-type:none;">
@@ -31,21 +25,20 @@
 		</ol>
 		</div>
 
-		<ol>
+		<ol class="fields">
 		<li>Фамилия, имя, отчество больного <u>{{client}}</u></li>
 		<li>Дата рождения <u>{{bDate}}</u></li>
-		<li>Домашний адрес <u>{{address}}</u></li>
-		<li>Место работы и род занятий <u>{{work}}</u></li>
-		<li>Даты<br>
-		а) по амбулатории: заболевания <u>{{a_date1}}</u><br>
-		направлен в стационар <u>{{a_date2}}</u><br>
-		б) по стационару: поступления <u>{{s_date1}}</u><br>
-		выбытия <u>{{s_date2}}</u>
+		<li>Дата поступления <u>{{s_date1}}</u></li>
+		<li>Дата выбытия <u>{{s_date2}}</u></li>
+		<div data-role="foreach" from="fields">
+		<li>
+			<a href='#del' class='del_fld'>Уд.</a>
+			<input data-role="none" name="fld[]" value="{{fld}}">
+			<u><textarea name="val[]">{{val}}</textarea></u>
 		</li>
-		<li>Полный диагноз, сопутствующее осложнение <u><textarea name="fld_6">{{fld_6}}</textarea></u></li>
-		<li>Краткий анамнез, диагностические исследования, течение болезни <u><textarea  name="fld_7">{{fld_7}}</textarea></u></li>
-		<li>Лечебные и трудовые рекомендации <u><textarea  name="fld_8">{{fld_8}}</textarea></u></li>
+		</div>
 		</ol>
+
 <br>
 {{docDate}}г.<br />
 Лечащий врач _________________ /{{person}}/
@@ -54,34 +47,34 @@
 </div>
 
 </div>
-
-
-
 </div>
+</div>
+
 <link rel="stylesheet" href="/style.css" />
 <style>
 @media screen {
 #form-027u * {font-size:14px;}
-#form-027u input {width:100%; font-style: italic;}
-#form-027u textarea {width:100%; resize:none; text-decoration:underline; font-style: italic;}
+#form-027u input {width:95%; font-style: italic; padding: 3px;}
+#form-027u textarea {width:95%; resize:none; text-decoration:underline; font-style: italic; padding: 3px;}
 #form-027u textarea.current, #form-027u input.current {border: 1px solid #000;}
 #form-027u u {font-style: italic;}
 #form-027u .text {line-height:32px; }
-#form-027u .text .remark {position:absolute; width:100%; margin-top: 15px; text-align:center; font-size:70%;}
+#form-027u .text .remark {position:absolute; width:100%; margin-top: 22px; text-align:center; font-size:70%;}
 #form-027u table {border:0; border-top:1px #000 solid; border-bottom:1px #000 solid; clear:both; width: 100%; }
 #form-027u table td {text-align:center; vertical-align:top;}
 #form-027u table td:first-child {border-right:1px #000 solid;}
 #form-027u table tr:first-child td:first-child {border-bottom:1px #000 solid;}
 #form-027u h2 {text-align:center; font-size:18px;}
 #form-027u h2 * {font-size:18px;}
+#form-027u a.del_fld {position:absolute; margin-left: -25px; margin-top: 30px;;}
 }
 
 @media print {
 body {display:none;}
 #form-027u * {font-size:14px; }
-#form-027u input {width:100%; font-style: italic; border:0; color: #000;}
+#form-027u input {width:99%; font-style: italic; border:0; color: #000;}
 #form-027u input[name=toOrg] {border-bottom: 1px #000 solid; text-align:center;}
-#form-027u textarea {width:100%; resize:none; text-decoration:underline; font-style: italic; border:0; display:none;}
+#form-027u textarea {width:99%; resize:none; text-decoration:underline; font-style: italic; border:0; display:none;}
 #form-027u u {font-style: italic;}
 #form-027u .text {line-height:32px; }
 #form-027u .text .remark {position:absolute; width:100%; margin-top: 15px; text-align:center; font-size:70%;}
@@ -91,5 +84,6 @@ body {display:none;}
 #form-027u table tr:first-child td:first-child {border-bottom:1px #000 solid;}
 #form-027u h2 {text-align:center; font-size:18px;}
 #form-027u h2 * {font-size:18px;}
+#form-027u a.del_fld {display:none;}
 }
 </style>

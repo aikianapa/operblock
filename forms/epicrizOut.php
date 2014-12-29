@@ -9,12 +9,19 @@ parse_str($_SERVER["REQUEST_URI"]);
 if ($id!="_new" AND $id!="") {
 	$action=getEpicrizOut($id);
 	if (isset($action["id"])) {
-		foreach($action["epic_out"] as $key => $val) {$Item[$key]=$val;}
+		$Item=$action;
+		$Item["fields"]=$action["epic_out"];
 		$Item["action_id"]=$action["id"];
 	} else {
+		$field=array();
 		$Item["action_id"]="_new";
-		$Item["fld_6"]=$Item["fld_7"]=$Item["fld_8"]="";
+		$field[0]["val"]=""; $field[0]["fld"]="Полный диагноз, сопутствующее осложнение";
+		$field[1]["val"]=""; $field[1]["fld"]="Краткий анамнез, диагностические исследования, течение болезни";
+		$field[2]["val"]=""; $field[2]["fld"]="Лечебные и трудовые рекомендации";
+		$Item["fields"]=$field;
 	}
+
+print_r($Item["fields"]);
 	
 	$event=mysqlReadItem("Event",$id);
 	$person=getPersonInfo($person_id);
@@ -22,6 +29,7 @@ if ($id!="_new" AND $id!="") {
 	$organisation=mysqlReadItem("Organisation",$person["org_id"]);
 	$Item["event_id"]=$id;
 	$Item["org"]=$organisation["shortName"];
+	$Item["orgStr"]=$person["orgStructure"];
 	$Item["person"]=$person["personShort"];
 	$Item["person_id"]=$person_id;
 	$Item["client"]=$client["client"];

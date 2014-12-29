@@ -190,18 +190,21 @@ if ($_POST["action_id"]=="_new") {
 	$action["createDatetime"]=$action["modifyDatetime"]=date("Y-m-d H:i:s");
 	$action["status"]=0;
 	$action["begDate"]=date("Y-m-d H:i:s");
+	mysqlSaveItem("Action",$action);
+	$action["id"]=mysql_insert_id();
 } else {
 	$action=mysqlReadItem("Action",$_POST["action_id"]);
 	$_action=jdbReadItem("Action",$_POST["action_id"]);
 }
 $epic=array();
-$epic["fld_6"]=$_POST["fld_6"];
-$epic["fld_7"]=$_POST["fld_7"];
-$epic["fld_8"]=$_POST["fld_8"];
-$epic["toOrg"]=$_POST["toOrg"];
+foreach($_POST["fld"] as $key => $val) {
+	$epic[$key]["fld"]=$val;
+	$epic[$key]["val"]=$_POST["val"][$key];
+}
+$_action["toOrg"]=$_POST["toOrg"];
+$_action["id"]=$action["id"];
 $_action["epic_out"]=$epic;
 mysqlSaveItem("Action",$action);
-if ($_POST["action_id"]=="_new") {$_action["id"]=mysql_insert_id();} {$_action["id"]=$action["id"];}
 jdbSaveItem("Action",$_action);
 }
 

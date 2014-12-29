@@ -12,11 +12,12 @@ function prepareSessions() {
 	if ($_SESSION["orgId"]=="") {$_SESSION["orgId"]=3147;}
 	$person=getPersonInfo($_SESSION["user_id"]);
 	$_SESSION["user_role"]=$person["userProfile_name"];
+	$_SESSION["userProfile_id"]=$person["userProfile_id"];
 }
 
 function getActionTypeForm($SQL) {
 if (substr($SQL,0,7)!="SELECT ") {
-	$SQL="SELECT a.name, a.idx, a.typeName, a.id, a.valueDomain, b.id FROM ActionPropertyType as a
+	$SQL="SELECT a.name, a.idx, a.typeName, a.id, a.valueDomain, a.userProfile_id, b.id FROM ActionPropertyType as a
 	INNER JOIN ActionType as b ON a.actionType_id=b.id
 	WHERE b.name='$SQL'   
 	ORDER BY a.idx	";
@@ -32,7 +33,7 @@ while($data = mysql_fetch_array($result)) {
 	$Item["type"]=$data["typeName"];
 	$Item["enum"]=$data["valueDomain"];
 	$Item["input"]=prepInput($Item);
-	$array[]=$Item;
+	if ($_SESSION["userProfile_id"]==$data["userProfile_id"] OR $data["userProfile_id"]==NULL) {	$array[]=$Item;}
 }
 mysql_free_result();
 return $array;
