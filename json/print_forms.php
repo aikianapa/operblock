@@ -566,6 +566,8 @@ $form=morfoNaznForm($action["actionType_id"]);
 $action=getActionPropertyFormData($action,$form);
 $action["sex"]=$action["_Client"]["sex"];
 $action["actionTypeName"]=$action["_ActionType"]["name"];
+$person=getPersonInfo($action[setPerson_id]);
+$action["person"]=$person["personShort"];
 $action["docDate"]=currentDocDate();
 $out=contentSetData($out,$action);
 if ($action["fld_1"]>"") {
