@@ -32,6 +32,10 @@ $(document).on("pageinit",function(){
 			$("input[name=workDate]").trigger("change");
 		});
 
+		$("#clientlist tr.status-1").on("click",function(){
+			top.postMessage('aid='+$(this).attr("aid")+"&eid="+$(this).attr("eid"), '*'); 
+		});
+
 	$("#morfoReportList").next("div#report.print-area").remove();
 
 	var page=$("#morfoNaznList, #morfoReportList, #morfoRegList, #morfoLabList");
