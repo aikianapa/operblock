@@ -72,7 +72,7 @@ $("#morfoReportList").on("pageinit",function(){
 		print("#report");
 	});
 
-	$("#clientlist tr.status-1").on("click",function(){
+	$("#clientlist").delegate("tr.status-1","click",function(){
 		top.postMessage('aid='+$(this).attr("aid")+"&eid="+$(this).attr("eid"), '*'); 
 	});
 });
