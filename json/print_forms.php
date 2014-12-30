@@ -571,11 +571,14 @@ $out=contentSetData($out,$action);
 if ($action["fld_1"]>"") {
 	$out->find("span#first")->remove();
 } else { $out->find("span#second")->remove(); }
-if ($_action["status"]==2) {
-
+$Lab=morfoReadLabAction($action["id"]);
+if ($Lab["status"]==2 AND $Lab["fld_12"]>"") {
+	$action["number"]=$Lab["fld_12"];
 } else {
 	$out->find("div.result")->remove();
+	$out->find("b.number")->remove();
 }
+$out=contentSetData($out,$action);
 return $out->htmlOuter();
 }
 

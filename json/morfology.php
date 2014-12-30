@@ -31,6 +31,7 @@ if ($_POST["action_id"]!="_new" AND $_POST["action_id"]!="") {
 	if ($_POST["fld_19"]>"") {$Action["status"]=2;} 
 	$Action["isUrgent"]=$_POST["isUrgent"];
 	$Action["plannedEndDate"]=date("Y-m-d H:i:s",strtotime($_POST["plannedEndDate"]));
+	$Action["modifyPerson_id"]=$_POST["person_id"];
 	mysqlSaveItem("Action",$Action);
 	if ($_POST["action_id"]=="_new" OR $_POST["action_id"]=="") {$Action["id"]=mysql_insert_id();}
 	$SQL="SELECT a.name, a.idx, a.typeName, a.id, a.valueDomain, b.id FROM ActionPropertyType as a

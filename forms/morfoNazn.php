@@ -63,6 +63,8 @@ return $out;
 
 function morfoReadNazn($id) {
 $action=mysqlReadItem("Action",$id);
+$event=mysqlReadItem("Event",$action["event_id"]);
+$action["client_id"]=$event["client_id"];
 $action["action_id"]=$id;
 if ($action["isUrgent"]==1) $action["isUrgent"]="on";
 $form=morfoNaznForm($action["actionType_id"]);

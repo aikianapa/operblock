@@ -45,12 +45,10 @@ $Item=array();
 $Item["action_id"]="_new";
 $Item["parent_id"]=$id;
 $Item["event_id"]=$Action["event_id"];
-//$Item["person_id"]=$_SESSION["user_id"];
 $Item["actionType_id"]=$actionType_id;
 while($data = mysql_fetch_array($res)) {
 	$Item=$data;
 	$Item["action_id"]=$Item["id"];
-	//$Item["person_id"]=$_SESSION["user_id"];
 }
 $form=getActionTypeForm('Исследование биоматериала');
 $Item["morfoLab"]=$form;
@@ -60,6 +58,7 @@ if ($Item["action_id"]=="_new") {
 	$Item["fld_1"]=$actionInfo["age"];
 	$Item["fld_2"]=$actionInfo["orgStr_id"];
 }
+$Item["person_id"]=$_SESSION["user_id"];
 return $Item;
 }
 

@@ -139,10 +139,13 @@ function morfoNaznSubmit() {
 	$("#morfoNazn a.submit").on("click",function(){
 		var formdata=$("form#morfoNazn").serialize();
 		var aid=$("#morfoNazn input[name=action_id]").val();
+		var eid=$("#morfoNazn input[name=event_id]").val();
+		var cid=$("#morfoNazn input[name=client_id]").val();
+		var pid=$("#morfoNazn input[name=person_id]").val();
+		var atid=$("#morfoNazn input[name=actionType_id]").val();
 		$.post("/json/morfology.php?mode=morfo_nazn_submit",formdata,function(data){
 				top.postMessage('addAction', '*');
-//				document.location.href="/morfoNazn/list/list.htm"+document.location.search;
-				setTimeout(" document.location.href='/morfoNazn/list/list.htm"+document.location.search+"&nonew=1';",500);
+				setTimeout(" document.location.href='/morfoNazn/list/list.htm?null=&iframe=1&client_id="+cid+"&event_id="+eid+"&person_id="+pid+"&atid="+atid+"&nonew=1'; ",500);
 				
 		});
 
