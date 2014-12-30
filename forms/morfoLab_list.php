@@ -25,7 +25,7 @@
     </fieldset>
     <input id="filterTable-input" data-type="search" style="display: inline-block;">
 		<table data-role="table" data-filter="true" data-input="#filterTable-input" class="ui-responsive" id="clientlist">
-		<thead><tr><th>№ ИБ</th><th>Ф.И.О.&nbsp;пациента</th><th>Исследование</th><th>Дата назначения</th><th>Врач</th><th>&nbsp;</th></tr></thead>
+		<thead><tr><th>№ ИБ</th><th>Ф.И.О.&nbsp;пациента</th><th>Исследование</th><th>Дата назначения</th><th>&nbsp;</th></tr></thead>
 		<tbody>
 		<div data-role="foreach" from="result">
 		<tr aid="{{action_id}}" class="status-{{status}}" sid="{{spisanie_an}}">
@@ -33,7 +33,6 @@
 		<td>{{client}}<br />({{age}} лет)</td>
 		<td>{{operation}}</td>
 		<td>{{begDate}}</td>
-		<td>{{person}}</td>
 		<td><a href="#printMenu" data-rel="popup" data-transition="slideup" class="ui-btn ui-corner-all ui-shadow ui-icon-action ui-btn-icon-notext">Печать</a></td>
 		</tr></div>
 		</tbody></table>
