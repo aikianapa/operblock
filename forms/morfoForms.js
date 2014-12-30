@@ -32,10 +32,6 @@ $(document).on("pageinit",function(){
 			$("input[name=workDate]").trigger("change");
 		});
 
-		$("#clientlist tr.status-1").on("click",function(){
-			top.postMessage('aid='+$(this).attr("aid")+"&eid="+$(this).attr("eid"), '*'); 
-		});
-
 	$("#morfoReportList").next("div#report.print-area").remove();
 
 	var page=$("#morfoNaznList, #morfoReportList, #morfoRegList, #morfoLabList");
@@ -47,9 +43,6 @@ $(document).on("pageinit",function(){
 			if (status=="on" && $(this).hasClass("status-1")) {$(this).removeClass("ui-hidden");}
 			if (status=="off" && $(this).hasClass("status-2")) {$(this).removeClass("ui-hidden");} 
 		});
-	});
-	$("#morfoNaznList #clientlist tr").on("click",function(){
-		 top.postMessage('aid='+$(this).attr("aid")+"&eid="+$(this).attr("eid"), '*'); 
 	});
 		morfoNaznSubmit();
 		morfoRegSubmit();
@@ -78,7 +71,10 @@ $("#morfoReportList").on("pageinit",function(){
 		$("#morfoReportList").next("#report").prepend("<h2>Журнал исследований c "+begDate+" по "+endDate+"</h2>");
 		print("#report");
 	});
-	
+
+	$("#clientlist tr.status-1").on("click",function(){
+		top.postMessage('aid='+$(this).attr("aid")+"&eid="+$(this).attr("eid"), '*'); 
+	});
 });
 
 function morfo_reports_button() {
