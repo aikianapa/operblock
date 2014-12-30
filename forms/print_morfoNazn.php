@@ -2,7 +2,7 @@
 <h2>Патологическая лаборатория<br>
 ФГБУ "НИИ онкологии им. Н.Н. Петрова" Минздрава России </h2>
 <p class="center">{{actionTypeName}}</p>
-Обследование <span id="first">ПЕРВИЧНО</span><span id="second">ПОВТОРНО<br />(Предыдущее исследование № {{fld_1}} )</span><br>
+Обследование № <b><u style="font-size:24px;">{{fld_12}}</u></b> <span id="first">ПЕРВИЧНО</span><span id="second">ПОВТОРНО<br />(Предыдущее исследование № {{fld_1}} )</span><br>
 Результат необходимо вернуть в:<br>
 <ol>
 <li>Отделение <b><u><i>{{orgStructure}}</i></u></b></li>

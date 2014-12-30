@@ -128,6 +128,8 @@ function morfoLabSubmit() {
 
 // =============== morfoNazn ================
 $("#morfoNaznList").on("pageinit",function(){
+	var tmp=document.location.search; var tmp=tmp.split('&');
+	for (var key in tmp) { if (tmp[key]=="nonew=1") {$("#morfoNaznList div.ref").remove();} }
 	if ($("#morfoNaznList div.ref").length) {
 		$.mobile.changePage( "/morfoNazn/edit/_new.htm"+document.location.search, { transition: "none", changeHash: true });
 	}
@@ -136,10 +138,12 @@ $("#morfoNaznList").on("pageinit",function(){
 function morfoNaznSubmit() {
 	$("#morfoNazn a.submit").on("click",function(){
 		var formdata=$("form#morfoNazn").serialize();
+		var aid=$("#morfoNazn input[name=action_id]").val();
 		$.post("/json/morfology.php?mode=morfo_nazn_submit",formdata,function(data){
-				//setTimeout('$.mobile.back();',500);
-				setTimeout(" document.location.href='/morfoNazn/list/list.htm"+document.location.search+"';$.mobile.back();",500);
-				top.postMessage('addAction', '*');  
+				top.postMessage('addAction', '*');
+//				document.location.href="/morfoNazn/list/list.htm"+document.location.search;
+				setTimeout(" document.location.href='/morfoNazn/list/list.htm"+document.location.search+"&nonew=1';",500);
+				
 		});
 
 	});
