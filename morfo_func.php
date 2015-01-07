@@ -1,5 +1,5 @@
 <?
-function getMorfoActions($month,$year) {
+function getMorfoActions($month,$year) { 
 	// для календаря
 		$start="$year-$month-01";
 		$stop="$year-$month-31";
