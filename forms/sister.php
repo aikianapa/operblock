@@ -41,6 +41,7 @@ function sisterListItems() {
 		while($a = mysql_fetch_array($res)) {
 			$action["id"]=$a[0];
 			$action=getActionInfo($action["id"]);
+			$action["begDate"]=dmyDate($action["begDate"]);
 			$counter++; $action["counter"]=$counter;
 			$result[]=$action;
 		}

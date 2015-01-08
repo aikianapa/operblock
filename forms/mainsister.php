@@ -38,6 +38,7 @@ $SQL="SELECT Action.id FROM Action INNER JOIN ActionType ON Action.actionType_id
 		while($a = mysql_fetch_array($res)) {
 			$action["id"]=$a[0];
 			$action=getActionInfo($action["id"]);
+			$action["begDate"]=dmyDate($action["begDate"]);
 			if ($action["orgid"]=="") { $action["orgid"]=$action["orgStr_id"]; }
 			$result[]=$action;
 		}

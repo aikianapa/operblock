@@ -27,6 +27,7 @@ $actionType_id=getActionTypeByName("Патоморфологические ис�
 		$action=getActionInfo($data[0]);
 		$Reg=morfoReadReg($action["id"]);
 		$action["status"]=$Reg["status"];
+		$action["begDate"]=dmyDate($action["begDate"]);
 		$result[]=$action;
 	}
 $Item["person_id"]=$_SESSION["person_id"];

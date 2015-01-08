@@ -31,6 +31,7 @@ function hirurgListItems() {
 			$counter++; $action["counter"]=$counter;
 			$action["id"]=$a[0];
 			$action=getActionInfo($action["id"]);
+			$action["begDate"]=dmyDate($action["begDate"]);
 			$result[]=$action;
 		}
 

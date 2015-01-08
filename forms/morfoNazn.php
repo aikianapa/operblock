@@ -48,6 +48,7 @@ $actionType_id=getActionTypeByName("Патоморфологические ис�
 	$res=mysql_query($SQL) or die ("Query failed morfoNazn_list(): " . mysql_error());
 	while($data = mysql_fetch_array($res)) {
 			$action=getActionInfo($data["id"]);
+			$action["begDate"]=dmyDate($action["begDate"]);
 			$result[]=$action;
 	}
 	if (checkAllow()) {$Item["result"]=$result;} else {die ("Ошибка прав доступа!");}

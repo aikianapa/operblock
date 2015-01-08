@@ -74,6 +74,7 @@ $SQL="SELECT * FROM Action INNER JOIN ActionType ON Action.actionType_id = Actio
 				<li>Дата поступления:$action[client_begDate]</li>
 			</ul>";
 			if (!isset($_action["table"]))  $_action["table"]="";
+			$action["begDate"]=dmyDate($action["begDate"]);
 			$result[]=$action;
 		}
 		mysql_free_result($res);

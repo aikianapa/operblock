@@ -49,6 +49,11 @@ function getRusDate($date) {
 	return $date;
 }
 
+function dmyDate($date) {
+	$date=date("d.m.y",strtotime($date));
+	return $date;
+}
+
 function getActionPropertyFormData($Item,$form) {
 	$action_id=$Item["id"];
 	if ($action_id!="_new" AND $action_id!="") {

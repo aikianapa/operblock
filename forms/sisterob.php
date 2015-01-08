@@ -50,6 +50,7 @@ function sisterobListItems() {
   $res = mysql_query($SQL) or die("Query failed: " . mysql_error()); 
   while($a = mysql_fetch_array($res)) {
    $action=getActionInfo($a[0]);
+   $action["begDate"]=dmyDate($action["begDate"]);
    $counter++; $action["counter"]=$counter;
    if (!isset($_action["table"]))  $_action["table"]="";
 //   if ($action["operSister_id"]==$_SESSION["person_id"]) {

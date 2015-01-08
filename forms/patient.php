@@ -98,7 +98,7 @@ $SQL="SELECT * FROM Action as a
 			$data["hirurg"]=$Hirurg["lastName"]." ".substr($Hirurg["firstName"],0,2).".".substr($Hirurg["patrName"],0,2).".";
 			$data["hirurgFull"]=$Hirurg["lastName"]." ".$Hirurg["firstName"]." ".$Hirurg["patrName"];
 
-
+			$data["begDate"]=dmyDate($data["begDate"]);
 			$data["status"]=get_action_status($data["id"],$data);
 			$Item["operations"][]=$data;
 		}

@@ -35,6 +35,7 @@ $actionType_id=getActionTypeByName("Патоморфологические ис�
 		$action=getActionPropertyFormData($action,$form);
 		$action["morfoResult"]=$action["fld_19"];
 		$action["morfoPrev"]=$action["fld_1"];
+		$action["begDate"]=dmyDate($action["begDate"]);
 		$result[]=$action;
 	}
 if ($_SESSION["user_role"]=="Врач ЛД") {

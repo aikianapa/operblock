@@ -53,6 +53,7 @@ function zavedListItems() {
 		while($a = mysql_fetch_array($res)) {
 			$action=getActionInfo($a[0]);
 			if ($action["orgid"]=="") { $action["orgid"]=$action["orgStr_id"]; }
+			$action["begDate"]=dmyDate($action["begDate"]);
 			$result[]=$action;
 		}
 		mysql_free_result($res);

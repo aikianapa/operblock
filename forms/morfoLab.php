@@ -29,6 +29,7 @@ $actionType_id=getActionTypeByName("Патоморфологические ис�
 		$Reg=morfoReadRegAction($action["id"]);
 		if ($Reg["status"]>=1) {
 			$action["status"]=$Reg["status"];
+			$action["begDate"]=dmyDate($action["begDate"]);
 			$result[]=$action;
 		}
 	}
