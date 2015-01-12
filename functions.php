@@ -258,42 +258,24 @@ function getClientInfo($client_id,$event_id=0) {
 
 function getClientAddress($client_id,$type=1) {
 	$address=array();
-	// $SQL="SELECT getClientLocAddress({$client_id})";
-	$SQL="SELECT * FROM ClientAddress WHERE client_id = {$client_id}
-		AND type = {$type}
-		AND deleted = 0
-		ORDER BY id LIMIT 1	";
-		$res=mysql_query($SQL) or die("Query failed getActionPropertyFormData() [1]: " . mysql_error());
+	if ($type==1) {
+		$SQL="SELECT getClientLocAddress({$client_id})";
+	} else {
+		$SQL="SELECT getClientRegAddress({$client_id})";
+	}
+	$res=mysql_query($SQL) or die("Query failed getActionPropertyFormData() [1]: " . mysql_error());
 		while($data = mysql_fetch_array($res)) {
-			if ($data["address_id"]>0) {
-				$addr=mysqlReadItem("Address",$data["address_id"]);
-				$house=mysqlReadItem("AddressHouse",$addr["house_id"]);
-				$address["city"]=$house["KLADRCode"];
-				$address["street"]=$house["KLADRStreetCode"];
-				$address["number"]=$house["number"];
-				$address["corpus"]=$house["corpus"];
-				$address["flat"]=$addr["flat"];
-				foreach($address as $key => $val) {if ($val=="") {unset($address[$key]);} }
-				$address=implode(", ",$address);
-		} else {
-			if ($type==1) {$fld="freeInput_p";} else {$fld="freeInput";}
-			$address=$data[$fld];
-		}
+			$address=$data[0];
 		}
 	return $address;
 }
 
 function getClientWork($client_id,$type=1) {
 	$work=array();
-	$SQL="SELECT * FROM ClientWork WHERE client_id = {$client_id}
-		AND deleted = 0
-		ORDER BY id LIMIT 1	";
-		$res=mysql_query($SQL) or die("Query failed getActionPropertyFormData() [1]: " . mysql_error());
+		$SQL="SELECT getClientWork ( {$client_id} ) ;";
+		$res=mysql_query($SQL) or die("Query failed getClientWork(): " . mysql_error());
 		while($data = mysql_fetch_array($res)) {
-			$work["org"]=$data["freeInput"];
-			$work["post"]=$data["post"];
-			foreach($work as $key => $val) {if ($val=="") {unset($work[$key]);} }
-			$work=implode(", ",$work);
+			$work=$data[0];
 		}
 	return $work;
 }
@@ -591,7 +573,7 @@ $item="";
 while($data = mysql_fetch_array($res)) {$item=$data["value"];}
 return $item;
 }
-
+	
 function getBloodAnalyse($event_id) {
 if ($event_id>0) {
 $SQL="SELECT c.name, a.value FROM ActionProperty_String as a
