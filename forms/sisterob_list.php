@@ -153,6 +153,7 @@ $( "#sisterobSpis form a.submit" ).on( "click", function(  ) {
 		console.log(data);
 
 		footer_notify("Операция назначена","success");
+		setTimeout(function(){ $("a.cancel").trigger("click"); },1000);
 //		}
 	});
 	} else { 

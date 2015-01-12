@@ -165,6 +165,8 @@ $( "#sisteranSpis form a.submit" ).on( "click", function(  ) {
 //			$("#patientNazn #patient_epicriz_form input[name=action_id]").val(data.id);
 //			$("#patientNazn #operation").popup("close");
 		footer_notify("Операция назначена","success");
+		setTimeout(function(){ $("a.cancel").trigger("click"); },1000);
+		
 //		}
 	});
 	} else { 
