@@ -13,11 +13,7 @@
 {{input}}
 </div>
 </div>
-<label for="flip-select" style="display:inline;">Регистрация завершена:</label>
-    <select id="flip-select" name="status" data-role="flipswitch">
-        <option value="0">Нет</option>
-        <option value="1">Да</option>
-    </select>
+<input type="hidden" name="status" value="1">
 <a href="#" class="submit ui-btn ui-btn-inline ui-corner-all">Сохранить</a>
 <a href="#" data-rel="back" class="list ui-btn ui-btn-inline ui-corner-all">Отмена</a>
 
