@@ -13,7 +13,7 @@
 {{input}}
 </div>
 </div>
-<label for="flip-select" style="display:inline;">Исследование завершено:</label>
+<label for="flip-select" style="display:inline;">Исследова завершено:</label>
     <select id="flip-select" name="status" data-role="flipswitch">
         <option value="1">Нет</option>
         <option value="2">Да</option>

@@ -1,5 +1,5 @@
 <div data-role="page" data-theme="a" id="morfoLabList" data-url="/morfoLab/list/list.htm?null=&person_id={{person_id}}" data-ajax="false">
-<div data-role="header"  data-position="fixed"><h2>Проведение исследований</h2></div>
+<div data-role="header"  data-position="fixed"><h2>Описание биоматериала</h2></div>
 
 
 <div data-role="content" >
@@ -42,8 +42,8 @@
             <li data-role="list-divider">Выберите действие</li>
             <li><a href="#nazn" data-transition="flip">Назначение</a></li>
             <li><a href="#reg" data-transition="flip">Регистрация</a></li>
-            <li><a href="#lab" data-transition="flip">Исследование</a></li>
-            <li><a href="" data="/json/print_forms.php?mode=morfoNazn"  target="_blank">Печать</a></li>
+            <li><a href="#lab" data-transition="flip">Описание</a></li>
+            <li><a href="" data="/json/print_forms.php?mode=morfoLab"  target="_blank">Печать</a></li>
         </ul>
 	</div>
 

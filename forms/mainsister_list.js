@@ -102,7 +102,8 @@ function mainsisMenu_init() {
 				textVisible: true
 			});
 			},500); 
-      $.mobile.changePage( "/sisterob/spisanie/"+aid+".htm", { transition: "slideup", changeHash: true, dialog: true });
+			$("#sisterobSpis").remove();
+      $.mobile.changePage( "/sisterob/spisanie/"+aid+".htm", { transition: "slideup", changeHash: false });
 			//document.location.href="/sisterob/spisanie/"+aid+".htm";
 	});
 }

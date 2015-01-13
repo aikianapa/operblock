@@ -49,6 +49,8 @@ tbody tr td:hover {background-color: #E9DCBD;   -webkit-filter: drop-shadow(0px 
 thead tr {background: #dddddd;}
 
 
+div[id^=morfo][data-role=page] tr.status-0 {background: #FFFFC6;}
+
 .print_page {width:1024px; font-size: 14px;}
 .print_page h2 {text-align:center;}
 .print_page td {border:1px #000 solid; padding:2px;}

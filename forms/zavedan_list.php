@@ -216,7 +216,8 @@ function zavedanMenu_init() {
 				textVisible: true
 			});
 			},500); 
-      $.mobile.changePage( "/sisteran/spisanie/"+aid+".htm", { transition: "slideup", changeHash: true, dialog: true });
+			$("#sisteranSpis").remove();
+      $.mobile.changePage( "/sisteran/spisanie/"+aid+".htm", { transition: "slideup", changeHash: false });
 	});
 }
 

@@ -36,7 +36,7 @@
 
 
 					<table data-role="table" data-filter="true" data-input="#filterTable-input" class="ui-responsive" id="clientlist">
-					<thead><tr><th>№ ИБ</th><th>Дата исследования</th><th>Ф.И.О.&nbsp;пациента</th><th>Клинический диагноз</th><th>Паталогоанатомическое заключение</th><th>Пред.исследование</th><th>Врач патолог</th><th>&nbsp;</th></tr></thead>
+					<thead><tr><th>№ ИБ</th><th>Дата исследования</th><th>Ф.И.О.&nbsp;пациента</th><th>Клинический диагноз</th><th>Паталогоанатомическое заключение</th><th>Пред.исследование</th><th>Врач патологоанатом</th><th>&nbsp;</th></tr></thead>
 					<tbody>
 					<div data-role="foreach" from="result">
 					<tr aid="{{action_id}}" eid="{{event_id}}" class="status-{{status}}">
