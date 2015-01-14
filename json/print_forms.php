@@ -656,6 +656,7 @@ $out=file_get_contents($_SERVER['DOCUMENT_ROOT']."/forms/print_$_GET[mode].php")
 $_action=jdbReadItem("Action",$_GET["action"]);
 $action=mysqlReadItem("Action",$_GET["action"]);
 $Action=array_merge($action,$_action);
+foreach($_action["epicriz"] as $key => $val) {$Action[$key]=$val; }
 $ActionType=mysqlReadItem("ActionType",$Action["actionType_id"]);
 $Event=mysqlReadItem("Event",$Action["event_id"]);
 $Client=mysqlReadItem("Client",$Event["client_id"]);
@@ -663,12 +664,11 @@ $Person=mysqlReadItem("Person",$Action["setPerson_id"]);
 $Item["client"]=$Client["lastName"]." ".$Client["firstName"]." ".$Client["patrName"];
 $Action["person"]=$Person["lastName"]." ".$Person["firstName"]." ".$Person["patrName"];
 $Action["personShort"]=$Person["lastName"]." ".substr($Person["firstName"],0,2).".".substr($Person["patrName"],0,2).".";
-if ($Action["transfusiton_req"]==1) {$Action["transfusiton_req"]="требуется";} else {$Action["transfusiton_req"]="не требуется";}
+if ($Action["transfusion_req"]==1) {$Action["transfusion_req"]="да";} else {$Action["transfusion_req"]="нет";}
 $Action["externalId"]=$Event["externalId"];
 $Action["doc_date"]=currentDocDate();
 $Action["operation"]=$ActionType["title"];
 $Action["orgStrBoss"]=json_decode(getOrgStrBossName($Person[orgStructure_id]),true)["fullName"];
-foreach($_action["epicriz"] as $key => $val) {$Action[$key]=$val; }
 foreach ($Action as $key => $data) {
 	$data=nl2br($data);
 	$Action[$key]=$data;
