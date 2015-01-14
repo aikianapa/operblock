@@ -91,5 +91,6 @@ div[data-role=page] {width:100%; height: auto;}
 div.ui-content {padding:0; border:0; height: auto;}
 div.ui-content * {font-size:11px;}
 div.filter {display:none;}
+.ui-hidden {display:none;}
 div.print-area {display:block;}
 }

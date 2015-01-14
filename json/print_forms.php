@@ -316,6 +316,7 @@ function protocol() {
 $out=file_get_contents($_SERVER['DOCUMENT_ROOT']."/forms/print_$_GET[mode].php");
 $action=getActionInfo($_GET["action"]);
 $Operation=jdbReadItem("Operation",$_GET["action"]);
+foreach($action["_Client"] as $c => $val) {$action["client_".$c]=$val;}
 if ($Operation["result"]==0) {$Operation["result"]="смерть";} else {$Operation["result"]="выписка";} 
 foreach($Operation as $key => $val) {
 	$action["o_$key"]=$val;

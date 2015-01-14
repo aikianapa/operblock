@@ -14,7 +14,7 @@
 		<div id="tab-1" class="ui-body-d ui-content">
 		<h2>Список назначеных операций</h2>
 		<table data-role="table" class="ui-responsive" id="clientlist">
-		<thead><tr><th>№ ИБ</th><th>Ф.И.О.</th><th>Возраст</th><th>Дата операции</th><th>Диагноз</th><th>Врач</th><th>Палата</th><th>&nbsp;</th></tr></thead>
+		<thead><tr><th>№ ИБ</th><th>Ф.И.О.</th><th>Возраст</th><th>Дата операции</th><th>Операция</th><th>Врач</th><th>Палата</th><th>&nbsp;</th></tr></thead>
 		<tbody>
 		<div data-role="foreach" from="result">
 		<tr aid="{{action_id}}" class="status-{{status}}"  sid="{{spisanie_ob}}" date="{{begDate}}">
@@ -22,7 +22,7 @@
 		<td>{{client}}</td>
 		<td>{{age}}</td>
 		<td>{{begDate}}</td>
-		<td>{{diagnose}}</td>
+		<td>{{actionType}}</td>
 		<td>{{person}}</td>
 		<td>{{palata}}</td>
 		<td><a href="#mainsisMenu" data-rel="popup" data-transition="slideup" class="ui-btn ui-corner-all ui-shadow ui-icon-action ui-btn-icon-notext">Меню</a></td>

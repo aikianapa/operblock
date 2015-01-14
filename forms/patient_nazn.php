@@ -205,6 +205,7 @@ $("#patientNazn #epicriz form a.submit[data-rel=back]").on("click",function(){
 	var formdata=$("#patient_epicriz_form").serialize() ;
 	insert_properties("#patient_epicriz_form",$("#patientNazn input#personId").val());
 	$.post("/json/operation.php?mode=epicriz_submit",formdata,function(data){
+			top.postMessage('addAction', '*');
 			$.mobile.silentScroll(0)
 			setTimeout(function(){  window.open($("#patientNazn a.uniprint").attr("href"),"_blank"); },300);  
 	});
@@ -214,6 +215,7 @@ $("#patientNazn #histo form a.submit[data-rel=back]").on("click",function(){
 	var formdata=$("#patient_histo_form").serialize() ;
 	insert_properties("#patient_histo_form",$("#patientNazn input#personId").val());
 	$.post("/json/operation.php?mode=histology_submit",formdata,function(data){
+			top.postMessage('addAction', '*');
 			$.mobile.silentScroll(0)
 			setTimeout(function(){  window.open($("#patientNazn a.uniprint").attr("href"),"_blank"); },300);  
 	});
@@ -223,6 +225,7 @@ $("#patientNazn #cito form a.submit[data-rel=back]").on("click",function(){
 	var formdata=$("#patient_cito_form").serialize();
 	insert_properties("#patient_cito_form",$("#patientNazn input#personId").val());
 	$.post("/json/operation.php?mode=citology_submit",formdata,function(data){
+			top.postMessage('addAction', '*');
 			$.mobile.silentScroll(0)
 			setTimeout(function(){  window.open($("#patientNazn a.uniprint").attr("href"),"_blank"); },300);  
 	});
@@ -232,6 +235,7 @@ $("#patientNazn #imuno form a.submit[data-rel=back]").on("click",function(){
 	var formdata=$("#patient_imuno_form").serialize();
 	insert_properties("#patient_imuno_form",$("#patientNazn input#personId").val());
 	$.post("/json/operation.php?mode=imuno_submit",formdata,function(data){
+			top.postMessage('addAction', '*');
 			$.mobile.silentScroll(0)
 			setTimeout(function(){  window.open($("#patientNazn a.uniprint").attr("href"),"_blank"); },300);  
 	});
@@ -263,6 +267,7 @@ $( "#patient_nazn_form a.submit" ).on( "click", function(  ) {
 	$.post("/json/operation.php?mode=nazn_oper_submit",formdata,function(data){
 		var data=$.parseJSON(data);
 		if (data.error==0) {
+			top.postMessage('addAction', '*');
 			$("#patientNazn #patient_epicriz_form input[name=action_id]").val(data.id);
 			$("#patientNazn #operation").popup("close");
 			footer_notify("Операция назначена","success");
