@@ -162,14 +162,18 @@ foreach ($array as $i => $field){
   $type=$array[$i]['type']; 
 	 if ($type =='JobTicket'){
 		$type='Job_Ticket';
-		$value= $jobticket_id;
-		$thread_id=mysql_thread_id();
-		mysql_query("UPDATE Job_Ticket SET resTimestamp={$values['modifyDatetime']} ,resConnectionid=$thread_id WHERE id={$jobticket_id}") or die("Query failed 2: " . mysql_error());
+		if ( $jobticket_id>0 ) {
+			$value= $jobticket_id;
+			$thread_id=mysql_thread_id();
+			mysql_query("UPDATE Job_Ticket SET resTimestamp={$values['modifyDatetime']} ,resConnectionid=$thread_id WHERE id={$jobticket_id}") or die("Query failed 2: " . mysql_error());
+		}
 	}
 	if ($type>"") {
+		if ($type!="Job_Ticket" OR ($type=="Job_Ticket" AND $jobticket_id>0 )) {
 		if ($type=="Text") {$type="String";}
-		$SQL="INSERT INTO `ActionProperty_{$type}` SET id={$id}, value='{$value}' ";
-		mysql_query($SQL) or die("Query failed 3: " . mysql_error());
+			$SQL="INSERT INTO `ActionProperty_{$type}` SET id={$id}, value='{$value}' ";
+			mysql_query($SQL) or die("Query failed 3: " . mysql_error());
+		}
 	}
  	}
 }
