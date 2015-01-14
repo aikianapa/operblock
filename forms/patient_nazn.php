@@ -298,12 +298,14 @@ $("#patientNazn #imuno").on("popupafteropen",function(){ popup_data(this,"imuno"
 function popup_data(that,name,dataname) {
 	var action_id=$( "#patientNazn" ).data( "action");
 	if (dataname=="undefined") {var dataname=name;}
-	$(that).find("form")[0].reset();  
 	if (action_id>"") {
 			$(that).find("form input[name=action_id]").val(action_id); 
 			$.get("/json/operation.php?mode=zavnazn_get_data&action_id="+action_id,function(data){
 				var data = JSON.parse(data);
-				data=data[dataname]; 
+				data=data[dataname]; var res=false;
+				$.each(data, function(key, value) { if (!value.is_numeric  && value>"" ) {res=true;} }); // если все пустые, то остаются значения default
+				if (res==true) {
+				$(that).find("form")[0].reset();  
 				$.each(data, function(key, value) {
 						$(that).find("form [name="+key+"]").val(value);
 						$(that).find("form [multiple][name^="+key+"]").val(value);
@@ -311,6 +313,7 @@ function popup_data(that,name,dataname) {
 							$(that).find("form [name^="+key+"]").trigger("change");
 						}
 				});
+				}
 			});
 	} 
 }
