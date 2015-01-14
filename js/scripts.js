@@ -71,11 +71,11 @@ function datatime_picker_init() {
 
 $('input[type=datetime]').datetimepicker({
 	lang:"ru",
-	format:"Y-m-d h:i", 
+	format:"Y-m-d H:i", 
 	formatDate: "'Y-m-d H:i",
 	dayOfWeekStart: 1, 
 	timepicker:true
-}).textinput();
+}).textinput(); 
 
 $('input[type=datepicker]').datetimepicker({
 		lang: "ru",
