@@ -170,7 +170,7 @@ foreach ($array as $i => $field){
 	}
 	if ($type>"") {
 		if ($type!="Job_Ticket" OR ($type=="Job_Ticket" AND $jobticket_id>0 )) {
-		if ($type=="Text") {$type="String";}
+			if ($type=="Text") {$type="String";}
 			$SQL="INSERT INTO `ActionProperty_{$type}` SET id={$id}, value='{$value}' ";
 			mysql_query($SQL) or die("Query failed 3: " . mysql_error());
 		}

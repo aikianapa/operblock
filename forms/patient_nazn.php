@@ -292,12 +292,12 @@ $("#patientNazn [name=isUrgent]").on("change",function(){
 
 $("#patientNazn #epicriz").on("popupafteropen",function(){ popup_data(this,"epicriz","epicriz"); });
 $("#patientNazn #histo").on("popupafteropen",function(){ popup_data(this,"histo","histology"); });
-$("#patientNazn #cito").on("popupafteropen",function(){ popup_data(this,"citology"); });
-$("#patientNazn #imuno").on("popupafteropen",function(){ popup_data(this,"imuno"); }); 
+$("#patientNazn #cito").on("popupafteropen",function(){ popup_data(this,"citology","citology"); });
+$("#patientNazn #imuno").on("popupafteropen",function(){ popup_data(this,"imuno","imuno"); }); 
 
 function popup_data(that,name,dataname) {
 	var action_id=$( "#patientNazn" ).data( "action");
-	if (dataname=="undefined") {var dataname=name;}
+//	if (dataname=="undefined") {var dataname=name;}
 	if (action_id>"") {
 			$(that).find("form input[name=action_id]").val(action_id); 
 			$.get("/json/operation.php?mode=zavnazn_get_data&action_id="+action_id,function(data){
