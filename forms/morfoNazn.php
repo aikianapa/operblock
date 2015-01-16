@@ -21,6 +21,10 @@ if ($role!="Врач ЛД" && $role!="Заведующий ЛД") {
  pq($out)->find("textarea")->parent("div")->remove(); // удаляем поле Результатов исследования
  pq($out)->find("input[name=fld_17]")->parent("div")->remove();
 }
+if ($role=="Лаборант ЛД") {
+	pq($out)->find("textarea,input,select")->attr("readonly","readonly");
+	pq($out)->find("a.submit")->remove();
+}
 return $out;
 }
 

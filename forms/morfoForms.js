@@ -5,6 +5,10 @@ $("div[data-url^='/morfoReg/list/list.htm']:hidden").remove();
 $("div[data-url^='/morfoLab/list/list.htm']:hidden").remove();
 		$("a[href=#printMenu]").on("click",function(){ 
 			$( document ).data( "action", $(this).parents("tr").attr("aid")); 
+			$("#printMenu a[data*=print]").removeClass("ui-disabled");
+			if ($(this).parents("tr").attr("payed")==0) {
+				//$("#printMenu a[data*=print]").addClass("ui-disabled");
+			} 
 		});
 
 		$("#printMenu a").on("click",function(){

@@ -9,3 +9,6 @@
 <br />
 Подпись лаборанта:_______________________________<u><b><i>{{docDate}}</i></b></u><br>
 </div>
+<script language="javascript">
+	print();
+</script> 

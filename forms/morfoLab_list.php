@@ -43,7 +43,8 @@
             <li><a href="#nazn" data-transition="flip">Назначение</a></li>
             <li><a href="#reg" data-transition="flip">Регистрация</a></li>
             <li><a href="#lab" data-transition="flip">Описание</a></li>
-            <li><a href="" data="/json/print_forms.php?mode=morfoLab"  target="_blank">Печать</a></li>
+            <li><a href="" data="/json/print_forms.php?mode=morfoReg"  target="_blank">Печать регистрации</a></li>
+            <li><a href="" data="/json/print_forms.php?mode=morfoLab"  target="_blank">Печать описания</a></li>
         </ul>
 	</div>
 

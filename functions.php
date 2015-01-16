@@ -15,6 +15,21 @@ function prepareSessions() {
 	$_SESSION["userProfile_id"]=$person["userProfile_id"];
 }
 
+function createEmptyAction($actionType_id,$event_id,$person_id="") {
+	if ($person_id=="") {$person_id=$_SEESION["user_id"];}
+	$Action=array();
+	$Action["id"]="_new";
+	$Action["actionType_id"]=$actionType_id;
+	$Action["event_id"]=$event_id;
+	$Action["setPerson_id"]=$Action["createPerson_id"]=$person_id;
+	$Action["createDatetime"]=$Action["modifyDatetime"]=date("Y-m-d H:i:s");
+	$Action["status"]=0;
+	$Action["begDate"]=date("Y-m-d H:i:s");
+	mysqlSaveItem("Action",$Action);
+	$Action["id"]=mysql_insert_id();
+	return $Action;
+}
+
 function getActionTypeForm($SQL) {
 if (substr($SQL,0,7)!="SELECT ") {
 	$SQL="SELECT a.name, a.idx, a.typeName, a.id, a.valueDomain, a.userProfile_id, b.id FROM ActionPropertyType as a
@@ -251,8 +266,9 @@ function getClientInfo($client_id,$event_id=0) {
 	$Client["clientShort"]=$Client["lastName"]." ".substr($Client["firstName"],0,2).".".substr($Client["patrName"],0,2).".";
 	$Client["addressReg"]=getClientAddress($client_id,0);
 	$Client["addressLive"]=getClientAddress($client_id,1);
+	$Client["contacts"]=getClientContacts($client_id);
 	$Client["work"]=getClientWork($client_id);
-  $Client["blood"]="";
+	$Client["blood"]="";
 	if ($event_id>0) {
 		$Event=mysqlReadItem("Event",$event_id); 
 		$Client["blood"]=getBloodType($Event["client_id"]);
@@ -272,6 +288,26 @@ function getClientAddress($client_id,$type=1) {
 			$address=$data[0];
 		}
 	return $address;
+}
+
+function getClientContacts($client_id) {
+	$work=array();
+		$SQL="SELECT getClientContacts ( {$client_id} ) ;";
+		$res=mysql_query($SQL) or die("Query failed getClientContacts(): " . mysql_error());
+		while($data = mysql_fetch_array($res)) {
+			$work=$data[0];
+		}
+	return $work;
+}
+
+function isActionPayed($action_id) {
+	$work=array();
+		$SQL="SELECT isActionPayed ( {$action_id} ) ;";
+		$res=mysql_query($SQL) or die("Query failed getClientWork(): " . mysql_error());
+		while($data = mysql_fetch_array($res)) {
+			$work=$data[0];
+		}
+	return $work;
 }
 
 function getClientWork($client_id,$type=1) {
@@ -355,6 +391,7 @@ function getActionInfo($action_id) {
 	$action["anest_sister"]=$AnSis["personShort"];
 	$action["age"]=$Client["age"];
 	$action["palata"]=getClientPalata($action["event_id"]);
+	$action["payed"]=isActionPayed($action["id"]);
   $action["status"]=get_action_status($action_id,$action,$_action);
   if ($action["status"]==3) {$cnote="<li><span class='ui-red ui-bold'>Отменена:</span> ".$action["cancelNote"]."</li>";} else {$cnote="";}
 	$action["tooltip"]="<ul class='inner'>

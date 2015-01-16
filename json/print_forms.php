@@ -600,6 +600,10 @@ foreach($form as $key => $val) {
 	$field=array();
 	$field["label"]=$val["label"];
 	$field["value"]=$action[$val["name"]];
+	if ($field["label"]=="Отделение") {
+			$field["value"]=mysqlReadItem("OrgStructure",$field["value"]);
+			$field["value"]=$field["value"]["name"];
+	}
 	$action["fields"][]=$field;
 }
 $action["sex"]=$action["_Client"]["sex"];

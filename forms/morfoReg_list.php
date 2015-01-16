@@ -28,12 +28,13 @@
     <input id="filterTable-input" data-type="search" style="display: inline-block;">
 </div>
 		<table data-role="table" data-filter="true" data-input="#filterTable-input" class="ui-responsive" id="clientlist">
-		<thead><tr><th>№ ИБ</th><th>Ф.И.О.&nbsp;пациента</th><th>Отделение</th><th>Исследование</th><th>Дата назначения</th><th>&nbsp;</th></tr></thead>
+		<thead><tr><th>№ ИБ</th><th>Ф.И.О.&nbsp;пациента</th><th>Контакты</th><th>Отделение</th><th>Исследование</th><th>Дата назначения</th><th>&nbsp;</th></tr></thead>
 		<tbody>
 		<div data-role="foreach" from="result">
-		<tr aid="{{action_id}}" class="status-{{status}}">
+		<tr aid="{{action_id}}" class="status-{{status}}" payed="{{payed}}">
 		<td>{{externalId}}</td>
 		<td>{{client}}<br />({{age}} лет)</td>
+		<td>{{contacts}}</td>
 		<td>{{orgStrShort}}</td>
 		<td>{{operation}}</td>
 		<td>{{begDate}}</td>
