@@ -27,11 +27,9 @@ $actionType_id=getActionTypeByName("Патоморфологические ис�
 	while($data = mysql_fetch_array($res)) {
 		$action=getActionInfo($data[0]);
 		$Reg=morfoReadRegAction($action["id"]);
-		if ($Reg["status"]>=1) {
 			$action["status"]=$Reg["status"];
 			$action["begDate"]=dmyDate($action["begDate"]);
 			$result[]=$action;
-		}
 	}
 $Item["person_id"]=$_SESSION["person_id"];
 if (checkAllow()) {$Item["result"]=$result;} else {die ("Ошибка прав доступа!");}
