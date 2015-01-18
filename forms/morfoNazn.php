@@ -1,4 +1,5 @@
 <?
+
 include_once($_SERVER['DOCUMENT_ROOT']."/functions.php");
 prepareSessions();
 $_SESSION["allow"]=array("Врач","Регистратор ЛД","Врач ЛД","Заведующий ЛД","Лаборант ЛД");
@@ -53,7 +54,7 @@ $actionType_id=getActionTypeByName("Патоморфологические ис�
 	while($data = mysql_fetch_array($res)) {
 			$action=getActionInfo($data["id"]);
 			$action["begDate"]=dmyDate($action["begDate"]);
-			$action["status"]=getMorfoStatus($action["id"]);
+			$action["status"]=getMorfoStatus($action["id"]); 
 			$result[]=$action;
 	}
 	if (checkAllow()) {$Item["result"]=$result;} else {die ("Ошибка прав доступа!");}
