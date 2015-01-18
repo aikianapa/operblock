@@ -26,7 +26,7 @@ $actionType_id=getActionTypeByName("Патоморфологические ис�
 	$res=mysql_query($SQL) or die ("Query failed morfoLab_list(): " . mysql_error());
 	while($data = mysql_fetch_array($res)) {
 		$action=getActionInfo($data[0]);
-			$action["status"]=getMorfoStatus($action["id"]);
+			$action["status"]=getMorfoStatus($action["id"]); 
 			$action["begDate"]=dmyDate($action["begDate"]);
 			$result[]=$action;
 	}
