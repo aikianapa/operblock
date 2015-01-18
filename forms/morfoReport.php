@@ -37,10 +37,8 @@ $actionType_id=getActionTypeByName("Патоморфологические ис�
 		$action["morfoResult"]=$action["fld_19"];
 		$action["morfoPrev"]=$action["fld_1"];
 		$action["begDate"]=dmyDate($action["begDate"]);
-		$Reg=morfoReadReg($action_id);
-		if ($Reg["status"]>0) {
-			$result[]=$action;
-		}
+		$status=getMorfoStatus($action_id);
+		if ($status>0) { $result[]=$action;	}
 	}
 if ($_SESSION["user_role"]=="Врач ЛД") {
 	pq($out)->find("div#tab-2")->remove();

@@ -25,6 +25,19 @@ function getMorfoActions($month,$year) {
 	return json_encode($data);
 }
 
+function getMorfoStatus($action_id) {
+	$Naz=mysqlReadItem("Action",$action_id);
+	$Reg=morfoReadReg($action_id);
+	$Lab=morfoReadLabAction($action_id);
+									$status=0;  // жёлтый (status-0) - назначено доктором 
+	if ($Reg["status"]==1) {		$status=1;} // зелёный (status-1) - зарегистрирован регистратором
+	if ($Naz["status"]==2) {		$status=2;} // синий (status-2) - выполнено исследование ВрачомЛД
+	if ($Naz["status"]==3) {		$status=3;} // красный (status-3) - отменён
+	if ($Lab["status"]==2) {		$status=4;} // тёмно-зелёный (status-4) - описан лаборантом	
+	return $status;
+}
+
+
 function morfoReadRegAction($id) {
 $actionType_id=getActionTypeByName('Регистрация биоматериала');
 $Action=mysqlReadItem("Action",$id);
@@ -34,7 +47,6 @@ $Item=array();
 while($data = mysql_fetch_array($res)) {	$Item=$data;	}
 return $Item;
 }
-
 
 function morfoReadReg($id) {
 $actionType_id=getActionTypeByName('Регистрация биоматериала');
