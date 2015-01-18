@@ -106,14 +106,11 @@
 @media print {
 #morfoReportList {display:none;}
 div.print-area {display:block;}
-
-table {width:95%; font-size:12px;}
-td {border:1px #999 solid;}
+table {width:95%; font-size:12px; border:1px #999 solid; }
+th, td {border:1px #999 solid; padding:2px; margin:0;}
 tr.urgent {font-weight: bold; background:#ddd; text-align: center;}
 tr.planed {font-weight: bold; background:#ddd; text-align: center;}
 .total, .total_urg, .total_pln, .total_otd {font-weight: bold; background:#ccc;}
 tr.oid {font-weight: bold; text-align: center;}
-
-
 }
 </style>

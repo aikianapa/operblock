@@ -62,3 +62,11 @@
 
 
 <link rel="stylesheet" href="/style.css" />
+<style>
+@media print {
+#morfoReportList {display:none;}
+div.print-area {display:block;}
+table {width:95%; font-size:12px; border:1px #999 solid; }
+th, td {border:1px #999 solid; padding:2px; margin:0;}
+}
+</style>

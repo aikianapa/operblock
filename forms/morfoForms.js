@@ -72,6 +72,8 @@ $("#morfoReportList").on("pageinit",function(){
 		var endDate=$("#morfoReportList input[name=endDate]").val();
 		$("#morfoReportList").next("#report").remove();
 		$("#morfoReportList").after('<div id="report" class="print-area">'+$("#morfoReportList #tab-1").html()+'</div>');
+		$("#morfoReportList").next("#report").find("table td b.ui-table-cell-label").remove();
+		$("#morfoReportList").next("#report").find("table").removeClass("ui-responsive ui-table ui-table-reflow");
 		$("#morfoReportList").next("#report").prepend("<h2>Журнал исследований c "+begDate+" по "+endDate+"</h2>");
 		print("#report");
 	});
