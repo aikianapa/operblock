@@ -141,6 +141,7 @@ function morfo_get_status() {
 	$res=array();
 	foreach($data as $aid) {
 		$action=mysqlReadItem("Action",$aid);
+		$action["status"]=getMorfoStatus($aid);
 		$res[$aid]=$action["status"];
 	}
 	return json_encode($res);

@@ -53,6 +53,7 @@ $actionType_id=getActionTypeByName("Патоморфологические ис�
 	while($data = mysql_fetch_array($res)) {
 			$action=getActionInfo($data["id"]);
 			$action["begDate"]=dmyDate($action["begDate"]);
+			$action["status"]=getMorfoStatus($action["id"]);
 			$result[]=$action;
 	}
 	if (checkAllow()) {$Item["result"]=$result;} else {die ("Ошибка прав доступа!");}
