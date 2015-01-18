@@ -1,4 +1,5 @@
 <?
+
 include_once($_SERVER['DOCUMENT_ROOT']."/morfo_func.php");
 function prepareSessions() {
 	$_SESSION["user_id"]=$_SESSION["dr"]["person_id"];
