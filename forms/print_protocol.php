@@ -30,5 +30,5 @@
 </div>
 <link rel="stylesheet" href="/style.css" />
 <script language="javascript">
-	//print();
+	print();
 </script>

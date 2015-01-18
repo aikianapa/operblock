@@ -53,7 +53,7 @@
 	<div data-role="popup" id="printMenu" data-theme="a">
         <ul data-role="listview" data-inset="true" style="min-width:210px;">
             <li data-role="list-divider">Выберите действие</li>
-            <li><a href="" data="/json/print_forms.php?mode=spisanie_1&role=an"  target="_blank">Списание (без цен)</a></li>
+            <li><a href="" data="/json/print_forms.php?mode=spisanie_1&role=an"  target="_blank">Печать</a></li>
             <!--li><a href="/json/print_forms.php?mode=spisanie_2"  target="_blank" >Списание (с ценами)</a></li-->
         </ul>
 	</div>
