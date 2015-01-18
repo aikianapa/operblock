@@ -50,35 +50,5 @@ $out=contentSetData($out,$Item);
 return $out;
 }
 
-function morfoRegForm() {
-$SQL="SELECT a.name, a.idx, a.typeName, a.id, a.valueDomain, b.id FROM ActionPropertyType as a
-INNER JOIN ActionType as b ON a.actionType_id=b.id
-WHERE b.name='Регистрация биоматериала'   
-ORDER BY a.idx	";
-return  getActionTypeForm($SQL);
-}
-
-function morfoReadReg($id) {
-$actionType_id=getActionTypeByName('Регистрация биоматериала');
-$Action=mysqlReadItem("Action",$id);
-$SQL="SELECT * FROM Action WHERE actionType_id = $actionType_id AND parent_id = $id LIMIT 1";
-$res=mysql_query($SQL) or die ("Query failed morfoReadReg(): " . mysql_error());
-$Item=array();
-$Item["action_id"]="_new";
-$Item["parent_id"]=$id;
-$Item["event_id"]=$Action["event_id"];
-$Item["person_id"]=$_SESSION["user_id"];
-$Item["actionType_id"]=$actionType_id;
-while($data = mysql_fetch_array($res)) {
-	$Item=$data;
-	$Item["action_id"]=$Item["id"];
-	$Item["person_id"]=$_SESSION["user_id"];
-}
-$form=morfoRegForm();
-$Item["morfoReg"]=$form;
-$Item=getActionPropertyFormData($Item,$form);
-return $Item;
-}
-
 ?>
  

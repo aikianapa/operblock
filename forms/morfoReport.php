@@ -23,8 +23,9 @@ $actionType_id=getActionTypeByName("Патоморфологические ис�
 	ORDER BY a.begDate DESC ";
 	$res=mysql_query($SQL) or die ("Query failed morfoReg_list(): " . mysql_error());
 	while($data = mysql_fetch_array($res)) {
-		$action=getActionInfo($data[0]);
-		$person=getMorfoLabPerson($action["id"]);
+		$action_id=$data[0];
+		$action=getActionInfo($action_id);
+		$person=getMorfoLabPerson($action_id);
 		$action["person"]=$person["personShort"];
 		//$action["status"]=$Reg["status"];
 		$SQL="SELECT a.name, a.idx, a.typeName, a.id, a.valueDomain, b.id FROM ActionPropertyType as a
@@ -36,7 +37,10 @@ $actionType_id=getActionTypeByName("Патоморфологические ис�
 		$action["morfoResult"]=$action["fld_19"];
 		$action["morfoPrev"]=$action["fld_1"];
 		$action["begDate"]=dmyDate($action["begDate"]);
-		$result[]=$action;
+		$Reg=morfoReadReg($action_id);
+		if ($Reg["status"]>0) {
+			$result[]=$action;
+		}
 	}
 if ($_SESSION["user_role"]=="Врач ЛД") {
 	pq($out)->find("div#tab-2")->remove();
