@@ -1,6 +1,6 @@
 @media screen {
 	div[id^=morfo] tr.status-0 {background: #FFFFC6;}
-	div[id^=morfo] tr.status-4 {background: #9CD69C;}
+	div[id^=morfo] tr.status-4 {background: #9CD69C;} 
 
 
 }
