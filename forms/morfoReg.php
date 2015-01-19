@@ -1,4 +1,5 @@
-<? 
+<?
+
 include_once($_SERVER['DOCUMENT_ROOT']."/functions.php");
 prepareSessions();
 $_SESSION["allow"]=array("Регистратор ЛД","Врач ЛД","Заведующий ЛД");

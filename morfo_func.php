@@ -32,8 +32,8 @@ function getMorfoStatus($action_id) {
 									$status=0;  // жёлтый (status-0) - назначено доктором 
 	if ($Reg["status"]==1) {		$status=1;} // зелёный (status-1) - зарегистрирован регистратором
 	if ($Naz["status"]==2) {		$status=2;} // синий (status-2) - выполнено исследование ВрачомЛД
-	if ($Naz["status"]==3) {		$status=3;} // красный (status-3) - отменён
 	if ($Lab["status"]==2) {		$status=4;} // тёмно-зелёный (status-4) - описан лаборантом	
+	if ($Naz["status"]==3) {		$status=3;} // красный (status-3) - отменён
 	return $status;
 }
 
