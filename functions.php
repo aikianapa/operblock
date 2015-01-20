@@ -362,12 +362,12 @@ function getActionInfo($action_id) {
 	$action=actionAssistRead($action);
 	$action["orgStrBoss"]=json_decode(getOrgStrBossName(),true)["fullName"];
 	$Diag=patientGetDiagnosis($action["event_id"]);
-	$brigada=""; $i=0; 
+	$brigada=""; 
 	foreach($action["assist_id"] as $assist_id) {
 		$assist=getPersonInfo($assist_id);
-		$brigada[$i]=$assist["personShort"];
-		$i++;
+		$brigada[]=$assist["personShort"];
 	}
+	if ($action["assist_name"]>"") {$brigada[]=$action["assist_name"];}
 	$begTime=strtotime($action["begDate"]." ".$action["begTime"]);
 	$endTime=strtotime($action["endDate"]);
 	$action["o_endTime"]=date("H:i",$endTime); // конец опреации

@@ -21,8 +21,6 @@ if ($id!="_new" AND $id!="") {
 		$Item["fields"]=$field;
 	}
 
-print_r($Item["fields"]);
-	
 	$event=mysqlReadItem("Event",$id);
 	$person=getPersonInfo($person_id);
 	$client=getClientInfo($event["client_id"]);

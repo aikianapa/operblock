@@ -45,8 +45,8 @@ function zavedListItems() {
       INNER JOIN ActionType as b ON a.actionType_id=b.id
       INNER JOIN Person as c ON a.setPerson_id=c.id
       WHERE b.serviceType = 4 
-      AND c.orgStructure_id = $_SESSION[orgStrId]
-      AND (begDate='$date' OR plannedEndDate='$date')
+      AND c.orgStructure_id = '{$_SESSION['orgStrId']}'
+      AND ( a.begDate='{$date}' OR a.plannedEndDate='{$date}' )
       ORDER BY a.id DESC ";
       //$SQL="DELETE QUICK FROM Action WHERE id = 2028904 ";
 		$res = mysql_query($SQL) or die("Query failed: " . mysql_error()); 
