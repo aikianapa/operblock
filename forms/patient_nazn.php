@@ -24,7 +24,7 @@
 
 <div data-role="content">
 <a href="" class="uniprint ui-hidden" target="_blank">Печать</a> 
-<a href="#operation" data-rel="popup" data-position-to="window" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-check ui-btn-icon-left " data-transition="pop">Назначить операцию</a>
+<a href="#operation" data-rel="popup" data-position-to="window" class="new ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-check ui-btn-icon-left " data-transition="pop">Назначить операцию</a>
 <!-- Список операций -->
 
 <table data-role="table" class="ui-responsive" id="operlist">
@@ -313,12 +313,12 @@ function popup_data(that,name,dataname) {
 							$(that).find("form [name^="+key+"]").trigger("change");
 						}
 				});
-				} else {
-					if (dataname=="epicriz") { $(that).find("form [name=fld_8]").val(data["narkoz"]); } 
-				}
+				} 
 			});
 	} 
 }
+
+$("#patientNazn a.new[href=#operation]").on("click",function(){ 	$( "#patientNazn" ).data( "action","");	});
 
 $("#patientNazn #operation").on("popupafterclose",function(){
 	$( "#patientNazn" ).data( "action","");

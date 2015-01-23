@@ -362,6 +362,7 @@ function getActionInfo($action_id) {
 	$action=actionAssistRead($action);
 	$action["orgStrBoss"]=json_decode(getOrgStrBossName(),true)["fullName"];
 	$Diag=patientGetDiagnosis($action["event_id"]);
+	$action["diag"]=$Diag;
 	$brigada=""; 
 	foreach($action["assist_id"] as $assist_id) {
 		$assist=getPersonInfo($assist_id);
@@ -373,9 +374,8 @@ function getActionInfo($action_id) {
 	$action["o_endTime"]=date("H:i",$endTime); // конец опреации
 	$action["o_time"]= date("H:i", mktime(0, 0, ($endTime-$begTime))); // длительность операции
 	$action["brigada"]=implode(", ",$brigada);
-	$action["diagnose"]=$Diag["main"]["MKB"]." ".$Diag["main"]["DiagName"]; 
+	$action["diagnose"]=$Diag["main"]["MKB"]." ".$Diag["main"]["DiagName"];
  	$action["tableName"]="№".$action["table"]." (".$Person["orgStrShort"].")"; 
-	$action["narkoz"]=getNarkozByEvent($action["event_id"]);
 	$action["analyse"]=getBloodAnalyse($action["event_id"]);
 	if (count(explode("полож",$action["analyse"]))>1 OR count(explode("в раб",$action["analyse"]))>1) {
 				$action["blood_warning"]=1;
@@ -604,37 +604,6 @@ function getOrgStrName($orgStr_id=171,$field="") {
 	return $name;
 }
 
-function getNarkozByEvent($event_id) {
-$SQL="SELECT a.value FROM ActionProperty_String as a
-INNER JOIN ActionProperty as b ON a.id=b.id
-INNER JOIN ActionPropertyType as c ON b.type_id=c.id
-INNER JOIN Action as d ON b.action_id=d.id
-WHERE event_id=$event_id AND d.actionType_id=10058 AND name LIKE '%пособие'";
-$res = mysql_query($SQL) or die("Query failed: " . mysql_error());
-$item="";
-while($data = mysql_fetch_array($res)) {
-	$item=$data["value"];
-	
-}
-return $item;
-}
-
-function getNarkozForOperation($event_id,$date) {
-$SQL="SELECT a.value FROM ActionProperty_String as a
-INNER JOIN ActionProperty as b ON a.id=b.id
-INNER JOIN ActionPropertyType as c ON b.type_id=c.id
-INNER JOIN Action as d ON b.action_id=d.id
-WHERE event_id=$event_id AND d.actionType_id=10058 AND name LIKE '%пособие'
-AND d.endDate <= '{$date}' ORDER BY d.endDate DESC LIMIT 1";
-$res = mysql_query($SQL) or die("Query failed: " . mysql_error());
-$item="";
-while($data = mysql_fetch_array($res)) {
-	$item=$data["value"];
-	
-}
-return $item;
-}
-	
 function getBloodAnalyse($event_id) {
 if ($event_id>0) {
 $SQL="SELECT c.name, a.value FROM ActionProperty_String as a

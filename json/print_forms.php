@@ -488,7 +488,7 @@ function opertable() {
 		$data["doc_date"]=date('d.m.Y',strtotime($_GET["date"]));
 		$data["oper_sister"]=$action["oper_sister"]; 
 		$data["anest"]=$action["anest"];
-		$action["narkoz"]=getNarkozForOperation($action["event_id"],$data["doc_date"]);
+		$action["narkoz"]=$action["diag"]["anest"]["value"];
 		if ($action["note"]>"") { 
 			$notes[$nCount]["count"]=$nCount; 
 			$notes[$nCount]["client"]=$Client["lastName"]." ".substr($Client["firstName"],0,2).".".substr($Client["patrName"],0,2).".";
@@ -532,6 +532,7 @@ function oproom() {
 		if (!isset($action["hemotrans"])) {$action["hemotrans"]="";}
 		$action["dejurny"]=$action["dejur"];
 		$action["table"]=$action["tableName"];
+		$action["narkoz"]=$action["diag"]["anest"]["value"];
 		$data["otdelenie"]=mysqlReadItem("OrgStructure",$_GET["orgStr_id"])["name"];
 		$data["actions"][]=$action;
 		$data["doc_date"]=currentDocDate($_GET["date"]); 
