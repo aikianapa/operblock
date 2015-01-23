@@ -112,23 +112,6 @@ $SQL="SELECT * FROM Action as a
 return $out;
 }
 
-function patientEpicrizForm0000() {
-$SQL="SELECT id FROM  `ActionType` WHERE name='DoctorRoom: Предоперационный эпикриз' AND deleted = 0 LIMIT 1";
-$result = mysql_query($SQL) or die("Query failed: " . mysql_error());
-while($data = mysql_fetch_array($result)) {$actionType_id=$data["id"];} mysql_free_result();
-$SQL="SELECT * FROM `ActionPropertyType` WHERE `actionType_id` = $actionType_id AND deleted = 0 ORDER BY idx";
-$result = mysql_query($SQL) or die("Query failed: " . mysql_error());
-$array=array(); $Item="";
-while($data = mysql_fetch_array($result)) {
-	$Item["field"]="fld_".$data["idx"];
-	$Item["label"]=$data["name"];
-	$Item["type"]=$data["typeName"];
-	$Item["input"]=prepInput($Item["field"],$Item["type"]);
-	$array[]=$Item;
-}
-mysql_free_result();
-return $array;
-}
 
 // Подготовка данных для формы patient_list.php
 function patientMysqlListItems() {

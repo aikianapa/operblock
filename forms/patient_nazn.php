@@ -94,7 +94,7 @@
 </div>
 
 <div><label>Необходимость переливания крови</label>
-  <select name="transfusiton_req" data-native-menu="false">
+  <select name="transfusion_req" data-native-menu="false">
     <option value="1">Гемотрансфузия планируется</option>
     <option value="0">Гемотрансфузия не планируется</option>
   </select>  
@@ -302,17 +302,19 @@ function popup_data(that,name,dataname) {
 			$(that).find("form input[name=action_id]").val(action_id); 
 			$.get("/json/operation.php?mode=zavnazn_get_data&action_id="+action_id,function(data){
 				var data = JSON.parse(data);
-				data=data[dataname]; var res=false;
-				$.each(data, function(key, value) { if (!value.is_numeric  && value>"" ) {res=true;} }); // если все пустые, то остаются значения default
+				formdata=data[dataname]; var res=false;
+				$.each(formdata, function(key, value) { if (!value.is_numeric  && value>"" ) {res=true;} }); // если все пустые, то остаются значения default
 				if (res==true) {
 				$(that).find("form")[0].reset();  
-				$.each(data, function(key, value) {
+				$.each(formdata, function(key, value) {
 						$(that).find("form [name="+key+"]").val(value);
 						$(that).find("form [multiple][name^="+key+"]").val(value);
 						if ($(that).find("form [name^="+key+"]").is("select")) {
 							$(that).find("form [name^="+key+"]").trigger("change");
 						}
 				});
+				} else {
+					if (dataname=="epicriz") { $(that).find("form [name=fld_8]").val(data["narkoz"]); } 
 				}
 			});
 	} 

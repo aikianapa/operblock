@@ -488,6 +488,7 @@ function opertable() {
 		$data["doc_date"]=date('d.m.Y',strtotime($_GET["date"]));
 		$data["oper_sister"]=$action["oper_sister"]; 
 		$data["anest"]=$action["anest"];
+		$action["narkoz"]=getNarkozForOperation($action["event_id"],$data["doc_date"]);
 		if ($action["note"]>"") { 
 			$notes[$nCount]["count"]=$nCount; 
 			$notes[$nCount]["client"]=$Client["lastName"]." ".substr($Client["firstName"],0,2).".".substr($Client["patrName"],0,2).".";

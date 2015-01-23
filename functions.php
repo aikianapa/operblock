@@ -339,7 +339,7 @@ function getActionInfo($action_id) {
 	$Anest	=getPersonInfo($action["an_person_id"]); 
 	$OpSis	=getPersonInfo($action["operSister_id"]);
 	$ActionType=mysqlReadItem("ActionType",$action["actionType_id"]); $action["_ActionType"]=$ActionType;
-	if ($action["transfusiton_req"]==1) {$action["hemotrans"]="переливание";} else {$action["hemotrans"]="";}  
+	if ($action["epicriz"]["transfusion_req"]==1) {$action["hemotrans"]="переливание";} else {$action["hemotrans"]="";}  
 	$action["actionType"]=$ActionType["title"];
 	$action["operation"]=$action["specifiedName"];
 	if ($action["operation"]=="") {$action["operation"]=$action["actionType"];}
@@ -612,7 +612,26 @@ INNER JOIN Action as d ON b.action_id=d.id
 WHERE event_id=$event_id AND d.actionType_id=10058 AND name LIKE '%пособие'";
 $res = mysql_query($SQL) or die("Query failed: " . mysql_error());
 $item="";
-while($data = mysql_fetch_array($res)) {$item=$data["value"];}
+while($data = mysql_fetch_array($res)) {
+	$item=$data["value"];
+	
+}
+return $item;
+}
+
+function getNarkozForOperation($event_id,$date) {
+$SQL="SELECT a.value FROM ActionProperty_String as a
+INNER JOIN ActionProperty as b ON a.id=b.id
+INNER JOIN ActionPropertyType as c ON b.type_id=c.id
+INNER JOIN Action as d ON b.action_id=d.id
+WHERE event_id=$event_id AND d.actionType_id=10058 AND name LIKE '%пособие'
+AND d.endDate <= '{$date}' ORDER BY d.endDate DESC LIMIT 1";
+$res = mysql_query($SQL) or die("Query failed: " . mysql_error());
+$item="";
+while($data = mysql_fetch_array($res)) {
+	$item=$data["value"];
+	
+}
 return $item;
 }
 	
