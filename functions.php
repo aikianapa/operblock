@@ -741,23 +741,25 @@ while($data = mysql_fetch_array($result)) {	$diagnoses["satt"]=$data;}
 
 // Заключение терапевта
 $data["name"]=""; $data["value"]=""; $diagnoses["terapevt"]=$data; 
+$actionType=getActionTypeByName("терапевта (первичная)") ;
 $SQL="SELECT c.name,a.value FROM ActionProperty_String as a
 INNER JOIN ActionProperty as b ON a.id=b.id
 INNER JOIN ActionPropertyType as c ON b.type_id=c.id
 INNER JOIN Action as d ON b.action_id=d.id
 INNER JOIN Event as f ON d.event_id=f.id
-WHERE  d.actionType_id=9860 and name LIKE 'Закл%' AND event_id=$event_id";
+WHERE  d.actionType_id={$actionType} and name LIKE 'Закл%' AND event_id=$event_id";
 $result = mysql_query($SQL) or die("Query failed: (get_diagnoses) " . mysql_error());
 while($data = mysql_fetch_array($result)) {	$diagnoses["terapevt"]=$data;}
 
 // Заключение анестезиолога
 $data["name"]=""; $data["value"]=""; $diagnoses["anest"]=$data; 
+$actionType=getActionTypeByName("анестезиолога") ;
 $SQL="SELECT c.name,a.value FROM ActionProperty_String as a
 INNER JOIN ActionProperty as b ON a.id=b.id
 INNER JOIN ActionPropertyType as c ON b.type_id=c.id
 INNER JOIN Action as d ON b.action_id=d.id
 INNER JOIN Event as f ON d.event_id=f.id
-WHERE  d.actionType_id=10058 and name LIKE 'Закл%' AND event_id=$event_id";
+WHERE  d.actionType_id=$actionType and name LIKE 'Закл%' AND event_id=$event_id";
 $result = mysql_query($SQL) or die("Query failed: (get_diagnoses) " . mysql_error());
 while($data = mysql_fetch_array($result)) {	$diagnoses["anest"]=$data;}
 return $diagnoses; 
