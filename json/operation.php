@@ -376,7 +376,7 @@ $result = mysql_query($SQL) or die("Query failed: (nazn_oper_list) " . mysql_err
 $array=array();
 while($data = mysql_fetch_array($result)) {
 	$Item["id"]=$data["actionType_id"];
-	$Item["name"]=$data["title"];
+	$Item["name"]=$data["name"];
 	$array[]=$Item;	
 }
 mysql_free_result($result);

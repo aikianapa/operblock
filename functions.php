@@ -835,7 +835,7 @@ function getSpisanieItems($id) {
 }
 
 function getDrugs($sklad="005000070") {
-$client=new SoapClient("http://192.168.100.12:1213/pharon/ws/MedicinePrice.1cws?wsdl",
+$client=new SoapClient("http://192.168.100.47:1213/pharon/ws/MedicinePrice.1cws?wsdl",
             array(
                 'login'=> samson,'password'=> dbcnfvtl
             ));
