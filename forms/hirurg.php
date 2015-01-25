@@ -25,6 +25,7 @@ function hirurgListItems() {
 		AND Action.person_id = $_SESSION[person_id]
 		AND (Action.status = 1 OR Action.status = 2)
 		AND (begDate='$date' OR plannedEndDate='$date')
+		AND Action.deleted=0
 		ORDER BY Action.id DESC ";
 		$res = mysql_query($SQL) or die("Query failed: " . mysql_error()); 
 		while($a = mysql_fetch_array($res)) {

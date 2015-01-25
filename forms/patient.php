@@ -80,7 +80,9 @@ function patient_nazn($form,$mode,$id,$datatype) {
 	// Ищем Action по оперблоку
 $SQL="SELECT * FROM Action as a
  INNER JOIN ActionType as b on a.ActionType_id=b.id
- WHERE b.serviceType=4 AND a.event_id = $Item[eventId] ORDER BY a.id DESC  ";
+ WHERE b.serviceType=4 AND a.event_id = $Item[eventId] 
+ AND a.deleted=0
+ ORDER BY a.id DESC  ";
 	$result = mysql_query($SQL) or die("Query failed: " . mysql_error());
 	while($data = mysql_fetch_array($result)) {
 		$actionType=mysqlReadItem("ActionType",$data["actionType_id"]);

@@ -47,6 +47,7 @@ function sisteranListItems() {
   $SQL="SELECT * FROM Action INNER JOIN ActionType ON Action.actionType_id = ActionType.id 
   WHERE ActionType.serviceType = 4 
   AND (begDate='$date' OR plannedEndDate = '$date')
+  AND Action.deleted=0
   ORDER BY Action.id DESC  ";
   $res = mysql_query($SQL) or die("Query failed: " . mysql_error()); 
   while($a = mysql_fetch_array($res)) {
