@@ -489,6 +489,7 @@ function opertable() {
 		$data["oper_sister"]=$action["oper_sister"]; 
 		$data["anest"]=$action["anest"];
 		$action["narkoz"]=$action["diag"]["anest"]["value"];
+		if ($action["specifiedName"]>"") {$action["operation"]=$action["specifiedName"];}
 		if ($action["note"]>"") { 
 			$notes[$nCount]["count"]=$nCount; 
 			$notes[$nCount]["client"]=$Client["lastName"]." ".substr($Client["firstName"],0,2).".".substr($Client["patrName"],0,2).".";
@@ -530,6 +531,7 @@ function oproom() {
 		$action["brigada"]=implode("<br />",$brigada);
 		if ($action["assist_name"]>"") $brigada[]=$action["assist_name"];
 		if (!isset($action["hemotrans"])) {$action["hemotrans"]="";}
+		if ($action["specifiedName"]>"") {$action["operation"]=$action["specifiedName"];}
 		$action["dejurny"]=$action["dejur"];
 		$action["table"]=$action["tableName"];
 		$action["narkoz"]=$action["diag"]["anest"]["value"];
