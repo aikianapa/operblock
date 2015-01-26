@@ -99,7 +99,7 @@ $('input[type=datetime]').datetimepicker({
 		page.find("#sisterobSpis").dialog();
 		zaved_nazn_submit();
 		page.find("#clientlist tbody tr, #tables ul li").on("dblclick",function(){
-      if ($(this).hasClass("status-1") || $(this).hasClass("status-2")  || $(this).hasClass("status-4") ) {
+      if ($(this).hasClass("status-1") || $(this).hasClass("status-2")  || $(this).hasClass("status-3") ) { 
 			if ($(this).hasClass("sid")) {
 				footer_notify("Списание уже было произведено","error");
 			} else {

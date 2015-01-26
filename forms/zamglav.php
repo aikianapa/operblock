@@ -36,34 +36,26 @@ foreach($persons as $key => $Person) {
 	$out->find("select[name=an_person_id] option:last")->after($opt);
 }
 
-$url="http://".$_SERVER["HTTP_HOST"]."/json/operation.php?mode=nazn_assist_list&orgId=$orgId";
-$_hirurg=json_decode(file_get_contents($url));
-foreach($_hirurg as $key => $Sister) {
-	$opt="<option value=\"$Sister->id\">$Sister->lastName $Sister->firstName $Sister->patrName</option>";
-	$out->find("select[name=operSister_id] option:last")->after($opt);
-}
-
-
 //=====
 // Операционная сестра
 $url="http://".$_SERVER["HTTP_HOST"]."/json/operation.php?mode=nazn_sisterop_list&orgId=".$_SESSION["orgId"];
-$_hirurg=json_decode(file_get_contents($url),true);
-foreach($_hirurg as $key => $Sister) {
-	$opt="<option value=\"$Sister[0]\">$Sister[lastName] $Sister[firstName] $Sister[patrName]</option>";
+$list=json_decode(file_get_contents($url),true);
+foreach($list as $key => $person) {
+	$opt="<option value=\"$Sister[0]\">$person[lastName] $person[firstName] $person[patrName]</option>";
 	$out->find("select[name=operSister_id] option:last")->after($opt);
 } 
 // Анестезиолог
 $url="http://".$_SERVER["HTTP_HOST"]."/json/operation.php?mode=nazn_anest_list&orgStrId=$orgStrId";
-$_hirurg=json_decode(file_get_contents($url),true);
-foreach($_hirurg as $key => $person) {
+$list=json_decode(file_get_contents($url),true);
+foreach($list as $key => $person) {
 	$opt="<option value=\"$person[id]\">$person[lastName] $person[firstName] $person[patrName]</option>";
 	$out->find("select[name=an_person_id] option:last")->after($opt);
 }
 // Анестезиологическая сестра
 $url="http://".$_SERVER["HTTP_HOST"]."/json/operation.php?mode=nazn_sisteran_list&orgStrId=$orgStrId";
-$sisteran=json_decode(file_get_contents($url),true);
-foreach($sisteran as $key => $sister) {
-	$opt="<option value=\"$sister[0]\">$sister[lastName] $sister[firstName] $sister[patrName]</option>";
+$list=json_decode(file_get_contents($url),true);
+foreach($list as $key => $person) {
+	$opt="<option value=\"$sister[0]\">$person[lastName] $person[firstName] $person[patrName]</option>";
 	$out->find("select[name^=an_sister_id] option:last")->after($opt);
 }
 //=====
