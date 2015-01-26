@@ -822,7 +822,7 @@ return $Item;
 
 
 function getSpisanieItems($id) {
-	$stockMotion="StockMotion1";
+	$stockMotion="StockMotion";
    $array=array();
     if ($id>"") {
 

@@ -53,7 +53,7 @@ function sisteran_spisanie_submit() {
 }
 
 function sisterob_spisanie_submit() {
-		$stockMotion="StockMotion1";
+		$stockMotion="StockMotion";
 		$action_id = $_POST["action_id"];
 		$person_id = $_POST["person_id"];
 		//$dateTime = $_POST["dateTime"];
