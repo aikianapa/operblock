@@ -410,6 +410,7 @@ function getActionInfo($action_id) {
 }
 
 function actionAssistSave($action,$role="zavnazn") {
+$assistsTable="Action_Assistant1";
 $r=array(); $where="";
 $r["zavnazn"]=array(1,4,5); // id в справочнике rbActionAssistantType
 $r["mainsister"]=array(6,7);
@@ -419,47 +420,48 @@ foreach ($r[$role] as $val) {
 						$where.=" OR assistantType_id = ".$val;}
 }
 if ($where>"") {
-		$SQL="DELETE QUICK FROM Action_Assistant WHERE action_id = ".$action["id"]." AND (".$where.")";
+		$SQL="DELETE QUICK FROM {$assistsTable} WHERE action_id = ".$action["id"]." AND (".$where.")";
 } else {
-		$SQL="DELETE QUICK FROM Action_Assistant WHERE action_id = ".$action["id"];
+		$SQL="DELETE QUICK FROM {$assistsTable} WHERE action_id = ".$action["id"];
 }
 $result = mysql_query($SQL) or die("Query failed: (actionAssistSave) " . mysql_error());
 switch($role) {
 	case "zavnazn":
 		foreach($action["assist_id"] as $inx => $assist_id) {
 			$data=actionAssistItem($action,"assist_id",$inx);
-			mysqlSaveItem("Action_Assistant",$data);
+			mysqlSaveItem($assistsTable,$data);
 		}
-		$data=actionAssistItem($action,"assist_name"); mysqlSaveItem("Action_Assistant",$data);
-		$data=actionAssistItem($action,"dejur_id"); mysqlSaveItem("Action_Assistant",$data);
-		$data=actionAssistItem($action,"hemo_id"); mysqlSaveItem("Action_Assistant",$data);
+		$data=actionAssistItem($action,"assist_name"); mysqlSaveItem($assistsTable,$data);
+		$data=actionAssistItem($action,"dejur_id"); mysqlSaveItem($assistsTable,$data);
+		$data=actionAssistItem($action,"hemo_id"); mysqlSaveItem($assistsTable,$data);
 		break;
 	case "mainsister":
-		$data=actionAssistItem($action,"operSister_id"); mysqlSaveItem("Action_Assistant",$data);
-		$data=actionAssistItem($action,"sanitar"); mysqlSaveItem("Action_Assistant",$data);
+		$data=actionAssistItem($action,"operSister_id"); mysqlSaveItem($assistsTable,$data);
+		$data=actionAssistItem($action,"sanitar"); mysqlSaveItem($assistsTable,$data);
 		break;
 	case "anest":
-		$data=actionAssistItem($action,"an_person_id"); mysqlSaveItem("Action_Assistant",$data);
-		$data=actionAssistItem($action,"an_sister_id"); mysqlSaveItem("Action_Assistant",$data);
+		$data=actionAssistItem($action,"an_person_id"); mysqlSaveItem($assistsTable,$data);
+		$data=actionAssistItem($action,"an_sister_id"); mysqlSaveItem($assistsTable,$data);
 		break;
 	case "zamglav":
 		foreach($action["assist_id"] as $inx => $assist_id) {
 			$data=actionAssistItem($action,"assist_id",$inx);
-			mysqlSaveItem("Action_Assistant",$data);
+			mysqlSaveItem($assistsTable,$data);
 		}
-		$data=actionAssistItem($action,"assist_name"); mysqlSaveItem("Action_Assistant",$data);
-		$data=actionAssistItem($action,"dejur_id"); mysqlSaveItem("Action_Assistant",$data);
-		$data=actionAssistItem($action,"hemo_id"); mysqlSaveItem("Action_Assistant",$data);
-		$data=actionAssistItem($action,"operSister_id"); mysqlSaveItem("Action_Assistant",$data);
-		$data=actionAssistItem($action,"sanitar"); mysqlSaveItem("Action_Assistant",$data);
-		$data=actionAssistItem($action,"an_person_id"); mysqlSaveItem("Action_Assistant",$data);
-		$data=actionAssistItem($action,"an_sister_id"); mysqlSaveItem("Action_Assistant",$data);
+		$data=actionAssistItem($action,"assist_name"); mysqlSaveItem($assistsTable,$data);
+		$data=actionAssistItem($action,"dejur_id"); mysqlSaveItem($assistsTable,$data);
+		$data=actionAssistItem($action,"hemo_id"); mysqlSaveItem($assistsTable,$data);
+		$data=actionAssistItem($action,"operSister_id"); mysqlSaveItem($assistsTable,$data);
+		$data=actionAssistItem($action,"sanitar"); mysqlSaveItem($assistsTable,$data);
+		$data=actionAssistItem($action,"an_person_id"); mysqlSaveItem($assistsTable,$data);
+		$data=actionAssistItem($action,"an_sister_id"); mysqlSaveItem($assistsTable,$data);
 		break;
 }
 }
 
 function actionAssistRead($action) {
-$SQL="SELECT * FROM Action_Assistant WHERE action_id = ".$action["id"];
+$assistsTable="Action_Assistant1";
+$SQL="SELECT * FROM {$assistsTable} WHERE action_id = ".$action["id"];
 $res = mysql_query($SQL) or die("Query failed (actionAssistRead): " . mysql_error());
 $assist=array();
 while($data = mysql_fetch_array($res)) {
@@ -837,6 +839,7 @@ function getSpisanieItems($id) {
 }
 
 function getDrugs($sklad="005000070") {
+if ($_SESSION["drugsList"]=="1s") {
 $client=new SoapClient("http://192.168.100.47:1213/pharon/ws/MedicinePrice.1cws?wsdl",
             array(
                 'login'=> samson,'password'=> dbcnfvtl
@@ -866,6 +869,7 @@ $arr[$x]['unitName']=$arr[$x][11];
 }
 
 usort($arr, "cmp");
+} else {$arr=array();}
 
 return $arr;
 }

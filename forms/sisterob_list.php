@@ -87,7 +87,10 @@ $('input[type=datetime]').datetimepicker({
 	lang:'ru', format:'Y-m-d', formatDate:'Y-m-d', timepicker:false
 });
 
-	$("a[href=#printMenu]").on("click",function(){ $( document ).data( "action", $(this).parents("tr").attr("aid")); });
+	$("a[href=#printMenu]").on("click",function(){ 
+		$( document ).data( "action", $(this).parents("tr").attr("aid")); 
+		$( document ).data( "status", $(this).parents("tr").attr("sid")); 
+	});
 	$("#printMenu a").on("click",function(){
 		$(this).attr("href",$(this).attr("href")+"&action="+$( document ).data( "action"));
 	});
