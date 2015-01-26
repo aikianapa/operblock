@@ -250,7 +250,7 @@ $("#tables").delegate("div.add_table","click",function() {
 }
 
 function zaved_nazn_submit() {
-$( "#zavnazn form a.submit" ).on( "click", function(  ) {
+$( "#zavnazn form a.submit" ).unbind("click").on( "click", function(  ) {
 	$.mobile.loading( "show" );
 	setTimeout(function(){  $.mobile.loading( "show" ); },200);
 	if (checkRequired($( "#zavnazn form.nazn"))) {
