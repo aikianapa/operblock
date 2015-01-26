@@ -65,10 +65,10 @@
 <input type="hidden" name="status" value="0">
 <label><input type="checkbox" data-mini="true" name="isUrgent" >Экстренно</label>
 <div data-role="fieldcontain"><label>Планируемая дата</label><input type="datepicker" name="plannedEndDate" required></div>
+<div data-role="fieldcontain"><label>Наименование операции</label><input type="text" name="specifiedName" required></div>
 <div data-role="fieldcontain"><label>Тип операции</label>
 <select name="actionType_id" required><option value="">Выберите...</option></select>
 </div>
-<div data-role="fieldcontain"><label>Наименование операции</label><input type="text" name="specifiedName" required></div>
 <div data-role="fieldcontain"><label>Хирург</label>
 <select name="person_id" value="{{personId}}" required><option value="">Выберите...</option></select>
 </div>
@@ -193,7 +193,9 @@ $("#patientNazn #histo").popup();
 $(window).trigger("resize");
 
 $("#patientNazn [name=actionType_id]").on("change",function() {
-	$("#patientNazn [name=specifiedName]").val( $(this).find("option[value="+$(this).val()+"]").html() );
+	if ($("#patientNazn [name=specifiedName]").val()<=" ") {
+		$("#patientNazn [name=specifiedName]").val( $(this).find("option[value="+$(this).val()+"]").html() );
+	}
 });
 
 var orgStrId=$("#patientNazn input[name=orgStrId]").val();
