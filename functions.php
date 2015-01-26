@@ -822,11 +822,11 @@ return $Item;
 
 
 function getSpisanieItems($id) {
-  
+	$stockMotion="StockMotion1";
    $array=array();
     if ($id>"") {
 
-			$SQL="SELECT * FROM StockMotion_Item
+			$SQL="SELECT * FROM {$stockMotion}_Item
 				WHERE master_id = '$id' ";
 			$result = mysql_query($SQL) or die("Query failed: getSpisanieItems() " . mysql_error());	
 			while($data = mysql_fetch_array($result)) {

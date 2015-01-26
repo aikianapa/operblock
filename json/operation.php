@@ -53,6 +53,7 @@ function sisteran_spisanie_submit() {
 }
 
 function sisterob_spisanie_submit() {
+		$stockMotion="StockMotion1";
 		$action_id = $_POST["action_id"];
 		$person_id = $_POST["person_id"];
 		//$dateTime = $_POST["dateTime"];
@@ -66,7 +67,7 @@ function sisterob_spisanie_submit() {
 		$Item["id"]="";
 		$Item["createDatetime"]=date("Y-m-d h:i:s");
 		$Item["createPerson_id"]=$person_id;
-    if ($_action["spisanie_$role"]>"") {$Item=mysqlReadItem("StockMotion",$_action["spisanie_$role"]);}
+    if ($_action["spisanie_$role"]>"") {$Item=mysqlReadItem($stockMotion,$_action["spisanie_$role"]);}
   
 		$Item["modifyDatetime"]=date("Y-m-d h:i:s");
 		$Item["modifyPerson_id"]=$person_id;
@@ -74,11 +75,11 @@ function sisterob_spisanie_submit() {
 		$Item["number"]=NULL;
 		$Item["type"]=1	;
 		$Item["action_id"]=$action_id;
-		$error=mysqlSaveItem("StockMotion",$Item);
+		$error=mysqlSaveItem($stockMotion,$Item);
 		$ins_id=mysql_insert_id();
 		if ($ins_id>"") $_action["spisanie_$role"]=$ins_id;
 		jdbSaveItem("Action",$_action);
-		$SQL="DELETE QUICK FROM StockMotion_Item WHERE master_id = ".$_action["spisanie_$role"];
+		$SQL="DELETE QUICK FROM {$stockMotion}_Item WHERE master_id = ".$_action["spisanie_$role"];
 		$result = mysql_query($SQL) or die("Query failed: (sisterob_spisanie_submit - DELETE) " . mysql_error());
 		foreach($drugs as $key => $data) {
 			$Drugs=array();
@@ -86,7 +87,7 @@ function sisterob_spisanie_submit() {
 			$Drugs["nomenclature_id"]="".$key;
 			$Drugs["qnt"]=$data;
 			$Drugs["event_id"]=$action["event_id"];
-			if ($Drugs["qnt"]>0) {	mysqlSaveItem("StockMotion_Item",$Drugs); }
+			if ($Drugs["qnt"]>0) {	mysqlSaveItem("{$stockMotion}_Item",$Drugs); }
 		}
 		if ($error=="") $error=0;
 		$res["error"]=$error;
