@@ -363,17 +363,17 @@ function getActionInfo($action_id) {
 	$action["orgStrBoss"]=json_decode(getOrgStrBossName(),true)["fullName"];
 	$Diag=patientGetDiagnosis($action["event_id"]);
 	$action["diag"]=$Diag;
-	$brigada=""; 
+	$brigada=array(); 
 	foreach($action["assist_id"] as $assist_id) {
 		$assist=getPersonInfo($assist_id);
 		$brigada[]=$assist["personShort"];
 	}
 	if ($action["assist_name"]>"") {$brigada[]=$action["assist_name"];}
+	$action["brigada"]=implode(", ",$brigada);
 	$begTime=strtotime($action["begDate"]." ".$action["begTime"]);
 	$endTime=strtotime($action["endDate"]);
 	$action["o_endTime"]=date("H:i",$endTime); // конец опреации
 	$action["o_time"]= date("H:i", mktime(0, 0, ($endTime-$begTime))); // длительность операции
-	$action["brigada"]=implode(", ",$brigada);
 	$action["diagnose"]=$Diag["main"]["MKB"]." ".$Diag["main"]["DiagName"];
  	$action["tableName"]="№".$action["table"]." (".$Person["orgStrShort"].")"; 
 	$action["analyse"]=getBloodAnalyse($action["event_id"]);
