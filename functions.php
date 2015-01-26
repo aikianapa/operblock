@@ -839,7 +839,7 @@ function getSpisanieItems($id) {
 }
 
 function getDrugs($sklad="005000070") {
-if ($_SESSION["drugsList"]=="1s") {
+if ($_SESSION["settings"]["drugsList"]=="1s") {
 $client=new SoapClient("http://192.168.100.47:1213/pharon/ws/MedicinePrice.1cws?wsdl",
             array(
                 'login'=> samson,'password'=> dbcnfvtl
