@@ -23,6 +23,7 @@ $(document).ready(function(){
 						$("#zamglav [name="+key+"]").val(value);
 						$("#zamglav [multiple][name^="+key+"]").val(value);
 				});
+				$("#zamglav [multiple]").selectmenu(); 
 				$("#zamglav [multiple]").selectmenu( "destroy" ); 
 				$("#zamglav [multiple]").selectmenu(); 
 
