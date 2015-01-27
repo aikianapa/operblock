@@ -94,7 +94,7 @@ function sisterob_spisanie_submit() {
 		mysql_free_result($result);
 		return json_encode($res);
 }
-
+ 
 function zavnazn_get_data() {
 	$action=getActionInfo($_GET["action_id"]);
 	$_operation["operation"]=jdbReadItem("Operation",$_GET["action_id"]);

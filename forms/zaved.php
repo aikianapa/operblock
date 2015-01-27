@@ -18,6 +18,7 @@ $out=setSelects($out);
 return $out;
 }
 
+
 function setSelects($out) {
 $url="http://".$_SERVER["HTTP_HOST"]."/json/operation.php?mode=nazn_hirurg_list&orgStrId=".$_SESSION["orgStrId"];
 $_hirurg=json_decode(file_get_contents($url));
