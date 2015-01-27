@@ -369,34 +369,15 @@ function cancel_operation() {
 
 function nazn_oper_list() {
 $orgStrId=$_GET["orgStrId"];
-//UPDATE `ActionType` SET serviceType = 4 WHERE class=2 AND (name like '%опера%' OR name like '%хирур%') 
-$SQL="SELECT * FROM ActionType  INNER JOIN OrgStructure_ActionType ON ActionType.id = OrgStructure_ActionType.actionType_id 
-		WHERE ActionType.serviceType = 4  AND class=2
-		ORDER BY name ASC";
+$SQL="SELECT * FROM ActionType  
+  WHERE ActionType.serviceType = 4  AND class=2
+  ORDER BY name ASC";
 $result = mysql_query($SQL) or die("Query failed: (nazn_oper_list) " . mysql_error());
 $array=array();
 while($data = mysql_fetch_array($result)) {
-	$Item["id"]=$data["actionType_id"];
-	$Item["name"]=$data["name"];
-	$array[]=$Item;	
-}
-mysql_free_result($result);
-return json_encode($array);
-}
-
-function nazn_orgstr_list() {
-$orgId=$_GET["orgId"];
-$SQL="SELECT * FROM OrgStructure 
-		WHERE organisation_id = $orgId
-		AND hasHospitalBeds = 1
-		ORDER BY code ASC";
-$result = mysql_query($SQL) or die("Query failed: (nazn_orgstr_list) " . mysql_error());
-$array=array();
-while($data = mysql_fetch_array($result)) {
-	$Item["id"]=$data["id"];
-	$Item["name"]=$data["name"];
-	$Item["code"]=$data["code"];
-	$array[]=$Item;	
+ $Item["id"]=$data["id"];
+ $Item["name"]=$data["name"];
+ $array[]=$Item;
 }
 mysql_free_result($result);
 return json_encode($array);
