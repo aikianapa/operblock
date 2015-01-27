@@ -11,7 +11,7 @@
 		<tr aid="{{action_id}}" class="status-{{status}}">
 		<td>{{externalId}}</td>
 		<td>{{client}} ({{age}} лет)</td>
-		<td>{{operation}}</td>
+		<td>{{specifiedName}}</td>
 		<td>{{begDate}}</td>
 		<td>{{diagnose}}</td>
 		<td>{{person}}</td>

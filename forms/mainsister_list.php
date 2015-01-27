@@ -22,7 +22,7 @@
 		<td>{{client}}</td>
 		<td>{{age}}</td>
 		<td>{{begDate}}</td>
-		<td>{{actionType}}</td>
+		<td>{{specifiedName}}</td>
 		<td>{{person}}</td>
 		<td>{{palata}}</td>
 		<td><a href="#mainsisMenu" data-rel="popup" data-transition="slideup" class="ui-btn ui-corner-all ui-shadow ui-icon-action ui-btn-icon-notext">Меню</a></td>

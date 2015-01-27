@@ -21,7 +21,7 @@
 		<tr aid="{{action_id}}" class="status-{{status}}" title="{{action_id}}">
 		<td>{{externalId}}<span class="ui-hidden">{{tooltip}}</span></td>
 		<td>{{client}}<br />({{age}} лет)</td>
-		<td>{{operation}}</td>
+		<td>{{specifiedName}}</td>
 		<td>{{begDate}}</td>
 		<td>{{diagnose}}</td>
 		<td>{{person}}</td>

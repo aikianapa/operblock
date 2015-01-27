@@ -19,7 +19,7 @@
 		<td><input type="checkbox" value="off"></td>
 		<td>{{externalId}}</td>
 		<td>{{client}}<br />({{age}} лет)</td>
-		<td>{{operation}}</td>
+		<td>{{specifiedName}}</td>
 		<td>{{begDate}}</td>
 		<td>{{diagnose}}</td>
 		<td>{{person}}</td>
