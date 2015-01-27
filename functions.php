@@ -324,7 +324,7 @@ function getClientWork($client_id,$type=1) {
 function getActionInfo($action_id) {
 	$_action=jdbReadItem("Action",$action_id);
 	$action=mysqlReadItem("Action",$action_id);
-	$action=array_merge($action,$_action);
+	$action=array_merge($_action,$action);
   	$operation=jdbReadItem("Operation",$action_id);
   if ($action["event_id"]>"") {
 	$Creator=getPersonInfo($action["createPerson_id"]);			$action["_Creator"]=$Creator;

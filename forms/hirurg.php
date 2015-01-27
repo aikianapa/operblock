@@ -32,12 +32,22 @@ function hirurgListItems() {
 			$counter++; $action["counter"]=$counter;
 			$action["id"]=$a[0];
 			$action=getActionInfo($action["id"]);
+			$action["ready"]=oper_ready_check($action);
 			$action["begDate"]=dmyDate($action["begDate"]);
 			if ($action["specifiedName"]>"") {$action["operation"]=$action["specifiedName"];}
 			$result[]=$action;
 		}
 
 	return $result;
+}
+
+function oper_ready_check($action) {
+	$res=FALSE;
+		$action=getOpTables($action,$action["begDate"]);
+		foreach($action["optables"] as $key => $data) {
+			if ($action["table"]==$data["tid"] && $data["opr"]>"" && $data["oid"]==$action["orgStr_id"]) {$res=TRUE;}
+		}
+	return $res;
 }
 
 ?>

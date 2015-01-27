@@ -8,7 +8,7 @@
 		<thead><tr><th>№ ИБ</th><th>Ф.И.О.</th><th>Операция</th><th>Дата операции</th><th>Диагноз</th><th>Врач</th><th>Палата</th><th></th></tr></thead>
 		<tbody>
 		<div data-role="foreach" from="result">
-		<tr aid="{{action_id}}" class="status-{{status}}">
+		<tr aid="{{action_id}}" class="status-{{status}}" ready="{{ready}}">
 		<td>{{externalId}}</td>
 		<td>{{client}} ({{age}} лет)</td>
 		<td>{{specifiedName}}</td>
@@ -16,13 +16,13 @@
 		<td>{{diagnose}}</td>
 		<td>{{person}}</td>
 		<td>{{palata}}</td>
-		<td><a href="#hirurgMenu" data-rel="popup" data-transition="slideup" class="ui-btn ui-corner-all ui-shadow ui-icon-action ui-btn-icon-notext">Меню</a></td>
+		<td><a href="#hirurgMenu" data-rel="popup" data-transition="slideup" class="ui-disabled ui-btn ui-corner-all ui-shadow ui-icon-action ui-icon-forbidden ui-btn-icon-notext">Меню</a></td>
 		</tr></div>
 		</tbody></table>
 <div data-role="popup" id="hirurgMenu">
         <ul data-role="listview" data-inset="true" style="min-width:210px;">
             <li data-role="list-divider">Выберите действие</li>
-            <li><a href="#operation">Редактировать</a></li>
+            <li><a href="#operation">Провести</a></li>
             <li><a href="" data="/json/print_forms.php?mode=protocol" class="print" target="_blank">Печать протокола</a></li>
         </ul>
 </div>
@@ -44,8 +44,6 @@ operation_list_action();
 
 $(document).on("pageinit",function(){
 		$( "table" ).disableSelection();	
-
-		 
 });
 
 function hirurg_form_show(aid) {
@@ -84,14 +82,17 @@ function hirurg_operation_submit() {
 }
 
 function operation_list_action() {
+	$("#hirurgList #clientlist tbody tr").each(function(){
+		if ($(this).attr("ready")==1) {$(this).find("a[href=#hirurgMenu]").removeClass("ui-disabled ui-icon-forbidden");}
+	});
 
-		$("#clientlist tbody tr").on("dblclick",function(){
-			hirurg_form_show($(this).attr("aid"));
-		});
-		
-		$("#hirurgOperation .submit").on("click",function(){
-				return hirurg_operation_submit();
-		});
+	$("#hirurgList a.ui-disabled[href=#hirurgMenu]").parents("tr").on("click",function(){
+		footer_notify("Операция не готова к проведению!","error");
+	});
+
+	$("#hirurgOperation .submit").on("click",function(){
+		return hirurg_operation_submit();
+	});
 	
 	$("a[href=#hirurgMenu]").on("click",function(){ 
 		var aid= $(this).parents("tr").attr("aid");

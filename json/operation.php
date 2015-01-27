@@ -236,7 +236,7 @@ if (isset($_POST["modifyPerson_id"])) {$action["modifyPerson_id"]=$_POST["modify
 if (isset($_POST["assist_name"])) {$_action["assist_name"]=$_POST["assist_name"];}
 if (isset($_POST["assist_id"])) {$_action["assist_id"]=$_POST["assist_id"]; $role="zavnazn";}
 if (isset($_POST["hemo_id"])) {$_action["hemo_id"]=$_POST["hemo_id"];}
-if (isset($_POST["person_id"])) {$_action["person_id"]=$_POST["person_id"];}
+if (isset($_POST["person_id"])) {$action["person_id"]=$_POST["person_id"];}
 if (isset($_POST["dejur_id"])) {$_action["dejur_id"]=$_POST["dejur_id"];}
 if (isset($_POST["an_person_id"])) {$_action["an_person_id"]=$_POST["an_person_id"]; $role="anest";}
 if (isset($_POST["an_sister_id"])) {$_action["an_sister_id"]=$_POST["an_sister_id"];}

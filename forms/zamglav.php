@@ -41,7 +41,7 @@ foreach($persons as $key => $Person) {
 $url="http://".$_SERVER["HTTP_HOST"]."/json/operation.php?mode=nazn_sisterop_list&orgId=".$_SESSION["orgId"];
 $list=json_decode(file_get_contents($url),true);
 foreach($list as $key => $person) {
-	$opt="<option value=\"$Sister[0]\">$person[lastName] $person[firstName] $person[patrName]</option>";
+	$opt="<option value=\"$person[0]\">$person[lastName] $person[firstName] $person[patrName]</option>";
 	$out->find("select[name=operSister_id] option:last")->after($opt);
 } 
 // Анестезиолог
@@ -55,7 +55,7 @@ foreach($list as $key => $person) {
 $url="http://".$_SERVER["HTTP_HOST"]."/json/operation.php?mode=nazn_sisteran_list&orgStrId=$orgStrId";
 $list=json_decode(file_get_contents($url),true);
 foreach($list as $key => $person) {
-	$opt="<option value=\"$sister[0]\">$person[lastName] $person[firstName] $person[patrName]</option>";
+	$opt="<option value=\"$person[0]\">$person[lastName] $person[firstName] $person[patrName]</option>";
 	$out->find("select[name^=an_sister_id] option:last")->after($opt);
 }
 //=====
