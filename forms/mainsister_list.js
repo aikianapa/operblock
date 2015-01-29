@@ -49,7 +49,7 @@ $(document).on("pageinit",function(){
 		mainsister_get_calendar();
 		
 			
-		page.find("#clientlist tbody tr, #tables ul li").on("dblclick",function(){
+		page.find("#clientlist tbody tr, #tables ul li").unbind("dblclick").on("dblclick",function(){
 			if (!$(this).parents("div").hasClass("approved")) {
 				$("#mainsisterNazn form")[0].reset();
 				var aid=$(this).attr("aid");
@@ -65,15 +65,11 @@ $(document).on("pageinit",function(){
     });
     
 		oprooms_init(page);
-
-
-
-
   $( ".drag-zone-apps, #tab-2 > *" ).disableSelection(); 
 });
 
 function mainsisMenu_init() {
-	$("a[href=#mainsisMenu]").on("click",function(){
+	$("a[href=#mainsisMenu]").unbind("click").on("click",function(){
 		var aid=$(this).parents("tr").attr("aid");
 		var sid=$(this).parents("tr").attr("sid");
 		$("#mainsisterList").data("aid",aid);
@@ -86,19 +82,19 @@ function mainsisMenu_init() {
 		}
 	});
 //=======================================================	
-	$("#mainsisMenu li a[href=#nazn]").on("click",function(){
+	$("#mainsisMenu li a[href=#nazn]").unbind("click").on("click",function(){
 		var aid=$("#mainsisterList").data("aid");
 		$("#mainsisterList #clientlist tr[aid="+aid+"]").trigger("dblclick");
 	});
-  $("#mainsisMenu a.print").on("click",function(){
+  $("#mainsisMenu a.print").unbind("click").on("click",function(){
 		$(this).attr("href",$(this).attr("data")+"&action="+$("#mainsisterList").data("aid"));
 	});
 //=======================================================	
-	$("#mainsisMenu li a[href=#spis]").on("click",function(){
+	$("#mainsisMenu li a[href=#spis]").unbind("click").on("click",function(){
       			var aid=$("#mainsisterList").data("aid");
       			setTimeout(function(){
 			$.mobile.loading( "show",{ 
-				text: 'Подождите, идёт доступ к базе данных 1С.',
+				text: 'Подождите, идёт доступ к базе данных.',
 				textVisible: true
 			});
 			},500); 
@@ -116,7 +112,7 @@ $.get("/forms/calendar.php?date="+date,function(data){
 } 
 
 function button_oprooms_init() {
-	$("a[href=#opMenu]").on("click",function(){
+	$("a[href=#opMenu]").unbind("click").on("click",function(){
 		var oid=$(this).next("ul").attr("oid");
 		var tid=$(this).next("ul").attr("tid");
 		var opr=$(this).next("ul").attr("opr");
@@ -130,7 +126,7 @@ function button_oprooms_init() {
 			$("#opMenu li a.lock").text("Заблокировать");
 		}
 	});
-	$("#opMenu li a.oper").on("click",function(){
+	$("#opMenu li a.oper").unbind("click").on("click",function(){
 		var date=$("#mainsisterList input[name=workDate]").val(); 
 		var oper=$(this).attr("oper");
 		var oid=$("#mainsisterList").data("oid");
@@ -140,7 +136,7 @@ function button_oprooms_init() {
 		$("#opMenu").popup("close"); 
 	});
 	
-	$("#opMenu li a.lock").on("click",function(){
+	$("#opMenu li a.lock").unbind("click").on("click",function(){
 		var oid=$("#mainsisterList").data("oid");
 		var tid=$("#mainsisterList").data("tid");
 		var opr=$("#mainsisterList").data("opr");
@@ -150,7 +146,7 @@ function button_oprooms_init() {
 	});
 	
 	
-	$("#opMenu li a.print").on("click",function(){
+	$("#opMenu li a.print").unbind("click").on("click",function(){
 		var date=$("#mainsisterList input[name=workDate]").val();
 		var oid=$("#mainsisterList").data("oid");
 		var tid=$("#mainsisterList").data("tid");
@@ -163,7 +159,7 @@ function button_oprooms_init() {
 		$("#opMenu").popup("close"); 
 	});
 
-	$("a[href=#oproomMenu]").on("click",function(){
+	$("a[href=#oproomMenu]").unbind("click").on("click",function(){
 		$("#oproomMenu").data("oid",$(this).next("ul").attr("oid"));
 		$("#oproomMenu").data("oper",$(this).text());
 		var oid=$("#oproomMenu").data("oid");
@@ -174,14 +170,14 @@ function button_oprooms_init() {
 		}
 	});
 
-	$("#oproomMenu li a.lock").on("click",function(){
+	$("#oproomMenu li a.lock").unbind("click").on("click",function(){
 		var oid=$("#oproomMenu").data("oid");
 		var that=$("#mainsisterList ul.oproom[oid="+oid+"]").parent("div");
 		if (that.hasClass("approved")) {that.removeClass("approved");} else {	that.addClass("approved"); }
 		$("#oproomMenu").popup("close");
 	});
 
-	$("#oproomMenu li a.print").on("click",function(){
+	$("#oproomMenu li a.print").unbind("click").on("click",function(){
 		var date=$("#mainsisterList input[name=workDate]").val();
 		var pid=$("#mainsisterList input[name=person_id]").val();
 		var oid=$("#oproomMenu").data("oid");
@@ -195,7 +191,7 @@ function button_oprooms_init() {
 		$("#oproomMenu").popup("close"); 
 	});
 	
-	$("#oproomMenu li a.approve").on("click",function(){
+	$("#oproomMenu li a.approve").unbind("click").on("click",function(){
 				$("#mainsisterNazn form")[0].reset();
 				$("#mainsisterNazn input[name=action_id]").val(""); 
 				$("#mainsisterNazn input[name=oper_id]").val($("#oproomMenu").data("oid")); 
@@ -208,7 +204,7 @@ function button_oprooms_init() {
 }
 
 function mainsisterNazn_submit() {
-		$( "#mainsisterNazn form a.submit" ).on( "click", function(  ) {
+		$( "#mainsisterNazn form a.submit" ).unbind("click").on( "click", function(  ) {
 			var oid=$("#mainsisterNazn input[name=oper_id]").val();
 			if (checkRequired($( "#mainsisterNazn form.nazn"))) {
 			var formdata=$("#mainsisterNazn form").serialize() ;

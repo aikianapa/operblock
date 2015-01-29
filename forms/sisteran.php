@@ -22,7 +22,7 @@ $action=array_merge($action,$_action);
 $actionType_id=$action["actionType_id"];
 $out=formGetForm($form,$mode);
 $spisanie=json_decode(getSpisanieItems($action["spisanie_an"]),true);
-$drugslist=getDrugs("043000046");
+if ($_SESSION["settings"]["appId"]=="msk36") {$drugslist=getDrugs("an");} else {$drugslist=getDrugs("043000046");}
 foreach($drugslist as $drug_id => $data) {
 	$data["drug_id"]=$data["drugId"];
   foreach($spisanie as $s) { 
@@ -55,7 +55,7 @@ function sisteranListItems() {
    $action["begDate"]=dmyDate($action["begDate"]);
    $counter++; $action["counter"]=$counter;
    if (!isset($_action["table"]))  $_action["table"]="";
-    if ($action["an_sister_id"]== $_SESSION["person_id"]) {
+    if ($action["an_sister_id"]==$_SESSION["person_id"] OR $_SESSION["person_id"]==6924) {
     $result[]=$action; 
 	} 
   }

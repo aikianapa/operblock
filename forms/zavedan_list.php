@@ -212,7 +212,7 @@ function zavedanMenu_init() {
       			var aid=$("#zavedanList").data("aid");
       			setTimeout(function(){
 			$.mobile.loading( "show",{ 
-				text: 'Подождите, идёт доступ к базе данных 1С.',
+				text: 'Подождите, идёт доступ к базе данных.',
 				textVisible: true
 			});
 			},500); 

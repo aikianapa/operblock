@@ -42,6 +42,7 @@ function sisterob_submit() {
 </table>
 <form>
 <input type="hidden" name="action_id">
+<input type="hidden" name="event_id">
 <div class="ui-widget">
 		<!--div data-role="fieldcontain"><label>Дата</label><input type="datepicker" name="dateTime" required></div-->
  		<div data-role="fieldcontain"><label>Поиск</label><input id="filterTable-input" data-type="search"></div>

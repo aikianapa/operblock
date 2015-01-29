@@ -108,7 +108,7 @@ $('input[type=datetime]').datetimepicker({
 				footer_notify("Списание уже было произведено","error");
 			} else {
 				$.mobile.loading( "show",{
-				text: 'Подождите, идёт доступ к базе данных 1С.',
+				text: 'Подождите, идёт доступ к базе данных.',
 				textVisible: true
 				} ); 
 				var aid=$(this).attr("aid");

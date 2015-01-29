@@ -57,4 +57,5 @@ if ($_SESSION["User"]=="Admin") {
 }
 $content["*[data-theme]"]->attr("data-theme","a");
 echo $content->htmlOuter();
+mysql_close();
 ?>

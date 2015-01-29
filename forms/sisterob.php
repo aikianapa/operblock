@@ -21,7 +21,7 @@ $action=array_merge($action,$_action);
 $actionType_id=$action["actionType_id"];
 $out=formGetForm($form,$mode);
 $spisanie=json_decode(getSpisanieItems($action["spisanie_ob"]),true);
-$drugslist=getDrugs();
+if ($_SESSION["settings"]["appId"]=="msk36") {$drugslist=getDrugs("ob");} else {$drugslist=getDrugs("005000070");}
 foreach($drugslist as $drug_id => $data) {
 	$data["drug_id"]=$data["drugId"];
   foreach($spisanie as $s) { 
@@ -31,6 +31,7 @@ foreach($drugslist as $drug_id => $data) {
 	$Item["drugs"][]=$data;
 }
 $Item["action_id"]=$id;
+$Item["event_id"]=$actin["event_id"];
 $Item["drugs"]=array_sort($Item["drugs"],"drugName");
 $out=contentSetData($out,$Item);
 return $out;

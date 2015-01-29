@@ -267,10 +267,8 @@ function spisanie_2() {
 }
 function spisanie_1() {
 	$out=file_get_contents($_SERVER['DOCUMENT_ROOT']."/forms/print_$_GET[mode].php");
-	$_action=jdbReadItem("Action",$_GET["action"]);
-	$action=mysqlReadItem("Action",$_GET["action"]);
-  $role=$_GET["role"]; if ($role=="") {$role="ob";}
-	$Action=array_merge($action,$_action);
+	$role=$_GET["role"]; if ($role=="") {$role="ob";}
+	$Action=getActionInfo($_GET["action"]);
 	$ActionType=mysqlReadItem("ActionType",$Action["actionType_id"]);
 	$Event=mysqlReadItem("Event",$Action["event_id"]);
 	$Client=mysqlReadItem("Client",$Event["client_id"]);
@@ -282,7 +280,13 @@ function spisanie_1() {
   $spisanie=json_decode(getSpisanieItems($Action["spisanie_$role"]),true);
 	$SQL="SELECT * FROM StockMotion_Item
     WHERE master_id = ".$Spisanie["id"];
-  if ($role=="ob") {$drugslist=getDrugs();} else {$drugslist=getDrugs("043000046");}
+    if ($_SESSION["settings"]["appId"]=="msk36") {
+		$drugslist=getDrugs($role);
+	} else {
+		if ($role=="ob") {$drugslist=getDrugs();} else {$drugslist=getDrugs("043000046");}
+	}
+    
+    
 	$result = mysql_query($SQL) or die("Query failed: (spisanie_1()) " . mysql_error());
 	$count=0; $Action["totalPrice"]=0;
 	foreach($spisanie as $drugs) {
@@ -307,7 +311,7 @@ function spisanie_1() {
 function druglistSearchId($drugslist,$nomenclature_id) {
 $res="";
 foreach($drugslist as $key => $data) {
-  if ($data["drugId"]==$nomenclature_id) {$res=$key;}
+  if ($data["drugId"]==$nomenclature_id) {$res=$key;} 
 }
 return $res;
 };

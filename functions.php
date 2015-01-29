@@ -839,7 +839,7 @@ function getSpisanieItems($id) {
 }
 
 function getDrugs($sklad="005000070") {
-if ($_SESSION["settings"]["drugsList"]=="1s") {
+if ($_SESSION["settings"]["appId"]!="msk36") {
 $client=new SoapClient("http://192.168.100.47:1213/pharon/ws/MedicinePrice.1cws?wsdl",
             array(
                 'login'=> samson,'password'=> dbcnfvtl
@@ -869,8 +869,20 @@ $arr[$x]['unitName']=$arr[$x][11];
 }
 
 usort($arr, "cmp");
-} else {$arr=array();}
-
+} else {
+	$arr=array();
+	$drugs=mysqlListItems("rbDrug36"); 
+	foreach($drugs["result"] as $key => $drug) {
+		$item=array();
+		$item["drugId"]=$drug["id"];
+		$item["drugName"]=$drug["name"];
+		$item["unitName"]=$drug["unit_id"];
+		$Item["quantity"]=$drug["code"];
+		if (substr($drug["code"],0,3)==$sklad."-") {
+			$arr[]=$item;
+		}
+	}
+}
 return $arr;
 }
 
