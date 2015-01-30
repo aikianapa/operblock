@@ -406,6 +406,10 @@ $SQL="SELECT a.* FROM Person as a
 INNER JOIN OrgStructure as b ON a.orgStructure_id=b.id
 INNER JOIN rbSpeciality as c ON a.speciality_id=c.id
 WHERE b.name LIKE '%хирург%' and c.name NOT LIKE '%сестр%' AND retired=0 
+OR (a.lastname='Ильин' AND a.firstname='Николай' AND a.patrname='Дмитриевич')
+OR (a.lastname='Пискунов' AND a.firstname='Евгений' AND a.patrname='Александрович')
+OR (a.lastname='Новиков' AND a.firstname='Сергей' AND a.patrname='Николаевич')
+OR (a.lastname='Гиршович' AND a.firstname='Михаил' AND a.patrname='Маркович')
 ORDER BY lastname";
 
 $result = mysql_query($SQL) or die("Query failed: (nazn_hirurg_list) " . mysql_error());
