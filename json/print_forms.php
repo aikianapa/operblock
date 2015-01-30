@@ -503,7 +503,8 @@ function opertable() {
 		$data["actions"][]=$action;
 		$count++;
 	}
-	$data["actions"]=array_sort($data["actions"],"index");
+//	$data["actions"]=array__sort($data["actions"],"index"); 
+// Сортировка работает неправильно, опираемся на очередность в $_GET
 	$data["table"]=$_GET["tid"];
 	$data["orgStrBoss"]=json_decode(getOrgStrBossName($_GET["orgStr_id"]),true)["fullName"]; 
 	$data["notes"]=$notes;
