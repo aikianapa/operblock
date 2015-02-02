@@ -50,14 +50,16 @@ function hirurg_form_show(aid) {
 	$("#hirurgOperation").find("form")[0].reset();
 	$("#hirurgOperation").find("input[name=action_id]").val(aid);
 	// ============ Читаем данные в форму ==========
-	$.get("/json/operation.php?mode=zavnazn_get_data&action_id="+aid,function(data){
+	$.get("/json/operation.php?mode=get_operation_protocol&action_id="+aid,function(data){
+		
 			var data = JSON.parse(data);
-			if (data.operation!=null) {
-			$.each(data.operation, function(key, value) {
+			if (data!=null) {
+			$.each(data, function(key, value) {
 					$("#hirurgOperation [name="+key+"]").val(value);
 					$("#hirurgOperation [multiple][name^="+key+"]").val(value);
 			});
 			}
+			
 			$("#hirurgOperation").find("select").trigger("change");
 	});
 	// =======================================
@@ -72,7 +74,7 @@ function hirurg_operation_submit() {
 		if (data.error==0) {
 			footer_notify("Операция завершена","success");
 			$.mobile.back();
-			setTimeout(function(){document.location.href=document.location.href;},500);
+			setTimeout(function(){document.location.href=document.location.href;},1000);
 		}
 	});
 	} else { 

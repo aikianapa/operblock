@@ -10,7 +10,16 @@ $out=formGetForm($form,$mode);
 $Item["result"]=hirurgListItems() ;
 if (isset($_COOKIE["workDate"])) {$Item["workDate"]=$_COOKIE["workDate"];} else {$Item["workDate"]=date("Y-m-d");}
 $Item["person_id"]=$_SESSION["person_id"];
+$aType='Протокол операции';
+$form=getActionTypeForm($aType);
+$Item["actionType_id"]=getActionTypeByName($aType);
+$Item["person_id"]=$_SESSION["person_id"];
+$Item["protocol"]=$form;
 $out=contentSetData($out,$Item);
+$out->find("#operation [name=fld_0]")->attr("type","time");
+$out->find("#operation [name=fld_1]")->attr("type","datetime")->attr("required","required");
+$out->find("#operation [name=fld_6]")->attr("required","required");
+$out->find("#operation [name=fld_8]")->attr("required","required");
 return $out;
 }
 
