@@ -36,6 +36,11 @@ foreach($_hirurg as $key => $Hirurg) {
 	$out->find("#zavtable select[name^=assist_id] option:last")->after($opt); 
 }
 
+if ($_SESSION["settings"]["appId"]=="msk36") {
+		$out->find("#zavnazn select[name=dejur_id]")->parent("div")->remove();
+		$out->find("#zavtable select[name=dejur_id]")->parent("div")->remove();
+}
+
 return $out;
 } 
 

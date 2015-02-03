@@ -321,15 +321,27 @@ $out=file_get_contents($_SERVER['DOCUMENT_ROOT']."/forms/print_$_GET[mode].php")
 $action=getActionInfo($_GET["action"]);
 $Operation=jdbReadItem("Operation",$_GET["action"]);
 foreach($action["_Client"] as $c => $val) {$action["client_".$c]=$val;}
-if ($Operation["result"]==0) {$Operation["result"]="смерть";} else {$Operation["result"]="выписка";} 
-foreach($Operation as $key => $val) {
-	$action["o_$key"]=$val;
-}
-$begTime=strtotime($action["begDate"]." ".$action["o_begTime"]);
-$endTime=strtotime($action["o_endDate"]);
+//foreach($Operation as $key => $val) {
+//	$action["o_$key"]=$val;
+//}
+$action["o_begTime"]=$Operation["fld_0"];
+$action["o_endTime"]=$Operation["fld_1"];
+$action["o_blooding"]=$Operation["fld_2"];
+$action["o_diagnoz"]=$Operation["fld_3"];
+$action["o_problems"]=$Operation["fld_4"];
+$action["o_problemsAfter"]=$Operation["fld_5"];
+$action["o_result"]=$Operation["fld_6"];
+if ($action["o_result"]==0) {$action["o_result"]="смерть";} else {$action["o_result"]="выписка";} 
+$action["o_drugs"]=$Operation["fld_7"];
+$action["o_protocol"]=$Operation["fld_8"];
+$begTime=strtotime($action["begDate"]." ".$action["o_begTime"].":00");
+$endTime=strtotime($action["o_endTime"]);
 $action["o_endTime"]=date("H:i",$endTime); 
+$action["anest_diag"]=$action["diag"]["anest"]["value"];
 $action["o_time"]= date("H:i", mktime(0, 0, ($endTime-$begTime)));
 $action["o_protocol"]=nl2br($action["o_protocol"]);
+$action["client_begDate"]=getRusDate($action["client_begDate"]);
+$action["begDate"]=getRusDate($action["begDate"]);
 $out=contentSetData($out,$action);
 return $out->htmlOuter();
 }
@@ -482,7 +494,12 @@ function sister() {
 } 
 
 function opertable() {
-	$out=file_get_contents($_SERVER['DOCUMENT_ROOT']."/forms/print_$_GET[mode].php");
+	if ($_SESSION["settings"]["appId"]=="msk36") {
+		$path=$_SERVER['DOCUMENT_ROOT']."/forms/".$_SESSION["settings"]["appId"]."/";
+	} else {
+		$path=$_SERVER['DOCUMENT_ROOT']."/forms/";
+	}
+	$out=file_get_contents($path."print_$_GET[mode].php");
 	$data=array(); $notes=array(); $count=1; $nCount=1;
 	foreach($_GET["aid"] as $key => $action_id) {
 		$action=getActionInfo($action_id);
@@ -519,7 +536,12 @@ function opertable() {
 }
 
 function oproom() {
-	$out=file_get_contents($_SERVER['DOCUMENT_ROOT']."/forms/print_$_GET[mode].php");
+	if ($_SESSION["settings"]["appId"]=="msk36") {
+		$path=$_SERVER['DOCUMENT_ROOT']."/forms/".$_SESSION["settings"]["appId"]."/";
+	} else {
+		$path=$_SERVER['DOCUMENT_ROOT']."/forms/";
+	}
+	$out=file_get_contents($path."print_$_GET[mode].php");
 	$data=array(); $notes=array(); $count=1; $nCount=1;
 	foreach($_GET["aid"] as $key => $action_id) {
 		$action=getActionInfo($action_id);
