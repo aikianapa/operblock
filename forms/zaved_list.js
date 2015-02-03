@@ -168,6 +168,12 @@ $(document).delegate("a[href=#table_menu]","click",function() {
 			$("#opMenu").popup("close");
 		});
 
+		$("#table_menu a[href=#zavtable]").on("click",function(){
+			$("#table_menu").popup("close");
+			var appId=$("#zavedlist input#appId").val();
+			if (appId=="msk36") {$( "#zavtable form a.submit" ).trigger( "click"); return false;}
+		});
+
 		$("#table_menu a.print").on("click",function(){
 			var tid=$("#table_menu").data("tid");
 			var date=$("#zavedList input[name=workDate]").val();
@@ -268,15 +274,17 @@ $( "#zavnazn form a.submit" ).unbind("click").on( "click", function(  ) {
 
 function zavtable_submit() {
 $( "#zavtable form a.submit" ).on( "click", function(  ) {
-		if (checkRequired($( "#zavtable form"))) {
+		if (checkRequired($( "#zavtable form:visible"))) {
 		var formdata=$("#zavtable form").serialize() ;
 		$.post("/json/operation.php?mode=zavtable_submit",formdata,function(data){
 			var tid=$("#zavtable form input[name=table]").val();
 			$("#tables").find("ul#table-"+tid).parents("div.table-drop").addClass("approved"); 
-			footer_notify("Операционный стол утверждён","success");
-			zavtable_copytable();
-			$.mobile.back();
-			setTimeout(function(){document.location.href=document.location.href;},500);
+			if ($("#zavtable form:visible").length) {
+				footer_notify("Операционный стол утверждён","success");
+				zavtable_copytable();
+				$.mobile.back();
+				setTimeout(function(){document.location.href=document.location.href;},500);
+			}
 		});
 		} else { 
 			footer_notify("Не заполнены обязательные поля","error");

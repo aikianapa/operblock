@@ -13,6 +13,7 @@ $Item["person_id"]=$_SESSION["person_id"];
 if (isset($_COOKIE["workDate"])) {$Item["workDate"]=$_COOKIE["workDate"];} else {$Item["workDate"]=date("Y-m-d");}
 $Item["tables"]=prepareTables(4);
 $Item["orgStr_id"]=$_SESSION["orgStrId"];
+$out->find("#zavedList")->prepend("<input id='appId' type='hidden' value='".$_SESSION["settings"]["appId"]."' />");
 $out=contentSetData($out,$Item);
 $out=setSelects($out);
 return $out;
