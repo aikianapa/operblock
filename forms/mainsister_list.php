@@ -99,11 +99,11 @@
 <label>Время</label><input type="time"  data-inline="true" name="begTime">
 </div>
 <div data-role="fieldcontain"><label>Операционная медсестра</label>
-<select name="operSister_id" data-native-menu="true" required><option value="">Выберите...</option></select>
+<select name="operSister_id" data-native-menu="true" ><option value="">Выберите...</option></select>
 </div>
 
 <div data-role="fieldcontain"><label>Санитарка</label>
-<input type="text" data-role="date" data-inline="true" required name="sanitar">
+<input type="text" data-role="date" data-inline="true" name="sanitar">
 </div>
 
 
