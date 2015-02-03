@@ -257,7 +257,7 @@ $.get("/json/operation.php?mode=nazn_hirurg_list&orgStrId="+orgStrId,function(da
 $.get("/json/operation.php?mode=nazn_oper_list&orgStrId="+orgStrId,function(data){
 	var data=jQuery.parseJSON(data);
 	$(data).each(function(){
-		$("#patient_nazn_form select[name=actionType_id] option:last").after("<option value='"+this["id"]+"'>"+this["name"]+"</option>");
+		$("#patient_nazn_form select[name=actionType_id] option:last").after("<option value='"+this["id"]+"'> [ "+this["code"]+" ] "+this["name"]+"</option>");
 	});
 });
 }

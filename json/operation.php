@@ -442,6 +442,7 @@ $result = mysql_query($SQL) or die("Query failed: (nazn_oper_list) " . mysql_err
 $array=array();
 while($data = mysql_fetch_array($result)) {
  $Item["id"]=$data["id"];
+ $Item["code"]=$data["code"];
  $Item["name"]=$data["name"];
  $array[]=$Item;
 }
