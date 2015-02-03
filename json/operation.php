@@ -163,12 +163,14 @@ function mainsis_oproom_submit() {
 	$oper=$_POST["oper_id"];
 	$date=$_POST["begDate"];
 	mainsis_oproom_aprove($date,$oper);
-	unset($_POST["aid"]);
-	unset($_POST["oper_id"]);
-	unset($_POST["person_id"]);
-	foreach($actions as $action_id) {
-		$_POST["action_id"]=$action_id;	
-		zavnazn_oper_submit();
+	if ($_SESSION["settings"]["appId"]!="msk36") {
+		unset($_POST["aid"]);
+		unset($_POST["oper_id"]);
+		unset($_POST["person_id"]);
+		foreach($actions as $action_id) {
+			$_POST["action_id"]=$action_id;	
+			zavnazn_oper_submit();
+		}
 	}
 }
 
@@ -437,7 +439,7 @@ function nazn_oper_list() {
 $orgStrId=$_GET["orgStrId"];
 $SQL="SELECT * FROM ActionType  
   WHERE ActionType.serviceType = 4  AND class=2
-  ORDER BY name ASC";
+  ORDER BY code ASC";
 $result = mysql_query($SQL) or die("Query failed: (nazn_oper_list) " . mysql_error());
 $array=array();
 while($data = mysql_fetch_array($result)) {

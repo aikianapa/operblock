@@ -192,12 +192,18 @@ function button_oprooms_init() {
 	});
 	
 	$("#oproomMenu li a.approve").unbind("click").on("click",function(){
+		
+		if ($("#mainsisterlist input#appId").val()=="msk36") {
+			$( "#mainsisterNazn form a.submit" ).trigger( "click"); 
+			$("#oproomMenu").popup("close"); 
+		} else {
 				$("#mainsisterNazn form")[0].reset();
 				$("#mainsisterNazn input[name=action_id]").val(""); 
 				$("#mainsisterNazn input[name=oper_id]").val($("#oproomMenu").data("oid")); 
 				$("#mainsisterNazn input[name=person_id]").val($("#mainsisterList input[name=person_id]").val()); 
 				$.mobile.changePage( "#mainsisterNazn", { transition: "slideup", changeHash: true });
-				
+		}
+		return false;
 	});
 	
 	
@@ -205,28 +211,44 @@ function button_oprooms_init() {
 
 function mainsisterNazn_submit() {
 		$( "#mainsisterNazn form a.submit" ).unbind("click").on( "click", function(  ) {
-			var oid=$("#mainsisterNazn input[name=oper_id]").val();
-			if (checkRequired($( "#mainsisterNazn form.nazn"))) {
-			var formdata=$("#mainsisterNazn form").serialize() ;
-			$.mobile.back();
-			if ( oid>"" ) {
+			var appId = $("#mainsisterlist input#appId").val();
+			if (appId=="msk36" && $("#mainsisterNazn form:visible").length==0) {
+				var oid=$("#oproomMenu").data("oid");
+				var workDate=$("#mainsisterList input[name=workDate]").val();
+				var formdata="&oper_id="+oid+"&begDate="+workDate;
 				$("#oprooms ul#oproom-"+oid).find("ul[tid] > li").each(function() { 
-					formdata=formdata+"&aid[]="+$(this).attr("aid");
+						formdata=formdata+"&aid[]="+$(this).attr("aid");
 				});
 				$.post("/json/operation.php?mode=mainsis_oproom_submit",formdata,function(data){ 
-					footer_notify("Данные сохранены","success");
-					setTimeout(function(){document.location.href=document.location.href;},1000);
+					$("#oprooms ul#oproom-"+oid).parent("div.oproom-drop").removeClass("open").addClass("approved");
+					//footer_notify("Данные сохранены","success");
 				});
+				
 			} else {
-				$.post("/json/operation.php?mode=mainsister_oper_submit",formdata,function(data){ 
-					footer_notify("Данные сохранены","success");
-					setTimeout(function(){document.location.href=document.location.href;},1000);
-				});
+					var workDate=$("#mainsisterList input[name=workDate]").val();
+					if (checkRequired($( "#mainsisterNazn form.nazn:visible"))) {
+					var formdata=$("#mainsisterNazn form").serialize() ;
+					$.mobile.back();
+					if ( oid>"" ) {
+						$("#oprooms ul#oproom-"+oid).find("ul[tid] > li").each(function() { 
+							formdata=formdata+"&aid[]="+$(this).attr("aid");
+						});
+							$.post("/json/operation.php?mode=mainsis_oproom_submit",formdata,function(data){ 
+								footer_notify("Данные сохранены","success");
+								setTimeout(function(){document.location.href=document.location.href;},1000);
+							});
+					} else {
+						$.post("/json/operation.php?mode=mainsister_oper_submit",formdata,function(data){ 
+							footer_notify("Данные сохранены","success");
+							setTimeout(function(){document.location.href=document.location.href;},1000);
+						});
+					}
+					} else { 
+						footer_notify("Не заполнены обязательные поля","error");
+						return false;
+					}
 			}
-			} else { 
-				footer_notify("Не заполнены обязательные поля","error");
-				return false;
-			} 
+
 		});
 }
 

@@ -13,6 +13,7 @@ $Item["person_id"]=$_SESSION["person_id"];
 $Item["orgStr_id"]=$_SESSION["orgStrId"];
 $Item=getOpTables($Item,$Item["workDate"]);
 $Item["oprooms"]=getOpRooms();
+$out->find("#mainsisterList")->prepend("<input id='appId' type='hidden' value='".$_SESSION["settings"]["appId"]."' />");
 $out=contentSetData($out,$Item);
 $out=setSelects($out);
 return $out;
