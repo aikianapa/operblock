@@ -121,7 +121,7 @@ function prepInput($Item) {
 			}
 			break;
 		default:
-			$inp="<input type='text' name='$name' $add>";
+			$inp="<input type='$type' name='$name' $add>";
 			break;
 	}
 	return $inp;
@@ -801,7 +801,7 @@ function get_action_status($action_id="", $action="", $_action="") {
 		if ($Action["status"]=="") {$Action["status"]=0;}
 		if ($Action["zam_ok"]==1) {$Action["status"]=1;} else {$Action["status"]=0;}
 		if ($Action["zav_ok"]==1 AND $Action["status"]==0) $Action["status"]=4;
-		if (date("Y",strtotime($Action["endDate"]))>1970 ) {$Action["status"]=2;}
+		if (date("d-m-Y",strtotime($Action["endDate"]))>=date("d-m-Y",strtotime($Action["begDate"])) AND $Action["status"]<2  ) {$Action["status"]=2;}
 		if ($Action["isUrgent"]==1 AND ($Action["status"]!=2 AND $Action["status"]!=3) ) {$Action["status"]=1;}
 	}
 	return  $Action["status"];

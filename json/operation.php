@@ -102,6 +102,27 @@ function zavnazn_get_data() {
 	return json_encode($res);
 }
 
+function get_operation_protocol() {
+	$item=array();
+	$action_id=$_GET["action_id"];
+	$aType='Протокол операции';
+	$form=getActionTypeForm($aType);
+	$aType_id=getActionTypeByName($aType);
+	$SQL="SELECT id FROM Action WHERE actionType_id = ".$aType_id." AND parent_id = ".$action_id." LIMIT 1";
+	$result = mysql_query($SQL) or die("Query failed: (hirurg_oper_submit) " . mysql_error());
+	$action_id="_new";	while($data = mysql_fetch_array($result)) {	$action_id=$data["id"];	}
+	if ($action_id=="_new") {
+		// Если Action не существует, пытаемся прочитать данные в JsonData
+		$item=jdbReadItem("Operation",$_GET["action_id"]);		
+	} else {
+		$form=getActionTypeForm('Протокол операции');
+		$item["id"]=$action_id;
+		$item=getActionPropertyFormData($item,$form);
+	}
+	return json_encode($item);
+}
+
+
 function mainsister_set_table() {
 	$_action=jdbReadItem("Action",$_GET["action_id"]);
 	$action=mysqlReadItem("Action",$_GET["action_id"]);
@@ -345,12 +366,57 @@ function hirurg_oper_submit() {
 $_POST["id"]=$_POST["action_id"];
 $Item=$_POST;
 unset($_POST["action_id"]);
-$error=jdbSaveItem("Operation",$Item); 
-if ($error=="") {$error=0; }
-	$action=mysqlReadItem("Action",$Item["action_id"]);
-	$action["status"]=2;
-	$action["endDate"]=$Item["endDate"];
-	$error=mysqlSaveItem("Action",$action);
+//$error=jdbSaveItem("Operation",$Item); 
+//if ($error=="") {$error=0; }
+	$Parent=mysqlReadItem("Action",$Item["action_id"]);
+	$Parent["status"]=2;
+	$Parent["endDate"]=$Item["endDate"];
+	$Parent["modufyPerson_id"]=$_POST["person_id"];
+	$error=mysqlSaveItem("Action",$Parent);
+	
+	
+
+// Ищем Action
+$SQL="SELECT id FROM Action WHERE actionType_id = ".$_POST["actionType_id"]." AND parent_id = ".$Parent["id"]." LIMIT 1";
+$result = mysql_query($SQL) or die("Query failed: (hirurg_oper_submit) " . mysql_error());
+$action_id="_new";	while($data = mysql_fetch_array($result)) {	$action_id=$data["id"];	}
+	
+	
+	if ($action_id!="_new") {
+		$Action=mysqlReadItem("Action",$action_id);
+	} else {
+		$Action["id"]=$action_id;
+		$Action["actionType_id"]=$_POST["actionType_id"];
+		$Action["event_id"]=$Parent["event_id"];
+		$Action["parent_id"]=$Parent["id"];
+		$Action["setPerson_id"]=$_POST["person_id"];
+		$Action["createPerson_id"]=$Action["modifyPerson_id"]=$_POST["person_id"];
+		$Action["createDatetime"]=$Action["modifyDatetime"]=date("Y-m-d H:i:s");
+		$Action["begDate"]=date("Y-m-d H:i:s");
+		$Action["status"]=2;
+	}
+	$fldset=getActionTypeForm('Протокол операции');
+	foreach($fldset as $i => $fld) {
+		$fldset[$i]["value"]=$_POST[$fld["name"]];
+		if ($fld["type"]=="JobTicket") {unset($fldset[$i]);}
+	}
+	mysqlSaveItem("Action",$Action);
+	if ($action_id=="_new") {
+		$Action["id"]=mysql_insert_id();
+		insertProperties($fldset,$Action["id"],$Action["setPerson_id"],$Action["actionType_id"]);
+	} else {
+		updateProperties($fldset,$Action["id"],$Action["setPerson_id"],$Action["actionType_id"]);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 $res["error"]=$error;
 return json_encode($res);
 }
