@@ -18,7 +18,7 @@ $Item["orgStr_id"]=$_SESSION["orgStrId"];
 if (isset($_COOKIE["workDate"])) {$Item["workDate"]=$_COOKIE["workDate"];} else {$Item["workDate"]=date("Y-m-d");}
 $Item=getOpTables($Item,$Item["workDate"]);
 $Item["oprooms"]=getOpRooms();
-$out->find("#mainsisterList")->prepend("<input id='appId' type='hidden' value='".$_SESSION["settings"]["appId"]."' />");
+$out->find("#zavedanList")->prepend("<input id='appId' type='hidden' value='".$_SESSION["settings"]["appId"]."' />");
 $out=contentSetData($out,$Item);
 $out=setSelects($out);
 return $out;
