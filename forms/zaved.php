@@ -53,7 +53,7 @@ function zavedListItems() {
       INNER JOIN Person as c ON a.setPerson_id=c.id
       WHERE b.serviceType = 4 
       AND c.orgStructure_id = '{$_SESSION['orgStrId']}'
-		AND ( a.begDate BETWEEN '$date' AND '$date' OR (a.plannedEndDate BETWEEN '$date' AND '$date'  ) )
+		AND ( a.begDate BETWEEN '$date 00:00:00' AND '$date 23:59:59' OR (a.plannedEndDate BETWEEN '$date 00:00:00' AND '$date 23:00:59'  ) )
 	  AND a.deleted=0
       ORDER BY a.id DESC ";
       //$SQL="DELETE QUICK FROM Action WHERE id = 2028904 ";

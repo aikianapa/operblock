@@ -643,7 +643,7 @@ $SQL="SELECT * FROM Action as a
   INNER JOIN Person as c ON a.setPerson_id=c.id
   WHERE b.serviceType = 4 
   AND a.deleted = 0 
-  AND ( begDate BETWEEN '$start' AND '$stop' OR (plannedEndDate BETWEEN '$start' AND '$stop' ) )
+  AND ( begDate BETWEEN '$start 00:00:00' AND '$stop 23:59:59' OR (plannedEndDate BETWEEN '$start 00:00:00' AND '$stop 23:59:59' ) )
   ORDER BY status DESC ";
   
 //  AND ( begDate BETWEEN '$start' AND '$stop' OR (plannedEndDate BETWEEN '$start' AND '$stop'  AND ( begDate like '1970%' OR begDate IS NULL )) )
