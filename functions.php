@@ -643,8 +643,10 @@ $SQL="SELECT * FROM Action as a
   INNER JOIN Person as c ON a.setPerson_id=c.id
   WHERE b.serviceType = 4 
   AND a.deleted = 0 
-  AND ( begDate BETWEEN '$start' AND '$stop' OR (plannedEndDate BETWEEN '$start' AND '$stop'  AND ( begDate like '1970%' OR begDate IS NULL )) )
+  AND ( begDate BETWEEN '$start' AND '$stop' OR (plannedEndDate BETWEEN '$start' AND '$stop' ) )
   ORDER BY status DESC ";
+  
+//  AND ( begDate BETWEEN '$start' AND '$stop' OR (plannedEndDate BETWEEN '$start' AND '$stop'  AND ( begDate like '1970%' OR begDate IS NULL )) )
 		$res = mysql_query($SQL) or die("Query failed: " . mysql_error());
 		$data=array();
 		while($a = mysql_fetch_array($res)) {
@@ -674,9 +676,13 @@ $SQL="SELECT * FROM Action as a
 		} else {
 		$SQL="SELECT * FROM Action INNER JOIN ActionType ON Action.actionType_id = ActionType.id 
 		WHERE ActionType.serviceType = 4 
-		AND ( begDate BETWEEN '$start' AND '$stop' OR (plannedEndDate BETWEEN '$start' AND '$stop'  AND ( begDate like '1970%' OR begDate IS NULL )) )
+		AND ( begDate BETWEEN '$start' AND '$stop' OR (plannedEndDate BETWEEN '$start' AND '$stop' ) )
 		ORDER BY status DESC ";
 }
+
+// 		AND ( begDate BETWEEN '$start' AND '$stop' OR (plannedEndDate BETWEEN '$start' AND '$stop'  AND ( begDate like '1970%' OR begDate IS NULL )) )
+
+
 		$res = mysql_query($SQL) or die("Query failed: " . mysql_error());
 		$data=array();
 		while($a = mysql_fetch_array($res)) {
