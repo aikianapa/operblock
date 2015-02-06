@@ -656,6 +656,7 @@ $SQL="SELECT * FROM Action as a
 			if (!isset($data[$curdate][$action["status"]])) {$data[$curdate][$action["status"]]=1;} else {$data[$curdate][$action["status"]]++;}
 			}
 		}
+	mysql_free_result($res);
 	return json_encode($data);
 }
 
@@ -678,13 +679,15 @@ $SQL="SELECT * FROM Action as a
 }
 		$res = mysql_query($SQL) or die("Query failed: " . mysql_error());
 		$data=array();
-		while($action = mysql_fetch_array($res)) {
+		while($a = mysql_fetch_array($res)) {
+			$action=getActionInfo($a[0]);
 			if (date("Y",strtotime($action["begDate"]))=="1970" OR $action["begDate"] == NULL) {
 					$curdate=date("d",strtotime($action["plannedEndDate"]));
 			} else {	$curdate=date("d",strtotime($action["begDate"]));}
 			if (!isset($data[$curdate][$action["status"]])) {$data[$curdate][$action["status"]]=1;} else {$data[$curdate][$action["status"]]++;}
 		
 		}
+	mysql_free_result($res);
 	return json_encode($data);
 }
  
