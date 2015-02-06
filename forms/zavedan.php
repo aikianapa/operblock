@@ -9,13 +9,16 @@ function zavedanDataType() { return "mysql"; }
 
 function zavedan_list($form,$mode,$id,$datatype)  {
 $Item=array();
-$out=formGetForm($form,$mode);
+if ($_SESSION["settings"]["appId"]=="msk36") {
+	$out=phpQuery::newDocumentFile($_SERVER['DOCUMENT_ROOT']."/forms/msk36/".$form."_".$mode.".php");
+} else {$out=formGetForm($form,$mode);}
 $Item["result"]=zavedanListItems() ;
 $Item["person_id"]=$_SESSION["person_id"];
 $Item["orgStr_id"]=$_SESSION["orgStrId"];
 if (isset($_COOKIE["workDate"])) {$Item["workDate"]=$_COOKIE["workDate"];} else {$Item["workDate"]=date("Y-m-d");}
 $Item=getOpTables($Item,$Item["workDate"]);
 $Item["oprooms"]=getOpRooms();
+$out->find("#mainsisterList")->prepend("<input id='appId' type='hidden' value='".$_SESSION["settings"]["appId"]."' />");
 $out=contentSetData($out,$Item);
 $out=setSelects($out);
 return $out;
