@@ -23,6 +23,7 @@ $(document).ready(function(){
 						$("#zamglav [name="+key+"]").val(value);
 						$("#zamglav [multiple][name^="+key+"]").val(value);
 				});
+				if (data.status!=0) {$("#zamglav select[name=zam_ok]").parent("div").parent("div").hide();} else {$("#zamglav select[name=zam_ok]").parent("div").parent("div").show();}
 				$("#zamglav [multiple]").selectmenu(); 
 				$("#zamglav [multiple]").selectmenu( "destroy" ); 
 				$("#zamglav [multiple]").selectmenu(); 

@@ -48,11 +48,11 @@ return $out;
 function zavedListItems() {
 	$result=array(); $counter=0;
 	if (isset($_COOKIE["workDate"])) {$date=$_COOKIE["workDate"];} else {$date=date("Y-m-d");}
-		$SQL="SELECT * FROM Action as a
-      INNER JOIN ActionType as b ON a.actionType_id=b.id
-      INNER JOIN Person as c ON a.setPerson_id=c.id
-      WHERE b.serviceType = 4 
-      AND c.orgStructure_id = '{$_SESSION['orgStrId']}'
+		$SQL="SELECT * FROM Action 
+      INNER JOIN ActionType ON Action.actionType_id=ActionType.id
+      INNER JOIN Person ON Action.setPerson_id=Person.id
+      WHERE ActionType.serviceType = 4 
+      AND Person.orgStructure_id = '{$_SESSION['orgStrId']}'
 	AND ( Action.begDate BETWEEN '$date 00:00:00' AND '$date 23:59:59' 
 		OR (
 				(Action.plannedEndDate BETWEEN '$date 00:00:00' AND '$date 23:59:59' )
@@ -60,8 +60,8 @@ function zavedListItems() {
 				(Action.begDate like '1970%' OR Action.begDate IS NULL )
 			) 
 		)
-	  AND a.deleted=0
-      ORDER BY a.id DESC ";
+	  AND Action.deleted=0
+      ORDER BY Action.id DESC ";
       //$SQL="DELETE QUICK FROM Action WHERE id = 2028904 ";
 		$res = mysql_query($SQL) or die("Query failed: " . mysql_error()); 
 		while($a = mysql_fetch_array($res)) {
