@@ -71,11 +71,15 @@ $SQL="SELECT Action.id FROM Action
 	INNER JOIN Event ON Action.event_id = Event.id
 	INNER JOIN EventType ON Event.EventType_id = EventType.id
 	WHERE ActionType.serviceType = 4
+<<<<<<< HEAD
 <<<<<<< master
 	AND EventType.medicalAidType_id = 3
 =======
 	AND EventType.medicalAidType_id < 5 
 >>>>>>> d3a6caa calendar medicalAidType fix (2)
+=======
+	AND EventType.medicalAidType_id = 3
+>>>>>>> 73a79e2c0ae23f3bd81e4d8be8ca39ebe00a6427
 	AND ( Action.begDate BETWEEN '$date 00:00:00' AND '$date 23:59:59' OR (Action.plannedEndDate BETWEEN '$date 00:00:00' AND '$date 23:00:59'  ) )
 	AND Action.deleted=0
 	ORDER BY Action.id DESC ";
