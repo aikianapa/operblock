@@ -88,6 +88,10 @@ $SQL="SELECT * FROM Action as a
 		$actionType=mysqlReadItem("ActionType",$data["actionType_id"]);
 		if ($actionType["serviceType"]=4) {
 			$data["id"]=$data[0];
+			$data=getActionInfo($data[0]);
+			$data["personFull"]=$data["_Person"]["person"];
+			if (!isset($data["cancelNote"])) {$data["cancelNote"]="";}
+			/*
 			if ($data["begDate"]==NULL AND date("Y",strtotime($data["plannedEndDate"]))>"0000") {$data["begDate"]=$data["plannedEndDate"];}
 			if ($data["begDate"]==NULL OR date("Y",strtotime($data["begDate"]))=="1970") {$data["begDate"]="Не назначена";} else {
 				$data["begDate"]=date("d-m-Y",strtotime($data["begDate"]));
@@ -102,6 +106,7 @@ $SQL="SELECT * FROM Action as a
 
 			$data["begDate"]=dmyDate($data["begDate"]);
 			$data["status"]=get_action_status($data["id"],$data);
+			*/
 			$Item["operations"][]=$data;
 		}
 	}

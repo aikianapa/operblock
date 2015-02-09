@@ -249,7 +249,7 @@ function zavnazn_oper_submit() {
 $action=mysqlReadItem("Action",$_POST["action_id"]);
 $_action=jdbReadItem("Action",$_POST["action_id"]);
 $_action["id"]=$_POST["action_id"];
-if (date("Y",strtotime($_POST["begDate"]))>"1970") {$action["plannedEndDate"]="";}
+if (date("Y",strtotime($_POST["begDate"]))>"1970") {$action["plannedEndDate"]=NULL;}
 $action["modifyDatetime"]=date("Y-m-d H:i:s");
 if (isset($_POST["begDate"])) {$action["begDate"]=date("Y-m-d 00:00:00",strtotime($_POST["begDate"]));}
 if (isset($_SESSION["user_id"])) {$action["modifyPerson_id"]=$_SESSION["user_id"];}

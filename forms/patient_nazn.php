@@ -30,10 +30,10 @@
 <table data-role="table" class="ui-responsive" id="operlist">
 <thead><tr><th>Дата проведения</th><th>Наименование операции</th><th>Хирург</th><th>&nbsp;</th></tr></thead>
 <tbody>
-<div data-role="foreach" from="operations"><tr class="status-{{status}}" aid="{{id}}">
+<div data-role="foreach" from="operations"><tr class="status-{{status}}" aid="{{id}}" title="{{cancelNote}}">
 <td>{{begDate}}</td>
 <td style="width:50%;"><p>{{specifiedName}}</p></td>
-<td title="{{hirurgFull}}">{{hirurg}}</td>
+<td title="{{personFull}}">{{person}}</td>
 <td><a href="#vrachMenu" data-rel="popup" data-transition="slideup" class="ui-btn ui-corner-all ui-shadow ui-icon-action ui-btn-icon-notext">Печать</a></td>
 </tr></div>
 </tbody></table>
@@ -172,6 +172,7 @@ $(document).on("pageinit",function(){
 
 function patient_nazn() {
 //$("#patient-panel").panel("open");
+
 $('input[type=datetime]').datetimepicker({
 	lang:'ru', format:'Y-m-d', formatDate:'Y-m-d', timepicker:false
 });
