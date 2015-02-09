@@ -677,6 +677,7 @@ SELECT * FROM Action as a
 	return json_encode($data);
 }
 
+
 function getOperationsByDate($month,$year,$oid="") {
 		$start="$year-$month-01";
 		$stop="$year-$month-".date("t", strtotime("$year-$month"));;
