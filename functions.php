@@ -638,14 +638,14 @@ return $item;
 
 function getOperationsByPerson($month,$year,$person_id,$role="person_id") {
 		$start="$year-$month-01";
-		$stop="$year-$month-31";
+		$stop="$year-$month-".date("t", strtotime("$year-$month"));;
 
 $SQL="SELECT Action.id FROM Action 
 	INNER JOIN ActionType ON Action.actionType_id = ActionType.id
 	INNER JOIN Event ON Action.event_id = Event.id
 	INNER JOIN EventType ON Event.EventType_id = EventType.id
 	WHERE ActionType.serviceType = 4
-	AND EventType.medicalAidType_id < 4 
+	AND EventType.medicalAidType_id = 3 
 	AND ( Action.begDate BETWEEN '$start 00:00:00' AND '$stop 23:59:59' OR (Action.plannedEndDate BETWEEN '$start 00:00:00' AND '$stop 23:00:59'  ) )
 	AND Action.deleted=0
 	ORDER BY Action.status DESC ";
@@ -679,7 +679,7 @@ SELECT * FROM Action as a
 
 function getOperationsByDate($month,$year,$oid="") {
 		$start="$year-$month-01";
-		$stop="$year-$month-31";
+		$stop="$year-$month-".date("t", strtotime("$year-$month"));;
 		if ($oid>"") {
 $SQL="SELECT Action.id FROM Action 
 	INNER JOIN ActionType ON Action.actionType_id = actionType.id 
@@ -687,9 +687,12 @@ $SQL="SELECT Action.id FROM Action
 	INNER JOIN Event ON Action.event_id = Event.id
 	INNER JOIN EventType ON Event.EventType_id = EventType.id
 	WHERE ActionType.serviceType = 4 and Person.orgStructure_id=$oid
-	AND EventType.medicalAidType_id < 4 
+	AND EventType.medicalAidType_id = 3 
 	AND Action.deleted = 0 
-	AND ( Action.begDate BETWEEN '$start 00:00:00' AND '$stop 23:59:59' OR (Action.plannedEndDate BETWEEN '$start 00:00:00' AND '$stop 23:00:59'  ) )
+	AND ( Action.begDate BETWEEN '$start 00:00:00' AND '$stop 23:59:59' 
+			OR (Action.plannedEndDate BETWEEN '$start 00:00:00' AND '$stop 23:00:59' 
+			AND ( Action.begDate like '1970%' OR begDate IS NULL )   ) 
+		)
   ORDER BY Action.status DESC ";
 		} else {
 		$SQL="SELECT Action.id FROM Action 
@@ -697,7 +700,7 @@ $SQL="SELECT Action.id FROM Action
 		INNER JOIN Event ON Action.event_id = Event.id
 		INNER JOIN EventType ON Event.EventType_id = EventType.id
 		WHERE ActionType.serviceType = 4
-		AND EventType.medicalAidType_id < 4  
+		AND EventType.medicalAidType_id = 3
 		AND ( Action.begDate BETWEEN '$start 00:00:00' AND '$stop 23:59:59' OR (Action.plannedEndDate BETWEEN '$start 00:00:00' AND '$stop 23:00:59'  ) )
 		ORDER BY status DESC ";
 }
