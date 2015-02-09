@@ -642,11 +642,18 @@ function getOperationsByPerson($month,$year,$person_id,$role="person_id") {
 
 $SQL="SELECT Action.id FROM Action 
 	INNER JOIN ActionType ON Action.actionType_id = ActionType.id
+	INNER JOIN Person ON Action.setPerson_id=Person.id
 	INNER JOIN Event ON Action.event_id = Event.id
 	INNER JOIN EventType ON Event.EventType_id = EventType.id
 	WHERE ActionType.serviceType = 4
 	AND EventType.medicalAidType_id = 3 
-	AND ( Action.begDate BETWEEN '$start 00:00:00' AND '$stop 23:59:59' OR (Action.plannedEndDate BETWEEN '$start 00:00:00' AND '$stop 23:59:59'  ) )
+		AND ( Action.begDate BETWEEN '$start 00:00:00' AND '$stop 23:59:59' 
+			OR (
+				(Action.plannedEndDate BETWEEN '$start 00:00:00' AND '$stop 23:59:59' )
+					AND 
+				(Action.begDate like '1970%' OR Action.begDate IS NULL )
+				) 
+			)
 	AND Action.deleted=0
 	ORDER BY Action.status DESC ";
 
