@@ -66,6 +66,7 @@ div.day-number { background:#AAA; padding:5px; font-weight: bold; float:right; m
 td.calendar-day, td.calendar-day-np { width:120px; padding:5px;  }
 td.calendar-day  ul {list-style: none; margin:0; padding:0; margin-right: 40px; }  
 td.calendar-day  ul li {font-size: 1.2em; padding:3px; border-left:0px !important; border-bottom: 1px #555 solid;}
+td.calendar-day .ui-btn:hover {background:#d2ffee; }
 
 #cancelOp {width:700px; } 
 #cancelOp .ui-header {background: #ff6060; }
