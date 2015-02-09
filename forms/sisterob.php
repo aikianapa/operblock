@@ -46,7 +46,13 @@ function sisterobListItems() {
 
   $SQL="SELECT * FROM Action INNER JOIN ActionType ON Action.actionType_id = ActionType.id 
   WHERE ActionType.serviceType = 4 
-	AND ( Action.begDate BETWEEN '$date 00:00:00' AND '$date 23:59:59' OR (Action.plannedEndDate BETWEEN '$date 00:00:00' AND '$date 23:00:59'  ) )
+	AND ( Action.begDate BETWEEN '$date 00:00:00' AND '$date 23:59:59' 
+		OR (
+				(Action.plannedEndDate BETWEEN '$date 00:00:00' AND '$date 23:59:59' )
+					AND 
+				(Action.begDate like '1970%' OR Action.begDate IS NULL )
+			) 
+		)
   AND Action.deleted =0
   ORDER BY Action.id DESC  ";
   $res = mysql_query($SQL) or die("Query failed: " . mysql_error()); 

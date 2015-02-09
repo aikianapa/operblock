@@ -33,7 +33,13 @@ function mainsisterListItems() {
 if (isset($_COOKIE["workDate"])) {$date=$_COOKIE["workDate"];} else {$date=date("Y-m-d");}
 $SQL="SELECT Action.id FROM Action INNER JOIN ActionType ON Action.actionType_id = ActionType.id 
 	WHERE ActionType.serviceType = 4
-	AND (begDate='$date' OR plannedEndDate = '$date')
+	AND ( Action.begDate BETWEEN '$date 00:00:00' AND '$date 23:59:59' 
+		OR (
+				(Action.plannedEndDate BETWEEN '$date 00:00:00' AND '$date 23:59:59' )
+					AND 
+				(Action.begDate like '1970%' OR Action.begDate IS NULL )
+			) 
+		)
 	AND Action.deleted=0
 	ORDER BY Action.id DESC ";
 		$res = mysql_query($SQL) or die("Query failed: " . mysql_error());
