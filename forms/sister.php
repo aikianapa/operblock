@@ -33,9 +33,7 @@ function sisterListItems() {
   INNER JOIN Person as c ON a.setPerson_id=c.id
   WHERE b.serviceType=4 
   AND c.orgStructure_id= $_SESSION[orgStrId]
- AND ( (a.begDate BETWEEN '$date' AND '$ndate' ) 
-  OR 
-  ( a.plannedEndDate BETWEEN '$date' AND '$ndate' ) )
+	AND ( a.begDate BETWEEN '$date 00:00:00' AND '$date 23:59:59' OR (a.plannedEndDate BETWEEN '$date 00:00:00' AND '$date 23:00:59'  ) )
    ORDER BY a.id DESC ";
 		$res = mysql_query($SQL) or die("Query failed: " . mysql_error()); 
 		while($a = mysql_fetch_array($res)) {

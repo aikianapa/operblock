@@ -15,6 +15,7 @@ $("div[data-url^='/morfoLab/list/list.htm']:hidden").remove();
 			if ($(this).attr("data")>"") {
 				$(this).attr("href",$(this).attr("data")+"&action="+$( document ).data( "action"));
 			} else {
+				if ($(this).attr("href")=="#new") {var form="morfoNazn";}
 				if ($(this).attr("href")=="#nazn") {var form="morfoNazn";}
 				if ($(this).attr("href")=="#reg") {var form="morfoReg";}
 				if ($(this).attr("href")=="#lab") {var form="morfoLab";}

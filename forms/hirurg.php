@@ -33,7 +33,7 @@ function hirurgListItems() {
 		WHERE ActionType.serviceType = 4 
 		AND Action.person_id = $_SESSION[person_id]
 		AND (Action.status = 1 OR Action.status = 2)
-		AND (begDate='$date' OR plannedEndDate='$date')
+		AND ( Action.begDate BETWEEN '$date 00:00:00' AND '$date 23:59:59' OR (Action.plannedEndDate BETWEEN '$date 00:00:00' AND '$date 23:00:59'  ) )
 		AND Action.deleted=0
 		ORDER BY Action.id DESC ";
 		$res = mysql_query($SQL) or die("Query failed: " . mysql_error()); 

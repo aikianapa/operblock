@@ -55,6 +55,7 @@
 				<div data-role="popup" id="printMenu" data-theme="a">
 					<ul data-role="listview" data-inset="true" style="min-width:210px;">
 						<li data-role="list-divider">Выберите действие</li>
+						<li><a href="#new" data-transition="flip">Доп. исследование</a></li>
 						<li><a href="#nazn" data-transition="flip">Назначение</a></li>
 						<li><a href="#reg" data-transition="flip">Регистрация</a></li>
 						<li><a href="#lab" data-transition="flip">Исследование</a></li>
