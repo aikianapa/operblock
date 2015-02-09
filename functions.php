@@ -680,17 +680,24 @@ function getOperationsByDate($month,$year,$oid="") {
 		$start="$year-$month-01";
 		$stop="$year-$month-31";
 		if ($oid>"") {
-$SQL="SELECT * FROM Action as a 
-  INNER JOIN ActionType as b ON a.actionType_id = b.id 
-  INNER JOIN Person as c ON a.setPerson_id=c.id
-  WHERE b.serviceType = 4 and c.orgStructure_id=$oid
-  AND a.deleted = 0 
-  AND ( begDate BETWEEN '$start' AND '$stop' OR (plannedEndDate BETWEEN '$start' AND '$stop'  AND ( begDate like '1970%' OR begDate IS NULL )) )
-  ORDER BY status DESC ";
+$SQL="SELECT Action.id FROM Action 
+	INNER JOIN ActionType ON Action.actionType_id = actionType.id 
+	INNER JOIN Person ON Action.setPerson_id=Person.id
+	INNER JOIN Event ON Action.event_id = Event.id
+	INNER JOIN EventType ON Event.EventType_id = EventType.id
+	WHERE ActionType.serviceType = 4 and Person.orgStructure_id=$oid
+	AND EventType.medicalAidType_id < 5 
+	AND Action.deleted = 0 
+	AND ( Action.begDate BETWEEN '$start 00:00:00' AND '$stop 23:59:59' OR (Action.plannedEndDate BETWEEN '$start 00:00:00' AND '$stop 23:00:59'  ) )
+  ORDER BY Action.status DESC ";
 		} else {
-		$SQL="SELECT * FROM Action INNER JOIN ActionType ON Action.actionType_id = ActionType.id 
-		WHERE ActionType.serviceType = 4 
-		AND ( begDate BETWEEN '$start' AND '$stop' OR (plannedEndDate BETWEEN '$start' AND '$stop' ) )
+		$SQL="SELECT Action.id FROM Action 
+		INNER JOIN ActionType ON Action.actionType_id = ActionType.id 
+		INNER JOIN Event ON Action.event_id = Event.id
+		INNER JOIN EventType ON Event.EventType_id = EventType.id
+		WHERE ActionType.serviceType = 4
+		AND EventType.medicalAidType_id < 5  
+		AND ( Action.begDate BETWEEN '$start 00:00:00' AND '$stop 23:59:59' OR (Action.plannedEndDate BETWEEN '$start 00:00:00' AND '$stop 23:00:59'  ) )
 		ORDER BY status DESC ";
 }
 
