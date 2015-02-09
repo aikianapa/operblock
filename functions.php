@@ -638,14 +638,28 @@ return $item;
 function getOperationsByPerson($month,$year,$person_id,$role="person_id") {
 		$start="$year-$month-01";
 		$stop="$year-$month-31";
-$SQL="SELECT * FROM Action as a 
+
+$SQL="SELECT Action.id FROM Action 
+	INNER JOIN ActionType ON Action.actionType_id = ActionType.id
+	INNER JOIN Event ON Action.event_id = Event.id
+	INNER JOIN EventType ON Event.EventType_id = EventType.id
+	WHERE ActionType.serviceType = 4
+	AND EventType.medicalAidType_id < 5 
+	AND ( Action.begDate BETWEEN '$date 00:00:00' AND '$date 23:59:59' OR (Action.plannedEndDate BETWEEN '$date 00:00:00' AND '$date 23:00:59'  ) )
+	AND Action.deleted=0
+	ORDER BY Action.status DESC ";
+
+/*
+
+
+SELECT * FROM Action as a 
   INNER JOIN ActionType as b ON a.actionType_id = b.id 
   INNER JOIN Person as c ON a.setPerson_id=c.id
   WHERE b.serviceType = 4 
   AND a.deleted = 0 
   AND ( begDate BETWEEN '$start 00:00:00' AND '$stop 23:59:59' OR (plannedEndDate BETWEEN '$start 00:00:00' AND '$stop 23:59:59' ) )
   ORDER BY status DESC ";
-  
+  */
 //  AND ( begDate BETWEEN '$start' AND '$stop' OR (plannedEndDate BETWEEN '$start' AND '$stop'  AND ( begDate like '1970%' OR begDate IS NULL )) )
 		$res = mysql_query($SQL) or die("Query failed: " . mysql_error());
 		$data=array();

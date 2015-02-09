@@ -66,17 +66,22 @@ function zamglavListItems() {
 	$SETTINGS=$_SESSION['settings'];
 	$result=array(); $counter=0;
 if (isset($_COOKIE["workDate"])) {$date=$_COOKIE["workDate"];} else {$date=date("Y-m-d");}
-$SQL="SELECT * FROM Action INNER JOIN ActionType ON Action.actionType_id = ActionType.id 
+$SQL="SELECT Action.id FROM Action 
+	INNER JOIN ActionType ON Action.actionType_id = ActionType.id
+	INNER JOIN Event ON Action.event_id = Event.id
+	INNER JOIN EventType ON Event.EventType_id = EventType.id
 	WHERE ActionType.serviceType = 4
+	AND EventType.medicalAidType_id < 5 
 	AND ( Action.begDate BETWEEN '$date 00:00:00' AND '$date 23:59:59' OR (Action.plannedEndDate BETWEEN '$date 00:00:00' AND '$date 23:00:59'  ) )
 	AND Action.deleted=0
 	ORDER BY Action.id DESC ";
 		$res = mysql_query($SQL) or die("Query failed: " . mysql_error()); 
 		while($action = mysql_fetch_array($res)) {
-			$counter++; $action["counter"]=$counter;
 			$action["id"]=$action[0];
 			$action=getActionInfo($action["id"]);
+			$counter++; $action["counter"]=$counter;
 			if ($action["orgid"]=="") { $action["orgid"]=$action["orgStr_id"]; }
+			$action["client_begDate"]=dmyDate($action[client_begDate]);
 			$tooltip="<ul class='inner'>
 				<li>Диагноз: $action[diagnose]</li>
 				<li>Название операции: $action[operation]</li>
