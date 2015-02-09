@@ -689,8 +689,12 @@ $SQL="SELECT Action.id FROM Action
 	WHERE ActionType.serviceType = 4 and Person.orgStructure_id=$oid
 	AND EventType.medicalAidType_id = 3 
 	AND Action.deleted = 0 
-	AND ( Action.begDate BETWEEN '$date 00:00:00' AND '$date 23:59:59' 
-		OR (Action.plannedEndDate BETWEEN '$start 00:00:00' AND '$stop 23:59:59' )
+	AND ( Action.begDate BETWEEN '$start 00:00:00' AND '$stop 23:59:59' 
+		OR (
+			(Action.plannedEndDate BETWEEN '$start 00:00:00' AND '$stop 23:59:59' )
+				AND 
+			(Action.begdate like '1970%' OR Action.begDate IS NULL )
+			) 
 		)
   ORDER BY Action.status DESC ";
 		} else {
@@ -700,8 +704,12 @@ $SQL="SELECT Action.id FROM Action
 		INNER JOIN EventType ON Event.EventType_id = EventType.id
 		WHERE ActionType.serviceType = 4
 		AND EventType.medicalAidType_id = 3
-		AND ( Action.begDate BETWEEN '$date 00:00:00' AND '$date 23:59:59' 
-			OR (Action.plannedEndDate BETWEEN '$start 00:00:00' AND '$stop 23:59:59' )
+		AND ( Action.begDate BETWEEN '$start 00:00:00' AND '$stop 23:59:59' 
+			OR (
+				(Action.plannedEndDate BETWEEN '$start 00:00:00' AND '$stop 23:59:59' )
+					AND 
+				(Action.begDate like '1970%' OR Action.begDate IS NULL )
+				) 
 			)
 		ORDER BY status DESC ";
 }
