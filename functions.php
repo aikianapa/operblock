@@ -635,7 +635,6 @@ while($data = mysql_fetch_array($res)) {$item=$data["name"];}
 return $item;
 }
 
-
 function getOperationsByPerson($month,$year,$person_id,$role="person_id") {
 		$start="$year-$month-01";
 		$stop="$year-$month-".date("t", strtotime("$year-$month"));;
@@ -689,7 +688,7 @@ function getOperationsByDate($month,$year,$oid="") {
 		$stop="$year-$month-".date("t", strtotime("$year-$month"));;
 		if ($oid>"") {
 $SQL="SELECT Action.id FROM Action 
-	INNER JOIN ActionType ON Action.actionType_id = actionType.id 
+	INNER JOIN ActionType ON Action.actionType_id = ActionType.id 
 	INNER JOIN Person ON Action.setPerson_id=Person.id
 	INNER JOIN Event ON Action.event_id = Event.id
 	INNER JOIN EventType ON Event.EventType_id = EventType.id
