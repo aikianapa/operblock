@@ -635,7 +635,6 @@ while($data = mysql_fetch_array($res)) {$item=$data["name"];}
 return $item;
 }
 
-
 function getOperationsByPerson($month,$year,$person_id,$role="person_id") {
 		$start="$year-$month-01";
 		$stop="$year-$month-".date("t", strtotime("$year-$month"));;
@@ -645,7 +644,11 @@ $SQL="SELECT Action.id FROM Action
 	INNER JOIN Event ON Action.event_id = Event.id
 	INNER JOIN EventType ON Event.EventType_id = EventType.id
 	WHERE ActionType.serviceType = 4
+<<<<<<< master
 	AND EventType.medicalAidType_id = 3 
+=======
+	AND EventType.medicalAidType_id < 5 
+>>>>>>> d3a6caa calendar medicalAidType fix (2)
 	AND ( Action.begDate BETWEEN '$start 00:00:00' AND '$stop 23:59:59' OR (Action.plannedEndDate BETWEEN '$start 00:00:00' AND '$stop 23:00:59'  ) )
 	AND Action.deleted=0
 	ORDER BY Action.status DESC ";
@@ -688,7 +691,11 @@ $SQL="SELECT Action.id FROM Action
 	INNER JOIN Event ON Action.event_id = Event.id
 	INNER JOIN EventType ON Event.EventType_id = EventType.id
 	WHERE ActionType.serviceType = 4 and Person.orgStructure_id=$oid
+<<<<<<< master
 	AND EventType.medicalAidType_id = 3 
+=======
+	AND EventType.medicalAidType_id < 5 
+>>>>>>> d3a6caa calendar medicalAidType fix (2)
 	AND Action.deleted = 0 
 	AND ( Action.begDate BETWEEN '$start 00:00:00' AND '$stop 23:59:59' 
 			OR (Action.plannedEndDate BETWEEN '$start 00:00:00' AND '$stop 23:00:59' 
@@ -701,7 +708,11 @@ $SQL="SELECT Action.id FROM Action
 		INNER JOIN Event ON Action.event_id = Event.id
 		INNER JOIN EventType ON Event.EventType_id = EventType.id
 		WHERE ActionType.serviceType = 4
+<<<<<<< master
 		AND EventType.medicalAidType_id = 3
+=======
+		AND EventType.medicalAidType_id < 5  
+>>>>>>> d3a6caa calendar medicalAidType fix (2)
 		AND ( Action.begDate BETWEEN '$start 00:00:00' AND '$stop 23:59:59' OR (Action.plannedEndDate BETWEEN '$start 00:00:00' AND '$stop 23:00:59'  ) )
 		ORDER BY status DESC ";
 }

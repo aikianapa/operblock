@@ -62,7 +62,6 @@ foreach($list as $key => $person) {
 return $out;
 }
 
-
 function zamglavListItems() {
 	$SETTINGS=$_SESSION['settings'];
 	$result=array(); $counter=0;
@@ -72,7 +71,11 @@ $SQL="SELECT Action.id FROM Action
 	INNER JOIN Event ON Action.event_id = Event.id
 	INNER JOIN EventType ON Event.EventType_id = EventType.id
 	WHERE ActionType.serviceType = 4
+<<<<<<< master
 	AND EventType.medicalAidType_id = 3
+=======
+	AND EventType.medicalAidType_id < 5 
+>>>>>>> d3a6caa calendar medicalAidType fix (2)
 	AND ( Action.begDate BETWEEN '$date 00:00:00' AND '$date 23:59:59' OR (Action.plannedEndDate BETWEEN '$date 00:00:00' AND '$date 23:00:59'  ) )
 	AND Action.deleted=0
 	ORDER BY Action.id DESC ";
