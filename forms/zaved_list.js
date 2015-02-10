@@ -169,9 +169,8 @@ $(document).delegate("a[href=#table_menu]","click",function() {
 		});
 
 		$("#table_menu a[href=#zavtable]").on("click",function(){
-			$("#table_menu").popup("close");
 			var appId=$("#zavedlist input#appId").val();
-			if (appId=="msk36") {$( "#zavtable form a.submit" ).trigger( "click"); return false;}
+			if (appId=="msk36") {$( "#zavtable form a.submit" ).trigger( "click"); $("#table_menu").popup("close"); return false;}
 		});
 
 		$("#table_menu a.print").on("click",function(){
