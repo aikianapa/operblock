@@ -63,6 +63,7 @@
 <input type="hidden" name="setPerson_id" value="{{personId}}">
 <input type="hidden" name="createPerson_id" value="{{personId}}">
 <input type="hidden" name="status" value="0">
+<input type="hidden" id="appId" value="{{_SETTINGS_appId}}">
 <label><input type="checkbox" data-mini="true" name="isUrgent" >Экстренно</label>
 <div data-role="fieldcontain"><label>Планируемая дата</label><input type="datepicker" name="plannedEndDate" required></div>
 <div data-role="fieldcontain"><label>Наименование операции</label><input type="text" name="specifiedName" required></div>
@@ -258,7 +259,11 @@ $.get("/json/operation.php?mode=nazn_hirurg_list&orgStrId="+orgStrId,function(da
 $.get("/json/operation.php?mode=nazn_oper_list&orgStrId="+orgStrId,function(data){
 	var data=jQuery.parseJSON(data);
 	$(data).each(function(){
-		$("#patient_nazn_form select[name=actionType_id] option:last").after("<option value='"+this["id"]+"'>"+this["code"]+"   - "+this["name"]+"</option>");
+		if ($("#patient_nazn_form input#appId").val()=="msk36") {
+			$("#patient_nazn_form select[name=actionType_id] option:last").after("<option value='"+this["id"]+"'>"+this["code"]+"   - "+this["name"]+"</option>");
+		}	else {
+			$("#patient_nazn_form select[name=actionType_id] option:last").after("<option value='"+this["id"]+"'>"+this["name"]+"</option>");
+		}
 	});
 });
 }
