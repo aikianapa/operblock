@@ -1,14 +1,8 @@
 $(document).ready(function(){
 		$("div[data-url^='/zamglav/list/list.htm']:hidden").remove();
-		$("#oprooms").hide();
 		zamglav_nazn_submit(); 
 		zamglav_multi_approve();
-		oprooms_init($("#zamglavList"));
 		oproomMenu_init();
-		setTimeout(function(){  
-			$("#oprooms > div.open").remove(); 
-			$("#oprooms").show("fade");  
-		},200);
 		$("#zamglavList #tables").remove();
 		var page=$("#zamglavList");
 		page.find("#clientlist tbody tr, #tables ul li").on("dblclick",function(){
@@ -56,7 +50,7 @@ $("#zamglav").on("pageshow",function(){
 $(document).on("pageinit",function(){
 		var page=$("#zamglavList"); 
 		zamglav_get_calendar();
-
+		oprooms_init(page);
 });
 
 
