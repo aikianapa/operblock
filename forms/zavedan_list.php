@@ -108,16 +108,12 @@
 <script type="text/javascript">
 $(document).ready(function(){
 		$("div[data-url^='/zavedan/list/list.htm']:hidden").remove();
-		$("#oprooms").hide();
+
 		oprooms_init($("#zavedanList"));
 		$("#zavedanList #tables").remove();
 		oproomMenu_init();
-    zavedanMenu_init();
+		zavedanMenu_init();
 		zavedan_nazn_submit();
-		setTimeout(function(){  
-			$("#oprooms > div.open").remove(); 
-			$("#oprooms").show("fade");  
-		},200);
 });
 
 $("#zavedanNazn").on("pageshow",function(){
