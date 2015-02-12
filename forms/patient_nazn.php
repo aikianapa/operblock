@@ -68,7 +68,7 @@
 <div data-role="fieldcontain"><label>Планируемая дата</label><input type="datepicker" name="plannedEndDate" required></div>
 <div data-role="fieldcontain"><label>Наименование операции</label><input type="text" name="specifiedName" required></div>
 <div data-role="fieldcontain"><label>Тип операции</label>
-<select name="actionType_id" required><option value="">Выберите...</option></select>
+<select name="actionType_id" data-native-menu="false" required><option value="">Выберите...</option></select>
 </div>
 <div data-role="fieldcontain"><label>Хирург</label>
 <select name="person_id" value="{{personId}}" required><option value="">Выберите...</option></select>
@@ -210,7 +210,7 @@ $("#patientNazn #epicriz form a.submit[data-rel=back]").on("click",function(){
 	insert_properties("#patient_epicriz_form",$("#patientNazn input#personId").val());
 	$.post("/json/operation.php?mode=epicriz_submit",formdata,function(data){
 			top.postMessage('addAction', '*');
-			$.mobile.silentScroll(0)
+			$.mobile.silentScroll(0);
 			setTimeout(function(){  window.open($("#patientNazn a.uniprint").attr("href"),"_blank"); },300);  
 	});
 });
@@ -220,7 +220,7 @@ $("#patientNazn #histo form a.submit[data-rel=back]").on("click",function(){
 	insert_properties("#patient_histo_form",$("#patientNazn input#personId").val());
 	$.post("/json/operation.php?mode=histology_submit",formdata,function(data){
 			top.postMessage('addAction', '*');
-			$.mobile.silentScroll(0)
+			$.mobile.silentScroll(0);
 			setTimeout(function(){  window.open($("#patientNazn a.uniprint").attr("href"),"_blank"); },300);  
 	});
 });
@@ -230,7 +230,7 @@ $("#patientNazn #cito form a.submit[data-rel=back]").on("click",function(){
 	insert_properties("#patient_cito_form",$("#patientNazn input#personId").val());
 	$.post("/json/operation.php?mode=citology_submit",formdata,function(data){
 			top.postMessage('addAction', '*');
-			$.mobile.silentScroll(0)
+			$.mobile.silentScroll(0);
 			setTimeout(function(){  window.open($("#patientNazn a.uniprint").attr("href"),"_blank"); },300);  
 	});
 });
@@ -240,7 +240,7 @@ $("#patientNazn #imuno form a.submit[data-rel=back]").on("click",function(){
 	insert_properties("#patient_imuno_form",$("#patientNazn input#personId").val());
 	$.post("/json/operation.php?mode=imuno_submit",formdata,function(data){
 			top.postMessage('addAction', '*');
-			$.mobile.silentScroll(0)
+			$.mobile.silentScroll(0);
 			setTimeout(function(){  window.open($("#patientNazn a.uniprint").attr("href"),"_blank"); },300);  
 	});
 });
@@ -264,6 +264,7 @@ $.get("/json/operation.php?mode=nazn_oper_list&orgStrId="+orgStrId,function(data
 		}	else {
 			$("#patient_nazn_form select[name=actionType_id] option:last").after("<option value='"+this["id"]+"'>"+this["name"]+"</option>");
 		}
+		$("#patient_nazn_form select[name=actionType_id]").selectmenu();
 	});
 });
 }

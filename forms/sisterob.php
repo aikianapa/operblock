@@ -61,9 +61,9 @@ function sisterobListItems() {
    $action["begDate"]=dmyDate($action["begDate"]);
    $counter++; $action["counter"]=$counter;
    if (!isset($_action["table"]))  $_action["table"]="";
-//   if ($action["operSister_id"]==$_SESSION["person_id"]) {
+   if ($action["operSister_id"]==$_SESSION["person_id"]) {
     $result[]=$action; 
-//   }
+   }
   }
  return $result;
 }
