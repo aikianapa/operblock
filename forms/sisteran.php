@@ -2,6 +2,7 @@
 include($_SERVER["DOCUMENT_ROOT"]."/functions.php");
 prepareSessions();
 
+
 function sisteranDataType() { return "mysql"; }
 
 function sisteran_list($form,$mode,$id,$datatype)  {
@@ -22,7 +23,7 @@ $action=array_merge($action,$_action);
 $actionType_id=$action["actionType_id"];
 $out=formGetForm($form,$mode);
 $spisanie=json_decode(getSpisanieItems($action["spisanie_an"]),true);
-if ($_SESSION["settings"]["appId"]=="msk36") {$drugslist=getDrugs("an");} else {$drugslist=getDrugs("043000046");}
+if ($_SESSION["settings"]["appId"]=="msk36") {$drugslist=getDrugs("an");} else {$drugslist=getDrugs("043000034");}
 foreach($drugslist as $drug_id => $data) {
 	$data["drug_id"]=$data["drugId"];
   foreach($spisanie as $s) { 

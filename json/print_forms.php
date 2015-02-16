@@ -283,7 +283,7 @@ function spisanie_1() {
     if ($_SESSION["settings"]["appId"]=="msk36") {
 		$drugslist=getDrugs($role);
 	} else {
-		if ($role=="ob") {$drugslist=getDrugs();} else {$drugslist=getDrugs("043000046");}
+		if ($role=="ob") {$drugslist=getDrugs("043000069");} else {$drugslist=getDrugs("043000034");}
 	}
     
     
