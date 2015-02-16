@@ -10,7 +10,8 @@ table * {font-size: 12px;}
 #tables ul#common-list li {display: inline-block; width: 150px; padding:5px; border: 1px #000 dashed; list-style: none; margin: 2px;}
 #tables .table-drop, #oprooms .table-drop  {width: 165px; min-height:30px; display: inline-block; margin: 3px; vertical-align: top; background: #eeeeee;}
 #tables ul, #oprooms ul {min-height:30px; padding:0; }
-#tables .table-drop ul li, #oprooms .table-drop ul li {display: inline-block; width: 150px; padding:5px; border: 0.5px #555 solid; border-radius:3px; box-shadow: 0 0 10px rgba(0,0,0,0.5); list-style: none; margin: 2px;}
+#tables .table-drop ul li, #oprooms .table-drop ul li {display: block; width: 150px; padding:5px; border: 0.5px #555 solid; border-radius:3px; box-shadow: 0 0 10px rgba(0,0,0,0.5); list-style: none; margin: 1px; margin-bottom:5px;}
+#tables .table-drop ul li:after, #oprooms .table-drop ul li:after {height:10px;}
 #tables a.action_menu {margin-top: -4px;}
 #tables .table-drop, #oprooms .table-drop {padding:5px; border: 1px #999999 solid;} 
 #tables .approved {background: #AAA;}
