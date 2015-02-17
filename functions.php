@@ -31,7 +31,7 @@ function createEmptyAction($actionType_id,$event_id,$person_id="") {
 	return $Action;
 }
 
-function getActionTypeForm($SQL) {
+function getActionTypeForm($SQL,$action_id=NULL) {
 if (substr($SQL,0,7)!="SELECT ") {
 	$SQL="SELECT a.name, a.idx, a.typeName, a.id, a.valueDomain, a.userProfile_id, b.id FROM ActionPropertyType as a
 	INNER JOIN ActionType as b ON a.actionType_id=b.id
@@ -52,6 +52,14 @@ while($data = mysql_fetch_array($result)) {
 	if ($_SESSION["userProfile_id"]==$data["userProfile_id"] OR $data["userProfile_id"]==NULL) {	$array[]=$Item;}
 }
 mysql_free_result();
+if ($action_id!=NULL) {
+		$PropData=array(); $PropData["id"]=$action_id;
+		$PropData=getActionPropertyFormData($PropData,$array);
+		foreach($array as $i => $fld) {
+			$array[$i]["value"]=$PropData[$fld["name"]];
+			if ($fld["type"]=="JobTicket") {unset($array[$i]);}
+		}
+}
 return $array;
 }
 
@@ -127,8 +135,23 @@ function prepInput($Item) {
 	return $inp;
 }
 
-function getActionProperties($action_id) {
-
+function getActionProperties($action_id,$actionType=NULL) {
+	if ($actionType_id==NULL) {
+		$Action=mysqlReadItem("Action",$action_id);
+		$ActionType=mysqlReadItem("ActionType",$Action["actionType_id"]);
+		$form=getActionTypeForm($ActionType["name"]);
+	} else {
+		if (is_numeric($actionType)) {
+			$actionType=mysqlReadItem("ActionType",$actionType);
+			$form=getActionTypeForm($ActionType["name"]); // Если передан id
+		} else {
+			$form=getActionTypeForm($ActionType); // Если передано имя
+		}
+	}
+	$Item=array(); $Item["id"]=$action_id;
+	$Item=getActionPropertyFormData($Item,$form);
+	unset($Item["id"]);
+return $Item;
 }
 
 function insertProperties($array,$action_id,$person_id,$actionType_id){
@@ -145,7 +168,8 @@ if ($action=="") {
 	$error=mysqlSaveItem("Action",$action);
 	$action["id"]=mysql_insert_id();
 }
-$pattern=substr(mysqlReadItem("ActionType",$actionType_id)["name"],0,8)."%";
+$actionType=mysqlReadItem("ActionType",$actionType_id); $actionType=$actiontype["name"];
+$pattern=substr(actionType,0,8)."%";
 $values['modifyDatetime'] = $values['createDatetime'] = '"' . date('Y-m-d H:i:s') . '"';
 $values['modifyPerson_id'] = $values['createPerson_id'] = $person_id;
 $values['action_id']=$action["id"];
@@ -170,6 +194,7 @@ foreach ($array as $i => $field){
 		   }
 		  $out = implode(',', $out);
 		  $SQL="INSERT INTO ActionProperty SET {$out}";
+		  echo $SQL;
 		  mysql_query($SQL) or die ("Query failed 1: " . mysql_error());
 	}
 
@@ -887,7 +912,7 @@ function getSpisanieItems($id) {
 		return json_encode($array);
 }
 
-function getDrugs($sklad="005000070") {
+function getDrugs($sklad="043000069") {
 if ($_SESSION["settings"]["appId"]!="msk36") {
 $client=new SoapClient("http://192.168.100.47:1213/pharon/ws/MedicinePrice.1cws?wsdl",
             array(

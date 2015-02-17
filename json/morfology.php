@@ -13,6 +13,12 @@ $mode=$_GET["mode"];
 if (is_callable($mode)) {echo @$mode();} else {echo "No function: ".$mode;}
 // =================================================
 
+function test($action_id) {
+	$out=getActionProperties($action_id);
+	return $out;
+}
+
+
 function morfo_nazn_submit() {
 if ($_POST["isUrgent"]=="on") {$_POST["isUrgent"]=1;} else  {$_POST["isUrgent"]=0;}
 if ($_POST["action_id"]!="_new" AND $_POST["action_id"]!="") {
@@ -26,8 +32,18 @@ if ($_POST["action_id"]!="_new" AND $_POST["action_id"]!="") {
 	$Action["createPerson_id"]=$Action["modifyPerson_id"]=$_POST["person_id"];
 	$Action["createDatetime"]=$Action["modifyDatetime"]=date("Y-m-d H:i:s");
 	$Action["status"]=0;
-	$Action["begDate"]=date("Y-m-d H:i:s");
+	$Action["begDate"]=$Action["plannedEndDate"]=date("Y-m-d H:i:s");
 }
+if ($_GET["copy"]>0) {
+		$parent_id=$_GET["copy"];
+		$Action["id"]=$_POST["action_id"]="_new";
+		$Action["setPerson_id"]=$_POST["setPerson_id"]=$_POST["person_id"];
+		$Action["createDatetime"]=$Action["modifyDatetime"]=date("Y-m-d H:i:s");
+		$Action["begDate"]=date("Y-m-d H:i:s");
+		$Action["cancelNote"]="";
+		$_POST["fld_19"]="";
+} 
+
 	if ($_POST["fld_19"]>"") {$Action["status"]=2;} 
 	$Action["isUrgent"]=$_POST["isUrgent"];
 	$Action["plannedEndDate"]=date("Y-m-d H:i:s",strtotime($_POST["plannedEndDate"]));
@@ -48,6 +64,41 @@ if ($_POST["action_id"]!="_new" AND $_POST["action_id"]!="") {
 	} else {
 		updateProperties($fldset,$Action["id"],$Action["setPerson_id"],$Action["actionType_id"]);
 	}
+if ($_GET["copy"]>0) {
+// ========== Копируем регистрацию и описание ===========
+	$parent_id=$_GET["copy"];
+	$reg=getActionTypeByName('Регистрация биоматериала');
+	$SQL="SELECT id FROM Action WHERE actionType_id = {$reg} AND parent_id = {$parent_id} ";
+	$result=mysql_query($SQL) or die ("Query failed morfo_nazn_submit() [copy reg]: " . mysql_error());
+	$reg_id=false; while($data = mysql_fetch_array($result)) {$reg_id=$data["id"];}
+	if ($reg_id) {
+		$Reg=mysqlReadItem("Action",$reg_id);
+		$Reg["id"]="_new";
+		$Reg["parent_id"]=$Action["id"];
+		$Reg["createDatetime"]=$Reg["modifyDatetime"]=date("Y-m-d H:i:s");
+		$Reg["begDate"]=$Action["plannedEndDate"]=date("Y-m-d H:i:s");
+		mysqlSaveItem("Action",$Reg); $newReg_id=mysql_insert_id();
+		$RegProp=getActionTypeForm('Регистрация биоматериала',$reg_id); 
+		insertProperties($RegProp,$newReg_id,$_POST["setPerson_id"],$reg);
+		
+	}
+	
+	$lab=getActionTypeByName('Исследование биоматериала');
+	$form=getActionTypeForm('Исследование биоматериала');
+	$SQL="SELECT id FROM Action WHERE actionType_id = {$lab} AND parent_id = {$parent_id} ";
+	$result=mysql_query($SQL) or die ("Query failed morfo_nazn_submit() [copy lab]: " . mysql_error());
+	$lab_id=false; while($data = mysql_fetch_array($result)) {$lab_id=$data["id"];}
+	if ($lab_id) {
+		$Lab=mysqlReadItem("Action",$lab_id);
+		$Lab["id"]="_new";
+		$Lab["parent_id"]=$Action["id"];
+		$Lab["createDatetime"]=$Reg["modifyDatetime"]=date("Y-m-d H:i:s");
+		$Lab["begDate"]=$Action["plannedEndDate"]=date("Y-m-d H:i:s");
+		mysqlSaveItem("Action",$Lab); $newLab_id=mysql_insert_id();
+		$LabProp=getActionTypeForm('Исследование биоматериала',$lab_id); 
+		insertProperties($LabProp,$newLab_id,$_POST["setPerson_id"],$lab);
+	}
+}	
 }
 
 function morfo_reg_submit() {

@@ -1,4 +1,4 @@
-<div data-role="page" data-theme="a" id="morfoReportList" data-url="/morfoReport/list/list.htm?null=&person_id={{person_id}}" data-ajax="false">
+<div data-role="page" data-theme="a" id="morfoReportList" data-url="/morfoReport/list/list.htm?null=&iframe=1&person_id={{person_id}}" data-ajax="false">
 <div data-role="header"  data-position="fixed"><h2>Журнал исследований</h2></div>
 
 

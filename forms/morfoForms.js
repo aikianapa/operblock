@@ -15,7 +15,8 @@ $("div[data-url^='/morfoLab/list/list.htm']:hidden").remove();
 			if ($(this).attr("data")>"") {
 				$(this).attr("href",$(this).attr("data")+"&action="+$( document ).data( "action"));
 			} else {
-				if ($(this).attr("href")=="#new") {var form="morfoNazn";}
+				$(document).data("copy_nazn",false);
+				if ($(this).attr("href")=="#new") {var form="morfoNazn"; $(document).data("copy_nazn",true);}
 				if ($(this).attr("href")=="#nazn") {var form="morfoNazn";}
 				if ($(this).attr("href")=="#reg") {var form="morfoReg";}
 				if ($(this).attr("href")=="#lab") {var form="morfoLab";}
@@ -109,6 +110,7 @@ $.get("/forms/calendar.php?morfo=true&date="+date,function(data){
 $("#morfoRegList").on("pageinit",function(){
 	$("a.print_list").on("click",function(){ print(); });
 });
+
 function morfoRegSubmit() {
 	$("#morfoReg a.submit").on("click",function(){
 		var formdata=$("form#morfoReg").serialize();
@@ -150,9 +152,12 @@ function morfoNaznSubmit() {
 		var cid=$("#morfoNazn input[name=client_id]").val();
 		var pid=$("#morfoNazn input[name=person_id]").val();
 		var atid=$("#morfoNazn input[name=actionType_id]").val();
-		$.post("/json/morfology.php?mode=morfo_nazn_submit",formdata,function(data){
+		var ajax="/json/morfology.php?mode=morfo_nazn_submit";
+		if ($(document).data("copy_nazn")==true) {var ajax="/json/morfology.php?mode=morfo_nazn_submit&copy="+$( document ).data( "action" );}
+		$.post(ajax,formdata,function(data){
 				top.postMessage('addAction', '*');
-				setTimeout(" document.location.href='/morfoNazn/list/list.htm?null=&iframe=1&client_id="+cid+"&event_id="+eid+"&person_id="+pid+"&atid="+atid+"&nonew=1'; ",500);
+				$.mobile.back();
+				setTimeout(" document.location.href=document.location.href; ",200);
 				
 		});
 
