@@ -1,4 +1,12 @@
 <?
+
+// Статусы морфологии
+// 0 - назначено лечащим врачём
+// 1 - зарегистрировано регистратором
+// 2 - завершено
+// 3 - отмена исследования
+// 4 - описано лаборантом
+
 include_once($_SERVER['DOCUMENT_ROOT']."/engine/phpQuery/phpQuery.php");
 include_once($_SERVER['DOCUMENT_ROOT']."/engine/functions.php");
 engineSettingsRead();
@@ -41,7 +49,7 @@ if ($_GET["copy"]>0) {
 		$Action["createDatetime"]=$Action["modifyDatetime"]=date("Y-m-d H:i:s");
 		$Action["begDate"]=date("Y-m-d H:i:s");
 		$Action["cancelNote"]="";
-		$_POST["fld_19"]="";
+		$Action["status"]=0;
 } 
 
 	if ($_POST["fld_19"]>"") {$Action["status"]=2;} 
@@ -80,8 +88,7 @@ if ($_GET["copy"]>0) {
 		mysqlSaveItem("Action",$Reg); $newReg_id=mysql_insert_id();
 		$RegProp=getActionTypeForm('Регистрация биоматериала',$reg_id); 
 		insertProperties($RegProp,$newReg_id,$_POST["setPerson_id"],$reg);
-		
-	}
+	} else {$Reg=NULL;}
 	
 	$lab=getActionTypeByName('Исследование биоматериала');
 	$form=getActionTypeForm('Исследование биоматериала');
@@ -97,7 +104,9 @@ if ($_GET["copy"]>0) {
 		mysqlSaveItem("Action",$Lab); $newLab_id=mysql_insert_id();
 		$LabProp=getActionTypeForm('Исследование биоматериала',$lab_id); 
 		insertProperties($LabProp,$newLab_id,$_POST["setPerson_id"],$lab);
-	}
+	} else {$Lab=NULL;}
+	$Action["status"]=getMorfoStatus($action_id,$Action,$Reg,$Lab);
+	mysqlSaveItem("Action",$Action); // Ещё раз сохраняем с изменившимися статусами
 }	
 }
 
@@ -116,13 +125,14 @@ function morfo_reg_submit() {
 		$Action["status"]=0;
 	}
 	$Action["status"]=$_POST["status"];
-	if ($Action["status"]<=2) {morfo_set_status($Action["parent_id"],$Action["status"]);}
+	//if ($Action["status"]<=2) {morfo_set_status($Action["parent_id"],$Action["status"]);}
 	$fldset=getActionTypeForm('Регистрация биоматериала');
 	foreach($fldset as $i => $fld) {
 		$fldset[$i]["value"]=$_POST[$fld["name"]];
 		if ($fld["type"]=="JobTicket") {unset($fldset[$i]);}
 	}
 	mysqlSaveItem("Action",$Action);
+	morfo_set_status($Action["parent_id"],getMorfoStatus($Action["parent_id"]));
 	if ($_POST["action_id"]=="_new" OR $_POST["action_id"]=="") {
 		$Action["id"]=mysql_insert_id();
 		insertProperties($fldset,$Action["id"],$Action["setPerson_id"],$Action["actionType_id"]);
@@ -143,19 +153,20 @@ function morfo_lab_submit() {
 		$Action["createPerson_id"]=$Action["modifyPerson_id"]=$_POST["person_id"];
 		$Action["createDatetime"]=$Action["modifyDatetime"]=date("Y-m-d H:i:s");
 		$Action["begDate"]=date("Y-m-d H:i:s");
-		$Action["status"]=0;
+		$Action["status"]=1;
 	}
-	if ($Action["person_id"]=="" && $_SESSION["user_role"]=="Врач ЛД") {$Action["person_id"]=$_SESSION["user_id"];}
 	$Action["status"]=$_POST["status"];
-	if ($Action["status"]==2) {morfo_set_status($Action["parent_id"],1);} else {
-		morfo_set_status($Action["parent_id"],$Action["status"]);
-	}
+	if ($Action["person_id"]=="" && $_SESSION["user_role"]=="Врач ЛД") {$Action["person_id"]=$_SESSION["user_id"];}
+//	if ($Action["status"]==2) {morfo_set_status($Action["parent_id"],1);} else {
+//		morfo_set_status($Action["parent_id"],$Action["status"]);
+//	}
 	$fldset=getActionTypeForm('Исследование биоматериала');
 	foreach($fldset as $i => $fld) {
 		$fldset[$i]["value"]=$_POST[$fld["name"]];
 		if ($fld["type"]=="JobTicket") {unset($fldset[$i]);}
 	}
 	mysqlSaveItem("Action",$Action);
+	morfo_set_status($Action["parent_id"],getMorfoStatus($Action["parent_id"]));
 	if ($_POST["action_id"]=="_new" OR $_POST["action_id"]=="") {
 		$Action["id"]=mysql_insert_id();
 		insertProperties($fldset,$Action["id"],$Action["setPerson_id"],$Action["actionType_id"]);

@@ -32,6 +32,7 @@ function createEmptyAction($actionType_id,$event_id,$person_id="") {
 }
 
 function getActionTypeForm($SQL,$action_id=NULL) {
+// Если передан action_id то в массив добавляются значения полей
 if (substr($SQL,0,7)!="SELECT ") {
 	$SQL="SELECT a.name, a.idx, a.typeName, a.id, a.valueDomain, a.userProfile_id, b.id FROM ActionPropertyType as a
 	INNER JOIN ActionType as b ON a.actionType_id=b.id
@@ -136,6 +137,8 @@ function prepInput($Item) {
 }
 
 function getActionProperties($action_id,$actionType=NULL) {
+	// Аналог getActionPropertyFormData, но вызывается по action_id
+	// Возвращает данные actionProperty указанного action
 	if ($actionType_id==NULL) {
 		$Action=mysqlReadItem("Action",$action_id);
 		$ActionType=mysqlReadItem("ActionType",$Action["actionType_id"]);

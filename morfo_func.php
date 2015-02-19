@@ -25,21 +25,31 @@ function getMorfoActions($month,$year) {
 	return json_encode($data);
 }
 
-function getMorfoStatus($action_id) {
-	$Naz=mysqlReadItem("Action",$action_id);
-	$Reg=morfoReadReg($action_id);
-	$Lab=morfoReadLabAction($action_id);
-									$status=0;  // жёлтый (status-0) - назначено доктором 
-	if ($Reg["status"]==1) {		$status=1;} // зелёный (status-1) - зарегистрирован регистратором
-	if ($Naz["status"]==2) {		$status=2;} // синий (status-2) - выполнено исследование ВрачомЛД
-	if ($Lab["status"]==2) {		$status=4;} // тёмно-зелёный (status-4) - описан лаборантом	
-	if ($Naz["status"]==3) {		$status=3;} // красный (status-3) - отменён
+function getMorfoStatus($action_id, $Naz=NULL, $Reg=NULL, $Lab=NULL) {
+	if ($Naz==NULL) $Naz=mysqlReadItem("Action",$action_id);
+	if ($Reg==NULL) $Reg=morfoReadRegAction($action_id);
+	if ($Lab==NULL) $Lab=morfoReadLabAction1($action_id);
+								$status=0;  // жёлтый (status-0) - назначено доктором 
+	if (count($Reg)>5) 		{	$status=1;} // зелёный (status-1) - зарегистрирован регистратором
+	if (count($Lab)>5) 		{	$status=4;} // тёмно-зелёный (status-4) - описан лаборантом	
+	if ($Naz["status"]==2) 	{	$status=2;} // синий (status-2) - выполнено исследование ВрачомЛД
+	if ($Naz["status"]==3) 	{	$status=3;} // красный (status-3) - отменён
 	return $status;
 }
 
 
 function morfoReadRegAction($id) {
 $actionType_id=getActionTypeByName('Регистрация биоматериала');
+$Action=mysqlReadItem("Action",$id);
+$SQL="SELECT * FROM Action WHERE actionType_id = $actionType_id AND parent_id = $id LIMIT 1";
+$res=mysql_query($SQL) or die ("Query failed morfoReadReg(): " . mysql_error());
+$Item=array();
+while($data = mysql_fetch_array($res)) {	$Item=$data;	}
+return $Item;
+}
+
+function morfoReadLabAction1($id) {
+$actionType_id=getActionTypeByName('Исследование биоматериала');
 $Action=mysqlReadItem("Action",$id);
 $SQL="SELECT * FROM Action WHERE actionType_id = $actionType_id AND parent_id = $id LIMIT 1";
 $res=mysql_query($SQL) or die ("Query failed morfoReadReg(): " . mysql_error());

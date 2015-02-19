@@ -50,6 +50,7 @@ $(document).on("pageinit",function(){
 			if (status=="off" && $(this).hasClass("status-2")) {$(this).removeClass("ui-hidden");} 
 		});
 	});
+		morfoNaznPrepare();
 		morfoNaznSubmit();
 		morfoRegSubmit();
 		morfoLabSubmit();
@@ -143,6 +144,13 @@ $("#morfoNaznList").on("pageinit",function(){
 		$.mobile.changePage( "/morfoNazn/edit/_new.htm"+document.location.search, { transition: "none", changeHash: true });
 	}
 });
+function morfoNaznPrepare() {
+	if ($(document).data("copy_nazn")==true) {
+		$("#morfoNazn input[name=fld_1]").val($("#morfoNazn input[name=fld_17]").val());
+		$("#morfoNazn input[name=fld_17]").val($("#morfoNazn input[name=fld_17]").val()+"/д");
+		$("#morfoNazn input[name=fld_19]").val("");
+	}
+};
 
 function morfoNaznSubmit() {
 	$("#morfoNazn a.submit").on("click",function(){

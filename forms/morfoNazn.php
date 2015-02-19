@@ -9,10 +9,13 @@ $out=formGetForm($form,$mode);
 if ($id!="_new" AND $id!="") {
 	$Item=morfoReadNazn($id);
 	$Item["morfoNazn"]=morfoNaznForm($Item["actionType_id"]);
+	$Diag=patientGetDiagnosis($Item["event_id"]);
+	$Item["fld_3"]=$Diag["main"]["DiagName"];
 } else {
 	$Item=morfoNewNazn();
 	$Item["morfoNazn"]=morfoNaznForm();
 }
+
 if ($Item["person_id"]=="") {$Item["person_id"]=$_SESSION["user_id"];}
 if (checkAllow()) {$out=contentSetData($out,$Item);} else {die ("Ошибка прав доступа!");}
 $role=$_SESSION["user_role"];
