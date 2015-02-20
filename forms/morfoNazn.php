@@ -27,6 +27,7 @@ if ($role!="Врач ЛД" && $role!="Заведующий ЛД") {
 }
 if ($role=="Лаборант ЛД") {
 	pq($out)->find("textarea,input,select")->attr("readonly","readonly");
+	pq($out)->find("select")->attr("disabled","disabled");
 	pq($out)->find("a.submit")->remove();
 }
 return $out;
