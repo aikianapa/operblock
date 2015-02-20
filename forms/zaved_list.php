@@ -109,7 +109,10 @@
 </div>
 </div>
 
-<div data-role="include" src="/forms/hirurg_operation.php"></div> 
+<!--div data-role="include" src="/forms/hirurg_operation.php">
+если включить, то не работает отмена операции
+вообще, не понятно зачем тут это
+</div--> 
 
 <!-- Форма назначений для Заведующего  ==================
 =========================================== -->
