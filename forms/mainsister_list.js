@@ -22,8 +22,17 @@ mainsisMenu_init();
 			if (action_id=="") {action_id=$("#oprooms ul#oproom-"+oper_id+"  ul[tid]:first li:first").attr("aid");} 
 			var details=$("#mainsisterList #clientlist").html(); 
 			$("#mainsisterNazn table#client").hide().html(details);
-			$("#mainsisterNazn table#client tbody tr[aid!="+action_id+"]").remove();
-			if ($("#oproomMenu").data("naznOproom")=="") {$("#mainsisterNazn table#client").show();}
+			if ($("#oproomMenu").data("naznOproom")=="") {
+				$("#mainsisterNazn table#client tbody tr[aid!="+action_id+"]").remove();
+				$("#mainsisterNazn table#client").show();
+			} else {
+				$("#mainsisterNazn table#client tbody tr").hide();
+				$("#oproom-"+oper_id).find("li[aid]").each(function(){
+					var action_id=$(this).attr("aid");
+					$("#mainsisterNazn table#client tbody tr[aid="+action_id+"]").show();
+				});
+				$("#mainsisterNazn table#client").show();
+			}
 			$("#oproomMenu").data("naznOproom","");
 			$.get("/json/operation.php?mode=zavnazn_get_data&action_id="+action_id,function(data){
 				var data = JSON.parse(data);
