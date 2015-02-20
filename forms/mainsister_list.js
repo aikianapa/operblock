@@ -23,7 +23,8 @@ mainsisMenu_init();
 			var details=$("#mainsisterList #clientlist").html(); 
 			$("#mainsisterNazn table#client").hide().html(details);
 			$("#mainsisterNazn table#client tbody tr[aid!="+action_id+"]").remove();
-			$("#mainsisterNazn table#client").show();
+			if ($("#oproomMenu").data("naznOproom")=="") {$("#mainsisterNazn table#client").show();}
+			$("#oproomMenu").data("naznOproom","");
 			$.get("/json/operation.php?mode=zavnazn_get_data&action_id="+action_id,function(data){
 				var data = JSON.parse(data);
 				$("#mainsisterNazn").find("input,select,textinput").val("");
@@ -39,7 +40,7 @@ mainsisMenu_init();
 		});
 });
 
-$(document).on("pageinit",function(){
+$("#mainsisterList").on("pageinit",function(){
 		drag_tables_init();
 		drag_oprooms_init();
 		var page=$("#mainsisterList");
@@ -145,7 +146,6 @@ function button_oprooms_init() {
 		$("#opMenu").popup("close");
 	});
 	
-	
 	$("#opMenu li a.print").unbind("click").on("click",function(){
 		var date=$("#mainsisterList input[name=workDate]").val();
 		var oid=$("#mainsisterList").data("oid");
@@ -169,6 +169,28 @@ function button_oprooms_init() {
 			$("#oproomMenu li a.lock").text("Заблокировать");
 		}
 	});
+	
+	$("#oproomMenu li a.table").unbind("click").on("click",function(){
+		var opr=$("#oproomMenu").data("oid");
+		var oid=$("#mainsisterList input[name=orgStr_id]").val();
+		var date=$("#mainsisterList input[name=workDate]").val();
+		var tid=0;
+		if (!$("#oproom-"+opr).find("#table-"+tid).length) {
+			$("#tables").append("<div class='add_table'></div>");
+			create_table(tid);
+			var that=$("#mainsisterList ul.oproom[oid="+opr+"]");
+			that.append($("#tables").find("div.table-drop"));	
+			that.find("#table-"+tid).attr("opr",opr).attr("oid",oid);
+			$("#tables div.add_table").remove();
+			var idx=that.find("#table-"+tid).index();
+			var link="/json/operation.php?mode=mainsister_add_table&tid="+tid+"&date="+date+"&idx="+idx+"&oper="+opr+"&oid="+oid ;
+			$.get(link);
+			var link="/json/operation.php?mode=mainsister_set_oproom&tid="+tid+"&date="+date+"&idx="+idx+"&oper="+opr+"&oid="+oid ;
+			$.get(link);
+		}
+		$("#oproomMenu").popup("close");
+	});
+
 
 	$("#oproomMenu li a.lock").unbind("click").on("click",function(){
 		var oid=$("#oproomMenu").data("oid");
@@ -192,7 +214,7 @@ function button_oprooms_init() {
 	});
 	
 	$("#oproomMenu li a.approve").unbind("click").on("click",function(){
-		
+		$("#oproomMenu").data("naznOproom","1");
 		if ($("#mainsisterlist input#appId").val()=="msk36") {
 			$( "#mainsisterNazn form a.submit" ).trigger( "click"); 
 			$("#oproomMenu").popup("close"); 
@@ -212,8 +234,8 @@ function button_oprooms_init() {
 function mainsisterNazn_submit() {
 		$( "#mainsisterNazn form a.submit" ).unbind("click").on( "click", function(  ) {
 			var appId = $("#mainsisterlist input#appId").val();
+			var oid=$("#oproomMenu").data("oid");
 			if (appId=="msk36" && $("#mainsisterNazn form:visible").length==0) {
-				var oid=$("#oproomMenu").data("oid");
 				var workDate=$("#mainsisterList input[name=workDate]").val();
 				var formdata="&oper_id="+oid+"&begDate="+workDate;
 				$("#oprooms ul#oproom-"+oid).find("ul[tid] > li").each(function() { 
@@ -235,12 +257,12 @@ function mainsisterNazn_submit() {
 						});
 							$.post("/json/operation.php?mode=mainsis_oproom_submit",formdata,function(data){ 
 								footer_notify("Данные сохранены","success");
-								setTimeout(function(){document.location.href=document.location.href;},1000);
+								setTimeout(function(){document.location.href=document.location.href;},500);
 							});
 					} else {
 						$.post("/json/operation.php?mode=mainsister_oper_submit",formdata,function(data){ 
 							footer_notify("Данные сохранены","success");
-							setTimeout(function(){document.location.href=document.location.href;},1000);
+							setTimeout(function(){document.location.href=document.location.href;},500);
 						});
 					}
 					} else { 

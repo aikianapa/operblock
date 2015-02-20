@@ -14,6 +14,7 @@ table * {font-size: 12px;}
 #tables .table-drop ul li:after, #oprooms .table-drop ul li:after {height:10px;}
 #tables a.action_menu {margin-top: -4px;}
 #tables .table-drop, #oprooms .table-drop {padding:5px; border: 1px #999999 solid;} 
+#tables .table-drop:after, #oprooms .table-drop:after {height:10px;}
 #tables .approved {background: #AAA;}
 #tables .approved ul[tid] {opacity:0.6; }
 #oprooms .approved {background: #ccc;}

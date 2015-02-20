@@ -769,6 +769,7 @@ function checkApprovedTable($date,$orgStr_id,$table) {
 	$_tables=jdbReadItem("Tables",$date);
 	$org=$_tables[$orgStr_id]; 
 	if (isset($org[$table])) {$res=TRUE;} else {$res=FALSE;}
+	if ($table==0) {$res=TRUE;} // Если это стол назначеный ст.сестрой оперблока
 	return $res; 
 }
 

@@ -347,6 +347,18 @@ function zavtable_submit() {
 	return json_encode($res);
 }
 
+function mainsister_add_table() {
+	$oid=$_GET["oid"];
+	$tid=$_GET["tid"];
+	$date=$_GET["date"];
+	$Item=jdbReadItem("Tables",$date);
+	$Item[$oid][$tid]="1";
+	$error=jdbSaveItem("Tables",$Item);
+	if ($error=="") {$error=0;}
+	$res["error"]=$error;
+	return json_encode($res);
+
+}
  
 function nazn_oper_submit() {
 // Запись нового назначения на операцию

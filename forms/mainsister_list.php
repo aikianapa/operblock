@@ -58,6 +58,7 @@
 	<ul data-role="listview">
 	<li data-role="list-divider">Меню операционной</li>
 	<li><a href="#" class="ui-icon-lock lock">Блокировка</a></li>
+	<li><a href="#" class="table">Добавить стол</a></li>
 	<li><a href="#" class="approve" target="_blank">Утвердить операционную</a></li>
 	<li><a href="#" class="print" target="_blank">Печать списка операций</a></li>
 	</ul>
