@@ -476,6 +476,8 @@ OR (a.lastname='Новиков' AND a.firstname='Сергей' AND a.patrname='�
 OR (a.lastname='Гиршович' AND a.firstname='Михаил' AND a.patrname='Маркович' AND retired=0 )
 OR (a.lastname='Силков' AND a.firstname='Вячеслав' AND a.patrname='Борисович' AND retired=0 )
 OR (a.lastname='Готовчикова' AND a.firstname='Мария' AND a.patrname='Юрьевна' AND retired=0 ) 
+OR (a.lastname='Ткаченко' AND a.firstname='Олег' AND a.patrname='Борисович' AND retired=0 )
+OR (a.lastname='Сенчуров' AND a.firstname='Евгений' AND a.patrname='Михайлович' AND retired=0 )
 ORDER BY lastname";
 $result = mysql_query($SQL) or die("Query failed: (nazn_person_list) " . mysql_error());
 $array=array();
@@ -499,6 +501,8 @@ OR (a.lastname='Новиков' AND a.firstname='Сергей' AND a.patrname='�
 OR (a.lastname='Гиршович' AND a.firstname='Михаил' AND a.patrname='Маркович' AND retired=0 )
 OR (a.lastname='Силков' AND a.firstname='Вячеслав' AND a.patrname='Борисович' AND retired=0 )
 OR (a.lastname='Готовчикова' AND a.firstname='Мария' AND a.patrname='Юрьевна' AND retired=0 )
+OR (a.lastname='Ткаченко' AND a.firstname='Олег' AND a.patrname='Борисович' AND retired=0 )
+OR (a.lastname='Сенчуров' AND a.firstname='Евгений' AND a.patrname='Михайлович' AND retired=0 )
 ORDER BY lastname";
 
 $result = mysql_query($SQL) or die("Query failed: (nazn_hirurg_list) " . mysql_error());
