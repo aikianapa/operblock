@@ -45,6 +45,7 @@ if ($_POST["action_id"]!="_new" AND $_POST["action_id"]!="") {
 if ($_GET["copy"]>0) {
 		$parent_id=$_GET["copy"];
 		$Action["id"]=$_POST["action_id"]="_new";
+		$Action["actionType_id"]=$_POST["actionType_id"];
 		$Action["setPerson_id"]=$_POST["setPerson_id"]=$_POST["person_id"];
 		$Action["createDatetime"]=$Action["modifyDatetime"]=date("Y-m-d H:i:s");
 		$Action["begDate"]=date("Y-m-d H:i:s");
@@ -60,7 +61,7 @@ if ($_GET["copy"]>0) {
 	if ($_POST["action_id"]=="_new" OR $_POST["action_id"]=="") {$Action["id"]=mysql_insert_id();}
 	$SQL="SELECT a.name, a.idx, a.typeName, a.id, a.valueDomain, b.id FROM ActionPropertyType as a
 	INNER JOIN ActionType as b ON a.actionType_id=b.id
-	WHERE b.id=".$_POST["actionType_id"]."
+	WHERE b.id=".$Action["actionType_id"]."
 	ORDER BY a.idx	";
 	$fldset=getActionTypeForm($SQL);
 	foreach($fldset as $i => $fld) {
@@ -91,7 +92,6 @@ if ($_GET["copy"]>0) {
 	} else {$Reg=NULL;}
 	
 	$lab=getActionTypeByName('Исследование биоматериала');
-	$form=getActionTypeForm('Исследование биоматериала');
 	$SQL="SELECT id FROM Action WHERE actionType_id = {$lab} AND parent_id = {$parent_id} ";
 	$result=mysql_query($SQL) or die ("Query failed morfo_nazn_submit() [copy lab]: " . mysql_error());
 	$lab_id=false; while($data = mysql_fetch_array($result)) {$lab_id=$data["id"];}
@@ -132,13 +132,13 @@ function morfo_reg_submit() {
 		if ($fld["type"]=="JobTicket") {unset($fldset[$i]);}
 	}
 	mysqlSaveItem("Action",$Action);
-	morfo_set_status($Action["parent_id"],getMorfoStatus($Action["parent_id"]));
 	if ($_POST["action_id"]=="_new" OR $_POST["action_id"]=="") {
 		$Action["id"]=mysql_insert_id();
 		insertProperties($fldset,$Action["id"],$Action["setPerson_id"],$Action["actionType_id"]);
 	} else {
 		updateProperties($fldset,$Action["id"],$Action["setPerson_id"],$Action["actionType_id"]);
 	}
+	morfo_set_status($Action["parent_id"],getMorfoStatus($Action["parent_id"]));
 }
 
 function morfo_lab_submit() {
@@ -166,13 +166,13 @@ function morfo_lab_submit() {
 		if ($fld["type"]=="JobTicket") {unset($fldset[$i]);}
 	}
 	mysqlSaveItem("Action",$Action);
-	morfo_set_status($Action["parent_id"],getMorfoStatus($Action["parent_id"]));
 	if ($_POST["action_id"]=="_new" OR $_POST["action_id"]=="") {
 		$Action["id"]=mysql_insert_id();
 		insertProperties($fldset,$Action["id"],$Action["setPerson_id"],$Action["actionType_id"]);
 	} else {
 		updateProperties($fldset,$Action["id"],$Action["setPerson_id"],$Action["actionType_id"]);
 	}
+	morfo_set_status($Action["parent_id"],getMorfoStatus($Action["parent_id"]));
 }
 
 function morfo_set_status($parent_id,$status=0) {

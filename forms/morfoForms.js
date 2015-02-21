@@ -145,12 +145,33 @@ $("#morfoNaznList").on("pageinit",function(){
 	}
 });
 function morfoNaznPrepare() {
+	morfoTypesSelect();
 	if ($(document).data("copy_nazn")==true) {
 		$("#morfoNazn input[name=fld_1]").val($("#morfoNazn input[name=fld_17]").val());
 		$("#morfoNazn input[name=fld_17]").val($("#morfoNazn input[name=fld_17]").val()+"/д");
-		$("#morfoNazn input[name=fld_19]").val("");
+		$("#morfoNazn [name=fld_19]").val("");
 	}
+	if ($("#morfoNazn [name=fld_19]").val()=="{{fld_19}}") {$("#morfoNazn [name=fld_19]").val("")};
 };
+
+function morfoTypesSelect() {
+	$("#morfoNazn input[name=actionType_id]").after("<select name='actionType_id' required></select>");
+	$.get("/json/morfology.php?mode=morfo_actions_list",function(data){
+		var data = JSON.parse(data);
+		$.each(data, function(key, value) {
+			if ($("#morfoNazn input[name=actionType_id]").val()==value.id) {
+				var selected=" selected ";
+
+			} else {var selected="";}
+			$("#morfoNazn select[name=actionType_id]").append("<option "+selected+" value='"+value.id+"'>"+value.name+"</option>");
+		});
+		if ($(document).data("copy_nazn")==true) {
+			$("#morfoNazn select[name=actionType_id]").selectmenu({ disabled: false });
+		} else {
+			$("#morfoNazn select[name=actionType_id]").selectmenu({ disabled: true });
+		}
+	});
+}
 
 function morfoNaznSubmit() {
 	$("#morfoNazn a.submit").on("click",function(){
@@ -165,7 +186,7 @@ function morfoNaznSubmit() {
 		$.post(ajax,formdata,function(data){
 				top.postMessage('addAction', '*');
 				$.mobile.back();
-				setTimeout(" document.location.href=document.location.href; ",200);
+				setTimeout(" document.location.href=document.location.href; ",1000);
 				
 		});
 
