@@ -303,6 +303,4 @@ if (!isset($_POST["details"])) {pq($doc)->find("td.details")->remove();} else {
 }
 return $out;
 }
-
-
 ?>
