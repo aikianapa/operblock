@@ -45,6 +45,7 @@
 	<div data-role="popup" id="printMenu" data-theme="a">
         <ul data-role="listview" data-inset="true" style="min-width:210px;">
             <li data-role="list-divider">Выберите действие</li>
+            <li><a href="#new" data-transition="flip">Доп. исследование</a></li>
             <li><a href="#reg" data-transition="flip">Регистрация</a></li>
             <li><a href="" data="/json/print_forms.php?mode=morfoReg"  target="_blank">Печать регистрации</a></li>
             <li><a href="" data="/json/print_forms.php?mode=morfoNazn" payed="1"  target="_blank">Печать заключения</a></li>

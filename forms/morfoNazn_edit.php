@@ -10,6 +10,7 @@
 <input type="hidden" name="actionType_id">
 <label><input type="checkbox" data-mini="true" name="isUrgent" >Экстренно</label>
 <div data-role="fieldcontain"><label>Планируемая дата</label><input type="datepicker" name="plannedEndDate" required></div>
+<div data-role="fieldcontain"><label>Количество</label><input type="number" name="amount" min="1" required></div>
 <div data-role="foreach" from="morfoNazn">
 <div ><label>{{label}}</label> 
 {{input}}

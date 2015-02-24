@@ -11,6 +11,7 @@ if ($id!="_new" AND $id!="") {
 	$Item["morfoNazn"]=morfoNaznForm($Item["actionType_id"]);
 	$Diag=patientGetDiagnosis($Item["event_id"]);
 	$Item["fld_3"]=$Diag["main"]["DiagName"];
+	$Item["amount"]=1;
 } else {
 	$Item=morfoNewNazn();
 	$Item["morfoNazn"]=morfoNaznForm();
