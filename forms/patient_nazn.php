@@ -1,30 +1,16 @@
-<div data-role="page" data-theme="a" id="patientNazn" data-ajax="false">
+<div data-role="page" data-theme="a" id="patientNazn" data-ajax="false" class="patientNazn">
 <input type="hidden" id="eventId" value="{{eventId}}">
 <input type="hidden" id="personId" value="{{personId}}">
 <input type="hidden" id="clientId" value="{{clientId}}">
 <input type="hidden" id="orgStrId" value="{{orgStrId}}">
 <input type="hidden" id="orgStrName" value="{{orgStrId}}">
-<div data-role="panel" id="patient-panel" data-theme="a" data-position-fixed="true" data-display="push" data-dismissible="false" data-swipe-close="false" >
-<a href="/patient/list/list.htm" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-bars" data-ajax="false">К списку пациентов</a>
-	<div data-role="foreach" from="client">
-	<div data-role="header"><h2>ИБ № {{externalId}}</h2></div>
-	<p>
-	{{lastName}}<br />
-	{{firstName}}<br />
-	{{patrName}}<br />
-	{{birthDate}}<br />
-	</p>
-	<div data-role="header"><h2>Диагноз</h2></div>
-	<p>{{diagnosis}}</p>
 
-</div>
-</div>
 
 <div data-role="header"  data-position="fixed"><h2>Назначение операции</h2></div>
 
 <div data-role="content">
 <a href="" class="uniprint ui-hidden" target="_blank">Печать</a> 
-<a href="#operation" data-rel="popup" data-position-to="window" class="new ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-check ui-btn-icon-left " data-transition="pop">Назначить операцию</a>
+<a href="#operation" class="new ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-check ui-btn-icon-left " data-transition="pop">Назначить операцию</a>
 <!-- Список операций -->
 
 <table data-role="table" class="ui-responsive" id="operlist">
@@ -50,35 +36,6 @@
             <li><a href="#cito" data="/json/print_forms.php?mode=citology" data-rel="popup">Направление на цитологию</a></li>
             <li><a href="#imuno" data="/json/print_forms.php?mode=imuno" data-rel="popup">Направление на имуногистохимию</a></li>
         </ul>
-</div>
-
-<!-- Назначение операции -->
-
-<div data-theme="a" class="ui-corner-all" id="operation" data-role="popup" data-dismissible="false" data-ajax="false">
-<div data-role="header"><h2>Назначение операции пациенту</h2>
-<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a></div>
-<form id="patient_nazn_form">
-<input type="hidden" name="orgStrId" value="{{orgStrId}}">
-<input type="hidden" name="event_id" value="{{eventId}}">
-<input type="hidden" name="setPerson_id" value="{{personId}}">
-<input type="hidden" name="createPerson_id" value="{{personId}}">
-<input type="hidden" name="status" value="0">
-<input type="hidden" id="appId" value="{{_SETTINGS_appId}}">
-<label><input type="checkbox" data-mini="true" name="isUrgent" >Экстренно</label>
-<div data-role="fieldcontain"><label>Планируемая дата</label><input type="datepicker" name="plannedEndDate" required></div>
-<div data-role="fieldcontain"><label>Наименование операции</label><input type="text" name="specifiedName" required></div>
-<div data-role="fieldcontain"><label>Тип операции</label>
-<select name="actionType_id" data-native-menu="false" required><option value="">Выберите...</option></select>
-</div>
-<div data-role="fieldcontain"><label>Хирург</label>
-<select name="person_id" value="{{personId}}" required><option value="">Выберите...</option></select>
-</div>
-
-<div data-role="fieldcontain"><label>Примечание</label><textarea name="note"></textarea></div>
-<a href="#" data-rel="popup" class="submit ui-btn ui-btn-inline ui-corner-all">Назначить</a>
-<a href="#" data-rel="back" class="ui-btn ui-btn-inline ui-corner-all">Отмена</a>
-</form>
-
 </div>
 
 <!-- Предоперационный эпикриз -->
@@ -161,6 +118,37 @@
 <h2>{{_SETTINGS_footer}}</h2></div>
 </div>
 
+
+<!-- Назначение операции -->
+
+<div id="operation" data-role="page" data-ajax="true">
+<div data-role="header"><h2>Назначение операции пациенту</h2>
+<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a></div>
+<form id="patient_nazn_form">
+<input type="hidden" name="orgStrId" value="{{orgStrId}}">
+<input type="hidden" name="event_id" value="{{eventId}}">
+<input type="hidden" name="setPerson_id" value="{{personId}}">
+<input type="hidden" name="createPerson_id" value="{{personId}}">
+<input type="hidden" name="status" value="0">
+<input type="hidden" id="appId" value="{{_SETTINGS_appId}}">
+<label><input type="checkbox" data-mini="true" name="isUrgent" >Экстренно</label>
+<div data-role="fieldcontain"><label>Планируемая дата</label><input type="datepicker" name="plannedEndDate" required></div>
+<div data-role="fieldcontain"><label>Наименование операции</label><input type="text" name="specifiedName" required></div>
+<div data-role="fieldcontain"><label>Тип операции</label>
+<select name="actionType_id" data-native-menu="false" required><option value="">Выберите...</option></select>
+</div>
+<div data-role="fieldcontain"><label>Хирург</label>
+<select name="person_id" value="{{personId}}" required><option value="">Выберите...</option></select>
+</div>
+
+<div data-role="fieldcontain"><label>Примечание</label><textarea name="note"></textarea></div>
+<a href="#" data-rel="popup" class="submit ui-btn ui-btn-inline ui-corner-all">Назначить</a>
+<a href="#" data-rel="back" class="ui-btn ui-btn-inline ui-corner-all">Отмена</a>
+</form>
+
+</div>
+
+
 <script language="javascript">
 $(document).on("pageinit",function(){
 	commonFormWidgets();
@@ -174,6 +162,10 @@ $(document).on("pageinit",function(){
 function patient_nazn() {
 //$("#patient-panel").panel("open");
 
+$("a[href=#operation]").on("click",function(){
+	$.mobile.changePage( "#operation", { transition: "flip", changeHash: true });
+});
+
 $('input[type=datetime]').datetimepicker({
 	lang:'ru', format:'Y-m-d', formatDate:'Y-m-d', timepicker:false
 });
@@ -185,7 +177,7 @@ var panel_w=$("#patient-panel").width();
 var page_w=$("#patientNazn").width();
 var cont_w=page_w-panel_w;
 $("#patientNazn div[data-role=content]").width(cont_w);
-$("#patientNazn #operation").css("width",page_w-40);
+//$("#patientNazn #operation").css("width",page_w-40);
 $("#patientNazn #epicriz").css("width",page_w-40);
 $("#patientNazn #histo").css("width",page_w-40);
 $("#patientNazn #cito").css("width",page_w-40);
@@ -264,13 +256,13 @@ $.get("/json/operation.php?mode=nazn_oper_list&orgStrId="+orgStrId,function(data
 		}	else {
 			$("#patient_nazn_form select[name=actionType_id] option:last").after("<option value='"+this["id"]+"'>"+this["name"]+"</option>");
 		}
-		$("#patient_nazn_form select[name=actionType_id]").selectmenu();
 	});
+	$("#patient_nazn_form select[name=actionType_id]").selectmenu();
 });
 }
 
 function patient_nazn_submit() {
-$( "#patient_nazn_form a.submit" ).on( "click", function(  ) {
+$( "#patient_nazn_form a.submit" ).unbind("click").on( "click", function(  ) {
 	if (checkRequired($( "#patient_nazn_form"))) {
 	var formdata=$("#patient_nazn_form").serialize() ;
 	$.post("/json/operation.php?mode=nazn_oper_submit",formdata,function(data){
@@ -278,7 +270,8 @@ $( "#patient_nazn_form a.submit" ).on( "click", function(  ) {
 		if (data.error==0) {
 			top.postMessage('addAction', '*');
 			$("#patientNazn #patient_epicriz_form input[name=action_id]").val(data.id);
-			$("#patientNazn #operation").popup("close");
+//			$("#patientNazn #operation").popup("close");
+$.mobile.back();
 			footer_notify("Операция назначена","success");
 			setTimeout(function(){ 
 				document.location.href = document.location.href;

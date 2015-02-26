@@ -79,7 +79,7 @@ function dmyDate($date) {
 	return $date;
 }
 
-function getActionPropertyFormData($Item,$form) {
+function getActionPropertyFormData($Item,$form,$fldname="name") {
 	$action_id=$Item["id"];
 	if ($action_id!="_new" AND $action_id!="") {
 	foreach($form as $field) {
@@ -91,7 +91,7 @@ function getActionPropertyFormData($Item,$form) {
 			$SQL = "SELECT value FROM ActionProperty_{$type} WHERE id = $prop_id ";
 			$res=mysql_query($SQL) or die("Query failed getActionPropertyFormData() [1]: " . mysql_error());
 			while($data = mysql_fetch_array($res)) {
-				$Item[$field["name"]]=$data["value"];
+				$Item[$field[$fldname]]=$data["value"];
 			}
 		}
 	}
@@ -136,7 +136,7 @@ function prepInput($Item) {
 	return $inp;
 }
 
-function getActionProperties($action_id,$actionType=NULL) {
+function getActionProperties($action_id,$actionType=NULL,$fldname="name") {
 	// Аналог getActionPropertyFormData, но вызывается по action_id
 	// Возвращает данные actionProperty указанного action
 	if ($actionType_id==NULL) {
@@ -152,7 +152,7 @@ function getActionProperties($action_id,$actionType=NULL) {
 		}
 	}
 	$Item=array(); $Item["id"]=$action_id;
-	$Item=getActionPropertyFormData($Item,$form);
+	$Item=getActionPropertyFormData($Item,$form,$fldname);
 	unset($Item["id"]);
 return $Item;
 }
@@ -875,11 +875,10 @@ function get_action_status($action_id="", $action="", $_action="") {
 	if ($action=="") {$action=mysqlReadItem("Action",$action_id);}
 	if ($_action=="") {$_action=jdbReadItem("Action",$action_id);}
 	$Action=array_merge($action,$_action);
-	if ($Action["status"]!=3) {
+	if ($Action["status"]!=2 AND $Action["status"]!=3) {
 		if ($Action["status"]=="") {$Action["status"]=0;}
-		if ($Action["zam_ok"]==1) {$Action["status"]=1;} else {$Action["status"]=0;}
-		if ($Action["zav_ok"]==1 AND $Action["status"]==0) $Action["status"]=4;
-		if (date("d-m-Y",strtotime($Action["endDate"]))>=date("d-m-Y",strtotime($Action["begDate"])) AND $Action["status"]<2  ) {$Action["status"]=2;}
+		if ($Action["zav_ok"]==1) $Action["status"]=4;
+		if ($Action["zam_ok"]==1) {$Action["status"]=1;}
 		if ($Action["isUrgent"]==1 AND ($Action["status"]!=2 AND $Action["status"]!=3) ) {$Action["status"]=1;}
 	}
 	return  $Action["status"];

@@ -225,6 +225,12 @@ foreach($_POST["fld"] as $key => $val) {
 	$epic[$key]["fld"]=$val;
 	$epic[$key]["val"]=$_POST["val"][$key];
 }
+
+foreach($_POST as $key => $val) {
+	if (substr($key,0,2)=="e_") {$epic[$key]=$_POST[$key];}
+}
+
+
 $_action["toOrg"]=$_POST["toOrg"];
 $_action["id"]=$action["id"];
 $_action["epic_out"]=$epic;
