@@ -24,7 +24,7 @@
 </tr></div>
 </tbody></table>
 
-<!-- менюдействий в списке операций врача-->
+<!-- меню действий в списке операций врача-->
 <div data-role="popup" id="vrachMenu" data-theme="b">
         <ul data-role="listview" data-inset="true" style="min-width:210px;">
             <li data-role="list-divider">Выберите действие</li>
@@ -123,7 +123,7 @@
 
 <div id="operation" data-role="page" data-ajax="true">
 <div data-role="header"><h2>Назначение операции пациенту</h2>
-<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a></div>
+<a href="#" class="close ui-btn ui-corner-all ui-shadow ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a></div>
 <form id="patient_nazn_form">
 <input type="hidden" name="orgStrId" value="{{orgStrId}}">
 <input type="hidden" name="event_id" value="{{eventId}}">
@@ -133,24 +133,24 @@
 <input type="hidden" id="appId" value="{{_SETTINGS_appId}}">
 <label><input type="checkbox" data-mini="true" name="isUrgent" >Экстренно</label>
 <div data-role="fieldcontain"><label>Планируемая дата</label><input type="datepicker" name="plannedEndDate" required></div>
-<div data-role="fieldcontain"><label>Наименование операции</label><input type="text" name="specifiedName" required></div>
 <div data-role="fieldcontain"><label>Тип операции</label>
 <select name="actionType_id" data-native-menu="false" required><option value="">Выберите...</option></select>
 </div>
+<div data-role="fieldcontain"><label>Наименование операции</label><input type="text" name="specifiedName" required></div>
 <div data-role="fieldcontain"><label>Хирург</label>
 <select name="person_id" value="{{personId}}" required><option value="">Выберите...</option></select>
 </div>
 
 <div data-role="fieldcontain"><label>Примечание</label><textarea name="note"></textarea></div>
-<a href="#" data-rel="popup" class="submit ui-btn ui-btn-inline ui-corner-all">Назначить</a>
-<a href="#" data-rel="back" class="ui-btn ui-btn-inline ui-corner-all">Отмена</a>
+<a href="#" class="submit ui-btn ui-btn-inline ui-corner-all">Назначить</a>
+<a href="#" class="close ui-btn ui-btn-inline ui-corner-all">Отмена</a>
 </form>
 
 </div>
 
 
 <script language="javascript">
-$(document).on("pageinit",function(){
+$(document).on("ready",function(){
 	commonFormWidgets();
 	patient_nazn();
 	patient_nazn_submit();
@@ -271,7 +271,7 @@ $( "#patient_nazn_form a.submit" ).unbind("click").on( "click", function(  ) {
 			top.postMessage('addAction', '*');
 			$("#patientNazn #patient_epicriz_form input[name=action_id]").val(data.id);
 //			$("#patientNazn #operation").popup("close");
-$.mobile.back();
+			$.mobile.changePage("#patientNazn");
 			footer_notify("Операция назначена","success");
 			setTimeout(function(){ 
 				document.location.href = document.location.href;
@@ -287,7 +287,7 @@ $.mobile.back();
 });
 }
 
-$("#patientNazn [name=isUrgent]").on("change",function(){
+$("#patient_nazn_form [name=isUrgent]").on("change",function(){
 	if ( $(this).val()!=1) {$(this).val(1);} else { $(this).val(0);	}
 });
 
@@ -320,17 +320,24 @@ function popup_data(that,name,dataname) {
 	} 
 }
 
-$("#patientNazn a.new[href=#operation]").on("click",function(){ 	$( "#patientNazn" ).data( "action","");	});
-
-$("#patientNazn #operation").on("popupafterclose",function(){
-	$( "#patientNazn" ).data( "action","");
-	$(this).find("form input[name=id]").remove(); 
+$("#patient_nazn_form select[name=actionType_id]").on("change",function(){
+	if ($("#patient_nazn_form input[name=specifiedName]").val()=="") {
+		$("#patient_nazn_form input[name=specifiedName]").val($(this).find("option:selected").text());
+	}
 });
 
-$("#patientNazn #operation").on("popupafteropen",function(){
-	var action_id=$( "#patientNazn" ).data( "action");
-	$(this).find("form")[0].reset();  
-	if (action_id>"") {
+$("#patientNazn a.new[href=#operation]").on("click",function(){ $("#patient_nazn_form")[0].reset(); $( "#patientNazn" ).data( "action","");	});
+
+$("#operation a.close").unbind("click").on("click",function(){
+	$( "#patientNazn" ).data( "action","");
+	$("#operation").find("form input[name=id]").remove(); 
+	$.mobile.changePage("#patientNazn");
+});
+
+$("#operation").on("pageshow",function(){
+	$.mobile.silentScroll(0);
+	var action_id=$( "#patientNazn" ).data("action");
+	if (action_id>"" && $( "#patientNazn" ).data( "operation_loaded")==false) {
 			$(this).find("form").prepend("<input type='hidden' name='id'>");
 			$(this).find("form input[name=id]").val(action_id);
 			$.get("/json/operation.php?mode=zavnazn_get_data&action_id="+action_id,function(data){
@@ -346,6 +353,7 @@ $("#patientNazn #operation").on("popupafteropen",function(){
 				}
 				
 	});
+		$( "#patientNazn" ).data( "operation_loaded",true);
 	}
 	
 });
@@ -388,7 +396,8 @@ function operation_list_action() {
 			$("#vrachMenu").popup("close");
 			var href=$(this).attr("href");
 			if (href=="#operation") {
-				setTimeout(function(){ $("#patientNazn #operation").popup("open"); },500);
+				$( "#patientNazn" ).data( "operation_loaded",false);
+				$("#patientNazn #operation").popup("open");
 				return false;
 			}
 			if (href=="#epicriz" ) {

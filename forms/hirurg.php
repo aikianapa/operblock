@@ -48,6 +48,7 @@ function hirurgListItems() {
 			$action["id"]=$a[0];
 			$action=getActionInfo($action["id"]);
 			$action["ready"]=oper_ready_check($action);
+			//$action["ready"]=1;
 			$action["begDate"]=dmyDate($action["begDate"]);
 			if ($action["specifiedName"]>"") {$action["operation"]=$action["specifiedName"];}
 			$result[]=$action;
