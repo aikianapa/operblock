@@ -4,12 +4,24 @@ prepareSessions();
 $_SESSION["allow"]=array("Врач");
 
 function epicrizOut_edit($form,$mode,$id,$datatype) {
-$out=formGetForm($form,$mode);
+if ($_SESSION["settings"]["appId"]=="msk36") {
+	$out=phpQuery::newDocumentFile($_SERVER['DOCUMENT_ROOT']."/forms/msk36/".$form."_".$mode.".php");
+} else {$out=formGetForm($form,$mode);}
+
+foreach(pq($out)->find("input,select,textarea") as $inp) {
+	$Item[pq($inp)->attr("name")]="";
+}
+
 parse_str($_SERVER["REQUEST_URI"]);
 if ($id!="_new" AND $id!="") {
 	$action=getEpicrizOut($id);
 	if (isset($action["id"])) {
-		$Item=$action;
+		$Item=array_merge($Item,$action);
+		foreach($action["epic_out"] as $key => $val) {
+			if (substr($key,0,2)=="e_") {
+				$Item[$key]=$val;
+			} 
+		}
 		$Item["fields"]=$action["epic_out"];
 		$Item["action_id"]=$action["id"];
 	} else {
@@ -22,9 +34,14 @@ if ($id!="_new" AND $id!="") {
 	}
 
 	$event=mysqlReadItem("Event",$id);
+	$Diag=patientGetDiagnosis($id);
 	$person=getPersonInfo($person_id);
 	$client=getClientInfo($event["client_id"]);
 	$organisation=mysqlReadItem("Organisation",$person["org_id"]);
+	
+	print_r($Item["e_cmnApple"]);
+	
+	$Item["externalId"]=$event["externalId"];
 	$Item["event_id"]=$id;
 	$Item["org"]=$organisation["shortName"];
 	$Item["orgStr"]=$person["orgStructure"];
@@ -35,13 +52,40 @@ if ($id!="_new" AND $id!="") {
 	$Item["docDate"]=getRusDate(date("d-m-Y"))."г.";
 	$Item["address"]=$client["addressLive"];
 	$Item["work"]=$client["work"];
-	
+	$Item["diag_main"]=$Diag["main"]["MKB"]." ".$Diag["main"]["DiagName"];
+	$Item["diag_satt"]=$Diag["satt"]["MKB"]." ".$Diag["satt"]["DiagName"];
+	$Item["diag_tera"]=$Diag["terapevt"]["MKB"]." ".$Diag["terapevt"]["DiagName"];
+	if ($client[11]==1) {$Item["suffix1"]="ся";$Item["suffix2"]="";} else {$Item["suffix1"]="ась";$Item["suffix2"]="а";}
+	$Item["age"]=$client["age"];
 	$Item["a_date1"]=$Item["a_date2"]=$Item["s_date1"]=$Item["s_date2"]="";
 	$Item["s_date1"]=getRusDate($event["setDate"])."г.";
 	if ($event["execDate"]>"") $Item["s_date2"]=getRusDate($event["execDate"])."г.";
+	$Item["orgStrBoss"]=json_decode(getOrgStrBossName(),true); $Item["orgStrBoss"]=$Item["orgStrBoss"]["shortName"];
 	
+	
+	if ($_SESSION["settings"]["appId"]=="msk36") {$Item=array_merge(fields_msk36($id),$Item);}
+}
+foreach($out->find("select option.add") as $add) {
+	$add_name=pq($add)->parent("select")->attr("name")."_add";
+	if (!pq($add)->parent("select")->next("input.addinf")->length()) {
+		pq($add)->parent("select")->after("<input name='{$add_name}' class='addinf'>");
+	}
 }
 $out=contentSetData($out,$Item);
+foreach($out->find("select option") as $opt) {
+	// устанавливаем option в соответствии с select.value
+	if (pq($opt)->parent("select")->attr("value")==pq($opt)->text()) {pq($opt)->attr("selected","selected");}
+}
+foreach($out->find("select[multiple] option") as $opt) {
+	// устанавливаем option для multiple select
+	$selname=pq($opt)->parent("select")->attr("name"); $selname=substr($selname,0,-2);
+	if (in_array(pq($opt)->text(),$Item[$selname])) {pq($opt)->attr("set","set");}
+}
+foreach(pq($out)->find("textarea[placeholder]") as $inp) {
+	// устанавливаем знечение placeholder для пустых текстов
+	if (pq($inp)->html()=="") {	pq($inp)->html(pq($inp)->attr("placeholder")); }
+}
+$out=ereg_replace("{{.*}}", "", $out->htmlOuter());
 return $out;
 }
 
@@ -60,6 +104,32 @@ function getEpicrizOut($event_id) {
 	}
 	}
 	return $action;
+}
+
+function fields_msk36($event_id) {
+	$event=mysqlReadItem("Event",$event_id);
+	$Diag=patientGetDiagnosis($event_id);
+	$SQL="SELECT * FROM Action AS a
+	INNER JOIN  Event AS e ON a.event_id = e.id
+	INNER JOIN  ActionType AS t ON t.id = a.actionType_id
+	WHERE e.id = {$event_id} AND t.flatCode =  'first_osmotr' LIMIT 1";
+	$res=mysql_query($SQL) or die ("Query failed fields_msk36(): [1]" . mysql_error());
+	while($data = mysql_fetch_array($res)) {
+		$first_osmotr=getActionProperties($data[0],"");
+		//print_r(getActionProperties($data[0],"","label"));
+	}
+
+	//print_r($first_osmotr);
+	$f=array(); // $f[""]="";
+	$f["e_complaint1"]=$first_osmotr["fld_0"];
+	$f["e_complaint2"]="";
+	$f["e_anamnez1"]=$first_osmotr["fld_1"];
+	$f["e_anamnez2"]=$first_osmotr["fld_11"];
+	$f["e_anamnez3"]=$first_osmotr["fld_29"];
+	$f["e_anamnez4"]=$first_osmotr["fld_26"];
+	$f["e_stateIn"]=$first_osmotr["fld_55"];
+
+	return $f;
 }
 
 ?>

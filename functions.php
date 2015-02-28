@@ -607,6 +607,7 @@ function getOrgStrBossName($orgStrId=171) {
 		$res = mysql_query($SQL) or die("Query failed: " . mysql_error());
 		while($data = mysql_fetch_array($res)) {
 			$name["fullName"]=$data["lastname"]." ".$data["firstname"]." ".$data["patrname"];
+			$name["shortName"]=$data["lastname"]." ".substr($data["firstname"],0,2).". ".substr($data["patrname"],0,2).".";
 		}
 		return json_encode($name);
 }
