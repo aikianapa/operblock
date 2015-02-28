@@ -371,7 +371,7 @@ $action["externalId"]=$Event["externalId"];
 $action["doc_date"]=currentDocDate();
 $action["operation"]=$ActionType["title"];
 $action["orgStructure"]=getOrgStrName($Person["orgStructure_id"]); 
-$action["orgStrBoss"]=json_decode(getOrgStrBossName(),true)["fullName"];
+$action["orgStrBoss"]=json_decode(getOrgStrBossName(),true); $action["orgStrBoss"]=$action["orgStrBoss"]["fullName"];
 foreach ($action["histology"] as $key => $data) {
 	$data=nl2br($data);
 	$action[$key]=$data;
