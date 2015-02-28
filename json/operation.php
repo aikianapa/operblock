@@ -428,15 +428,6 @@ $action_id="_new";	while($data = mysql_fetch_array($result)) {	$action_id=$data[
 		updateProperties($fldset,$Action["id"],$Action["setPerson_id"],$Action["actionType_id"]);
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 $res["error"]=$error;
 return json_encode($res);
 }

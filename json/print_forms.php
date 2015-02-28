@@ -319,11 +319,18 @@ return $res;
 function protocol() {
 $out=file_get_contents($_SERVER['DOCUMENT_ROOT']."/forms/print_$_GET[mode].php");
 $action=getActionInfo($_GET["action"]);
-$Operation=jdbReadItem("Operation",$_GET["action"]);
+
+$aType=getActionTypeByName('Протокол операции');
+// Ищем Action
+$SQL="SELECT id FROM Action WHERE actionType_id = $aType AND parent_id = ".$_GET["action"]." LIMIT 1";
+$result = mysql_query($SQL) or die("Query failed: (protocol) " . mysql_error());
+$action_id="";	while($data = mysql_fetch_array($result)) {	$action_id=$data["id"];	}
+$Operation=getActionProperties($action_id);
+
+// из пропертей не считывается время окончания операции, приходит только дата, видимо, нужно поменять тип
+
 foreach($action["_Client"] as $c => $val) {$action["client_".$c]=$val;}
-//foreach($Operation as $key => $val) {
-//	$action["o_$key"]=$val;
-//}
+
 $action["o_begTime"]=$Operation["fld_0"];
 $action["o_endTime"]=$Operation["fld_1"];
 $action["o_blooding"]=$Operation["fld_2"];
