@@ -131,7 +131,7 @@
 <input type="hidden" name="createPerson_id" value="{{personId}}">
 <input type="hidden" name="status" value="0">
 <input type="hidden" id="appId" value="{{_SETTINGS_appId}}">
-<label><input type="checkbox" data-mini="true" name="isUrgent" >Экстренно</label>
+<label><input type="checkbox" data-mini="true" name="isUrgent" value="0" >Экстренно</label>
 <div data-role="fieldcontain"><label>Планируемая дата</label><input type="datepicker" name="plannedEndDate" required></div>
 <div data-role="fieldcontain"><label>Тип операции</label>
 <select name="actionType_id" id="actionType" data-native-menu="false" data-filter="true" data-input='#actionType-filter' required><option value="">Выберите...</option></select>
@@ -347,8 +347,10 @@ $("#operation").on("pageshow",function(){
 				});
 				commonFormWidgets(); 
 				$("#operation select").trigger("change");
-				if ($("#operation input[name=isUrgent]").val()==1) {
+				if ($("#operation input[name=isUrgent]").val()=="1") {
 					$("#operation input[name=isUrgent]").prop( "checked", true ).checkboxradio( "refresh" );
+				} else {
+					$("#operation input[name=isUrgent]").prop( "checked", false ).checkboxradio( "refresh" );
 				}
 				
 			});
