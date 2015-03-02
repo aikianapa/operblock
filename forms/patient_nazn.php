@@ -134,7 +134,7 @@
 <label><input type="checkbox" data-mini="true" name="isUrgent" >Экстренно</label>
 <div data-role="fieldcontain"><label>Планируемая дата</label><input type="datepicker" name="plannedEndDate" required></div>
 <div data-role="fieldcontain"><label>Тип операции</label>
-<select name="actionType_id" data-native-menu="false" required><option value="">Выберите...</option></select>
+<select name="actionType_id" id="actionType" data-native-menu="false" data-filter="true" data-input='#actionType-filter' required><option value="">Выберите...</option></select>
 </div>
 <div data-role="fieldcontain"><label>Наименование операции</label><input type="text" name="specifiedName" required></div>
 <div data-role="fieldcontain"><label>Хирург</label>
@@ -160,7 +160,6 @@ $(document).on("ready",function(){
  
 
 function patient_nazn() {
-//$("#patient-panel").panel("open");
 
 $("a[href=#operation]").on("click",function(){
 	$.mobile.changePage( "#operation", { transition: "flip", changeHash: true });
@@ -270,13 +269,10 @@ $( "#patient_nazn_form a.submit" ).unbind("click").on( "click", function(  ) {
 		if (data.error==0) {
 			top.postMessage('addAction', '*');
 			$("#patientNazn #patient_epicriz_form input[name=action_id]").val(data.id);
-//			$("#patientNazn #operation").popup("close");
 			$.mobile.changePage("#patientNazn");
 			footer_notify("Операция назначена","success");
 			setTimeout(function(){ 
 				document.location.href = document.location.href;
-			//	epicriz_defaults(); 
-			//	$("#patientNazn #epicriz").popup("open"); 
 			},300);
 		}
 	});
@@ -324,6 +320,8 @@ $("#patient_nazn_form select[name=actionType_id]").on("change",function(){
 	if ($("#patient_nazn_form input[name=specifiedName]").val()=="") {
 		$("#patient_nazn_form input[name=specifiedName]").val($(this).find("option:selected").text());
 	}
+	$("#actionType-dailog").find("form input").val("");
+	$("#patient_nazn_form #actionType").selectmenu("refresh");
 });
 
 $("#patientNazn a.new[href=#operation]").on("click",function(){ $("#patient_nazn_form")[0].reset(); $( "#patientNazn" ).data( "action","");	});
@@ -337,6 +335,7 @@ $("#operation a.close").unbind("click").on("click",function(){
 $("#operation").on("pageshow",function(){
 	$.mobile.silentScroll(0);
 	var action_id=$( "#patientNazn" ).data("action");
+	$("#actionType").selectmenu().selectmenu("destroy").selectmenu({  hidePlaceholderMenuItems: true	});
 	if (action_id>"" && $( "#patientNazn" ).data( "operation_loaded")==false) {
 			$(this).find("form").prepend("<input type='hidden' name='id'>");
 			$(this).find("form input[name=id]").val(action_id);
@@ -352,10 +351,23 @@ $("#operation").on("pageshow",function(){
 					$("#operation input[name=isUrgent]").prop( "checked", true ).checkboxradio( "refresh" );
 				}
 				
-	});
+			});
 		$( "#patientNazn" ).data( "operation_loaded",true);
 	}
-	
+});
+
+
+$(document).delegate(".ui-dialog","dialogcreate", function( event ) {
+	if ($(event.target).attr("id")=="actionType-dialog") {
+		var dialog="#actionType-dialog";
+		setTimeout(function(){
+			if (!$(dialog).find("form").length) {
+				$(dialog).find("ul").before("<form><input data-type='search' id='actionType-filter' ><br></form>");
+				$(dialog).find("form").enhanceWithin();
+			} else {$(dialog).find("form input").val("");}
+			$(dialog).find("ul").attr("data-input","#actionType-filter").filterable();
+		},600);
+	}
 });
 
 function epicriz_defaults() {
@@ -441,4 +453,5 @@ function operation_list_action() {
 #patientNazn #operation {width:800px;}
 #epicriz, #histo, #cito {width:800px;}
 #patientNazn form {padding:10px;}
+.ui-dialog-contain {max-width:99%;}
 </style>
