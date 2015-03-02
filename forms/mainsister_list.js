@@ -71,7 +71,7 @@ $("#mainsisterList").on("pageinit",function(){
     page.find("#clientlist tbody tr").each(function(){
 			var sid=$(this).attr("sid");
 			if (sid>0) {$(this).addClass("sid");}
-			if ($(this).hasClass("status-0")) {$(this).remove();}
+			if ($(this).hasClass("status-0") && $("#mainsisterlist input#appId").val()!="spb" ) {$(this).remove();}
     });
     
 		oprooms_init(page);
