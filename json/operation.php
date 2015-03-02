@@ -373,10 +373,7 @@ $Item["createDatetime"]=date( "Y-m-d H:i:s" );
 $Item["plannedEndDate"]=date("Y-m-d H:i:s", strtotime($Item["plannedEndDate"]));
 $Item["modifyDatetime"]=$Item["createDatatime"];
 $Item["modufyPerson_id"]=$Item["createPerson_id"];
-if ($Item["isUrgent"]=="on" OR $Item["isUrgent"]=="1") {
-	$Item["isUrgent"]=1; 
-	if ($Item["status"]==0) { $Item["status"]=1; }
-} else {$Item["isUrgent"]=0;	}
+if ($Item["isUrgent"]=="on" OR $Item["isUrgent"]=="1") {	$Item["isUrgent"]=1; } else {$Item["isUrgent"]=0;	}
 
 $error=mysqlSaveItem("Action",$Item);
 $res["id"]=mysql_insert_id();
