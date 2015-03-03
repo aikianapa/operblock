@@ -12,6 +12,9 @@ $Item["result"]=sisteranListItems() ;
 if (isset($_COOKIE["workDate"])) {$Item["workDate"]=$_COOKIE["workDate"];} else {$Item["workDate"]=date("Y-m-d");}
 $Item["person_id"]=$_SESSION["person_id"];
 $out=contentSetData($out,$Item);
+pq($out)->find("#tab-urgent")->html(pq($out)->find("#tab-self table"));
+pq($out)->find("#tab-self table tr.urg-1")->remove();
+pq($out)->find("#tab-urgent table tr.urg-0")->remove();
 return $out;
 }
 
@@ -33,6 +36,7 @@ foreach($drugslist as $drug_id => $data) {
 	$Item["drugs"][]=$data;
 }
 $Item["action_id"]=$id;
+$Item["person_id"]=$_SESSION["person_id"];
 $Item["drugs"]=array_sort($Item["drugs"],"drugName");
 $out=contentSetData($out,$Item);
 return $out;
@@ -62,8 +66,9 @@ function sisteranListItems() {
    $action["begDate"]=dmyDate($action["begDate"]);
    $counter++; $action["counter"]=$counter;
    if (!isset($_action["table"]))  $_action["table"]="";
-    if ($action["an_sister_id"]==$_SESSION["person_id"] OR $_SESSION["person_id"]==6924) {
-    $result[]=$action; 
+   if ($action["an_sister_id"]==$_SESSION["person_id"] OR $_SESSION["person_id"]==6924 OR ($action["isUrgent"]==1 AND $action["an_sister_id"]=="")) {
+		if ($action["isUrgent"]==1 AND $action["an_sister_id"]=="") {$action["commonUrgent"]=1;} else {$action["commonUrgent"]=0;}
+		$result[]=$action; 
 	} 
   }
 

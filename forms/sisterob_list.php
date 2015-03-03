@@ -14,7 +14,7 @@
 		<div data-role="fieldcontain"><label>Рабочая дата</label><input type="datepicker" data-role="date" data-inline="true" required name="workDate"></div>
 		<input type="hidden" name="person_id">
 
-<div data-role="tabs" id="tabs">
+<div data-role="tabs" id="tabs1">
 		<div data-role="navbar"><ul>
 			  <li><a href="#tab-self" data-ajax="false" class="ui-btn-active">Мои операции</a></li>
 			   <li><a href="#tab-urgent" data-ajax="false">Экстренные операции</a></li>
@@ -47,7 +47,7 @@
 		<div data-role="foreach" from="result">
 		<tr aid="{{action_id}}" class="status-{{status}} urg-{{commonUrgent}}" sid="{{spisanie_ob}}">
 		<td>{{externalId}}</td>
-		<td>{{client}} ({{age}} лет) {{operSister_id}}</td>
+		<td>{{client}} ({{age}} лет)</td>
 		<td>{{operation}}</td>
 		<td>{{begDate}}</td>
 		<td>{{diagnose}}</td>

@@ -13,6 +13,13 @@
 		<div data-role="fieldcontain"><label>Рабочая дата</label><input type="datepicker" data-role="date" data-inline="true" required name="workDate"></div>
 		<input type="hidden" name="person_id">
 		
+<div data-role="tabs" id="tabs1">
+		<div data-role="navbar"><ul>
+			  <li><a href="#tab-self" data-ajax="false" class="ui-btn-active">Мои операции</a></li>
+			   <li><a href="#tab-urgent" data-ajax="false">Экстренные операции</a></li>
+		</ul></div>
+
+<div id="tab-self" class="ui-body-d ui-content">
     <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="display: inline-block;">
         <legend>Состояние:</legend>
         <input type="radio" name="status" id="status-all" value="all" checked="checked">
@@ -37,7 +44,7 @@
 		<thead><tr><th>№ ИБ</th><th>Ф.И.О.</th><th>Операция</th><th>Дата операции</th><th>Диагноз</th><th>Врач</th><th>Палата</th><th>&nbsp;</th></tr></thead>
 		<tbody>
 		<div data-role="foreach" from="result">
-		<tr aid="{{action_id}}" class="status-{{status}}" sid="{{spisanie_an}}">
+		<tr aid="{{action_id}}" class="status-{{status}} urg-{{commonUrgent}}" sid="{{spisanie_an}}">
 		<td>{{externalId}}</td>
 		<td>{{client}} ({{age}} лет)</td>
 		<td>{{specifiedName}}</td>
@@ -49,6 +56,10 @@
 		</tr></div>
 		</tbody></table>
 
+</div>
+<div id="tab-urgent" class="ui-body-d ui-content">
+</div>
+</div>
 
 	<div data-role="popup" id="printMenu" data-theme="a">
         <ul data-role="listview" data-inset="true" style="min-width:210px;">

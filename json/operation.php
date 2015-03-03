@@ -80,6 +80,7 @@ function sisterob_spisanie_submit() {
 		$ins_id=mysql_insert_id();
 		if ($ins_id>"") $_action["spisanie_$role"]=$ins_id;
 		if ($role=="ob" AND $_action["operSister_id"]=="") {$_action["operSister_id"]=$person_id;}
+		if ($role=="an" AND $_action["an_sister_id"]=="") {$_action["an_sister_id"]=$person_id;}
 		jdbSaveItem("Action",$_action);
 		$SQL="DELETE QUICK FROM {$stockMotion}_Item WHERE master_id = ".$_action["spisanie_$role"];
 		$result = mysql_query($SQL) or die("Query failed: (sisterob_spisanie_submit - DELETE) " . mysql_error());
