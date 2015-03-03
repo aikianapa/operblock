@@ -60,8 +60,9 @@ function sisterob_spisanie_submit() {
 		$drugs=$_POST["drugs"];
 		$_action=jdbReadItem("Action",$action_id);
 		$action=mysqlReadItem("Action",$action_id);
+		$_action["id"]=$action_id;
     if ($_GET["mode"]=="sisterob_spisanie_submit") {$role="ob";}
-		if ($_GET["mode"]=="sisteran_spisanie_submit") {$role="an"; }
+	if ($_GET["mode"]=="sisteran_spisanie_submit") {$role="an"; }
 		$dateTime=$action["begDate"];
 		$Item=array();	
 		$Item["id"]="";
@@ -78,6 +79,7 @@ function sisterob_spisanie_submit() {
 		$error=mysqlSaveItem($stockMotion,$Item);
 		$ins_id=mysql_insert_id();
 		if ($ins_id>"") $_action["spisanie_$role"]=$ins_id;
+		if ($role=="ob" AND $_action["operSister_id"]=="") {$_action["operSister_id"]=$person_id;}
 		jdbSaveItem("Action",$_action);
 		$SQL="DELETE QUICK FROM {$stockMotion}_Item WHERE master_id = ".$_action["spisanie_$role"];
 		$result = mysql_query($SQL) or die("Query failed: (sisterob_spisanie_submit - DELETE) " . mysql_error());
@@ -89,7 +91,9 @@ function sisterob_spisanie_submit() {
 			$Drugs["event_id"]=$action["event_id"];
 			if ($Drugs["qnt"]>0) {	mysqlSaveItem("{$stockMotion}_Item",$Drugs); }
 		}
-		if ($error=="") $error=0;
+		if ($error=="" OR $error==0) {
+			$error=0;
+		}
 		$res["error"]=$error;
 		mysql_free_result($result);
 		return json_encode($res);

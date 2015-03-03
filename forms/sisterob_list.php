@@ -14,6 +14,13 @@
 		<div data-role="fieldcontain"><label>Рабочая дата</label><input type="datepicker" data-role="date" data-inline="true" required name="workDate"></div>
 		<input type="hidden" name="person_id">
 
+<div data-role="tabs" id="tabs">
+		<div data-role="navbar"><ul>
+			  <li><a href="#tab-self" data-ajax="false" class="ui-btn-active">Мои операции</a></li>
+			   <li><a href="#tab-urgent" data-ajax="false">Экстренные операции</a></li>
+		</ul></div>
+
+<div id="tab-self" class="ui-body-d ui-content">
     <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="display: inline-block;">
         <legend>Состояние:</legend>
         <input type="radio" name="status" id="status-all" value="all" checked="checked">
@@ -38,9 +45,9 @@
 		<thead><tr><th>№ ИБ</th><th>Ф.И.О.</th><th>Операция</th><th>Дата операции</th><th>Диагноз</th><th>Врач</th><th>Палата</th><th>&nbsp;</th></tr></thead>
 		<tbody>
 		<div data-role="foreach" from="result">
-		<tr aid="{{action_id}}" class="status-{{status}}" sid="{{spisanie_ob}}">
+		<tr aid="{{action_id}}" class="status-{{status}} urg-{{commonUrgent}}" sid="{{spisanie_ob}}">
 		<td>{{externalId}}</td>
-		<td>{{client}} ({{age}} лет)</td>
+		<td>{{client}} ({{age}} лет) {{operSister_id}}</td>
 		<td>{{operation}}</td>
 		<td>{{begDate}}</td>
 		<td>{{diagnose}}</td>
@@ -49,7 +56,10 @@
 		<td><a href="#printMenu" data-rel="popup" data-transition="slideup" class="ui-btn ui-corner-all ui-shadow ui-icon-action ui-btn-icon-notext">Печать</a></td>
 		</tr></div>
 		</tbody></table>
-
+</div>
+<div id="tab-urgent" class="ui-body-d ui-content">
+</div>
+</div>
 
 	<div data-role="popup" id="printMenu" data-theme="a">
         <ul data-role="listview" data-inset="true" style="min-width:210px;">
@@ -98,8 +108,9 @@ $('input[type=datetime]').datetimepicker({
 		var page=$("#sisterobList");
 		page.find("#sisterobSpis").dialog();
 		zaved_nazn_submit();
+		
 		page.find("#clientlist tbody tr, #tables ul li").on("dblclick",function(){
-      if ($(this).hasClass("status-1") || $(this).hasClass("status-2")  || $(this).hasClass("status-3") ) { 
+		if ($(this).hasClass("status-1") || $(this).hasClass("status-2")  || $(this).hasClass("status-3") ) { 
 			if ($(this).hasClass("sid")) {
 				footer_notify("Списание уже было произведено","error");
 			} else {
@@ -153,8 +164,6 @@ $( "#sisterobSpis form a.submit" ).on( "click", function(  ) {
 	if (checkRequired($( "#sisterobSpis form"))) {
 	var formdata=$("#sisterobSpis form").serialize() ;
 	$.post("/json/operation.php?mode=sisterobSpis_oper_submit",formdata,function(data){
-		console.log(data);
-
 		footer_notify("Операция назначена","success");
 		setTimeout(function(){ $("a.cancel").trigger("click"); },1000);
 //		}

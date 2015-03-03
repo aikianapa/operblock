@@ -701,7 +701,7 @@ SELECT * FROM Action as a
 		$data=array();
 		while($a = mysql_fetch_array($res)) {
 			$action=getActionInfo($a[0]);
-			if ($action[$role]==$person_id) {
+			if ($action[$role]==$person_id OR ($action["isUrgent"]==1 AND $action[$role]=="") ) {
 			if (date("Y",strtotime($action["begDate"]))=="1970" OR $action["begDate"] == NULL) {
 					$curdate=date("d",strtotime($action["plannedEndDate"]));
 			} else {	$curdate=date("d",strtotime($action["begDate"]));}
