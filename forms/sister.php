@@ -27,6 +27,7 @@ function sisterListItems() {
 	$SETTINGS=$_SESSION['settings'];
 	if (isset($_COOKIE["workDate"])) {$date=$_COOKIE["workDate"];} else {$date=date("Y-m-d ");}
 	if (isset($_COOKIE["endDate"]) AND $_COOKIE["endDate"]>"") {$ndate=date("Y-m-d",strtotime($_COOKIE["endDate"]));} else {$ndate=date("Y-m-d",strtotime($date)+86400); }
+	$oprList=json_decode(getOpRooms(),true);
 	//if ($date>$ndate AND $ndate>"") {$tmp=$date; $date=$ndate; $ndate=$tmp;}
 	$SQL="SELECT * FROM Action as a 
   INNER JOIN ActionType as b on a.ActionType_id=b.id
@@ -45,6 +46,14 @@ function sisterListItems() {
 		while($a = mysql_fetch_array($res)) {
 			$action["id"]=$a[0];
 			$action=getActionInfo($action["id"]);
+			$oprooms=jdbReadItem("opRooms",$action["begDate"]);
+			if ($action["table"]>"") {
+				$opr=$oprooms[$action["orgid"]][$action["table"]]["oper"];
+				$action["oproom"]="";
+				foreach($oprList as $line) {
+					if ($line["id"]==$opr) {$action["oproom"]="№ ".$line["bookkeeperCode"];}
+				}
+			} else {$action["oproom"]="";}
 			$action["begDate"]=dmyDate($action["begDate"]);
 			$counter++; $action["counter"]=$counter;
 			$result[]=$action;

@@ -21,6 +21,7 @@
 <div class="filter">
 Статус
     <select id="filter" name="filter" data-inline="true" data-native-menu="false">
+        <option value="" data-placeholder="true">Выберите</option> 
         <option value="">Все</option> 
         <option value="0">Назначена</option>
         <option value="4">Утверждена отд.</option>
@@ -44,7 +45,8 @@
 
 <div id="tab-1" class="ui-body-d ui-content">
 <table data-role="table" class="ui-responsive" id="clientlist">
-<thead><tr><th>№ п/п</th><th>ФИО,<br />Возраст,<br />№ ИБ,<br />Гр.крови<br />Дата поступления</th><th>Палата</th><th>Анализы  крови на  анти-HCV,<br />анти-HBsAg, Ф-50, RW</th><th>Диагноз</th><th>Операция</th><th>Хирург</th></tr></thead>
+<thead><tr><th>№ п/п</th><th>ФИО,<br />Возраст,<br />№ ИБ,<br />Гр.крови<br />Дата поступления</th><th>Палата</th><th>Анализы  крови на  анти-HCV,<br />анти-HBsAg, Ф-50, RW</th>
+<th>Диагноз</th><th>Операци-<br>онная</th><th>Операция</th><th>Хирург</th></tr></thead>
 <tbody>
 <div data-role="foreach" from="result">
 <tr class="status-{{status}}" date="{{begDate}}">
@@ -53,6 +55,7 @@
 <td>{{palata}}</td>
 <td>{{analisys}}</td>
 <td>{{diagnose}}</td>
+<td>{{oproom}}</td>
 <td>{{specifiedName}}</td>
 <td>{{person}}</td>
 </tr></div>
