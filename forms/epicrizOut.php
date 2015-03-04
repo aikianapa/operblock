@@ -13,6 +13,7 @@ foreach(pq($out)->find("input,select,textarea") as $inp) {
 }
 
 parse_str($_SERVER["REQUEST_URI"]);
+
 if ($id!="_new" AND $id!="") {
 	$action=getEpicrizOut($id);
 	if (isset($action["id"])) {
@@ -32,14 +33,20 @@ if ($id!="_new" AND $id!="") {
 		$field[2]["val"]=""; $field[2]["fld"]="Лечебные и трудовые рекомендации";
 		$Item["fields"]=$field;
 	}
+	$drugStatus=array(
+            'новое', 'спланировано', 'назначено',
+            'добавлено в заявку', 'запрос в аптеку',
+            'распределено полностью', 'распределено частично', 'не распределено',
+            'отработано', 'отменено',
+    );
+
+	$Item["Drugs"]=drugsPrepare(json_decode(file_get_contents($getAssignList_url."assignlist/data?event_id=663885"),true));
 
 	$event=mysqlReadItem("Event",$id);
 	$Diag=patientGetDiagnosis($id);
 	$person=getPersonInfo($person_id);
 	$client=getClientInfo($event["client_id"]);
 	$organisation=mysqlReadItem("Organisation",$person["org_id"]);
-	
-	print_r($Item["e_cmnApple"]);
 	
 	$Item["externalId"]=$event["externalId"];
 	$Item["event_id"]=$id;
@@ -106,6 +113,30 @@ function getEpicrizOut($event_id) {
 	return $action;
 }
 
+function drugsPrepare($data) {
+	$array=array();
+	foreach($data as $key => $line) {
+		$line=$line["cell"];
+		$cpx=count(explode(";",$line[7]));
+		if ($line[9]==$line[10]) {$date=$line[9];} else {$date=$line[9]." - ".$line[10];}
+		$date="<b>$date</b>";
+		if ($cpx>1) {
+			$complex=array();
+			$name=explode(";",$line[5]);
+			$qnt=explode(";",$line[6]);
+			$unit=explode(";",$line[7]);
+			$complex[]=$date." ".$line[3];
+			foreach($name as $key => $drug) {
+				$complex[]=$drug." (".$qnt[$key]." ".$unit[$key]." ".$line[8].")" ;
+			}
+			$array[]["drugs"]=implode("<br>",$complex);
+		} else {
+			$array[]["drugs"]=$date." ".$line[3]."<br>".$line[5]." (".$line[6]." ".$line[7]." ".$line[8].")";
+		}
+	}
+	return $array;
+}
+
 function fields_msk36($event_id) {
 	$event=mysqlReadItem("Event",$event_id);
 	$Diag=patientGetDiagnosis($event_id);
@@ -128,7 +159,6 @@ function fields_msk36($event_id) {
 	$f["e_anamnez3"]=$first_osmotr["fld_29"];
 	$f["e_anamnez4"]=$first_osmotr["fld_26"];
 	$f["e_stateIn"]=$first_osmotr["fld_55"];
-
 	return $f;
 }
 

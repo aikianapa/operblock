@@ -508,8 +508,16 @@
 (Код  стандарта    	АВТО    Шифр  по  МКБ   АВТО ОСНОВНОЙ ДС).
 </b></p>
 <ol>
-	<li><b>Препараты: </b><u><textarea name="e_drugsText">{{e_drugsText}}</textarea></u></li>
-	<li><b>Проведенное обследование: </b><u><textarea name="e_anayseText">{{e_anayseText}}</textarea></u></li>
+	<li><b>Препараты: </b>
+	<ol>
+	<div data-role="foreach" from="Drugs">
+	<li>{{drugs}}</li>
+	
+	</div>
+	</ol>
+	
+	
+	<u><textarea name="e_drugsText">{{e_drugsText}}</textarea></u></li>
 	<li><b>Проведенное обследование: </b><u><textarea name="e_anayseText">{{e_anayseText}}</textarea></u></li>
 	<li><b>Консультации: </b><u><textarea name="e_consultText">{{e_consultText}}</textarea></u></li>
 	<li><b>Выписан{{suffix2}}: </b>
