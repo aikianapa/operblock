@@ -40,7 +40,7 @@ if ($id!="_new" AND $id!="") {
             'отработано', 'отменено',
     );
 
-	$Item["Drugs"]=drugsPrepare(json_decode(file_get_contents($getAssignList_url."assignlist/data?event_id=663885"),true));
+	$Item["Drugs"]=drugsPrepare(json_decode(file_get_contents($getAssignList_url."assignlist/data?event_id=".$id),true));
 
 	$event=mysqlReadItem("Event",$id);
 	$Diag=patientGetDiagnosis($id);
