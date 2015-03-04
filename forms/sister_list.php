@@ -21,7 +21,6 @@
 <div class="filter">
 Статус
     <select id="filter" name="filter" data-inline="true" data-native-menu="false">
-		<option>Выберите...</option> 
         <option value="">Все</option> 
         <option value="0">Назначена</option>
         <option value="4">Утверждена отд.</option>
