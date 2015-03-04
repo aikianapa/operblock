@@ -20,6 +20,7 @@ $out->find("#operation [name=fld_0]")->attr("type","time");
 $out->find("#operation [name=fld_1]")->attr("type","datetime")->attr("required","required");
 $out->find("#operation [name=fld_6]")->attr("required","required");
 $out->find("#operation [name=fld_8]")->attr("required","required");
+$out->find("#operation [name=fld_8]")->html("");
 return $out;
 }
 

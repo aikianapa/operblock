@@ -241,6 +241,7 @@ foreach($array as $property) {
 			  $value=$property['value'];
 			  $type=$property['type'];
 			  if ($type=="Text") {$type="String";}
+				checkProperties($type, $id);
 				$SQL="UPDATE ActionProperty_{$type} SET value='{$value}' WHERE id={$id}";
 				mysql_query($SQL) or die("Query failed updateProperties() [2]: " . mysql_error());
 		}
@@ -248,9 +249,22 @@ foreach($array as $property) {
 }
 }
 
+function checkProperties($type, $id) {
+	// при смене в работающей базе типа property данные не обновляются
+	// данная функция решает эту проблему, создавая новый property
+	$SQL="SELECT * FROM ActionProperty_{$type} WHERE id={$id} LIMIT 1";
+	$res=mysql_query($SQL) or die("Query failed checkProperties() [1]: " . mysql_error());
+	$check=NULL;
+	while($data = mysql_fetch_array($res)) {$check=$data["id"];	}
+	if ($check==NULL) {
+		$SQL="INSERT INTO ActionProperty_{$type} SET id={$id}";
+		mysql_query($SQL) or die("Query failed checkProperties() [2]: " . mysql_error());
+	}
+}
+
 function getActionPropertyTypeId($action_id,$type_id) {
 $id=FALSE;
-$SQL="SELECT id FROM ActionProperty WHERE action_id = $action_id AND type_id = $type_id LIMIT 1";
+$SQL="SELECT id FROM ActionProperty WHERE action_id = $action_id AND type_id = $type_id";
 $res=mysql_query($SQL) or die("Query failed getActionPropertyTypeId() [1]: " . mysql_error());
 while($data = mysql_fetch_array($res)) {
 		$id=$data["id"];

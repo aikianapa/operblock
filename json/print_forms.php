@@ -341,7 +341,7 @@ $action["o_result"]=$Operation["fld_6"];
 if ($action["o_result"]==0) {$action["o_result"]="смерть";} else {$action["o_result"]="выписка";} 
 $action["o_drugs"]=$Operation["fld_7"];
 $action["o_protocol"]=$Operation["fld_8"];
-$begTime=strtotime($action["begDate"]." ".$action["o_begTime"].":00");
+$begTime=strtotime($action["begDate"]." ".$action["o_begTime"]);
 $endTime=strtotime($action["o_endTime"]);
 $action["o_endTime"]=date("H:i",$endTime); 
 $action["anest_diag"]=$action["diag"]["anest"]["value"];
