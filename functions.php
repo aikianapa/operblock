@@ -52,7 +52,7 @@ while($data = mysql_fetch_array($result)) {
 	$Item["input"]=prepInput($Item);
 	if ($_SESSION["userProfile_id"]==$data["userProfile_id"] OR $data["userProfile_id"]==NULL) {	$array[]=$Item;}
 }
-mysql_free_result();
+mysql_free_result($result);
 if ($action_id!=NULL) {
 		$PropData=array(); $PropData["id"]=$action_id;
 		$PropData=getActionPropertyFormData($PropData,$array);

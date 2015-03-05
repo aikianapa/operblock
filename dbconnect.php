@@ -16,15 +16,4 @@ mysql_query("SET character_set_connection=utf8");
 mysql_query("SET character_set_results=utf8");
 mysql_query("SET character_set_server=utf8"); 
 
-
-$SQL="CREATE TABLE IF NOT EXISTS `JsonData` (
-  `id` varchar(255) NOT NULL,
-  `json` mediumtext NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-UPDATE ActionPropertyType SET typeName = 'String' WHERE  actionType_id = 21509 AND idx = 1;
-
-";
-mysql_query($SQL);
 ?>
