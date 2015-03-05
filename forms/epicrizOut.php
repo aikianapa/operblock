@@ -33,16 +33,9 @@ if ($id!="_new" AND $id!="") {
 		$field[2]["val"]=""; $field[2]["fld"]="Лечебные и трудовые рекомендации";
 		$Item["fields"]=$field;
 	}
-	$drugStatus=array(
-            'новое', 'спланировано', 'назначено',
-            'добавлено в заявку', 'запрос в аптеку',
-            'распределено полностью', 'распределено частично', 'не распределено',
-            'отработано', 'отменено',
-    );
-
-echo $id;
-
+if ($_SESSION["settings"]["appId"]=="msk36") {
 	$Item["Drugs"]=drugsPrepare(json_decode(file_get_contents($getAssignList_url."assignlist/data?event_id=".$id),true));
+}
 
 	$event=mysqlReadItem("Event",$id);
 	$Diag=patientGetDiagnosis($id);
@@ -68,12 +61,15 @@ echo $id;
 	$Item["age"]=$client["age"];
 	$Item["a_date1"]=$Item["a_date2"]=$Item["s_date1"]=$Item["s_date2"]="";
 	$Item["s_date1"]=getRusDate($event["setDate"])."г.";
-	if ($event["execDate"]>"") $Item["s_date2"]=getRusDate($event["execDate"])."г.";
+	if ($event["execDate"]>"") {
+		$Item["s_date2"]=getRusDate($event["execDate"])."г.";
+	} else {
+		$Item["s_date2"]=getRusDate(date("Y-m-d"))."г.";
+	}
 	$Item["orgStrBoss"]=json_decode(getOrgStrBossName(),true); $Item["orgStrBoss"]=$Item["orgStrBoss"]["shortName"];
-	
-	
 	if ($_SESSION["settings"]["appId"]=="msk36") {$Item=array_merge(fields_msk36($id),$Item);}
 }
+
 foreach($out->find("select option.add") as $add) {
 	$add_name=pq($add)->parent("select")->attr("name")."_add";
 	if (!pq($add)->parent("select")->next("input.addinf")->length()) {
