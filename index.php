@@ -7,9 +7,11 @@ $path=$_SERVER['DOCUMENT_ROOT'];
 $url="http://".$_SERVER['HTTP_HOST'];
 if (!is_file($url."/engine/tpl/".$_GET["form"].".php")) {$tpl="engine/tpl/page.php";} else {$tpl="engine/tpl/".$_GET["form"].".php";}
 include_once("$path/engine/engine.php");
-
-
-
+$content=phpQuery::newDocument("");
+if ($_GET["mode"]!="listview") {
+	$content=phpQuery::newDocument(file_get_contents($url."/".$tpl));
+}
+/*
 $aType='Протокол операции';
 $form=getActionTypeForm($aType);
 $SQL="CREATE TABLE IF NOT EXISTS `JsonData` (
@@ -23,12 +25,7 @@ UPDATE ActionPropertyType SET typeName = 'String' WHERE  actionType_id = {$aType
 ";
 
 mysql_query($SQL);
-
-
-$content=phpQuery::newDocument("");
-if ($_GET["mode"]!="listview") {
-	$content=phpQuery::newDocument(file_get_contents($url."/".$tpl));
-}
+*/
 
 if (substr($_SERVER['REQUEST_URI'],0,10)!="/index.php") {
 // JQMobile

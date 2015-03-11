@@ -15,13 +15,18 @@
 ИЗ  ИСТОРИИ  БОЛЕЗНИ    № {{externalId}}</h2>
 <br />
 
-		<ol class="fields">
+		<ul class="fields">
 		<li><b>Пациент:</b> <u>{{client}}</u></li>
 		<li><b>Возраст:</b> <u>полных лет - {{age}}, дата рождения - {{bDate}}</u></li>
 		<li><b>Место работы:</b> <u>{{work}}</u></li>
 		<li><b>Адрес:</b> <u>{{address}}</u></li>
 		<li><b>Дата поступления <u>{{s_date1}}</u></li>
-		<li><b>Находил{{suffix1}} на стационарном лечении в ГБУЗ "Городская клиническая больница №36" ДЗ г.Москвы с <u>{{s_date1}}</u> по <u>{{s_date2}}</u> 
+		<li><b>Находил{{suffix1}} на стационарном лечении в ГБУЗ "Городская клиническая больница №36" ДЗ г.Москвы с <u>{{s_date1}}</u> по <u>{{s_date2}}</u></b> 
+		<ul>
+			<div data-role="foreach" from="moving">
+			<li>{{31}} - {{14}}</li>
+			</div>
+		</ul>
 		<u><textarea name="e_stationar">{{e_stationar}}</textarea></u>
 		</li>
 		<li><b>Диагноз при выписке:</b>
@@ -518,8 +523,20 @@
 	
 	
 	<u><textarea name="e_drugsText">{{e_drugsText}}</textarea></u></li>
-	<li><b>Проведенное обследование: </b><u><textarea name="e_anayseText">{{e_anayseText}}</textarea></u></li>
-	<li><b>Консультации: </b><u><textarea name="e_consultText">{{e_consultText}}</textarea></u></li>
+	<li><b>Проведенное обследование: </b>
+	<ol>
+		<div data-role="foreach" from="lab">
+			<li>{{lab}}</li>
+		</div>
+	</ol>
+	<u><textarea name="e_anayseText">{{e_anayseText}}</textarea></u></li>
+	<li><b>Консультации: </b>
+	<ol>
+		<div data-role="foreach" from="cons">
+			<li>{{cons}}</li>
+		</div>
+	</ol>
+	<u><textarea name="e_consultText">{{e_consultText}}</textarea></u></li>
 	<li><b>Выписан{{suffix2}}: </b>
 	<select name="e_out" value="{{e_out}}">
 	<option>с выздоровлением</option>

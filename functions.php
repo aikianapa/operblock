@@ -31,6 +31,91 @@ function createEmptyAction($actionType_id,$event_id,$person_id="") {
 	return $Action;
 }
 
+function getStationarMovies($event_id) {
+	$url=$_SESSION["settings"]["url_doctorroom"]."/ajax.php";
+	phpQuery::ajaxAllowURL($url); 
+	$res = null; $fnCallback = function($data, $status) use (&$res) { $res = $data; };
+	phpQuery::ajax(array(
+                                'type' => 'POST',
+                                'url' => $url,
+                                'data' => array(
+												'get'=>'getMoving',
+												'_interface'=>'doctor',
+												'event_id'=>$event_id,
+												'method'=>'doctorroom/getController',
+												'user_id'=>$_SESSION["user_id"]
+												),
+                                'success' => $fnCallback,
+                                'dataType' => 'data',
+                                'rnd'=>rand(10000,99999),
+                        ));
+	return json_decode($res,true);
+}
+
+function getActionsHistory($event_id) {
+	$url=$_SESSION["settings"]["url_doctorroom"]."/ajax.php";
+	phpQuery::ajaxAllowURL($url); 
+	$res = null; $fnCallback = function($data, $status) use (&$res) { $res = $data; };
+	phpQuery::ajax(array(
+                                'type' => 'POST',
+                                'url' => $url,
+                                'data' => array(
+												'get'=>'getActionsHistory',
+												'_interface'=>'doctor',
+												'event_id'=>$event_id,
+												'method'=>'doctorroom/getController',
+												'user_id'=>$_SESSION["user_id"]
+												),
+                                'success' => $fnCallback,
+                                'dataType' => 'data',
+                                'rnd'=>rand(10000,99999),
+                        ));
+	return json_decode($res,true);
+}
+
+function getAction($action_id,$event_id=NULL) {
+	if ($event_id==NULL) {$action=mysqlReadItem("Action",$action_id); $event_id=$action["event_id"];}
+	$url=$_SESSION["settings"]["url_doctorroom"]."/ajax.php";
+	phpQuery::ajaxAllowURL($url); 
+	$res = null; $fnCallback = function($data, $status) use (&$res) { $res = $data; };
+	phpQuery::ajax(array(
+                                'type' => 'POST',
+                                'url' => $url,
+                                'data' => array(
+												'get'=>'getAction',
+												'actionId'=>$action_id,
+												'event_id'=>$event_id,
+												'method'=>'doctorroom/getController',
+												'user_id'=>$_SESSION["user_id"]
+												),
+                                'success' => $fnCallback,
+                                'dataType' => 'data',
+                                'rnd'=>rand(10000,99999),
+                        ));
+	return json_decode($res,true);
+	
+}
+
+function getActionsDiary($event_id) {
+	$url=$_SESSION["settings"]["url_doctorroom"]."/ajax.php";
+	phpQuery::ajaxAllowURL($url); 
+	$res = null; $fnCallback = function($data, $status) use (&$res) { $res = $data; };
+	phpQuery::ajax(array(
+                                'type' => 'POST',
+                                'url' => $url,
+                                'data' => array(
+												'get'=>'getActionsDiary',
+												'event_id'=>$event_id,
+												'method'=>'doctorroom/getController',
+												'user_id'=>$_SESSION["user_id"]
+												),
+                                'success' => $fnCallback,
+                                'dataType' => 'data',
+                                'rnd'=>rand(10000,99999),
+                        ));
+	return json_decode($res,true);
+}
+
 function getActionTypeForm($SQL,$action_id=NULL) {
 // Если передан action_id то в массив добавляются значения полей
 if (substr($SQL,0,7)!="SELECT ") {
@@ -86,6 +171,7 @@ function getActionPropertyFormData($Item,$form,$fldname="name") {
 		$prop_id=getActionPropertyTypeId($action_id,$field["id"]);
 		$type=$field["type"];
 		if ($type>"" AND $prop_id>"") {
+			if ($type=="Constructor") {$type="String";}
 			if ($type=="Text") {$type="String";}
 			if ($type=="JobTicket") {$type="Job_Ticket";}
 			$SQL = "SELECT value FROM ActionProperty_{$type} WHERE id = $prop_id ";
@@ -859,6 +945,7 @@ INNER JOIN Event as f ON d.event_id=f.id
 WHERE  d.actionType_id=$actionType and name LIKE 'Закл%' AND event_id=$event_id";
 $result = mysql_query($SQL) or die("Query failed: (get_diagnoses) " . mysql_error());
 while($data = mysql_fetch_array($result)) {	$diagnoses["anest"]=$data;}
+
 return $diagnoses; 
 }
 

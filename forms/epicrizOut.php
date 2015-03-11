@@ -33,10 +33,14 @@ if ($id!="_new" AND $id!="") {
 		$field[2]["val"]=""; $field[2]["fld"]="Лечебные и трудовые рекомендации";
 		$Item["fields"]=$field;
 	}
+
 if ($_SESSION["settings"]["appId"]=="msk36") {
 	$Item["Drugs"]=drugsPrepare(json_decode(file_get_contents($getAssignList_url."assignlist/data?event_id=".$id),true));
+	$statMoving=getStationarMovies($id);
+	$Item["moving"]=$statMoving["data"]["moving"];
+	$Item["lab"]=epicLabPrep($id);
+	$Item["cons"]=epicConsPrep($id);
 }
-
 	$event=mysqlReadItem("Event",$id);
 	$Diag=patientGetDiagnosis($id);
 	$person=getPersonInfo($person_id);
@@ -145,10 +149,8 @@ function fields_msk36($event_id) {
 	$res=mysql_query($SQL) or die ("Query failed fields_msk36(): [1]" . mysql_error());
 	while($data = mysql_fetch_array($res)) {
 		$first_osmotr=getActionProperties($data[0],"");
-		//print_r(getActionProperties($data[0],"","label"));
 	}
 
-	//print_r($first_osmotr);
 	$f=array(); // $f[""]="";
 	$f["e_complaint1"]=$first_osmotr["fld_0"];
 	$f["e_complaint2"]="";
@@ -158,6 +160,45 @@ function fields_msk36($event_id) {
 	$f["e_anamnez4"]=$first_osmotr["fld_26"];
 	$f["e_stateIn"]=$first_osmotr["fld_55"];
 	return $f;
+}
+
+function epicLabPrep($event_id) {
+	$actionHistory=getActionsHistory($event_id);
+	$labHistory=$actionHistory["data"][1];
+	$res=array();
+	$exclude=array("Дата Назначения","Номерок","Направлен");
+	foreach($labHistory as $key => $labline) {
+		foreach($labline as $key =>$line) {		if ($line["signature"]==1) {
+			$action=getAction($line["actionId"],$event_id); $action=$action["data"]["fields"];
+			$info=array();
+			foreach($action as $key => $val) {
+				if (!in_array($key,$exclude) AND $val>"") {$info[]="<b>$key</b>: $val";}
+			}
+			$res[]["lab"]="<b>".$line["name"]."</b><br>".implode(", ",$info);
+		}}
+	}
+	return $res;
+}
+
+function epicConsPrep($event_id) {
+	$actionDiary=getActionsDiary($event_id);
+	$actionDiary=$actionDiary["data"];
+	$res=array();
+	$exclude=array("Дневниковая запись врача","обход заведующего отделением");
+	$excludefld=array("Дата Назначения","Дата консультации");
+	foreach($actionDiary as $key => $line) {
+		if (!in_array($line["name"],$exclude)) {
+			$action=getAction($line["actionId"],$event_id); $action=$action["data"];
+			if (isset($action["fields"]["Дата консультации"])) {
+				$info=array();
+				foreach($action["fields"] as $key => $val) {
+					if (!in_array($key,$excludefld) AND $val>"") {$info[]="<b>$key</b>: $val";}
+				}
+				$res[]["cons"]="<b>".$line["name"]."</b><br>".implode(", ",$info);
+			}
+		}
+	}
+	return $res;
 }
 
 ?>
