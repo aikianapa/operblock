@@ -40,6 +40,10 @@ return $out;
 function morfoReg_edit($form,$mode,$id,$datatype) {
 $out=formGetForm($form,$mode);
 $Item=morfoReadReg($id);
+if ($Item["fld_5"]=="") {
+	$Nazn=morfoReadNazn($id);
+	$Item["fld_5"]=$Nazn["fld_3"];
+}
 if ($Item["status"]>1) {
 	pq($out)->find("select[name=status]")->prev("label")->remove();
 	pq($out)->find("select[name=status]")->remove();
@@ -47,6 +51,8 @@ if ($Item["status"]>1) {
 	pq($out)->find("a.submit")->before("&nbsp;");
 }
 $out=contentSetData($out,$Item);
+pq($out)->find("input[data-label=Внутренний номер биоматериала]")->attr("type","hidden");
+pq($out)->find("input[data-label=Внутренний номер биоматериала]")->after("<p class='morfoRegnum'><u></u><br /><span><span></p>");
 return $out;
 }
 

@@ -1,7 +1,7 @@
 @media screen {
 	div[id^=morfo] tr.status-0 {background: #FFFFC6;}
 	div[id^=morfo] tr.status-4 {background: #9CD69C;} 
-
+	.morfoRegnum {display:inline-block; border: 1px #333 solid !important; padding: 5px; min-width:20px; min-height:20px; text-align:center;}
 
 }
 

@@ -58,6 +58,29 @@ while($data = mysql_fetch_array($res)) {	$Item=$data;	}
 return $Item;
 }
 
+
+function morfoReadNazn($id) {
+$action=mysqlReadItem("Action",$id);
+$event=mysqlReadItem("Event",$action["event_id"]);
+$action["client_id"]=$event["client_id"];
+$action["action_id"]=$id;
+if ($action["isUrgent"]==1) $action["isUrgent"]="on";
+$form=morfoNaznForm($action["actionType_id"]);
+$action["morfoNazn"]=$form;
+$action=getActionPropertyFormData($action,$form);
+return $action;
+}
+
+function morfoNaznForm($atid="") {
+if ($atid=="") parse_str($_SERVER["REQUEST_URI"]);
+$SQL="SELECT a.name, a.idx, a.typeName, a.id, a.valueDomain, b.id FROM ActionPropertyType as a
+INNER JOIN ActionType as b ON a.actionType_id=b.id
+WHERE b.id=$atid    
+ORDER BY a.idx	";
+return  getActionTypeForm($SQL);
+}
+
+
 function morfoReadReg($id) {
 $actionType_id=getActionTypeByName('Регистрация биоматериала');
 $Action=mysqlReadItem("Action",$id);

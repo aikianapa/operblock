@@ -26,6 +26,30 @@ function test($action_id) {
 	return $out;
 }
 
+function get_morfo_num($year=NULL) {
+	if ($year==NULL) {$year=date('Y');}
+	$res=array();
+	$res["count"]=0;
+	$res["units"]=0;
+	$reg=getActionTypeByName('Регистрация биоматериала');
+	$SQL="SELECT COUNT(*) FROM Action WHERE actionType_id = {$reg} AND createDatetime > '".$year."-01-01 00:00:00' ";
+	$result=mysql_query($SQL) or die ("Query failed getMorfoNum() [1]: " . mysql_error());
+	while($data = mysql_fetch_array($result)) {$res["count"]=$data[0];}
+	$form=getActionTypeForm('Регистрация биоматериала');
+	foreach($form as $key => $line) {
+		if ($line["label"]=="Количество кусочков") {
+			$type_id=$line["id"];
+			$type=$line["type"];
+		}
+	}
+	$SQL="SELECT SUM(s.value) FROM ActionProperty as 
+	a INNER JOIN ActionProperty_".$type." as s ON a.id=s.id 
+	WHERE a.type_id = ".$type_id." ";
+	$result=mysql_query($SQL) or die ("Query failed getMorfoNum() [2]: " . mysql_error());
+	while($data = mysql_fetch_array($result)) {$res["units"]=$data[0];}
+	return json_encode($res);
+}
+
 
 function morfo_nazn_submit() {
 if ($_POST["isUrgent"]=="on") {$_POST["isUrgent"]=1;} else  {$_POST["isUrgent"]=0;}

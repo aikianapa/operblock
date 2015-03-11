@@ -20,13 +20,15 @@ $("div[data-url^='/morfoLab/list/list.htm']:hidden").remove();
 				if ($(this).attr("href")=="#nazn") {var form="morfoNazn";}
 				if ($(this).attr("href")=="#reg") {var form="morfoReg";}
 				if ($(this).attr("href")=="#lab") {var form="morfoLab";}
-				$.mobile.changePage( "/"+form+"/edit/"+$( document ).data("action")+".htm", { transition: "flip", changeHash: true });
+				$.mobile.changePage( "/"+form+"/edit/"+$( document ).data("action")+".htm", { transition: "flip", changeHash: true, reloadPage: true });
+				
 			}
 			$("#printMenu").popup("close");
 		});
 });
 
 $(document).on("pageinit",function(){
+	
 		$( "table" ).disableSelection();
 
 		$('input[type=datetime]').datetimepicker({
@@ -110,6 +112,27 @@ $.get("/forms/calendar.php?morfo=true&date="+date,function(data){
 // =============== morfoReg =================
 $("#morfoRegList").on("pageinit",function(){
 	$("a.print_list").on("click",function(){ print(); });
+});
+
+$(document).on("pageshow",function(){
+	$(document).delegate("#morfoReg input[name=fld_6]","keyup",function(){
+		$("#morfoReg a.submit").addClass("ui-disabled");
+		var that=$(this);
+		$.get("/json/morfology.php?mode=get_morfo_num",function(data){
+			var data = JSON.parse(data);
+			var units= data.units*1;
+			var count= data.count*1+1;
+			var pices= that.val()*1;
+			$("#morfoReg .morfoRegnum").find("u").html(units+"/"+(units+pices));
+			$("#morfoReg .morfoRegnum").find("span").html(count);
+			$("#morfoReg input[name=fld_0]").val(  units+"/"+(units+pices)+"/"+count );
+			$("#morfoReg a.submit").removeClass("ui-disabled");
+		});
+	});
+if ($("#morfoReg:visible").length) {
+	if ($("#morfoReg input[name=fld_6]").val()=="") {$("#morfoReg input[name=fld_6]").val(1);}
+	$("#morfoReg input[name=fld_6]").trigger("keyup");
+}
 });
 
 function morfoRegSubmit() {

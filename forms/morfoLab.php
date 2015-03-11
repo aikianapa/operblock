@@ -40,6 +40,9 @@ return $out;
 function morfoLab_edit($form,$mode,$id,$datatype) {
 $out=formGetForm($form,$mode);
 $Item=morfoReadLabAction($id);
+$Reg=morfoReadReg($id);
+$num=explode("/",$Reg["fld_0"]);
+$Item["fld_12"]=$num[2];
 $out=contentSetData($out,$Item);
 $out->find("input[name=fld_0]")->attr("type","hidden")->prev("label")->remove();
 $out->find("input[name=fld_1]")->attr("type","hidden")->prev("label")->remove();

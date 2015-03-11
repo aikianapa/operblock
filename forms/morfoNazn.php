@@ -10,7 +10,7 @@ if ($id!="_new" AND $id!="") {
 	$Item=morfoReadNazn($id);
 	$Item["morfoNazn"]=morfoNaznForm($Item["actionType_id"]);
 	$Diag=patientGetDiagnosis($Item["event_id"]);
-	$Item["fld_3"]=$Diag["main"]["DiagName"];
+	$Item["fld_3"]=$Diag["clinic"]["DiagName"];
 	$Item["amount"]=1;
 } else {
 	$Item=morfoNewNazn();
@@ -71,27 +71,6 @@ $actionType_id=getActionTypeByName("Патоморфологические ис�
 $Item["person_id"]=$_SESSION["person_id"];
 $out=contentSetData($out,$Item);
 return $out;
-}
-
-function morfoReadNazn($id) {
-$action=mysqlReadItem("Action",$id);
-$event=mysqlReadItem("Event",$action["event_id"]);
-$action["client_id"]=$event["client_id"];
-$action["action_id"]=$id;
-if ($action["isUrgent"]==1) $action["isUrgent"]="on";
-$form=morfoNaznForm($action["actionType_id"]);
-$action["morfoNazn"]=$form;
-$action=getActionPropertyFormData($action,$form);
-return $action;
-}
-
-function morfoNaznForm($atid="") {
-if ($atid=="") parse_str($_SERVER["REQUEST_URI"]);
-$SQL="SELECT a.name, a.idx, a.typeName, a.id, a.valueDomain, b.id FROM ActionPropertyType as a
-INNER JOIN ActionType as b ON a.actionType_id=b.id
-WHERE b.id=$atid    
-ORDER BY a.idx	";
-return  getActionTypeForm($SQL);
 }
 
 function morfoNewNazn() {
