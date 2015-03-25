@@ -8,7 +8,7 @@
 <input type="hidden" name="event_id">
 <input type="hidden" name="person_id">
 <p style="text-align:center;"><b>ГБУЗ "Городская клиническая больница №36" ДЗ г.Москвы<br />
-Отделение АВТОЗАПОЛНЕНИЕ ИЗ ИБ<br />
+{{orgStr}}<br />
 г. Москва, ул. Фортунатовская, д.1                                                   тел. +7 (499) 369-34-75</b></p>
 <br>
 <h2>ВЫПИСНОЙ  ЭПИКРИЗ<br />
@@ -506,36 +506,35 @@
 		</li>
 		</div>
 -->
-		</ol>
+		</ul>
 
 <p align="center"><b><br>
 Проводилось лечение в соответствии со стандартами оказания стационарной медицинской помощи<br>
-(Код  стандарта    	АВТО    Шифр  по  МКБ   АВТО ОСНОВНОЙ ДС).
 </b></p>
-<ol>
+<ul>
 	<li><b>Препараты: </b>
-	<ol>
+	<ul>
 	<div data-role="foreach" from="Drugs">
 	<li>{{drugs}}</li>
 	
 	</div>
-	</ol>
+	</ul>
 	
 	
 	<u><textarea name="e_drugsText">{{e_drugsText}}</textarea></u></li>
 	<li><b>Проведенное обследование: </b>
-	<ol>
+	<ul>
 		<div data-role="foreach" from="lab">
 			<li>{{lab}}</li>
 		</div>
-	</ol>
+	</ul>
 	<u><textarea name="e_anayseText">{{e_anayseText}}</textarea></u></li>
 	<li><b>Консультации: </b>
-	<ol>
+	<ul>
 		<div data-role="foreach" from="cons">
 			<li>{{cons}}</li>
 		</div>
-	</ol>
+	</ul>
 	<u><textarea name="e_consultText">{{e_consultText}}</textarea></u></li>
 	<li><b>Выписан{{suffix2}}: </b>
 	<select name="e_out" value="{{e_out}}">
@@ -554,12 +553,12 @@
 		<option>выдавался</option>
 	</select>
 	</li>
-</ol>
+</ul>
 
 <b>Рекомендации: </b>
 
 
-<ol>
+<ul>
 <li><u>Диспансерное наблюдение врачами-специалистами по месту жительства в поликлинике: <textarea name="e_recom1">{{e_recom1}}</textarea></u></li>
 <li><u>Диета: <textarea name="e_recom2" placeholder="С ограничением легкоусвояемых углеводов, животных жиров и соли. Питьевой режим.">{{e_recom2}}</textarea></u></li>
 <li><u>Контроль АД и ЧСС постоянно. <textarea name="e_recom3" placeholder="При подъеме АД свыше 170-180\90-100 мм рт.ст. – каптоприл 25 мг под язык или нифедипин 10 мг с последующим контролем АД.">{{e_recom3}}</textarea></u></li>
@@ -601,6 +600,7 @@ $("#form-027u select[multiple]").each(function(){
 <style>
 @media screen {
 #form-027u * {font-size:14px;}
+#form-027u ul li {list-style-type: none;}
 #form-027u input {width:95%; padding: 3px; text-decoration:underline; font-style: italic;}
 #form-027u input.small {width:100px;}
 #form-027u input.addinf {width:200px; display:none;}
@@ -626,6 +626,7 @@ $("#form-027u select[multiple]").each(function(){
 @media print {
 body {display:none;}
 #form-027u * {font-size:14px; }
+#form-027u ul li {list-style-type: none;}
 #form-027u input {width:99%; text-decoration:underline; font-style: italic; border:0; color: #000;}
 #form-027u input[name=toOrg] {border-bottom: 1px #000 solid; text-align:center;}
 #form-027u input.small {width:100px;}

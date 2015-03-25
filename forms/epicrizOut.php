@@ -35,8 +35,8 @@ if ($id!="_new" AND $id!="") {
 	}
 
 if ($_SESSION["settings"]["appId"]=="msk36") {
-	$Item["Drugs"]=drugsPrepare(json_decode(file_get_contents($getAssignList_url."assignlist/data?event_id=".$id),true));
-	$statMoving=getStationarMovies($id);
+	//$Item["Drugs"]=drugsPrepare(json_decode(file_get_contents($getAssignList_url."assignlist/data?event_id=".$id),true));
+	$statMoving=getStationarMovings($id);
 	$Item["moving"]=$statMoving["data"]["moving"];
 	$Item["lab"]=epicLabPrep($id);
 	$Item["cons"]=epicConsPrep($id);
@@ -61,7 +61,7 @@ if ($_SESSION["settings"]["appId"]=="msk36") {
 	$Item["diag_main"]=$Diag["main"]["MKB"]." ".$Diag["main"]["DiagName"];
 	$Item["diag_satt"]=$Diag["satt"]["MKB"]." ".$Diag["satt"]["DiagName"];
 	$Item["diag_tera"]=$Diag["terapevt"]["MKB"]." ".$Diag["terapevt"]["DiagName"];
-	if ($client[11]==1) {$Item["suffix1"]="ся";$Item["suffix2"]="";} else {$Item["suffix1"]="ась";$Item["suffix2"]="а";}
+	if ($client["sex"]=="мужской") {$Item["suffix1"]="ся";$Item["suffix2"]="";} else {$Item["suffix1"]="ась";$Item["suffix2"]="а";}
 	$Item["age"]=$client["age"];
 	$Item["a_date1"]=$Item["a_date2"]=$Item["s_date1"]=$Item["s_date2"]="";
 	$Item["s_date1"]=getRusDate($event["setDate"])."г.";
