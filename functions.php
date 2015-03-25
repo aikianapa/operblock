@@ -31,7 +31,7 @@ function createEmptyAction($actionType_id,$event_id,$person_id="") {
 	return $Action;
 }
 
-function getStationarMovies($event_id) {
+function getStationarMovings($event_id) {
 	$url=$_SESSION["settings"]["url_doctorroom"]."/ajax.php";
 	phpQuery::ajaxAllowURL($url); 
 	$res = null; $fnCallback = function($data, $status) use (&$res) { $res = $data; };
@@ -365,6 +365,16 @@ function getActionTypeByName($name,$like=FALSE) {
 	} else {
 		$SQL="SELECT id FROM ActionType WHERE name = '".$name."' LIMIT 1";
 	}
+	$res=mysql_query($SQL);
+	while($data = mysql_fetch_array($res)) {
+		$result=$data["id"];
+	}
+	return $result;
+}
+
+function getActionTypeByCode($code) {
+	$result=FALSE;
+	$SQL="SELECT id FROM ActionType WHERE code = '{$code}' LIMIT 1";
 	$res=mysql_query($SQL);
 	while($data = mysql_fetch_array($res)) {
 		$result=$data["id"];
