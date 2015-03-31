@@ -24,15 +24,15 @@
 
 		<li><b>ДИАГНОЗ:</b>
 			<ul>
-				<li><b>Основной:</b> <u>{{diag_main}}</u> </li>
-				<li><b>Фон:</b> <u>{{diag_tera}}</u></li>
-				<li><b>Осложнения:</b> <u>???????</u></li>
-				<li><b>Сопутствующий:</b> <u>{{diag_satt}}</u></li>
+				<li><b>Основной:</b> <u><textarea name="e_diag_main">{{e_diag_main}}</textarea></u> </li>
+				<li><b>Фон:</b> <u><textarea name="e_diag_fon">{{e_diag_fon}}</textarea></u></li>
+				<li><b>Осложнения:</b> <u><textarea name="e_diag_comp">{{e_diag_comp}}</textarea></u></li>
+				<li><b>Сопутствующий:</b> <u><textarea name="e_diag_satt">{{e_diag_satt}}</textarea></u></li>
 			</ul>
 		</li>
 		<li><p><b>Код стандарта:</b> <u><input name="e_code1" class="small"></u> <b>Шифр по МКБ-10:</b> <u><input name="e_code2" class="small"></u></p></li>
 		<li><b>Жалобы:</b><br><u><textarea name="e_complaint2">{{e_complaint2}}</textarea></u> </li>
-		<li><b>An.morbi:</b><br><u><textarea name="e_anamnez1">?????{{e_anamnez1}}</textarea></u> </li>
+		<li><b>An.morbi:</b><br><u><textarea name="e_anamnez1">{{e_anamnez1}}</textarea></u> </li>
 		<li><b>Состояние при поступлении:</b><br><u><textarea name="e_stateIn">{{e_stateIn}}</textarea></u> </li>
 		<li><b>Течение заболевания в стационаре:</b><br><u><textarea name="e_stateIn">{{e_stateIn}}</textarea></u> </li>
 		<li><b>Состояние при выписке:</b> 

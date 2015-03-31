@@ -97,6 +97,10 @@ function getAction($action_id,$event_id=NULL) {
 }
 
 function getActionsDiary($event_id) {
+	return getByEvent('getActionsDiary',$event_id) ;
+}
+
+function getByEvent($mode,$event_id,$action_id="",$interface='doctor') {
 	$url=$_SESSION["settings"]["url_doctorroom"]."/ajax.php";
 	phpQuery::ajaxAllowURL($url); 
 	$res = null; $fnCallback = function($data, $status) use (&$res) { $res = $data; };
@@ -104,8 +108,10 @@ function getActionsDiary($event_id) {
                                 'type' => 'POST',
                                 'url' => $url,
                                 'data' => array(
-												'get'=>'getActionsDiary',
+												'get'=>$mode,
 												'event_id'=>$event_id,
+												'actionId'=>$action_id,
+												'_interface'=>$interface,
 												'method'=>'doctorroom/getController',
 												'user_id'=>$_SESSION["user_id"]
 												),
@@ -113,7 +119,7 @@ function getActionsDiary($event_id) {
                                 'dataType' => 'data',
                                 'rnd'=>rand(10000,99999),
                         ));
-	return json_decode($res,true);
+	return json_decode($res,true);	
 }
 
 function getActionTypeForm($SQL,$action_id=NULL) {

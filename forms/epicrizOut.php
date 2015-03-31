@@ -5,7 +5,7 @@ $_SESSION["allow"]=array("Врач");
 
 function epicrizOut_edit($form,$mode,$id,$datatype) {
 if ($_SESSION["settings"]["appId"]=="msk36") {
-	$out=phpQuery::newDocumentFile($_SERVER['DOCUMENT_ROOT']."/forms/msk36/".$form."_".$mode.".php");
+	$out=phpQuery::newDocumentFile($_SERVER['DOCUMENT_ROOT']."/forms/msk36/".$form."Cord_".$mode.".php");
 } else {$out=formGetForm($form,$mode);}
 
 foreach(pq($out)->find("input,select,textarea") as $inp) {
@@ -33,6 +33,9 @@ if ($id!="_new" AND $id!="") {
 		$field[2]["val"]=""; $field[2]["fld"]="Лечебные и трудовые рекомендации";
 		$Item["fields"]=$field;
 	}
+
+$history=getByEvent("getDiagnosese",$id);
+print_r($history);
 
 if ($_SESSION["settings"]["appId"]=="msk36") {
 	//$Item["Drugs"]=drugsPrepare(json_decode(file_get_contents($getAssignList_url."assignlist/data?event_id=".$id),true));
