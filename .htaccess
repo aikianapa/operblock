@@ -5,7 +5,7 @@ RewriteBase /
 RewriteEngine On
 
 <IfModule mod_headers.c>
-  Header set Access-Control-Allow-Origin http://doctorroom
+  Header set Access-Control-Allow-Origin *
 </IfModule>
 
 RewriteRule ^json/ - [L]
