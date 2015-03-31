@@ -34,9 +34,6 @@ if ($id!="_new" AND $id!="") {
 		$Item["fields"]=$field;
 	}
 
-$history=getByEvent("getDiagnosese",$id);
-print_r($history);
-
 if ($_SESSION["settings"]["appId"]=="msk36") {
 	//$Item["Drugs"]=drugsPrepare(json_decode(file_get_contents($getAssignList_url."assignlist/data?event_id=".$id),true));
 	$statMoving=getStationarMovings($id);
@@ -151,6 +148,7 @@ function fields_msk36($event_id) {
 	WHERE e.id = {$event_id} AND t.flatCode =  'first_osmotr' LIMIT 1";
 	$res=mysql_query($SQL) or die ("Query failed fields_msk36(): [1]" . mysql_error());
 	while($data = mysql_fetch_array($res)) {
+		$action_id=$data[0];
 		$first_osmotr=getActionProperties($data[0],"");
 	}
 
@@ -162,6 +160,8 @@ function fields_msk36($event_id) {
 	$f["e_anamnez3"]=$first_osmotr["fld_29"];
 	$f["e_anamnez4"]=$first_osmotr["fld_26"];
 	$f["e_stateIn"]=$first_osmotr["fld_55"];
+	
+	$first_osmotr=getAction($action_id,$event_id);
 	return $f;
 }
 
