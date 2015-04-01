@@ -159,19 +159,18 @@ function fields_msk36($event_id) {
 
 		$first_osmotr1=getAction($action_id);
 		$first_osmotr1=$first_osmotr1["data"]["fields"];
-
 	$f=array(); // $f[""]="";
-	$f["e_complaint1"]=$first_osmotr1["Жалобы при поступлении:"];
+	$f["e_complaint1"]=$first_osmotr1["Жалобы при поступлении:"]["value"];
 	$f["e_complaint2"]="";
-	$f["e_anamnez1"]=$first_osmotr1["Anamnesis morbi"];
+	$f["e_anamnez1"]=$first_osmotr1["Anamnesis morbi"]["value"];
 	$f["e_anamnez2"]=$first_osmotr["fld_11"];
-	$f["e_anamnez3"]=$first_osmotr1["Аллергологический анамнез:"];
+	$f["e_anamnez3"]=$first_osmotr1["Аллергологический анамнез:"]["value"];
 	$f["e_anamnez4"]=$first_osmotr["fld_26"];
-	$f["e_stateIn"]=$first_osmotr1["Состояние"];
-	$f["e_diag_main"]=$first_osmotr1["Основной:"];
-	$f["e_diag_fon"]=$first_osmotr1["Фон:"];
-	$f["e_diag_comp"]=$first_osmotr1["Осложнения:"];
-	$f["e_diag_satt"]=$first_osmotr1["Сопутствующий:"];
+	$f["e_stateIn"]=$first_osmotr1["Состояние"]["value"];
+	$f["e_diag_main"]=$first_osmotr1["Основной:"]["value"];
+	$f["e_diag_fon"]=$first_osmotr1["Фон:"]["value"];
+	$f["e_diag_comp"]=$first_osmotr1["Осложнения:"]["value"];
+	$f["e_diag_satt"]=$first_osmotr1["Сопутствующий:"]["value"];
 	return $f;
 }
 
@@ -185,7 +184,7 @@ function epicLabPrep($event_id) {
 			$action=getAction($line["actionId"],$event_id); $action=$action["data"]["fields"];
 			$info=array();
 			foreach($action as $key => $val) {
-				if (!in_array($key,$exclude) AND $val>"") {$info[]="<b>$key</b>: $val";}
+				if (!in_array($key,$exclude) AND $val>"") {$info[]="<b>{$key}</b>: {$val["value"]}";}
 			}
 			$res[]["lab"]="<b>".$line["name"]."</b><br>".implode(", ",$info);
 		}}
