@@ -8,11 +8,11 @@
 <input type="hidden" name="event_id">
 <input type="hidden" name="person_id">
 <p style="text-align:center;">
-<b>ГБУЗ "Городская клиническая больница №36" ДЗ г.Москвы<br />
+<b>{{OrgName}} г.Москвы<br />
 {{orgStr}}<br /></p>
 <hr />
 <p style="text-align:center;">
-г. Москва, ул. Фортунатовская, д.1                                                   тел. +7 (499) 369-34-75</b>
+{{OrgAddr}}                                                   тел. +7 {{OrgPhone}}</b>
 <br />
 <h2>ВЫПИСНОЙ  ЭПИКРИЗ ИЗ  ИСТОРИИ  БОЛЕЗНИ    № {{externalId}}</h2>
 </p>
@@ -24,17 +24,27 @@
 
 		<li><b>ДИАГНОЗ:</b>
 			<ul>
-				<li><b>Основной:</b> <u><textarea name="e_diag_main">{{e_diag_main}}</textarea></u> </li>
-				<li><b>Фон:</b> <u><textarea name="e_diag_fon">{{e_diag_fon}}</textarea></u></li>
-				<li><b>Осложнения:</b> <u><textarea name="e_diag_comp">{{e_diag_comp}}</textarea></u></li>
-				<li><b>Сопутствующий:</b> <u><textarea name="e_diag_satt">{{e_diag_satt}}</textarea></u></li>
+				<li><b>Основной:</b><br><u><textarea name="e_diag_main">{{e_diag_main}}</textarea></u> </li>
+				<li><b>Фон:</b><br><u><textarea name="e_diag_fon">{{e_diag_fon}}</textarea></u></li>
+				<li><b>Осложнения:</b><br><u><textarea name="e_diag_comp">{{e_diag_comp}}</textarea></u></li>
+				<li><b>Сопутствующий:</b><br><u><textarea name="e_diag_satt">{{e_diag_satt}}</textarea></u></li>
 			</ul>
 		</li>
 		<li><p><b>Код стандарта:</b> <u><input name="e_code1" class="small"></u> <b>Шифр по МКБ-10:</b> <u><input name="e_code2" class="small"></u></p></li>
-		<li><b>Жалобы:</b><br><u><textarea name="e_complaint2">{{e_complaint2}}</textarea></u> </li>
+		<li><b>Жалобы:</b><br><u><textarea name="e_complaint1">{{e_complaint1}}</textarea></u> </li>
 		<li><b>An.morbi:</b><br><u><textarea name="e_anamnez1">{{e_anamnez1}}</textarea></u> </li>
 		<li><b>Состояние при поступлении:</b><br><u><textarea name="e_stateIn">{{e_stateIn}}</textarea></u> </li>
-		<li><b>Течение заболевания в стационаре:</b><br><u><textarea name="e_stateIn">{{e_stateIn}}</textarea></u> </li>
+		<li><b>Течение заболевания в стационаре:</b><br><u><textarea name="e_stationar">{{e_stationar}}</textarea></u> </li>
+		
+		<li><b>Препараты: </b>
+		<ul>
+		<div data-role="foreach" from="Drugs">
+		<li>{{drugs}}</li>
+		
+		</div>
+		</ul>
+		<u><textarea name="e_drugsText">{{e_drugsText}}</textarea></u></li>
+		
 		<li><b>Состояние при выписке:</b> 
 		<select name="e_stateOut" value="{{e_stateOut}}">
 			<option>удовлетворительное</option>
@@ -46,7 +56,6 @@
 		</select>
 		<br><u><textarea name="e_stateOutText">{{e_stateOutText}}</textarea></u> </li>
 
-		<li><b>St.locales:</b><br><u><textarea name="e_stLocales">{{e_stLocales}}</textarea></u> </li>
 		<li><b>Дыхание:</b>
 			<ul>
 				<li>
@@ -68,7 +77,7 @@
 			</ul>
 		</li>
 		
-		<li><b>Cor:</b><br>
+		<li><b>Сердце:</b><br>
 			<ul>
 			<li><b>Тоны сердца:</b> 
 				<select name="e_corTone" multiple="multiple"  value="{{e_corTone}}">
@@ -109,24 +118,23 @@
 -->
 		</ul>
 
-<p align="center"><b><br>
-Проводилось лечение в соответствии со стандартами оказания стационарной медицинской помощи<br>
-</b></p>
 <ul>
-	<li><b>Проведенное обследование: </b>
+
+	<li><b>Инструментальные исследования: </b>
 	<ul>
-		<div data-role="foreach" from="lab">
-			<li>{{lab}}</li>
-		</div>
-	</ul>
-	<u><textarea name="e_anayseText">{{e_anayseText}}</textarea></u></li>
-	<li><b>Консультации: </b>
-	<ul>
-		<div data-role="foreach" from="cons">
-			<li>{{cons}}</li>
+		<div data-role="foreach" from="res">
+			<li>{{res}}</li>
 		</div>
 	</ul>
 	<u><textarea name="e_consultText">{{e_consultText}}</textarea></u></li>
+
+	<li><b>Лабораторная диагностика: </b>
+	<ul>
+		<div data-role="foreach" from="lab">
+			<li><p>{{lab}}</p></li>
+		</div>
+	</ul>
+	<u><textarea name="e_anayseText">{{e_anayseText}}</textarea></u></li>
 	<li><b>Выписан{{suffix2}}: </b>
 	<select name="e_out" value="{{e_out}}">
 	<option>с выздоровлением</option>
@@ -158,12 +166,6 @@
 Лечащий врач _________________ /{{person}}/<br>
 <br />
 Зав. отделением _________________ /{{orgStrBoss}}/<br>
-
-
-  
-
-
-
 </form>
 </div>
 

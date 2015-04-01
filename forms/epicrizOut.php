@@ -2,7 +2,6 @@
 include($_SERVER["DOCUMENT_ROOT"]."/functions.php");
 prepareSessions();
 $_SESSION["allow"]=array("Врач");
-
 function epicrizOut_edit($form,$mode,$id,$datatype) {
 if ($_SESSION["settings"]["appId"]=="msk36") {
 	$out=phpQuery::newDocumentFile($_SERVER['DOCUMENT_ROOT']."/forms/msk36/".$form."Cord_".$mode.".php");
@@ -35,7 +34,7 @@ if ($id!="_new" AND $id!="") {
 	}
 
 if ($_SESSION["settings"]["appId"]=="msk36") {
-	//$Item["Drugs"]=drugsPrepare(json_decode(file_get_contents($getAssignList_url."assignlist/data?event_id=".$id),true));
+	$Item["Drugs"]=drugsPrepare(json_decode(file_get_contents($getAssignList_url."assignlist/data?event_id=".$id),true));
 	$statMoving=getStationarMovings($id);
 	$Item["moving"]=$statMoving["data"]["moving"];
 	$Item["lab"]=epicLabPrep($id);
@@ -46,8 +45,10 @@ if ($_SESSION["settings"]["appId"]=="msk36") {
 	$person=getPersonInfo($person_id);
 	$client=getClientInfo($event["client_id"]);
 	$organisation=mysqlReadItem("Organisation",$person["org_id"]);
-	
 	$Item["externalId"]=$event["externalId"];
+	$Item["OrgName"]=$organisation["title"];
+	$Item["OrgAddr"]=$organisation["Address"];
+	$Item["OrgPhone"]=$organisation["phone"];
 	$Item["event_id"]=$id;
 	$Item["org"]=$organisation["shortName"];
 	$Item["orgStr"]=$person["orgStructure"];
@@ -71,16 +72,18 @@ if ($_SESSION["settings"]["appId"]=="msk36") {
 		$Item["s_date2"]=getRusDate(date("Y-m-d"))."г.";
 	}
 	$Item["orgStrBoss"]=json_decode(getOrgStrBossName(),true); $Item["orgStrBoss"]=$Item["orgStrBoss"]["shortName"];
-	if ($_SESSION["settings"]["appId"]=="msk36") {$Item=array_merge(fields_msk36($id),$Item);}
+	if ($_SESSION["settings"]["appId"]=="msk36") {$Item=array_merge($Item,fields_msk36($id));}
 }
 
-foreach($out->find("select option.add") as $add) {
+foreach(pq($out)->find("select option.add") as $add) {
 	$add_name=pq($add)->parent("select")->attr("name")."_add";
 	if (!pq($add)->parent("select")->next("input.addinf")->length()) {
 		pq($add)->parent("select")->after("<input name='{$add_name}' class='addinf'>");
 	}
 }
+
 $out=contentSetData($out,$Item);
+
 foreach($out->find("select option") as $opt) {
 	// устанавливаем option в соответствии с select.value
 	if (pq($opt)->parent("select")->attr("value")==pq($opt)->text()) {pq($opt)->attr("selected","selected");}
@@ -145,23 +148,30 @@ function fields_msk36($event_id) {
 	$SQL="SELECT * FROM Action AS a
 	INNER JOIN  Event AS e ON a.event_id = e.id
 	INNER JOIN  ActionType AS t ON t.id = a.actionType_id
-	WHERE e.id = {$event_id} AND t.flatCode =  'first_osmotr' LIMIT 1";
+	WHERE e.id = {$event_id} 
+	AND a.deleted = 0 
+	AND t.name LIKE '%первичный осмотр%' LIMIT 1 ";
 	$res=mysql_query($SQL) or die ("Query failed fields_msk36(): [1]" . mysql_error());
 	while($data = mysql_fetch_array($res)) {
 		$action_id=$data[0];
 		$first_osmotr=getActionProperties($data[0],"");
 	}
 
+		$first_osmotr1=getAction($action_id);
+		$first_osmotr1=$first_osmotr1["data"]["fields"];
+
 	$f=array(); // $f[""]="";
-	$f["e_complaint1"]=$first_osmotr["fld_0"];
+	$f["e_complaint1"]=$first_osmotr1["Жалобы при поступлении:"];
 	$f["e_complaint2"]="";
-	$f["e_anamnez1"]=$first_osmotr["fld_1"];
+	$f["e_anamnez1"]=$first_osmotr1["Anamnesis morbi"];
 	$f["e_anamnez2"]=$first_osmotr["fld_11"];
-	$f["e_anamnez3"]=$first_osmotr["fld_29"];
+	$f["e_anamnez3"]=$first_osmotr1["Аллергологический анамнез:"];
 	$f["e_anamnez4"]=$first_osmotr["fld_26"];
-	$f["e_stateIn"]=$first_osmotr["fld_55"];
-	
-	$first_osmotr=getAction($action_id,$event_id);
+	$f["e_stateIn"]=$first_osmotr1["Состояние"];
+	$f["e_diag_main"]=$first_osmotr1["Основной:"];
+	$f["e_diag_fon"]=$first_osmotr1["Фон:"];
+	$f["e_diag_comp"]=$first_osmotr1["Осложнения:"];
+	$f["e_diag_satt"]=$first_osmotr1["Сопутствующий:"];
 	return $f;
 }
 
