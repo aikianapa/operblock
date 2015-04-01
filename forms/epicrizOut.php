@@ -176,11 +176,13 @@ function fields_msk36($event_id) {
 
 function epicLabPrep($event_id) {
 	$actionHistory=getActionsHistory($event_id);
+	print_r($actionHistory);
+	
 	$labHistory=$actionHistory["data"][1];
 	$res=array();
 	$exclude=array("Дата Назначения","Номерок","Направлен");
 	foreach($labHistory as $key => $labline) {
-		foreach($labline as $key =>$line) {		if ($line["signature"]==1) {
+		foreach($labline as $key =>$line) {		if ($line["status"]==2) {
 			$action=getAction($line["actionId"],$event_id); $action=$action["data"]["fields"];
 			$info=array();
 			foreach($action as $key => $val) {
