@@ -237,7 +237,7 @@
 			<option>отсутствует</option>
 		</select>
 		</li>
-		<li><b>Критика: </b>
+		<li><b>Общемозговая симптоматика: </b>
 		<select name="e_nervBrain" value="{{e_nervBrain}}">
 			<option>нет</option>
 			<option>головная боль</option>
