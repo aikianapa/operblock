@@ -15,6 +15,7 @@ parse_str($_SERVER["REQUEST_URI"]);
 
 if ($id!="_new" AND $id!="") {
 	$action=getEpicrizOut($id);
+	print_r($action);
 	if (isset($action["id"])) {
 		$Item=array_merge($Item,$action);
 		foreach($action["epic_out"] as $key => $val) {
@@ -73,7 +74,13 @@ if ($_SESSION["settings"]["appId"]=="msk36") {
 		$Item["s_date2"]=getRusDate(date("Y-m-d"))."г.";
 	}
 	$Item["orgStrBoss"]=json_decode(getOrgStrBossName(),true); $Item["orgStrBoss"]=$Item["orgStrBoss"]["shortName"];
-	if ($_SESSION["settings"]["appId"]=="msk36") {$Item=array_merge($Item,fields_msk36($id));}
+	if ($_SESSION["settings"]["appId"]=="msk36") {
+		if ($Item["action_id"]=="_new") {
+			$Item=array_merge($Item,fields_msk36($id));
+		} else {
+			$Item=array_merge(fields_msk36($id),$Item);
+		}
+	}
 }
 
 foreach(pq($out)->find("select option.add") as $add) {
