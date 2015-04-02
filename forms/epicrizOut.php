@@ -5,8 +5,8 @@ $_SESSION["allow"]=array("Врач");
 function epicrizOut_edit($form,$mode,$id,$datatype) {
 	parse_str($_SERVER["REQUEST_URI"]);
 	$tpl=array();
-	$tpl[]=array("epicrizOutCord_edit",array("КО (ОНК) РСЦ","2 КО РСЦ"));
-	$tpl[]=array("epicrizOut_edit",array("1 НО ОНМК РСЦ"));
+	$tpl[]=array("epicrizOutCord_edit",array("КО (ОНК) РСЦ","2 КО РСЦ"),"Cord");
+	$tpl[]=array("epicrizOut_edit",array("1 НО ОНМК РСЦ"),"Nevr");
 	$_SESSION["epic_tpl"]=$tpl;
 
 
@@ -174,7 +174,7 @@ function drugsPrepare($data) {
 function fields_msk36($event_id,$orgstr="") {
 	$tpl="";
 	foreach($_SESSION["epic_tpl"] as $key => $arr) {
-		if (in_array($Item["OrgStrCode"],$arr[1])) {	$tpl=$arr[0];	}
+		if (in_array($orgstr,$arr[1])) {	$tpl=$arr[2];	}
 	}
 	
 	$event=mysqlReadItem("Event",$event_id);
@@ -195,17 +195,38 @@ function fields_msk36($event_id,$orgstr="") {
 	$first_osmotr1=getAction($action_id);
 	$first_osmotr1=$first_osmotr1["data"]["fields"];
 	$f=array(); // $f[""]="";
-	$f["e_complaint1"]=$first_osmotr1["Жалобы при поступлении:"]["value"];
-	$f["e_complaint2"]="";
-	$f["e_anamnez1"]=$first_osmotr1["Anamnesis morbi"]["value"];
-	$f["e_anamnez2"]=$first_osmotr["fld_11"];
-	$f["e_anamnez3"]=$first_osmotr1["Аллергологический анамнез:"]["value"];
-	$f["e_anamnez4"]=$first_osmotr["fld_26"];
-	$f["e_stateIn"]=$first_osmotr1["Состояние"]["value"];
-	$f["e_diag_main"]=$first_osmotr1["Основной:"]["value"];
-	$f["e_diag_fon"]=$first_osmotr1["Фон:"]["value"];
-	$f["e_diag_comp"]=$first_osmotr1["Осложнения:"]["value"];
-	$f["e_diag_satt"]=$first_osmotr1["Сопутствующий:"]["value"];
+
+	switch($tpl) {
+		case "Cord":
+		// =========== Кордиология ===========
+			$f["e_complaint1"]=$first_osmotr1["Жалобы при поступлении:"]["value"];
+			$f["e_complaint2"]="";
+			$f["e_anamnez1"]=$first_osmotr1["Anamnesis morbi"]["value"];
+			$f["e_anamnez2"]=$first_osmotr["fld_11"];
+			$f["e_anamnez3"]=$first_osmotr1["Аллергологический анамнез:"]["value"];
+			$f["e_anamnez4"]=$first_osmotr["fld_26"];
+			$f["e_stateIn"]=$first_osmotr1["Состояние"]["value"];
+			$f["e_diag_main"]=$first_osmotr1["Основной:"]["value"];
+			$f["e_diag_fon"]=$first_osmotr1["Фон:"]["value"];
+			$f["e_diag_comp"]=$first_osmotr1["Осложнения:"]["value"];
+			$f["e_diag_satt"]=$first_osmotr1["Сопутствующий:"]["value"];
+			break;
+		case "Nevr":
+		// =========== Неврология ============
+			$f["e_complaint1"]=$first_osmotr1["Жалобы при поступлении:"]["value"];
+			$f["e_complaint2"]="";
+			$f["e_anamnez1"]=$first_osmotr1["Anamnesis morbi"]["value"];
+			$f["e_anamnez2"]=$first_osmotr["fld_11"];
+			$f["e_anamnez3"]=$first_osmotr1["Аллергологический анамнез:"]["value"];
+			$f["e_anamnez4"]=$first_osmotr["fld_26"];
+			$f["e_stateIn"]=$first_osmotr1["Состояние"]["value"];
+			$f["e_diag_main"]=$first_osmotr1["Основной:"]["value"];
+			$f["e_diag_fon"]=$first_osmotr1["Фон:"]["value"];
+			$f["e_diag_comp"]=$first_osmotr1["Осложнения:"]["value"];
+			$f["e_diag_satt"]=$first_osmotr1["Сопутствующий:"]["value"];
+
+			break;
+	}
 	return $f;
 }
 

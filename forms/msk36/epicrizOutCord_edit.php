@@ -57,7 +57,7 @@
 		<br><u><textarea name="e_stateOutText">{{e_stateOutText}}</textarea></u> </li>
 
 		<li><b>Дыхание:</b>
-			<ul>
+			<ul class="inline">
 				<li>
 						<select name="e_pulm1" multiple="multiple"  value="{{e_pulm1}}">
 						<option>везикулярное</option>
@@ -77,8 +77,8 @@
 			</ul>
 		</li>
 		
-		<li><b>Сердце:</b><br>
-			<ul>
+		<li><b>Сердце:</b>
+			<ul class="inline">
 			<li><b>Тоны сердца:</b> 
 				<select name="e_corTone" multiple="multiple"  value="{{e_corTone}}">
 				<option>чистые</option>
@@ -223,6 +223,7 @@ body {display:none;}
 #form-027u select[multiple] {display:none;}
 #form-027u u {font-style: italic;}
 #form-027u ul {list-style: none;}
+#form-027u ul.inline li {display: inline-block;}
 #form-027u .text {line-height:32px; }
 #form-027u .text .remark {position:absolute; width:100%; margin-top: 15px; text-align:center; font-size:70%;}
 #form-027u table {border:0; border-top:1px #000 solid; border-bottom:1px #000 solid; clear:both; width: 100%; }
