@@ -139,6 +139,14 @@
 		</div>
 	</ul>
 	<u><textarea name="e_anayseText">{{e_anayseText}}</textarea></u></li>
+	
+	<li><b>Консультации: </b>
+	<ul>
+		<div data-role="foreach" from="cons">
+			<li>{{cons}}</li>
+		</div>
+	</ul>
+	
 	<li><b>Выписан{{suffix2}}: </b>
 	<select name="e_out" value="{{e_out}}">
 	<option>с выздоровлением</option>
@@ -189,7 +197,7 @@ $("#form-027u select[multiple]").each(function(){
 @media screen {
 #form-027u * {font-size:13px;}
 #form-027u ul li {list-style-type: none; margin-bottom:8px;}
-#form-027u input {width:95%; padding: 3px; text-decoration:underline; font-style: italic;}
+#form-027u input {width:95%; padding: 1px; text-decoration:underline; font-style: italic;}
 #form-027u input.small {width:100px;}
 #form-027u input.addinf {width:200px; display:none;}
 #form-027u textarea {width:95%; resize:none; text-decoration:underline; font-style: italic; padding: 3px;}

@@ -148,7 +148,7 @@
 		<li><b>Мочеиспускание:</b>
 		<select name="e_urine" value="{{e_urine}}">
 			<option>самостоятельно</option>
-			<option>по катетору</option>
+			<option>по катетеру</option>
 		</select> Моча <input name="e_urineColor" class="small"> цвета
 		<br><u><textarea name="e_perEdemaText">{{e_perEdemaText}}</textarea></u> </li>
 		
@@ -175,6 +175,7 @@
 		<b>ШКГ:</b> <input name="e_nervShkg" class="small"> б.&nbsp;
 		<b>NIHSS:</b> <input name="e_nervNihss" class="small"> б.&nbsp;
 		<b>Ранкин:</b> <input name="e_nervRankin" class="small"> б.&nbsp;
+		<b>Ривертед:</b> <input name="e_nervRiverted" class="small"> б.&nbsp;
 		</li>
 		<li>
 		<b>Речевому контакту: </b>
@@ -189,6 +190,7 @@
 		<select name="e_nervSimple" value="{{e_nervSimple}}">
 			<option>выполняет</option>
 			<option>частично</option>
+			<option>частично выполняет</option>
 			<option>не выполняет</option>
 		</select>
 		</li>
@@ -206,6 +208,7 @@
 			<option>в месте, времени, собственной личности</option>
 			<option>на вопросы отвечает правильно</option>
 			<option>достоверно оценить затруднительно</option>
+			<option class="add">иное:</option>
 		</select>
 		</li>
 		<li><b>Реакция на осмотр: </b>
@@ -259,7 +262,7 @@
 			<option>сохранено</option>
 			<option>снижено</option>
 			<option>не исследовалось</option>
-			<option class="add">иное</option>
+			<option class="add">иное:</option>
 		</select></li>
 
 		<li><b>Предметное зрение: </b>
@@ -269,7 +272,7 @@
 			<option>снижено OS</option>
 			<option>снижено OU</option>
 			<option>не исследовалось</option>
-			<option class="add">иное</option>
+			<option class="add">иное:</option>
 		</select></li>
 
 		<li><b>Выпадение полей зрения: </b>
@@ -280,10 +283,10 @@
 			<option>гемианопсия гетеронимная слева</option>
 			<option>гемианопсия гомонимная биназальная</option>
 			<option>гемианопсия гомонимная битемпоральная</option>
-			<option class="add">иное</option>
+			<option class="add">иное:</option>
 		</select></li>
 
-		<li><b>Зрачки OD: </b><input name="e_cmnZrachki" class="small"></li>
+		<li><b>Зрачки: </b><input name="e_cmnZrachki" class="small"></li>
 		<li><b>Глазные щели: </b><input name="e_cmnSchel" class="small"></li>
 		<li><b>Фотореакция: </b>
 		<select name="e_cmnFoto" value="{{e_cmnFoto}}">	
@@ -333,7 +336,7 @@
 		<option>ориентировочно снижен AS</option>
 		<option>ориентировочно снижен AD</option>
 		<option>ориентировочно снижен AU</option>
-		<option class="add">иное</option>
+		<option class="add">иное:</option>
 		</select></li>
 		
 		<li><b>Лицо: </b>
@@ -369,6 +372,7 @@
 		<option>высокий</option>
 		<option>снижен</option>
 		<option class="add">низкий</option>
+		<option class="add">иное:</option>
 		</select>
 		<br>
 		<b>В ногах</b> 
@@ -378,6 +382,7 @@
 		<option>высокий</option>
 		<option>снижен</option>
 		<option class="add">низкий</option>
+		<option class="add">иное:</option>
 		</select>
 		</li>
 		
@@ -387,6 +392,7 @@
 			<option class="add">гемипарез</option>
 			<option class="add">монопарез</option>
 			<option class="add">парапарез</option>
+			<option class="add">тетрапарез</option>
 		</select></li>
 		
 		<li><b>Сухожильные и периостальные рефлексы: </b><br>
@@ -399,6 +405,7 @@
 			<option>снижены</option>
 			<option>низкие</option>
 			<option>отсутствуют</option>
+			<option class="add">иное:</option>
 		</select><br>
 		На ногах 
 		<select name="e_cmnReflLegs" value="{{e_cmnReflLegs}}">
@@ -409,6 +416,7 @@
 			<option>снижены</option>
 			<option>низкие</option>
 			<option>отсутствуют</option>
+			<option class="add">иное:</option>
 		</select>
 		</li>
 		
@@ -490,7 +498,7 @@
 			<option>не предъявляет</option>
 			<option>гемигипестезия справа/слева</option>
 			<option>на уколы хуже реагирует справа/слева</option>
-			<option class="add">иное</option>
+			<option class="add">иное:</option>
 		</select>
 		</li>
 		<li><b>Дополнительная информация: </b>

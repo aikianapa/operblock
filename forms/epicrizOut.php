@@ -3,14 +3,6 @@ include($_SERVER["DOCUMENT_ROOT"]."/functions.php");
 prepareSessions();
 $_SESSION["allow"]=array("Врач");
 function epicrizOut_edit($form,$mode,$id,$datatype) {
-if ($_SESSION["settings"]["appId"]=="msk36") {
-	$out=phpQuery::newDocumentFile($_SERVER['DOCUMENT_ROOT']."/forms/msk36/".$form."Cord_".$mode.".php");
-} else {$out=formGetForm($form,$mode);}
-
-foreach(pq($out)->find("input,select,textarea") as $inp) {
-	$Item[pq($inp)->attr("name")]="";
-}
-
 parse_str($_SERVER["REQUEST_URI"]);
 
 if ($id!="_new" AND $id!="") {
@@ -41,11 +33,16 @@ if ($_SESSION["settings"]["appId"]=="msk36") {
 	$Item["res"]=epicLabPrep($id,"Инструментальная диагностика");
 	$Item["cons"]=epicConsPrep($id);
 }
-	$event=mysqlReadItem("Event",$id);
-	$Diag=patientGetDiagnosis($id);
+	
+$event=mysqlReadItem("Event",$id);
+	$Item["execPerson_id"]=$event["execPerson_id"];
+$Diag=patientGetDiagnosis($id);
 	$person=getPersonInfo($person_id);
+	$doctor=getPersonInfo($event["execPerson_id"]);
 	$client=getClientInfo($event["client_id"]);
 	$organisation=mysqlReadItem("Organisation",$person["org_id"]);
+	$orgstructure=mysqlReadItem("OrgStructure",$doctor["orgStructure_id"]);
+	$Item["OrgStrCode"]=$orgstructure["code"];
 	$Item["externalId"]=$event["externalId"];
 	$Item["OrgName"]=$organisation["title"];
 	$Item["OrgAddr"]=$organisation["Address"];
@@ -55,6 +52,9 @@ if ($_SESSION["settings"]["appId"]=="msk36") {
 	$Item["orgStr"]=$person["orgStructure"];
 	$Item["person"]=$person["personShort"];
 	$Item["person_id"]=$person_id;
+	$Item["person"]=$person["personShort"];
+	$Item["doctor_id"]=$event["execPerson_id"];
+	$Item["doctor"]=$person["doctorShort"];
 	$Item["client"]=$client["client"];
 	$Item["bDate"]=getRusDate($client["birthDate"])."г.";
 	$Item["docDate"]=getRusDate(date("d-m-Y"))."г.";
@@ -80,6 +80,26 @@ if ($_SESSION["settings"]["appId"]=="msk36") {
 			$Item=array_merge(fields_msk36($id),$Item);
 		}
 	}
+}
+if ($_SESSION["settings"]["appId"]=="msk36") {
+	$tpl=array(); $out="";
+// =========================================================	
+// ========= привязываем шаблоны к кодам отделений =========	
+// =========================================================
+	$tpl[]=array("epicrizOutCord_edit",array("КО (ОНК) РСЦ","2 КО РСЦ"));
+	$tpl[]=array("epicrizOut_edit",array("1 НО ОНМК РСЦ"));
+	foreach($tpl as $key => $arr) {
+		if (in_array($Item["OrgStrCode"],$arr[1])) {
+			$out=phpQuery::newDocumentFile($_SERVER['DOCUMENT_ROOT']."/forms/msk36/".$arr[0].".php");
+		}
+	}
+// ========= поумолчанию эпикриз кордиологов =========	
+if ($out=="") {$out=phpQuery::newDocumentFile($_SERVER['DOCUMENT_ROOT']."/forms/msk36/epicrizOutCord_edit.php");}
+// =========================================================
+} else {$out=formGetForm($form,$mode);}
+
+foreach(pq($out)->find("input,select,textarea") as $inp) {
+	if (!isset($Item[pq($inp)->attr("name")])) {$Item[pq($inp)->attr("name")]="";}
 }
 
 foreach(pq($out)->find("select option.add") as $add) {
