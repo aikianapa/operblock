@@ -15,7 +15,6 @@ parse_str($_SERVER["REQUEST_URI"]);
 
 if ($id!="_new" AND $id!="") {
 	$action=getEpicrizOut($id);
-	print_r($action);
 	if (isset($action["id"])) {
 		$Item=array_merge($Item,$action);
 		foreach($action["epic_out"] as $key => $val) {
