@@ -183,7 +183,7 @@ function fields_msk36($event_id,$orgstr="") {
 	INNER JOIN  Event AS e ON a.event_id = e.id
 	INNER JOIN  ActionType AS t ON t.id = a.actionType_id
 	WHERE e.id = {$event_id} 
-	AND a.setPerson_id = e.execPerson_id
+	AND (a.setPerson_id = e.execPerson_id OR a.person_id = e.execPerson_id )
 	AND a.deleted = 0 
 	AND t.name LIKE '%осмотр%' LIMIT 1 ";
 
@@ -215,15 +215,20 @@ function fields_msk36($event_id,$orgstr="") {
 		// =========== Неврология ============
 			$f["e_complaint1"]=$first_osmotr1["Жалобы при поступлении:"]["value"];
 			$f["e_complaint2"]="";
-			$f["e_anamnez1"]=$first_osmotr1["Anamnesis morbi"]["value"];
-			$f["e_anamnez2"]=$first_osmotr["fld_11"];
-			$f["e_anamnez3"]=$first_osmotr1["Аллергологический анамнез:"]["value"];
-			$f["e_anamnez4"]=$first_osmotr["fld_26"];
-			$f["e_stateIn"]=$first_osmotr1["Состояние"]["value"];
+			$f["e_anamnez1"]=$first_osmotr1["Анамнез заболевания:"]["value"];
+			$f["e_anamnez2"]=$first_osmotr1["Анамнез жизни:"]["value"];
+			$f["e_anamnez3"]=$first_osmotr1["Аллергоанамнез:"]["value"];
+			$f["e_anamnez4"]=$first_osmotr1["Эпид. анамнез:"]["value"];
+			$f["e_blist12"]=$first_osmotr1["Находился на больничном листе в течение последних 12 месяцев:"]["value"];
+			$f["e_stateIn"]=$first_osmotr1["Состояние при поступлении:"]["value"];
+			//===========
 			$f["e_diag_main"]=$first_osmotr1["Основной:"]["value"];
 			$f["e_diag_fon"]=$first_osmotr1["Фон:"]["value"];
 			$f["e_diag_comp"]=$first_osmotr1["Осложнения:"]["value"];
 			$f["e_diag_satt"]=$first_osmotr1["Сопутствующий:"]["value"];
+			//===========
+			$f["e_diag_main"]=$Diag["main"]["DiagName"];
+			$f["e_diag_satt"]=$Diag["satt"]["DiagName"];
 
 			break;
 	}

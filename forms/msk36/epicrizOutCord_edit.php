@@ -12,13 +12,14 @@
 {{orgStr}}<br /></p>
 <hr />
 <p style="text-align:center;">
-{{OrgAddr}}                                                   тел. +7 {{OrgPhone}}</b>
+{{OrgAddr}}                                                   тел. +7 (499) 369-34-75</b>
 <br />
 <h2>ВЫПИСНОЙ  ЭПИКРИЗ ИЗ  ИСТОРИИ  БОЛЕЗНИ    № {{externalId}}</h2>
 </p>
 
 		<ul class="fields">
 		<li><b>Фамилия, Имя, Отчество:</b> <u>{{client}} (Возраст: {{age}})</u></li>
+		<li><b>Возраст:</b> <u>{{age}})</u></li>
 		<li><b>Дата госпитализации:</b> <u>{{s_date1}}</u></li>
 		<li><b>Дата выписки:</b> <u>{{s_date2}}</u></li>
 
@@ -120,7 +121,7 @@
 
 <ul>
 
-	<li><b>Инструментальная диагностика: </b>
+	<li><b>Инструментальные методы исследования: </b>
 	<ul>
 		<div data-role="foreach" from="res">
 			<li>

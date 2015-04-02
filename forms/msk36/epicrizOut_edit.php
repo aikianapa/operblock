@@ -7,12 +7,11 @@
 <input type="hidden" name="action_id">
 <input type="hidden" name="event_id">
 <input type="hidden" name="person_id">
-<p style="text-align:center;"><b>ГБУЗ "Городская клиническая больница №36" ДЗ г.Москвы<br />
+<p style="text-align:center;"><b>{{OrgName}} г.Москвы<br />
 {{orgStr}}<br />
-г. Москва, ул. Фортунатовская, д.1                                                   тел. +7 (499) 369-34-75</b></p>
+{{OrgAddr}}                                                    тел. +7 (499) 369-34-75</b></p>
 <br>
-<h2>ВЫПИСНОЙ  ЭПИКРИЗ<br />
-ИЗ  ИСТОРИИ  БОЛЕЗНИ    № {{externalId}}</h2>
+<h2>ВЫПИСНОЙ  ЭПИКРИЗ ИЗ  ИСТОРИИ  БОЛЕЗНИ    № {{externalId}}</h2>
 <br />
 
 		<ul class="fields">
@@ -31,9 +30,10 @@
 		</li>
 		<li><b>Диагноз при выписке:</b>
 			<ul>
-				<li><b>Основной:</b> <u>{{diag_main}}</u> </li>
-				<li><b>Фон:</b> <u>{{diag_tera}}</u></li>
-				<li><b>Сопутствующий:</b> <u>{{diag_satt}}</u></li>
+				<li><b>Основной:</b><br><u><textarea name="e_diag_main">{{e_diag_main}}</textarea></u> </li>
+				<li><b>Фон:</b><br><u><textarea name="e_diag_fon">{{e_diag_fon}}</textarea></u></li>
+				<li><b>Осложнения:</b><br><u><textarea name="e_diag_comp">{{e_diag_comp}}</textarea></u></li>
+				<li><b>Сопутствующий:</b><br><u><textarea name="e_diag_satt">{{e_diag_satt}}</textarea></u></li>
 			</ul>
 		</li>
 		<li><b>Жалобы при поступлении:</b><br><u><textarea name="e_complaint1">{{e_complaint1}}</textarea></u> </li>
