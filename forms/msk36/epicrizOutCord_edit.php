@@ -18,7 +18,7 @@
 </p>
 
 		<ul class="fields">
-		<li><b>Фамилия, Имя, Отчество:</b> <u>{{client}}</u></li>
+		<li><b>Фамилия, Имя, Отчество:</b> <u>{{client}} (Возраст: {{age}})</u></li>
 		<li><b>Дата госпитализации:</b> <u>{{s_date1}}</u></li>
 		<li><b>Дата выписки:</b> <u>{{s_date2}}</u></li>
 
@@ -36,7 +36,7 @@
 		<li><b>Состояние при поступлении:</b><br><u><textarea name="e_stateIn">{{e_stateIn}}</textarea></u> </li>
 		<li><b>Течение заболевания в стационаре:</b><br><u><textarea name="e_stationar">{{e_stationar}}</textarea></u> </li>
 		
-		<li><b>Препараты: </b>
+		<li><b>Терапия: </b>
 		<ul>
 		<div data-role="foreach" from="Drugs">
 		<li>{{drugs}}</li>
@@ -147,17 +147,6 @@
 		</div>
 	</ul>
 	
-	<li><b>Выписан{{suffix2}}: </b>
-	<select name="e_out" value="{{e_out}}">
-	<option>с выздоровлением</option>
-	<option>с улучшением</option>
-	<option>без перемен</option>
-	<option>с ухудшением</option>
-	<option>по собственному желанию</option>
-	<option>за нарушение больничного режима</option>
-	<option>переведен в другое учреждение</option>
-	</select>
-	</li>
 	<li><b>Больничный лист: </b>
 	<select name="e_hospList" value="{{e_hospList}}">
 		<option>не выдавался</option>
@@ -195,6 +184,7 @@ $("#form-027u select[multiple]").each(function(){
 <link rel="stylesheet" href="/style.css" />
 <style>
 @media screen {
+#form-027u {margin-left:15px;}
 #form-027u * {font-size:14px;}
 #form-027u ul li {list-style-type: none;}
 #form-027u input {width:95%; padding: 3px; text-decoration:underline; font-style: italic;}
