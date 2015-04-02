@@ -3,7 +3,12 @@ include($_SERVER["DOCUMENT_ROOT"]."/functions.php");
 prepareSessions();
 $_SESSION["allow"]=array("Врач");
 function epicrizOut_edit($form,$mode,$id,$datatype) {
-parse_str($_SERVER["REQUEST_URI"]);
+	parse_str($_SERVER["REQUEST_URI"]);
+	$tpl=array();
+	$tpl[]=array("epicrizOutCord_edit",array("КО (ОНК) РСЦ","2 КО РСЦ"));
+	$tpl[]=array("epicrizOut_edit",array("1 НО ОНМК РСЦ"));
+	$_SESSION["epic_tpl"]=$tpl;
+
 
 if ($id!="_new" AND $id!="") {
 	$action=getEpicrizOut($id);
@@ -36,7 +41,7 @@ if ($_SESSION["settings"]["appId"]=="msk36") {
 	
 $event=mysqlReadItem("Event",$id);
 	$Item["execPerson_id"]=$event["execPerson_id"];
-$Diag=patientGetDiagnosis($id);
+	$Diag=patientGetDiagnosis($id);
 	$person=getPersonInfo($person_id);
 	$doctor=getPersonInfo($event["execPerson_id"]);
 	$client=getClientInfo($event["client_id"]);
@@ -75,19 +80,16 @@ $Diag=patientGetDiagnosis($id);
 	$Item["orgStrBoss"]=json_decode(getOrgStrBossName(),true); $Item["orgStrBoss"]=$Item["orgStrBoss"]["shortName"];
 	if ($_SESSION["settings"]["appId"]=="msk36") {
 		if ($Item["action_id"]=="_new") {
-			$Item=array_merge($Item,fields_msk36($id));
+			$Item=array_merge($Item,fields_msk36($id,$Item["OrgStrCode"]));
 		} else {
-			$Item=array_merge(fields_msk36($id),$Item);
+			$Item=array_merge(fields_msk36($id,$Item["OrgStrCode"]),$Item);
 		}
 	}
 }
 if ($_SESSION["settings"]["appId"]=="msk36") {
-	$tpl=array(); $out="";
 // =========================================================	
 // ========= привязываем шаблоны к кодам отделений =========	
 // =========================================================
-	$tpl[]=array("epicrizOutCord_edit",array("КО (ОНК) РСЦ","2 КО РСЦ"));
-	$tpl[]=array("epicrizOut_edit",array("1 НО ОНМК РСЦ"));
 	foreach($tpl as $key => $arr) {
 		if (in_array($Item["OrgStrCode"],$arr[1])) {
 			$out=phpQuery::newDocumentFile($_SERVER['DOCUMENT_ROOT']."/forms/msk36/".$arr[0].".php");
@@ -169,7 +171,12 @@ function drugsPrepare($data) {
 	return $array;
 }
 
-function fields_msk36($event_id) {
+function fields_msk36($event_id,$orgstr="") {
+	$tpl="";
+	foreach($_SESSION["epic_tpl"] as $key => $arr) {
+		if (in_array($Item["OrgStrCode"],$arr[1])) {	$tpl=$arr[0];	}
+	}
+	
 	$event=mysqlReadItem("Event",$event_id);
 	$Diag=patientGetDiagnosis($event_id);
 	$SQL="SELECT a.* FROM Action AS a
@@ -185,9 +192,8 @@ function fields_msk36($event_id) {
 		$action_id=$data[0];
 		$first_osmotr=getActionProperties($data[0],"");
 	}
-
-		$first_osmotr1=getAction($action_id);
-		$first_osmotr1=$first_osmotr1["data"]["fields"];
+	$first_osmotr1=getAction($action_id);
+	$first_osmotr1=$first_osmotr1["data"]["fields"];
 	$f=array(); // $f[""]="";
 	$f["e_complaint1"]=$first_osmotr1["Жалобы при поступлении:"]["value"];
 	$f["e_complaint2"]="";

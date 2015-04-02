@@ -633,6 +633,7 @@ $("#form-027u select[multiple]").each(function(){
 
 @media print {
 body {display:none;}
+#form-027u {margin-left:50px;}
 #form-027u * {font-size:14px; }
 #form-027u ul li {list-style-type: none;}
 #form-027u input {width:99%; text-decoration:underline; font-style: italic; border:0; color: #000;}
