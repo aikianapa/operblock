@@ -120,10 +120,12 @@
 
 <ul>
 
-	<li><b>Инструментальные исследования: </b>
+	<li><b>Инструментальная диагностика: </b>
 	<ul>
 		<div data-role="foreach" from="res">
-			<li>{{res}}</li>
+			<li>
+				<a href='#del' class='del_fld'><span class="ui-icon ui-icon-circle-close"></span></a>
+				<p>{{lab}}</p></li>
 		</div>
 	</ul>
 	<u><textarea name="e_consultText">{{e_consultText}}</textarea></u></li>
@@ -131,7 +133,9 @@
 	<li><b>Лабораторная диагностика: </b>
 	<ul>
 		<div data-role="foreach" from="lab">
-			<li><p>{{lab}}</p></li>
+			<li>
+				<a href='#del' class='del_fld'><span class="ui-icon ui-icon-circle-close"></span></a>
+				<p>{{lab}}</p></li>
 		</div>
 	</ul>
 	<u><textarea name="e_anayseText">{{e_anayseText}}</textarea></u></li>
@@ -183,8 +187,8 @@ $("#form-027u select[multiple]").each(function(){
 <link rel="stylesheet" href="/style.css" />
 <style>
 @media screen {
-#form-027u * {font-size:11px;}
-#form-027u ul li {list-style-type: none;}
+#form-027u * {font-size:13px;}
+#form-027u ul li {list-style-type: none; margin-bottom:8px;}
 #form-027u input {width:95%; padding: 3px; text-decoration:underline; font-style: italic;}
 #form-027u input.small {width:100px;}
 #form-027u input.addinf {width:200px; display:none;}
@@ -203,14 +207,14 @@ $("#form-027u select[multiple]").each(function(){
 #form-027u table tr:first-child td:first-child {border-bottom:1px #000 solid;}
 #form-027u h2 {text-align:center; font-size:18px;}
 #form-027u h2 * {font-size:18px;}
-#form-027u a.del_fld {position:absolute; margin-left: -25px; margin-top: 30px;;}
+#form-027u a.del_fld {position:absolute; margin-left: -15px; margin-top: 0px;;}
 #form-027u select[multiple] {display:block; height: auto;}
 }
 
 @media print {
 body {display:none;}
-#form-027u * {font-size:11px; }
-#form-027u ul li {list-style-type: none;}
+#form-027u * {font-size:13px; }
+#form-027u ul li {list-style-type: none; margin-bottom:8px;}
 #form-027u input {width:99%; text-decoration:underline; font-style: italic; border:0; color: #000;}
 #form-027u input[name=toOrg] {border-bottom: 1px #000 solid; text-align:center;}
 #form-027u input.small {width:100px;}

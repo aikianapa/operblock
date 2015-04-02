@@ -37,7 +37,8 @@ if ($_SESSION["settings"]["appId"]=="msk36") {
 	$Item["Drugs"]=drugsPrepare(json_decode(file_get_contents($getAssignList_url."assignlist/data?event_id=".$id),true));
 	$statMoving=getStationarMovings($id);
 	$Item["moving"]=$statMoving["data"]["moving"];
-	$Item["lab"]=epicLabPrep($id);
+	$Item["lab"]=epicLabPrep($id,"Лабораторные исследования");
+	$Item["res"]=epicLabPrep($id,"Инструментальная диагностика");
 	$Item["cons"]=epicConsPrep($id);
 }
 	$event=mysqlReadItem("Event",$id);
@@ -145,12 +146,14 @@ function drugsPrepare($data) {
 function fields_msk36($event_id) {
 	$event=mysqlReadItem("Event",$event_id);
 	$Diag=patientGetDiagnosis($event_id);
-	$SQL="SELECT * FROM Action AS a
+	$SQL="SELECT a.* FROM Action AS a
 	INNER JOIN  Event AS e ON a.event_id = e.id
 	INNER JOIN  ActionType AS t ON t.id = a.actionType_id
 	WHERE e.id = {$event_id} 
+	AND a.setPerson_id = e.execPerson_id
 	AND a.deleted = 0 
-	AND t.name LIKE '%первичный осмотр%' LIMIT 1 ";
+	AND t.name LIKE '%осмотр%' LIMIT 1 ";
+
 	$res=mysql_query($SQL) or die ("Query failed fields_msk36(): [1]" . mysql_error());
 	while($data = mysql_fetch_array($res)) {
 		$action_id=$data[0];
@@ -174,21 +177,27 @@ function fields_msk36($event_id) {
 	return $f;
 }
 
-function epicLabPrep($event_id) {
+function epicLabPrep($event_id,$name) {
 	$actionHistory=getActionsHistory($event_id);
-	print_r($actionHistory);
-	
 	$labHistory=$actionHistory["data"][1];
 	$res=array();
+	$present=array();
 	$exclude=array("Дата Назначения","Номерок","Направлен");
 	foreach($labHistory as $key => $labline) {
 		foreach($labline as $key =>$line) {		if ($line["status"]==2) {
-			$action=getAction($line["actionId"],$event_id); $action=$action["data"]["fields"];
-			$info=array();
-			foreach($action as $key => $val) {
-				if (!in_array($key,$exclude) AND $val>"") {$info[]="<b>{$key}</b>: {$val["value"]}";}
+			if (!in_array($line["name"],$present)) {
+				$present[]=$line["name"];
+				$action=getAction($line["actionId"],$event_id); 
+				$actionType_id=$action["data"]["actionType_id"];
+				if (checkActionTypeParrent($actionType_id,$name)) {
+					$action=$action["data"]["fields"];
+					$info=array();
+					foreach($action as $key => $val) {
+						if (!in_array($key,$exclude) AND $val>"") {$info[]="<b>{$key}</b>: {$val["value"]}";}
+					}
+					$res[]["lab"]="<b>".$line["name"]."</b><br>".implode(", ",$info);
+				}
 			}
-			$res[]["lab"]="<b>".$line["name"]."</b><br>".implode(", ",$info);
 		}}
 	}
 	return $res;

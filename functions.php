@@ -31,6 +31,16 @@ function createEmptyAction($actionType_id,$event_id,$person_id="") {
 	return $Action;
 }
 
+function checkActionTypeParrent($actionType_id,$name,$group_id=NULL) {
+	$res=0;
+	if (!is_array($name)) {$tmp=$name; $name=array(); $name[]=$tmp;}
+	$actionType=mysqlReadItem("ActionType",$actionType_id);
+	if ($res==0 AND in_array($actionType["name"],$name)) {$res=1;}
+	if ($res==0 AND $actionType["id"]==$group_id) {$res=1;}
+	if ($res==0 AND $actionType["group_id"]>"") {$res=checkActionTypeParrent($actionType["group_id"],$name,$group_id);}
+	return $res;
+}
+
 function getStationarMovings($event_id) {
 	$url=$_SESSION["settings"]["url_doctorroom"]."/ajax.php";
 	phpQuery::ajaxAllowURL($url); 
