@@ -252,7 +252,6 @@ function epicLabPrep($event_id,$name) {
 				$action=getAction($line["actionId"],$event_id); 
 				$actionType_id=$action["data"]["actionType_id"];
 				if (checkActionTypeParrent($actionType_id,$name)) {
-					print_r($action);
 					$time=date("d/m/Y h:i",strtotime($action["data"]["endDate"]));
 					$action=$action["data"]["fields"];
 					$info=array();
