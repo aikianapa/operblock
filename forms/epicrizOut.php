@@ -168,7 +168,7 @@ function drugsPrepare($data) {
 			$array[]["drugs"]=implode("<br>",$complex);
 		} else {
 			//$array[]["drugs"]=$date." ".$line[3]."<br>".$line[5]." (".$line[6]." ".$line[7]." ".$line[8].")";
-			$array[]["drugs"]=$date." ".$line[3]."<br>".$line[5];
+			$array[]["drugs"]=$date." ".$line[3]." ".$line[5];
 		}
 		}
 	}
