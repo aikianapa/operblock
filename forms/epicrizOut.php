@@ -162,11 +162,13 @@ function drugsPrepare($data) {
 			$unit=explode(";",$line[7]);
 			$complex[]=$date." ".$line[3];
 			foreach($name as $key => $drug) {
-				$complex[]=$drug." (".$qnt[$key]." ".$unit[$key]." ".$line[8].")" ;
+				//$complex[]=$drug." (".$qnt[$key]." ".$unit[$key]." ".$line[8].")" ;
+				$complex[]=$drug;
 			}
 			$array[]["drugs"]=implode("<br>",$complex);
 		} else {
-			$array[]["drugs"]=$date." ".$line[3]."<br>".$line[5]." (".$line[6]." ".$line[7]." ".$line[8].")";
+			//$array[]["drugs"]=$date." ".$line[3]."<br>".$line[5]." (".$line[6]." ".$line[7]." ".$line[8].")";
+			$array[]["drugs"]=$date." ".$line[3]."<br>".$line[5];
 		}
 		}
 	}
