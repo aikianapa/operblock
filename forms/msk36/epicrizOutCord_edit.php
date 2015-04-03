@@ -187,7 +187,7 @@ $("#form-027u select[multiple]").each(function(){
 <style>
 @media screen {
 #form-027u {margin-left:15px;}
-#form-027u * {font-size:14px;}
+#form-027u * {font-size:14px; color: #000;}
 #form-027u ul li {list-style-type: none;}
 #form-027u input {width:95%; padding: 1px; text-decoration:underline; font-style: italic;}
 #form-027u input.small {width:100px;}
