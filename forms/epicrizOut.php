@@ -151,6 +151,7 @@ function drugsPrepare($data) {
 	$array=array();
 	foreach($data as $key => $line) {
 		$line=$line["cell"];
+		if ($line[3]!="отменено") {
 		$cpx=count(explode(";",$line[7]));
 		if ($line[9]==$line[10]) {$date=$line[9];} else {$date=$line[9]." - ".$line[10];}
 		$date="<b>$date</b>";
@@ -166,6 +167,7 @@ function drugsPrepare($data) {
 			$array[]["drugs"]=implode("<br>",$complex);
 		} else {
 			$array[]["drugs"]=$date." ".$line[3]."<br>".$line[5]." (".$line[6]." ".$line[7]." ".$line[8].")";
+		}
 		}
 	}
 	return $array;
