@@ -41,7 +41,7 @@ if ($_SESSION["settings"]["appId"]=="msk36") {
 	
 $event=mysqlReadItem("Event",$id);
 	$Item["execPerson_id"]=$event["execPerson_id"];
-	$Diag=patientGetDiagnosis($id);
+//	$Diag=patientGetDiagnosis($id);
 	$person=getPersonInfo($person_id);
 	$doctor=getPersonInfo($event["execPerson_id"]);
 	$client=getClientInfo($event["client_id"]);
@@ -65,9 +65,9 @@ $event=mysqlReadItem("Event",$id);
 	$Item["docDate"]=getRusDate(date("d-m-Y"))."г.";
 	$Item["address"]=$client["addressLive"];
 	$Item["work"]=$client["work"];
-	$Item["diag_main"]=$Diag["main"]["MKB"]." ".$Diag["main"]["DiagName"];
-	$Item["diag_satt"]=$Diag["satt"]["MKB"]." ".$Diag["satt"]["DiagName"];
-	$Item["diag_tera"]=$Diag["terapevt"]["MKB"]." ".$Diag["terapevt"]["DiagName"];
+//	$Item["diag_main"]=$Diag["main"]["MKB"]." ".$Diag["main"]["DiagName"];
+//	$Item["diag_satt"]=$Diag["satt"]["MKB"]." ".$Diag["satt"]["DiagName"];
+//	$Item["diag_tera"]=$Diag["terapevt"]["MKB"]." ".$Diag["terapevt"]["DiagName"];
 	if ($client["sex"]=="мужской") {$Item["suffix1"]="ся";$Item["suffix2"]="";} else {$Item["suffix1"]="ась";$Item["suffix2"]="а";}
 	$Item["age"]=$client["age"];
 	$Item["a_date1"]=$Item["a_date2"]=$Item["s_date1"]=$Item["s_date2"]="";

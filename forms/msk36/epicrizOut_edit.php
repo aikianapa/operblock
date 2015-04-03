@@ -491,6 +491,13 @@
 			<option>с интенцией</option>
 			<option>с атаксией</option>
 			<option>не выполняет</option>
+		</select>&nbsp;
+		<b>В позе Ромберга: </b>
+		<select multiple="multiple" name="e_coorRomberg" value="{{e_coorRomberg}}">
+			<option>устойчив</option>
+			<option>не устойчив</option>
+			<option>пошатывается</option>
+			<option class="add">иное: </option>
 		</select>
 		</li>
 		<li><b>Нарушения  чувствительности: </b>
@@ -527,16 +534,28 @@
 	
 	</div>
 	</ul>
-	
-	
 	<u><textarea name="e_drugsText">{{e_drugsText}}</textarea></u></li>
-	<li><b>Проведенное обследование: </b>
+	
+	<li><b>Инструментальные методы исследования: </b>
+	<ul>
+		<div data-role="foreach" from="res">
+			<li>
+				<a href='#del' class='del_fld'><span class="ui-icon ui-icon-circle-close"></span></a>
+				<p>{{lab}}</p></li>
+		</div>
+	</ul>
+	</li>
+
+	<li><b>Лабораторная диагностика: </b>
 	<ul>
 		<div data-role="foreach" from="lab">
-			<li>{{lab}}</li>
+			<li>
+				<a href='#del' class='del_fld'><span class="ui-icon ui-icon-circle-close"></span></a>
+				<p>{{lab}}</p></li>
 		</div>
 	</ul>
 	<u><textarea name="e_anayseText">{{e_anayseText}}</textarea></u></li>
+	
 	<li><b>Консультации: </b>
 	<ul>
 		<div data-role="foreach" from="cons">
@@ -544,6 +563,7 @@
 		</div>
 	</ul>
 	<u><textarea name="e_consultText">{{e_consultText}}</textarea></u></li>
+	
 	<li><b>Выписан{{suffix2}}: </b>
 	<select name="e_out" value="{{e_out}}">
 	<option>с выздоровлением</option>
@@ -628,7 +648,7 @@ $("#form-027u select[multiple]").each(function(){
 #form-027u table tr:first-child td:first-child {border-bottom:1px #000 solid;}
 #form-027u h2 {text-align:center; font-size:18px;}
 #form-027u h2 * {font-size:18px;}
-#form-027u a.del_fld {position:absolute; margin-left: -25px; margin-top: 30px;;}
+#form-027u a.del_fld {position:absolute; margin-left: -25px; margin-top: 0px;;}
 #form-027u select[multiple] {display:block; height: auto;}
 }
 
@@ -646,6 +666,7 @@ body {display:none;}
 #form-027u select[multiple] {display:none;}
 #form-027u u {font-style: italic;}
 #form-027u ul {list-style: none;}
+#form-027u ul.inline li {display: inline-block;}
 #form-027u .text {line-height:32px; }
 #form-027u .text .remark {position:absolute; width:100%; margin-top: 15px; text-align:center; font-size:70%;}
 #form-027u table {border:0; border-top:1px #000 solid; border-bottom:1px #000 solid; clear:both; width: 100%; }

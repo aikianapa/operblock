@@ -129,7 +129,7 @@
 				<p>{{lab}}</p></li>
 		</div>
 	</ul>
-	<u><textarea name="e_consultText">{{e_consultText}}</textarea></u></li>
+	</li>
 
 	<li><b>Лабораторная диагностика: </b>
 	<ul>
@@ -147,6 +147,7 @@
 			<li>{{cons}}</li>
 		</div>
 	</ul>
+	<u><textarea name="e_consultText">{{e_consultText}}</textarea></u></li>
 	
 	<li><b>Больничный лист: </b>
 	<select name="e_hospList" value="{{e_hospList}}">
@@ -206,7 +207,7 @@ $("#form-027u select[multiple]").each(function(){
 #form-027u table tr:first-child td:first-child {border-bottom:1px #000 solid;}
 #form-027u h2 {text-align:center; font-size:18px;}
 #form-027u h2 * {font-size:18px;}
-#form-027u a.del_fld {position:absolute; margin-left: -25px; margin-top: 30px;;}
+#form-027u a.del_fld {position:absolute; margin-left: -25px; margin-top: 0px;;}
 #form-027u select[multiple] {display:block; height: auto;}
 }
 
