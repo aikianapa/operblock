@@ -34,7 +34,23 @@
 		<li><p><b>Код стандарта:</b> <u><input name="e_code1" class="small"></u> <b>Шифр по МКБ-10:</b> <u><input name="e_code2" class="small"></u></p></li>
 		<li><b>Жалобы:</b><br><u><textarea name="e_complaint1">{{e_complaint1}}</textarea></u> </li>
 		<li><b>An.morbi:</b><br><u><textarea name="e_anamnez1">{{e_anamnez1}}</textarea></u> </li>
-		<li><b>Состояние при поступлении:</b><br><u><textarea name="e_stateIn">{{e_stateIn}}</textarea></u> </li>
+		<li><b>Состояние при поступлении:</b><br><u><textarea name="e_stateIn">{{e_stateIn}}</textarea></u></li>
+		
+		<li><b>Дыхание:</b>
+			<ul class="inline">
+				<li><u>{{e_pulm_in}}</u></li>
+				<li><b>ЧДД:</b> <u>{{e_pulmFreq_in}}</u></li>
+			</ul>
+		</li>
+		
+		<li><b>Сердце:</b>
+			<ul class="inline">
+			<li><b>Тоны сердца:</b> <u>{{e_corTone_in}}</u></li>
+			<li><u>{{e_corFreq}}</u></li>
+			<li><b>АД:</b> <u>{{e_corPress_in}}</u></li>
+			</ul>
+		</li>	
+		
 		<li><b>Течение заболевания в стационаре:</b><br><u><textarea name="e_stationar">{{e_stationar}}</textarea></u> </li>
 		
 		<li><b>Терапия: </b>

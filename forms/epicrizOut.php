@@ -199,7 +199,7 @@ function fields_msk36($event_id,$orgstr="") {
 	$first_osmotr1=getAction($action_id);
 	$first_osmotr1=$first_osmotr1["data"]["fields"];
 	$f=array(); // $f[""]="";
-
+print_r($first_osmotr1);
 	switch($tpl) {
 		case "Cord":
 		// =========== Кордиология ===========
@@ -214,6 +214,11 @@ function fields_msk36($event_id,$orgstr="") {
 			$f["e_diag_fon"]=$first_osmotr1["Фон:"]["value"];
 			$f["e_diag_comp"]=$first_osmotr1["Осложнения:"]["value"];
 			$f["e_diag_satt"]=$first_osmotr1["Сопутствующий:"]["value"];
+			$f["e_pulm_in"]=$first_osmotr1["Дыхание через нос"]["value"];
+			$f["e_pulmFreq_in"]=$first_osmotr1["ЧДД"]["value"];
+			$f["e_corTone_in"]=$first_osmotr1["Тоны сердца"]["value"];
+			$f["e_corPress_in"]=$first_osmotr1["АД"]["value"];
+			$f["e_corFreq_in"]=field_multi($first_osmotr1["ЧСС , Пульс, Дефицит пульса"]["value"]);
 			break;
 		case "Nevr":
 		// =========== Неврология ============
@@ -237,6 +242,18 @@ function fields_msk36($event_id,$orgstr="") {
 			break;
 	}
 	return $f;
+}
+
+function field_multi($value) {
+	$arr=explode(" ",$value);
+	$ret=array();
+	foreach($arr as $key => $line) {
+		$line=explode("=",$line);
+		$line[0]=trim($line[0]); $line[1]=trim($line[1]);
+		$line[0]=str_replace(":","",$line[0]);
+		if ($line[1]>"") $ret[]="<b>{$line[0]}:</b> {$line[1]}";
+	}
+	return implode($ret,", ");
 }
 
 function epicLabPrep($event_id,$name) {
