@@ -199,7 +199,6 @@ function fields_msk36($event_id,$orgstr="") {
 	$first_osmotr1=getAction($action_id);
 	$first_osmotr1=$first_osmotr1["data"]["fields"];
 	$f=array(); // $f[""]="";
-print_r($first_osmotr1);
 	switch($tpl) {
 		case "Cord":
 		// =========== Кордиология ===========

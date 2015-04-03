@@ -13,7 +13,6 @@
 <br>
 <h2>ВЫПИСНОЙ  ЭПИКРИЗ ИЗ  ИСТОРИИ  БОЛЕЗНИ    № {{externalId}}</h2>
 <br />
-
 		<ul class="fields">
 		<li><b>Пациент:</b> <u>{{client}}</u></li>
 		<li><b>Возраст:</b> <u>полных лет - {{age}}, дата рождения - {{bDate}}</u></li>
@@ -175,7 +174,7 @@
 		<b>ШКГ:</b> <input name="e_nervShkg" class="small"> б.&nbsp;
 		<b>NIHSS:</b> <input name="e_nervNihss" class="small"> б.&nbsp;
 		<b>Ранкин:</b> <input name="e_nervRankin" class="small"> б.&nbsp;
-		<b>Ривертед:</b> <input name="e_nervRiverted" class="small"> б.&nbsp;
+		<b>Ривермет:</b> <input name="e_nervRiverted" class="small"> б.&nbsp;
 		</li>
 		<li>
 		<b>Речевому контакту: </b>
