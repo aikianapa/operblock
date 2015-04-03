@@ -240,7 +240,7 @@ function epicLabPrep($event_id,$name) {
 	$labHistory=$actionHistory["data"][1];
 	$res=array();
 	$present=array();
-	$exclude=array("Дата Назначения","Номерок","Направлен");
+	$exclude=array("1","Дата Назначения","Номерок","Направлен","Описание:","Дата и время Выполнения");
 	foreach($labHistory as $key => $labline) {
 		foreach($labline as $key =>$line) {		if ($line["status"]==2) {
 			if (!in_array($line["name"],$present)) {
@@ -248,10 +248,17 @@ function epicLabPrep($event_id,$name) {
 				$action=getAction($line["actionId"],$event_id); 
 				$actionType_id=$action["data"]["actionType_id"];
 				if (checkActionTypeParrent($actionType_id,$name)) {
+					print_r($action);
+					$time=date("d/m/Y h:i",strtotime($action["data"]["endDate"]));
 					$action=$action["data"]["fields"];
 					$info=array();
+					$info[]="<b>Дата выполнения:</b> {$time}";
 					foreach($action as $key => $val) {
-						if (!in_array($key,$exclude) AND $val>"") {$info[]="<b>{$key}</b>: {$val["value"]}";}
+						if (!in_array($key,$exclude) AND $val>"") {
+							if (substr($key,-1)==":") {$name=$key;} else {$name=$key.":";}
+							if (is_array($val)) {$value=$val["value"];} else {$value=$val;}
+							$info[]="<b>{$name}</b> {$value}";
+						}
 					}
 					$res[]["lab"]="<b>".$line["name"]."</b><br>".implode(", ",$info);
 				}
