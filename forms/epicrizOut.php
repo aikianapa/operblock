@@ -5,10 +5,9 @@ $_SESSION["allow"]=array("Врач");
 function epicrizOut_edit($form,$mode,$id,$datatype) {
 	parse_str($_SERVER["REQUEST_URI"]);
 	$tpl=array();
-	$tpl[]=array("epicrizOutCord_edit",array("КО (ОНК) РСЦ","2 КО РСЦ"),"Cord");
-	$tpl[]=array("epicrizOut_edit",array("1 НО ОНМК РСЦ"),"Nevr");
+	$tpl[]=array(array("КО (ОНК) РСЦ","2 КО РСЦ"),"Cord",$type);
+	$tpl[]=array(array("1 НО ОНМК РСЦ"),"Nevr",$type);
 	$_SESSION["epic_tpl"]=$tpl;
-
 
 if ($id!="_new" AND $id!="") {
 	$action=getEpicrizOut($id);
@@ -47,6 +46,7 @@ $event=mysqlReadItem("Event",$id);
 	$client=getClientInfo($event["client_id"]);
 	$organisation=mysqlReadItem("Organisation",$person["org_id"]);
 	$orgstructure=mysqlReadItem("OrgStructure",$doctor["orgStructure_id"]);
+	$Item["dateShort"]=date("d.m.y");
 	$Item["OrgStrCode"]=$orgstructure["code"];
 	$Item["externalId"]=$event["externalId"];
 	$Item["OrgName"]=$organisation["title"];
@@ -68,7 +68,7 @@ $event=mysqlReadItem("Event",$id);
 //	$Item["diag_main"]=$Diag["main"]["MKB"]." ".$Diag["main"]["DiagName"];
 //	$Item["diag_satt"]=$Diag["satt"]["MKB"]." ".$Diag["satt"]["DiagName"];
 //	$Item["diag_tera"]=$Diag["terapevt"]["MKB"]." ".$Diag["terapevt"]["DiagName"];
-	if ($client["sex"]=="мужской") {$Item["suffix1"]="ся";$Item["suffix2"]="";} else {$Item["suffix1"]="ась";$Item["suffix2"]="а";}
+	if ($client["sex"]=="мужской") {$Item["suffix1"]="ся";$Item["suffix2"]="";$Item["suffix3"]="";} else {$Item["suffix1"]="ась";$Item["suffix2"]="а";$Item["suffix3"]="ка";}
 	$Item["age"]=$client["age"];
 	$Item["a_date1"]=$Item["a_date2"]=$Item["s_date1"]=$Item["s_date2"]="";
 	$Item["s_date1"]=getRusDate($event["setDate"])."г.";
@@ -91,12 +91,12 @@ if ($_SESSION["settings"]["appId"]=="msk36") {
 // ========= привязываем шаблоны к кодам отделений =========	
 // =========================================================
 	foreach($tpl as $key => $arr) {
-		if (in_array($Item["OrgStrCode"],$arr[1])) {
-			$out=phpQuery::newDocumentFile($_SERVER['DOCUMENT_ROOT']."/forms/msk36/".$arr[0].".php");
+		if (in_array($Item["OrgStrCode"],$arr[0])) {
+			$out=phpQuery::newDocumentFile($_SERVER['DOCUMENT_ROOT']."/forms/msk36/epicriz_".$arr[1]."_".$arr[2].".php");
 		}
 	}
-// ========= поумолчанию эпикриз кордиологов =========	
-if ($out=="") {$out=phpQuery::newDocumentFile($_SERVER['DOCUMENT_ROOT']."/forms/msk36/epicrizOutCord_edit.php");}
+// ========= по-умолчанию простой эпикриз =========	
+if ($out=="") {$out=phpQuery::newDocumentFile($_SERVER['DOCUMENT_ROOT']."/forms/epicrizOut_edit.php");}
 // =========================================================
 } else {$out=formGetForm($form,$mode);}
 
@@ -220,6 +220,7 @@ function fields_msk36($event_id,$orgstr="") {
 			$f["e_corFreq_in"]=field_multi($first_osmotr1["ЧСС , Пульс, Дефицит пульса"]["value"]);
 			break;
 		case "Nevr":
+		print_r($first_osmotr1);
 		// =========== Неврология ============
 			$f["e_complaint1"]=$first_osmotr1["Жалобы при поступлении:"]["value"];
 			$f["e_complaint2"]="";
