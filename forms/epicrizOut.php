@@ -107,7 +107,7 @@ if ($out=="") {$out=phpQuery::newDocumentFile($_SERVER['DOCUMENT_ROOT']."/forms/
 
 
 if ($_SESSION["epic_atid"]=="") { 
-	pq($out)->find("form")->html("Необходимо создать ActionType: {$name}"); 
+	pq($out)->find("form")->html("Необходимо создать ActionType - {$name}"); 
 }
 pq($out)->find("form")->prepend("<input type='hidden' name='actionType_id' value='{$_SESSION["epic_atid"]}'>");
 
