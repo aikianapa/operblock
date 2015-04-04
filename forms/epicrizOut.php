@@ -8,8 +8,13 @@ function epicrizOut_edit($form,$mode,$id,$datatype) {
 	$tpl[]=array(array("КО (ОНК) РСЦ","2 КО РСЦ"),"Cord",$type);
 	$tpl[]=array(array("1 НО ОНМК РСЦ"),"Nevr",$type);
 	$_SESSION["epic_tpl"]=$tpl;
-
-if ($id!="_new" AND $id!="") {
+	switch($type) {
+		case "out":		$name="DoctorRoom: Выписной эпикриз"; break;
+		case "etap":	$name="DoctorRoom: Этапный эпикриз"; break;
+		case "move":	$name="DoctorRoom: Переводной эпикриз"; break;
+	}
+	$_SESSION["epic_atid"]=getActionTypeByName($name);
+if ($id!="_new" AND $id!="" AND $_SESSION["epic_atid"]>"") {
 	$action=getEpicrizOut($id);
 	if (isset($action["id"])) {
 		$Item=array_merge($Item,$action);
@@ -100,6 +105,12 @@ if ($out=="") {$out=phpQuery::newDocumentFile($_SERVER['DOCUMENT_ROOT']."/forms/
 // =========================================================
 } else {$out=formGetForm($form,$mode);}
 
+
+if ($_SESSION["epic_atid"]=="") { 
+	pq($out)->find("form")->html("Необходимо создать ActionType: {$name}"); 
+}
+pq($out)->find("form")->prepend("<input type='hidden' name='actionType_id' value='{$_SESSION["epic_atid"]}'>");
+
 foreach(pq($out)->find("input,select,textarea") as $inp) {
 	if (!isset($Item[pq($inp)->attr("name")])) {$Item[pq($inp)->attr("name")]="";}
 }
@@ -131,9 +142,7 @@ return $out;
 }
 
 function getEpicrizOut($event_id) {
-	$action=array();
-	$actionType_id=getActionTypeByName("DoctorRoom: Выписной эпикриз");
-	if($actionType_id=="") { echo "Необходимо создать ActionType 'DoctorRoom: Выписной эпикриз'"; } else {
+	$actionType_id=$_SESSION["epic_atid"];
 	$SQL="SELECT * FROM Action AS a 
 	WHERE a.actionType_id = ".$actionType_id." 
 	AND a.deleted = 0 
@@ -142,7 +151,6 @@ function getEpicrizOut($event_id) {
 	$res=mysql_query($SQL) or die ("Query failed getEpicrizOut(): " . mysql_error());
 	while($data = mysql_fetch_array($res)) {
 		$action=getActionInfo($data[0]);
-	}
 	}
 	return $action;
 }

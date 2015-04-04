@@ -212,7 +212,8 @@ if ($_POST["action_id"]=="_new") {
 	$action=array(); $_action=array();
 	$action["id"]=$_POST["action_id"];
 	$action["id"]=$_POST["id"]=$_POST["action_id"];
-	$action["actionType_id"]=getActionTypeByName("DoctorRoom: Выписной эпикриз");
+	//$action["actionType_id"]=getActionTypeByName("DoctorRoom: Выписной эпикриз");
+	$action["actionType_id"]=$_POST["actionType_id"];
 	$action["event_id"]=$_POST["event_id"];
 	$action["setPerson_id"]=$_POST["setPerson_id"]=$_POST["person_id"];
 	$action["createPerson_id"]=$action["modifyPerson_id"]=$_POST["person_id"];
