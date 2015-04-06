@@ -247,9 +247,8 @@ function fields_msk36($event_id,$orgstr="") {
 			$f["e_diag_comp"]=$first_osmotr1["Осложнения:"]["value"];
 			$f["e_diag_satt"]=$first_osmotr1["Сопутствующий:"]["value"];
 			//===========
-			$f["e_diag_main"]=$Diag["main"]["DiagName"];
-			$f["e_diag_satt"]=$Diag["satt"]["DiagName"];
-
+			$f["work"]=$first_osmotr1["Место работы:"]["value"];
+			$f["address"]=$first_osmotr1["Адрес:"]["value"];
 			break;
 	}
 	return $f;
