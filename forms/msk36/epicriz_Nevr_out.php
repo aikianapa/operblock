@@ -20,7 +20,7 @@
 		<li><b>Адрес:</b> <u>{{address}}</u></li>
 		<li><b>Дата поступления <u>{{s_date1}}</u></li>
 		<li><b>Находил{{suffix1}} на стационарном лечении в ГБУЗ "Городская клиническая больница №36" ДЗ г.Москвы с <u>{{s_date1}}</u> по 
-		<u><input type="text" class="medium" name="s_date2" value="{{s_date2}}"></u></b>
+		<u><input type="text" class="medium" name="endDate" value="{{s_date2}}"></u></b>
 		<ul>
 			<div data-role="foreach" from="moving">
 			<li>{{31}} - {{14}}</li>
@@ -621,7 +621,6 @@
 $("#form-027u select[multiple]").each(function(){
 	$(this).css("height",$(this).find("option").length*18+"px");
 });
-	
 </script>
 
 <link rel="stylesheet" href="/style.css" />
@@ -647,6 +646,9 @@ $("#form-027u select[multiple]").each(function(){
 #form-027u table td {text-align:center; vertical-align:top;}
 #form-027u table td:first-child {border-right:1px #000 solid;}
 #form-027u table tr:first-child td:first-child {border-bottom:1px #000 solid;}
+#form-027u table tr { border: 1px #555 solid;}
+#form-027u table tr th { text-align:center; background-color: #bbb;}
+#form-027u table tr td { text-align:left;}
 #form-027u h2 {text-align:center; font-size:18px;}
 #form-027u h2 * {font-size:18px;}
 #form-027u a.del_fld {position:absolute; margin-left: -25px; margin-top: 0px;;}
@@ -675,6 +677,9 @@ body {display:none;}
 #form-027u table td {text-align:center; vertical-align:top;}
 #form-027u table td:first-child {border-right:1px #000 solid;}
 #form-027u table tr:first-child td:first-child {border-bottom:1px #000 solid;}
+#form-027u table tr { border: 1px #555 solid;}
+#form-027u table tr th { text-align:center; background-color: #bbb;}
+#form-027u table tr td { text-align:left;}
 #form-027u h2 {text-align:center; font-size:18px;}
 #form-027u h2 * {font-size:18px;}
 #form-027u a.del_fld {display:none;}

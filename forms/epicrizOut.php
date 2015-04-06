@@ -35,8 +35,8 @@ if ($id!="_new" AND $id!="" AND $_SESSION["epic_atid"]>"") {
 	}
 
 if ($_SESSION["settings"]["appId"]=="msk36") {
-	$flds=array("e_pulm_in","e_pulmFreq_in","e_corTone_in","e_corFreq","e_corPress_in");
-	foreach($flds as $key =>$fld) {$Item[$fld]="";}
+	$flds=array("e_pulm_in","e_pulmFreq_in","e_corTone_in","e_corFreq","e_corPress_in","a_date1","a_date2","s_date1","s_date2");
+	foreach($flds as $key =>$fld) {if (!isset($Item[$fld])) {$Item[$fld]="";}}
 	$Item["Drugs"]=drugsPrepare(json_decode(file_get_contents($getAssignList_url."assignlist/data?event_id=".$id),true));
 	$statMoving=getStationarMovings($id);
 	$Item["moving"]=$statMoving["data"]["moving"];
@@ -77,14 +77,14 @@ $event=mysqlReadItem("Event",$id);
 //	$Item["diag_tera"]=$Diag["terapevt"]["MKB"]." ".$Diag["terapevt"]["DiagName"];
 	if ($client["sex"]=="мужской") {$Item["suffix1"]="ся";$Item["suffix2"]="";$Item["suffix3"]="";} else {$Item["suffix1"]="ась";$Item["suffix2"]="а";$Item["suffix3"]="ка";}
 	$Item["age"]=$client["age"];
-	$Item["a_date1"]=$Item["a_date2"]=$Item["s_date1"]=$Item["s_date2"]="";
+
 	$Item["s_date1"]=getRusDate($event["setDate"])."г.";
-	if ($event["execDate"]>"") {
-		$Item["s_date2"]=getRusDate($event["execDate"])."г.";
+	if ($action["endDate"]>"") {
+		$Item["s_date2"]=getRusDate($action["endDate"])."г.";
 	} else {
 		$Item["s_date2"]=getRusDate(date("Y-m-d"))."г.";
 	}
-	
+
 	$Item["orgStrBoss"]=getPersonInfo($orgstructure["chief_id"]); $Item["orgStrBoss"]=$Item["orgStrBoss"]["personShort"];
 	if ($_SESSION["settings"]["appId"]=="msk36") {
 		if ($Item["action_id"]=="_new") {
@@ -273,6 +273,7 @@ function epicLabPrep($event_id,$name) {
 	$res=array();
 	$present=array();
 	$exclude=array("1","Дата Назначения","Номерок","Направлен","Описание:","Дата и время Выполнения");
+/*
 	foreach($labHistory as $key => $labline) {
 		foreach($labline as $key =>$line) {		if ($line["status"]==2) {
 			if (!in_array($line["name"],$present)) {
@@ -296,6 +297,32 @@ function epicLabPrep($event_id,$name) {
 			}
 		}}
 	}
+*/
+	foreach($labHistory as $key => $labline) {
+		foreach($labline as $key =>$line) {		if ($line["status"]==2) {
+			if (!in_array($line["name"],$present)) {
+				$present[]=$line["name"];
+				$action=getAction($line["actionId"],$event_id); 
+				$actionType_id=$action["data"]["actionType_id"];
+				if (checkActionTypeParrent($actionType_id,$name)) {
+					$time=date("d/m/Y h:i",strtotime($action["data"]["endDate"]));
+					$action=$action["data"]["fields"];
+					$doc=phpQuery::newDocument("<table></table>");
+					pq($doc)->find("table")->prepend("<tr><th>{$time}</th><th>{$line["name"]}</th></tr>");
+					foreach($action as $key => $val) {
+						if (!in_array($key,$exclude) AND $val>"") {
+							if (substr($key,-1)==":") {$name=$key;} else {$name=$key.":";}
+							if (is_array($val)) {$value=$val["value"];} else {$value=$val;}
+							$info[]="<b>{$name}</b> {$value}";
+							pq($doc)->find("table")->append("<tr><td>{$name}</td><td>{$value}</td></tr>");
+						}
+					}
+					$res[]["lab"]=pq($doc)->htmlOuter();
+				}
+			}
+		}}
+	}
+
 	return $res;
 }
 

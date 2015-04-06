@@ -212,7 +212,6 @@ if ($_POST["action_id"]=="_new") {
 	$action=array(); $_action=array();
 	$action["id"]=$_POST["action_id"];
 	$action["id"]=$_POST["id"]=$_POST["action_id"];
-	//$action["actionType_id"]=getActionTypeByName("DoctorRoom: Выписной эпикриз");
 	$action["actionType_id"]=$_POST["actionType_id"];
 	$action["event_id"]=$_POST["event_id"];
 	$action["setPerson_id"]=$_POST["setPerson_id"]=$_POST["person_id"];
@@ -226,6 +225,7 @@ if ($_POST["action_id"]=="_new") {
 	$action=mysqlReadItem("Action",$_POST["action_id"]);
 	$_action=jdbReadItem("Action",$_POST["action_id"]);
 }
+$action["endDate"]=setRusDate($_POST["endDate"]);
 $epic=array();
 foreach($_POST["fld"] as $key => $val) {
 	$epic[$key]["fld"]=$val;

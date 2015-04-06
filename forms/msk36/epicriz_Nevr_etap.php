@@ -608,10 +608,11 @@ $("#form-027u select[multiple]").each(function(){
 <style>
 @media screen {
 #form-027u {margin-left:15px;}
-#form-027u * { color: #000;}
+#form-027u * {color: #000;}
 #form-027u ul li {list-style-type: none;}
-#form-027u input {width:95%; padding: 3px; text-decoration:underline; font-style: italic;}
+#form-027u input {width:95%; padding: 1px; text-decoration:underline; font-style: italic;}
 #form-027u input.small {width:100px;}
+#form-027u input.medium {width:200px;}
 #form-027u input.addinf {width:200px; display:none;}
 #form-027u textarea {width:95%; resize:none; text-decoration:underline; font-style: italic; padding: 3px;}
 #form-027u textarea.current, #form-027u input.current {border: 1px solid #000;}
@@ -626,6 +627,9 @@ $("#form-027u select[multiple]").each(function(){
 #form-027u table td {text-align:center; vertical-align:top;}
 #form-027u table td:first-child {border-right:1px #000 solid;}
 #form-027u table tr:first-child td:first-child {border-bottom:1px #000 solid;}
+#form-027u table tr { border: 1px #555 solid;}
+#form-027u table tr th { text-align:center; background-color: #bbb;}
+#form-027u table tr td { text-align:left;}
 #form-027u h2 {text-align:center; font-size:18px;}
 #form-027u h2 * {font-size:18px;}
 #form-027u a.del_fld {position:absolute; margin-left: -25px; margin-top: 0px;;}
@@ -640,6 +644,7 @@ body {display:none;}
 #form-027u input {width:99%; text-decoration:underline; font-style: italic; border:0; color: #000;}
 #form-027u input[name=toOrg] {border-bottom: 1px #000 solid; text-align:center;}
 #form-027u input.small {width:100px;}
+#form-027u input.medium {width:200px;}
 #form-027u input.addinf {width:auto; height:auto; display:none;}
 #form-027u textarea {width:99%; resize:none; text-decoration:underline; font-style: italic; border:0; display:none;}
 #form-027u select {border:0; -webkit-appearance: none; text-decoration:underline; font-style: italic; color: #000;}
@@ -653,9 +658,13 @@ body {display:none;}
 #form-027u table td {text-align:center; vertical-align:top;}
 #form-027u table td:first-child {border-right:1px #000 solid;}
 #form-027u table tr:first-child td:first-child {border-bottom:1px #000 solid;}
+#form-027u table tr { border: 1px #555 solid;}
+#form-027u table tr th { text-align:center; background-color: #bbb;}
+#form-027u table tr td { text-align:left;}
 #form-027u h2 {text-align:center; font-size:18px;}
 #form-027u h2 * {font-size:18px;}
 #form-027u a.del_fld {display:none;}
 #form-027u span {text-decoration:underline; font-style: italic;}
 }
 </style>
+

@@ -175,6 +175,21 @@ function getRusDate($date) {
 	return $date;
 }
 
+function setRusDate($str) {
+	$str=trim($str);
+	$mon=array("","января","февраля","марта","апреля","мая","июня","июля","августа","сентября","октября","ноября","декабря");
+	$str=explode(" ",$str);
+	$str[0]=str_replace("«","",$str[0]);
+	$str[0]=str_replace("»","",$str[0]);
+	$str[0]=str_replace("'","",$str[0]);
+	$str[0]=str_replace('"',"",$str[0]);
+	$str[0]=0+$str[0];
+	$str[1]=array_search($str[1],$mon);
+	$str[2]=0+$str[2];
+	$date=date("Y-m-d",strtotime($str[2]."-".$str[1]."-".$str[0]));
+	return $date;
+}
+
 function dmyDate($date) {
 	$date=date("d.m.y",strtotime($date));
 	return $date;

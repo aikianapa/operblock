@@ -222,6 +222,9 @@ $("#form-027u select[multiple]").each(function(){
 #form-027u table td {text-align:center; vertical-align:top;}
 #form-027u table td:first-child {border-right:1px #000 solid;}
 #form-027u table tr:first-child td:first-child {border-bottom:1px #000 solid;}
+#form-027u table tr { border: 1px #555 solid;}
+#form-027u table tr th { text-align:center; background-color: #bbb;}
+#form-027u table tr td { text-align:left;}
 #form-027u h2 {text-align:center; font-size:18px;}
 #form-027u h2 * {font-size:18px;}
 #form-027u a.del_fld {position:absolute; margin-left: -25px; margin-top: 0px;;}
@@ -250,9 +253,13 @@ body {display:none;}
 #form-027u table td {text-align:center; vertical-align:top;}
 #form-027u table td:first-child {border-right:1px #000 solid;}
 #form-027u table tr:first-child td:first-child {border-bottom:1px #000 solid;}
+#form-027u table tr { border: 1px #555 solid;}
+#form-027u table tr th { text-align:center; background-color: #bbb;}
+#form-027u table tr td { text-align:left;}
 #form-027u h2 {text-align:center; font-size:18px;}
 #form-027u h2 * {font-size:18px;}
 #form-027u a.del_fld {display:none;}
 #form-027u span {text-decoration:underline; font-style: italic;}
 }
 </style>
+
