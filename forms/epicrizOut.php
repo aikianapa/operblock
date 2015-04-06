@@ -35,6 +35,8 @@ if ($id!="_new" AND $id!="" AND $_SESSION["epic_atid"]>"") {
 	}
 
 if ($_SESSION["settings"]["appId"]=="msk36") {
+	$flds=array("e_pulm_in","e_pulmFreq_in","e_corTone_in","e_corFreq","e_corPress_in");
+	foreach($flds as $key =>$fld) {$Item[$fld]="";}
 	$Item["Drugs"]=drugsPrepare(json_decode(file_get_contents($getAssignList_url."assignlist/data?event_id=".$id),true));
 	$statMoving=getStationarMovings($id);
 	$Item["moving"]=$statMoving["data"]["moving"];
@@ -168,7 +170,8 @@ function drugsPrepare($data) {
 			$name=explode(";",$line[5]);
 			$qnt=explode(";",$line[6]);
 			$unit=explode(";",$line[7]);
-			$complex[]=$date." ".$line[3];
+			//$complex[]=$date." ".$line[3];
+			$complex[]="";
 			foreach($name as $key => $drug) {
 				//$complex[]=$drug." (".$qnt[$key]." ".$unit[$key]." ".$line[8].")" ;
 				$complex[]=$drug;
@@ -176,7 +179,7 @@ function drugsPrepare($data) {
 			$array[]["drugs"]=implode("<br>",$complex);
 		} else {
 			//$array[]["drugs"]=$date." ".$line[3]."<br>".$line[5]." (".$line[6]." ".$line[7]." ".$line[8].")";
-			$array[]["drugs"]=$date." ".$line[3]." ".$line[5];
+			$array[]["drugs"]=$line[5];
 		}
 		}
 	}
@@ -186,7 +189,7 @@ function drugsPrepare($data) {
 function fields_msk36($event_id,$orgstr="") {
 	$tpl="";
 	foreach($_SESSION["epic_tpl"] as $key => $arr) {
-		if (in_array($orgstr,$arr[1])) {	$tpl=$arr[2];	}
+		if (in_array($orgstr,$arr[0])) {	$tpl=$arr[1];	}
 	}
 	
 	$event=mysqlReadItem("Event",$event_id);
@@ -197,7 +200,8 @@ function fields_msk36($event_id,$orgstr="") {
 	WHERE e.id = {$event_id} 
 	AND (a.setPerson_id = e.execPerson_id OR a.person_id = e.execPerson_id )
 	AND a.deleted = 0 
-	AND t.name LIKE '%осмотр%' LIMIT 1 ";
+	AND t.name LIKE '%осмотр%' 
+	ORDER BY endDate LIMIT 1";
 
 	$res=mysql_query($SQL) or die ("Query failed fields_msk36(): [1]" . mysql_error());
 	while($data = mysql_fetch_array($res)) {
@@ -228,7 +232,6 @@ function fields_msk36($event_id,$orgstr="") {
 			$f["e_corFreq_in"]=field_multi($first_osmotr1["ЧСС , Пульс, Дефицит пульса"]["value"]);
 			break;
 		case "Nevr":
-		print_r($first_osmotr1);
 		// =========== Неврология ============
 			$f["e_complaint1"]=$first_osmotr1["Жалобы при поступлении:"]["value"];
 			$f["e_complaint2"]="";
