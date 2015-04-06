@@ -84,7 +84,8 @@ $event=mysqlReadItem("Event",$id);
 	} else {
 		$Item["s_date2"]=getRusDate(date("Y-m-d"))."г.";
 	}
-	$Item["orgStrBoss"]=json_decode(getOrgStrBossName(),true); $Item["orgStrBoss"]=$Item["orgStrBoss"]["shortName"];
+	
+	$Item["orgStrBoss"]=getPersonInfo($orgstructure["chief_id"]); $Item["orgStrBoss"]=$Item["orgStrBoss"]["personShort"];
 	if ($_SESSION["settings"]["appId"]=="msk36") {
 		if ($Item["action_id"]=="_new") {
 			$Item=array_merge($Item,fields_msk36($id,$Item["OrgStrCode"]));
