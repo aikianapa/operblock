@@ -210,7 +210,6 @@ function fields_msk36($event_id,$orgstr="") {
 		$first_osmotr=getActionProperties($data[0],"");
 	}
 	$first_osmotr1=getAction($action_id);
-	print_r($first_osmotr1);
 	$first_osmotr1=$first_osmotr1["data"]["fields"];
 	$f=array(); // $f[""]="";
 	switch($tpl) {
@@ -218,6 +217,7 @@ function fields_msk36($event_id,$orgstr="") {
 		// =========== Кордиология ===========
 			$f["e_complaint1"]=$first_osmotr1["Жалобы при поступлении:"]["value"];
 			$f["e_complaint2"]="";
+			$f["e_code1"]=$first_osmotr1["МЭС:"]["value"];
 			$f["e_anamnez1"]=$first_osmotr1["Anamnesis morbi"]["value"];
 			$f["e_anamnez2"]=$first_osmotr["fld_11"];
 			$f["e_anamnez3"]=$first_osmotr1["Аллергологический анамнез:"]["value"];
@@ -237,6 +237,7 @@ function fields_msk36($event_id,$orgstr="") {
 		// =========== Неврология ============
 			$f["e_complaint1"]=$first_osmotr1["Жалобы при поступлении:"]["value"];
 			$f["e_complaint2"]="";
+			$f["e_code1"]=$first_osmotr1["МЭС:"]["value"];
 			$f["e_anamnez1"]=$first_osmotr1["Анамнез заболевания:"]["value"];
 			$f["e_anamnez2"]=$first_osmotr1["Анамнез жизни:"]["value"];
 			$f["e_anamnez3"]=$first_osmotr1["Аллергоанамнез:"]["value"];
@@ -269,6 +270,7 @@ function field_multi($value) {
 }
 
 function epicLabPrep($event_id,$name) {
+	$aType=$name;
 	$actionHistory=getActionsHistory($event_id);
 	$labHistory=$actionHistory["data"][1];
 	$res=array();
@@ -309,18 +311,26 @@ function epicLabPrep($event_id,$name) {
 					$time=date("d/m/Y h:i",strtotime($action["data"]["endDate"]));
 					$action=$action["data"]["fields"];
 					$doc=phpQuery::newDocument("<table></table>");
-					pq($doc)->find("table")->prepend("<tr><th>{$time}</th><th>{$line["name"]}</th><th>Ед.изм.</th></tr>");
+					pq($doc)->find("table")->prepend("<tr><th colspan='2'>{$time} {$line["name"]}</th><th>Норма</th><th>Ед.изм.</th></tr>");
 					foreach($action as $key => $val) {
 						if (!in_array($key,$exclude) AND $val>"") {
 							if (substr($key,-1)==":") {$name=$key;} else {$name=$key.":";}
 							if (is_array($val)) {
 								$value=$val["value"]; 
 								$unit=$val["unit"];
+								$norm=$val["norm"];
 							} else {$value=$val; $unit="";}
 							$info[]="<b>{$name}</b> {$value}";
-							pq($doc)->find("table")->append("<tr><td>{$name}</td><td>{$value}</td><td> {$unit}</td></tr>");
+							pq($doc)->find("table")->append("<tr><td>{$name}</td><td>{$value}</td><td>{$norm}</td><td>{$unit}</td></tr>");
 						}
 					}
+					if ($aType!="Лабораторные исследования") {
+						foreach(pq($doc)->find("table")->find("tr") as $tab) {
+							pq($tab)->find("td:eq(2),td:eq(3)")->remove();
+							pq($tab)->find("th:eq(1),th:eq(2)")->remove();
+						}
+					}
+					
 					$res[]["lab"]=pq($doc)->htmlOuter();
 				}
 			}
