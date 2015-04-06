@@ -12,7 +12,7 @@
 {{orgStr}}<br /></p>
 <hr />
 <p style="text-align:center;">
-{{OrgAddr}}                                                   тел. +7 (499) 369-34-75</b>
+{{OrgAddr}}                                                   тел. +7 {{OrgPhone}}</b>
 <br />
 <h2>ВЫПИСНОЙ  ЭПИКРИЗ ИЗ  ИСТОРИИ  БОЛЕЗНИ    № {{externalId}}</h2>
 </p>

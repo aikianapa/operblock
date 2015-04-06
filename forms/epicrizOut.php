@@ -210,6 +210,7 @@ function fields_msk36($event_id,$orgstr="") {
 		$first_osmotr=getActionProperties($data[0],"");
 	}
 	$first_osmotr1=getAction($action_id);
+	print_r($first_osmotr1);
 	$first_osmotr1=$first_osmotr1["data"]["fields"];
 	$f=array(); // $f[""]="";
 	switch($tpl) {
@@ -308,13 +309,16 @@ function epicLabPrep($event_id,$name) {
 					$time=date("d/m/Y h:i",strtotime($action["data"]["endDate"]));
 					$action=$action["data"]["fields"];
 					$doc=phpQuery::newDocument("<table></table>");
-					pq($doc)->find("table")->prepend("<tr><th>{$time}</th><th>{$line["name"]}</th></tr>");
+					pq($doc)->find("table")->prepend("<tr><th>{$time}</th><th>{$line["name"]}</th><th>Ед.изм.</th></tr>");
 					foreach($action as $key => $val) {
 						if (!in_array($key,$exclude) AND $val>"") {
 							if (substr($key,-1)==":") {$name=$key;} else {$name=$key.":";}
-							if (is_array($val)) {$value=$val["value"];} else {$value=$val;}
+							if (is_array($val)) {
+								$value=$val["value"]; 
+								$unit=$val["unit"];
+							} else {$value=$val; $unit="";}
 							$info[]="<b>{$name}</b> {$value}";
-							pq($doc)->find("table")->append("<tr><td>{$name}</td><td>{$value}</td></tr>");
+							pq($doc)->find("table")->append("<tr><td>{$name}</td><td>{$value}</td><td> {$unit}</td></tr>");
 						}
 					}
 					$res[]["lab"]=pq($doc)->htmlOuter();

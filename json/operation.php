@@ -217,7 +217,6 @@ if ($_POST["action_id"]=="_new") {
 	$action["setPerson_id"]=$_POST["setPerson_id"]=$_POST["person_id"];
 	$action["createPerson_id"]=$action["modifyPerson_id"]=$_POST["person_id"];
 	$action["createDatetime"]=$action["modifyDatetime"]=date("Y-m-d H:i:s");
-	$action["status"]=0;
 	$action["begDate"]=date("Y-m-d H:i:s");
 	mysqlSaveItem("Action",$action);
 	$action["id"]=mysql_insert_id();
@@ -226,6 +225,7 @@ if ($_POST["action_id"]=="_new") {
 	$_action=jdbReadItem("Action",$_POST["action_id"]);
 }
 $action["endDate"]=setRusDate($_POST["endDate"]);
+$action["status"]=2;
 $epic=array();
 foreach($_POST["fld"] as $key => $val) {
 	$epic[$key]["fld"]=$val;

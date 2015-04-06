@@ -9,7 +9,7 @@
 <input type="hidden" name="person_id">
 <p style="text-align:center;"><b>{{OrgName}} г.Москвы<br />
 {{orgStr}}<br />
-{{OrgAddr}}                                                    тел. +7 (499) 369-34-75</b></p>
+{{OrgAddr}}                                                    тел. +7 {{OrgPhone}}</b></p>
 <br>
 <h2>ВЫПИСНОЙ  ЭПИКРИЗ ИЗ  ИСТОРИИ  БОЛЕЗНИ    № {{externalId}}</h2>
 <br />
