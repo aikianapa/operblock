@@ -269,8 +269,7 @@ function field_multi($value) {
 	return implode($ret,", ");
 }
 
-function epicLabPrep($event_id,$name) {
-	$aType=$name;
+function epicLabPrep($event_id,$aType) {
 	$actionHistory=getActionsHistory($event_id);
 	$labHistory=$actionHistory["data"][1];
 	$res=array();
@@ -307,7 +306,7 @@ function epicLabPrep($event_id,$name) {
 				$present[]=$line["name"];
 				$action=getAction($line["actionId"],$event_id); 
 				$actionType_id=$action["data"]["actionType_id"];
-				if (checkActionTypeParrent($actionType_id,$name)) {
+				if (checkActionTypeParrent($actionType_id,$aType)) {
 					$time=date("d/m/Y h:i",strtotime($action["data"]["endDate"]));
 					$action=$action["data"]["fields"];
 					$doc=phpQuery::newDocument("<table></table>");
@@ -336,7 +335,6 @@ function epicLabPrep($event_id,$name) {
 			}
 		}}
 	}
-
 	return $res;
 }
 
