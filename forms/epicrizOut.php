@@ -105,7 +105,7 @@ if ($_SESSION["settings"]["appId"]=="msk36") {
 	}
 // ========= по-умолчанию простой эпикриз =========	
 if ($out=="") {$out=phpQuery::newDocumentFile($_SERVER['DOCUMENT_ROOT']."/forms/epicrizOut_edit.php");}
-// =========================================================
+pq($out)->append("<style>".file_get_contents($_SERVER['DOCUMENT_ROOT']."/forms/msk36/epicriz.css")."</style>");
 } else {$out=formGetForm($form,$mode);}
 
 
