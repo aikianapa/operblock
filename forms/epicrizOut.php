@@ -12,6 +12,7 @@ function epicrizOut_edit($form,$mode,$id,$datatype) {
 		case "out":		$name="DoctorRoom: Выписной эпикриз"; break;
 		case "etap":	$name="DoctorRoom: Этапный эпикриз"; break;
 		case "move":	$name="DoctorRoom: Переводной эпикриз"; break;
+		default:		$name="DoctorRoom: Выписной эпикриз"; break;
 	}
 	$_SESSION["epic_atid"]=getActionTypeByName($name);
 if ($id!="_new" AND $id!="" AND $_SESSION["epic_atid"]>"") {
@@ -44,7 +45,7 @@ if ($_SESSION["settings"]["appId"]=="msk36") {
 	$Item["res"]=epicLabPrep($id,"Инструментальная диагностика");
 	$Item["cons"]=epicConsPrep($id);
 }
-	
+}	
 $event=mysqlReadItem("Event",$id);
 	$Item["execPerson_id"]=$event["execPerson_id"];
 //	$Diag=patientGetDiagnosis($id);
@@ -93,7 +94,7 @@ $event=mysqlReadItem("Event",$id);
 			$Item=array_merge(fields_msk36($id,$Item["OrgStrCode"]),$Item);
 		}
 	}
-}
+
 if ($_SESSION["settings"]["appId"]=="msk36") {
 // =========================================================	
 // ========= привязываем шаблоны к кодам отделений =========	
@@ -106,12 +107,13 @@ if ($_SESSION["settings"]["appId"]=="msk36") {
 // ========= по-умолчанию простой эпикриз =========	
 if ($out=="") {$out=phpQuery::newDocumentFile($_SERVER['DOCUMENT_ROOT']."/forms/epicrizOut_edit.php");}
 pq($out)->append("<style>".file_get_contents($_SERVER['DOCUMENT_ROOT']."/forms/msk36/epicriz.css")."</style>");
-} else {$out=formGetForm($form,$mode);}
-
-
 if ($_SESSION["epic_atid"]=="") { 
 	pq($out)->find("form")->html("Необходимо создать ActionType - {$name}"); 
 }
+} else {
+	$out=formGetForm($form,$mode);
+}
+
 pq($out)->find("form")->prepend("<input type='hidden' name='actionType_id' value='{$_SESSION["epic_atid"]}'>");
 
 foreach(pq($out)->find("input,select,textarea") as $inp) {
