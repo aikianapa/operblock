@@ -24,9 +24,9 @@ table * {font-size: 12px;}
 #oprooms .time, #tables .time {display: inline-block; color: #fff; background: #ff9797; border: 1px #777 solid; z-index: 100; border-radius: 3px; text-shadow: none; font-size: 11px; padding-left: 3px; padding-right: 3px;}
 
 .warn {padding: 3px;}
-.blood-warn-0, .blood-warn-1 {display: inline-block; width: 10px; height: 10px; text-align: center; font-size: 9px; font-weight: bold; border: 2px #b10000 solid; border-radius: 7px; margin-left:2px;}
+.blood-warn-0, .blood-warn-1 {display: inline-block; width: 10px; height: 10px; text-align: center; font-size: 9px; font-weight: bold; border: 2px #b10000 solid; border-radius: 7px; margin-left:2px; line-height:11px;}
 .blood-warn-0 {display:none;}
-.urgent-warn-0, .urgent-warn-1 {display: inline-block; width: 10px; height: 10px; text-align: center; font-size: 9px; font-weight: bold; border: 2px #b10000 solid; border-radius: 7px; margin-left:2px;}
+.urgent-warn-0, .urgent-warn-1 {display: inline-block; width: 10px; height: 10px; text-align: center; font-size: 9px; font-weight: bold; border: 2px #b10000 solid; border-radius: 7px; margin-left:2px; line-height:11px;}
 .urgent-warn-0 {display:none;}
 tr.sid {border-left:3px #b30000 solid;}
 

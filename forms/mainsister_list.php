@@ -18,7 +18,7 @@
 		<tbody>
 		<div data-role="foreach" from="result">
 		<tr aid="{{action_id}}" class="status-{{status}}"  sid="{{spisanie_ob}}" date="{{begDate}}">
-		<td>{{externalId}}</td>
+		<td>{{externalId}}<span class="urgent-warn-{{isUrgent}} ui-red">Э</span></td>
 		<td>{{client}}</td>
 		<td>{{age}}</td>
 		<td>{{begDate}}</td>
