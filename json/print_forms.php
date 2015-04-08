@@ -631,18 +631,33 @@ $action["person"]=$person["personShort"];
 $actionType_id=$parent["actionType_id"];
 $actionType=mysqlReadItem("ActionType",$actionType_id);
 $out=file_get_contents($_SERVER['DOCUMENT_ROOT']."/forms/print_$_GET[mode].php");
-$form=getActionTypeForm("Исследование биоматериала");
-$Lab=getActionPropertyFormData($Lab,$form);
-foreach($Lab as $key => $val) {$action[$key]=$val;}
-foreach($form as $key => $val) {
-	$field=array();
-	$field["label"]=$val["label"];
-	$field["value"]=$action[$val["name"]];
-	if ($field["label"]=="Отделение") {
-			$field["value"]=mysqlReadItem("OrgStructure",$field["value"]);
-			$field["value"]=$field["value"]["name"];
+foreach(morfoLab_getTypes() as $key => $atype) {
+	$SQL="SELECT * FROM Action 
+	WHERE actionType_id = {$atype["id"]}
+	AND parent_id = {$parent["id"]} ";
+	$res=mysql_query($SQL) or die ("Query failed morfoLab(): " . mysql_error());
+
+	while($data = mysql_fetch_array($res)) {
+		$field=array();
+		$SQL="SELECT a.name, a.idx, a.typeName, a.id, a.valueDomain, a.userProfile_id, b.id FROM ActionPropertyType as a
+		INNER JOIN ActionType as b ON a.actionType_id=b.id
+		WHERE b.id='{$data["actionType_id"]}'   
+		ORDER BY a.idx	";
+		$form=getActionTypeForm($SQL,$data["id"]);
+		$head=array();
+		$head["label"]="<br /><b>Локализация:</b>";	$head["value"]="<b>{$atype["name"]}</b>";
+		$action["fields"][]=$head;
+		foreach($form as $key => $val) {
+			$field=array();
+			$field["label"]=$val["label"];
+			$field["value"]=$val["value"];
+			if ($field["label"]=="Отделение") {
+					$field["value"]=mysqlReadItem("OrgStructure",$field["value"]);
+					$field["value"]=$field["value"]["name"];
+			}
+			$action["fields"][]=$field;
+		}
 	}
-	$action["fields"][]=$field;
 }
 $action["sex"]=$action["_Client"]["sex"];
 $action["actionTypeName"]=$actionType["name"];

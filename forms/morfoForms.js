@@ -148,6 +148,10 @@ function morfoRegSubmit() {
 // ==========================================
 
 // =============== morfoLab =================
+$(document).on("pageshow",function(){
+	if ($(".loc-ready li").length) {$(".loc-ready li a:first").trigger("click");}		
+});
+
 function morfoLabSubmit() {
 	$("#morfoLab a.submit").on("click",function(){
 		var formdata=$("form#morfoLab").serialize();
@@ -156,6 +160,33 @@ function morfoLabSubmit() {
 				top.postMessage('addAction', '*');
 		});
 	});
+	
+	$("#morfoLabEdit").delegate(".add-morfo-loc","click",function(){
+		$("ul.loc-list").show();
+	});
+	
+	$("#morfoLabEdit").delegate(".loc-list a, .loc-ready a","click",function(){
+		var atid=$(this).attr("value");
+		var item=$(this).attr("item");
+
+		$(".loc-list, .loc-ready").find("a").removeClass("ui-btn-active");
+		$(this).addClass("ui-btn-active");
+		$("#morfoLab div.actionProperty").html("");
+		$.get("/json/morfology.php?null=&mode=get_lab_form&atid="+atid+"&aid="+item,function(data){
+			$("#morfoLab").find("input[name=actionType_id]").val(atid);
+			$("#morfoLab").find("input[name=action_id]").val(item);
+			$("#morfoLab div.actionProperty").html(data);
+			$("#morfoLab div.actionButtons").show();
+			$("#morfoLab").enhanceWithin();
+		});
+		if ($(this).parents(".loc-ready").length) { 
+			$("ul.loc-list li a").removeClass("ui-btn-active");
+			$("ul.loc-list").hide(); 
+		}
+		if ($(this).parents(".loc-list").length) { $("ul.loc-ready li a").removeClass("ui-btn-active"); }
+	});
+	
+	
 }
 // ==========================================
 

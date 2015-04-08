@@ -183,8 +183,13 @@ function morfo_lab_submit() {
 	if ($Action["person_id"]=="" && $_SESSION["user_role"]=="Врач ЛД") {$Action["person_id"]=$_SESSION["user_id"];}
 //	if ($Action["status"]==2) {morfo_set_status($Action["parent_id"],1);} else {
 //		morfo_set_status($Action["parent_id"],$Action["status"]);
-//	}
-	$fldset=getActionTypeForm('Исследование биоматериала');
+
+	$SQL="SELECT a.name, a.idx, a.typeName, a.id, a.valueDomain, a.userProfile_id, b.id FROM ActionPropertyType as a
+	INNER JOIN ActionType as b ON a.actionType_id=b.id
+	WHERE b.id='{$_POST["actionType_id"]}'   
+	ORDER BY a.idx	";
+	$fldset=getActionTypeForm($SQL);
+	//$fldset=getActionTypeForm('Исследование биоматериала');
 	foreach($fldset as $i => $fld) {
 		$fldset[$i]["value"]=$_POST[$fld["name"]];
 		if ($fld["type"]=="JobTicket") {unset($fldset[$i]);}
@@ -206,6 +211,22 @@ function morfo_set_status($parent_id,$status=0) {
 	mysql_query($SQL) or die ("Query failed morfo_set_status() [1]: " . mysql_error());
 	$SQL="UPDATE Action SET status={$status}, modifyDatetime = '".date("Y-m-d H:i:s")."' WHERE parent_id = {$parent_id} AND ( actionType_id = {$reg} OR actionType_id = {$lab} )";
 	mysql_query($SQL) or die ("Query failed morfo_set_status() [2]: " . mysql_error());
+}
+
+function get_lab_form() {
+$SQL="SELECT a.name, a.idx, a.typeName, a.id, a.valueDomain, a.userProfile_id, b.id FROM ActionPropertyType as a
+	INNER JOIN ActionType as b ON a.actionType_id=b.id
+	WHERE b.id='{$_GET["atid"]}'   
+	ORDER BY a.idx	";
+	$fields=getActionTypeForm($SQL,$_GET["aid"]);
+	$Item["id"]=$_GET["aid"];
+	$form=phpQuery::newDocument("");
+	foreach($fields as $key => $fld) {
+		pq($form)->append("<div><label>{$fld["label"]}</label>{$fld["input"]}</div>");
+		pq($form)->find("div:last")->find("input,select")->attr("value",$fld["value"]);
+		pq($form)->find("div:last")->find("textarea")->html($fld["value"]);
+	}
+	return pq($form)->htmlOuter();
 }
 
 function morfo_actions_list() {

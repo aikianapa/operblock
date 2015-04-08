@@ -1,4 +1,14 @@
 <?
+function morfoLab_getTypes() {
+$list=array();
+$parrent=getActionTypeByCode('morfo_loc');
+if ($parrent=="") {pq($out)->find("#morfoLab")->html("<div data-role='header'><h2>Пожалуйста, создайте тип действий с кодом morfo_loc<br />и локализации в нём!</h2></div>"); }
+$SQL="SELECT * FROM ActionType WHERE group_id = '{$parrent}' ";
+$res=mysql_query($SQL) or die ("Query failed morfo_loc_list(): " . mysql_error());
+while($data = mysql_fetch_array($res)) {$list[]=$data;}
+return $list;
+}
+
 function getMorfoActions($month,$year) { 
 	// для календаря
 		$start="$year-$month-01";

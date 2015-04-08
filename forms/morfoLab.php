@@ -39,8 +39,21 @@ return $out;
 
 function morfoLab_edit($form,$mode,$id,$datatype) {
 $out=formGetForm($form,$mode);
+foreach(morfoLab_getTypes() as $key => $atype) {
+	$SQL="SELECT * FROM Action 
+	WHERE actionType_id = {$atype["id"]}
+	AND parent_id = {$id} ";
+	$res=mysql_query($SQL) or die ("Query failed morfoLab_edit(): " . mysql_error());
+	$action="";
+	while($data = mysql_fetch_array($res)) {
+		$action=$data;
+		pq($out)->find("ul.loc-ready")->append("<li><a href='#' value='{$atype["id"]}' item='{$action["id"]}'>{$atype["name"]}</a></li>");
+	}
+	if ($action=="") {pq($out)->find("ul.loc-list")->append("<li><a href='#' value='{$atype["id"]}' item='_new'>{$atype["name"]}</a></li>");}
+}
 $Item=morfoReadLabAction($id);
 $Reg=morfoReadReg($id);
+
 $num=explode("/",$Reg["fld_0"]);
 $Item["fld_12"]=$num[2];
 $out=contentSetData($out,$Item);
