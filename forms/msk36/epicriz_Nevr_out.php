@@ -30,10 +30,10 @@
 		</li>
 		<li><b>Диагноз при выписке:</b>
 			<ul>
-				<li><b>Основной:</b><br><u><textarea name="e_diag_main">{{e_diag_main}}</textarea></u> </li>
-				<li><b>Фон:</b><br><u><textarea name="e_diag_fon">{{e_diag_fon}}</textarea></u></li>
-				<li><b>Осложнения:</b><br><u><textarea name="e_diag_comp">{{e_diag_comp}}</textarea></u></li>
-				<li><b>Сопутствующий:</b><br><u><textarea name="e_diag_satt">{{e_diag_satt}}</textarea></u></li>
+				<li><b>Основное заболевание:</b><br><u><textarea name="e_diag_main">{{e_diag_main}}</textarea></u> </li>
+				<li><b>Фоновые заболевания:</b><br><u><textarea name="e_diag_fon">{{e_diag_fon}}</textarea></u></li>
+				<li><b>Осложнения основного заболевания:</b><br><u><textarea name="e_diag_comp">{{e_diag_comp}}</textarea></u></li>
+				<li><b>Сопутствующие заболевания:</b><br><u><textarea name="e_diag_satt">{{e_diag_satt}}</textarea></u></li>
 			</ul>
 		</li>
 		<li><b>Жалобы при поступлении:</b><br><u><textarea name="e_complaint1">{{e_complaint1}}</textarea></u> </li>

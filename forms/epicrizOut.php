@@ -94,7 +94,6 @@ $event=mysqlReadItem("Event",$id);
 			$Item=array_merge(fields_msk36($id,$Item["OrgStrCode"]),$Item);
 		}
 	}
-
 if ($_SESSION["settings"]["appId"]=="msk36") {
 // =========================================================	
 // ========= привязываем шаблоны к кодам отделений =========	
@@ -242,10 +241,14 @@ function fields_msk36($event_id,$orgstr="") {
 			$f["e_code1"]=$first_osmotr1["МЭС:"]["value"];
 			$f["e_anamnez1"]=$first_osmotr1["Анамнез заболевания:"]["value"];
 			$f["e_anamnez2"]=$first_osmotr1["Анамнез жизни:"]["value"];
+			$f["e_anamnez2"].=getTextFromAction($first_osmotr1,"Гипертоническая болезнь:","Травмы:");
+			$f["e_anamnez2"].=getTextFromAction($first_osmotr1,"Другие заболевания:");
 			$f["e_anamnez3"]=$first_osmotr1["Аллергоанамнез:"]["value"];
 			$f["e_anamnez4"]=$first_osmotr1["Эпид. анамнез:"]["value"];
 			$f["e_blist12"]=$first_osmotr1["Находился на больничном листе в течение последних 12 месяцев:"]["value"];
 			$f["e_stateIn"]=$first_osmotr1["Состояние при поступлении:"]["value"];
+			$DiaryLast=getDiaryLast($event_id);
+			$f["e_stateOut"]=$DiaryLast["fields"]["Состояние при осмотре:"]["value"];
 			//===========
 			$f["e_diag_main"]=$first_osmotr1["Основной:"]["value"];
 			$f["e_diag_fon"]=$first_osmotr1["Фон:"]["value"];
@@ -257,6 +260,39 @@ function fields_msk36($event_id,$orgstr="") {
 			break;
 	}
 	return $f;
+}
+
+function getDiaryLast($event_id) {
+	$atype=getActionTypeByName("Дневниковая запись врача - Невролога");
+	$action_id=""; $action=array();
+	$SQL="SELECT id FROM Action 
+	WHERE event_id = {$event_id} AND actionType_id = {$atype}  
+	AND deleted = 0  
+	ORDER BY id DESC LIMIT 1	";
+	$res=mysql_query($SQL) or die ("Query failed morfoLab(): " . mysql_error());
+	while($data = mysql_fetch_array($res)) { $action_id=$data["id"]; }
+	if ($action_id>"") {
+		$action=getAction($action_id); $action=$action["data"];
+	}
+	return $action;
+}
+
+function getTextFromAction($action,$from,$to=NULL) {
+	$text=array();
+	if (!is_array($from) AND $to==NULL) {$from=array($from);}
+	if (!is_array($from) AND !$to==NULL) {
+		$arr=array(); $flag=false;
+		foreach($action as $key => $line) {
+			if ($key==$from) {$flag=true;}
+			if ($flag==true) {$arr[]=$key;}
+			if ($key==$to) {$flag=false;}
+		}
+	} else {$arr=$from;}
+	foreach($arr as $key => $fld) {
+		$name=str_replace(":","",$fld);
+		if ($action[$fld]["value"]>"") {$text[]="{$name}: {$action[$fld]["value"]}";}
+	}
+	return "\r\n".implode(", ",$text);
 }
 
 function field_multi($value) {

@@ -25,10 +25,10 @@
 
 		<li><b>ДИАГНОЗ:</b>
 			<ul>
-				<li><b>Основной:</b><br><u><textarea name="e_diag_main">{{e_diag_main}}</textarea></u> </li>
-				<li><b>Фон:</b><br><u><textarea name="e_diag_fon">{{e_diag_fon}}</textarea></u></li>
-				<li><b>Осложнения:</b><br><u><textarea name="e_diag_comp">{{e_diag_comp}}</textarea></u></li>
-				<li><b>Сопутствующий:</b><br><u><textarea name="e_diag_satt">{{e_diag_satt}}</textarea></u></li>
+				<li><b>Основное заболевание:</b><br><u><textarea name="e_diag_main">{{e_diag_main}}</textarea></u> </li>
+				<li><b>Фоновые заболевания:</b><br><u><textarea name="e_diag_fon">{{e_diag_fon}}</textarea></u></li>
+				<li><b>Осложнения основного заболевания:</b><br><u><textarea name="e_diag_comp">{{e_diag_comp}}</textarea></u></li>
+				<li><b>Сопутствующие заболевания:</b><br><u><textarea name="e_diag_satt">{{e_diag_satt}}</textarea></u></li>
 			</ul>
 		</li>
 		<li><p><b>Код стандарта:</b> <u><input name="e_code1" class="small"></u> <b>Шифр по МКБ-10:</b> <u><input name="e_code2" class="small"></u></p></li>
@@ -38,16 +38,16 @@
 		
 		<li><b>Дыхание:</b>
 			<ul class="inline">
-				<li><u>{{e_pulm_in}}</u></li>
-				<li><b>ЧДД:</b> <u>{{e_pulmFreq_in}}</u></li>
+				<li><u><input name="e_pulm_in" class="medium"></u></li>
+				<li><b>ЧДД:</b> <u><input class="medium" name="e_pulmFreq_in"></u></li>
 			</ul>
 		</li>
 		
 		<li><b>Сердце:</b>
 			<ul class="inline">
-			<li><b>Тоны сердца:</b> <u>{{e_corTone_in}}</u></li>
-			<li><u>{{e_corFreq}}</u></li>
-			<li><b>АД:</b> <u>{{e_corPress_in}}</u></li>
+			<li><b>Тоны сердца:</b> <u><input class="medium" name="e_corTone_in"></u></li>
+			<li><b>ЧСС: </b><u><input class="medium" name="e_corFreq"></u></li>
+			<li><b>АД:</b> <u><input class="medium" name="e_corPress_in"></u></li>
 			</ul>
 		</li>	
 		
