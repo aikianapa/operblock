@@ -1,6 +1,5 @@
-
 @media screen {
-#form-027u {margin-left:15px;}
+#form-027u {margin-left:15px; display:block; width:100%;}
 #form-027u * {color: #000;}
 #form-027u ul li {list-style-type: none;}
 #form-027u input {width:95%; padding: 1px; text-decoration:underline; font-style: italic;}

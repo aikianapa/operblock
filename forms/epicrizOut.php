@@ -141,6 +141,21 @@ foreach(pq($out)->find("textarea[placeholder]") as $inp) {
 	// устанавливаем знечение placeholder для пустых текстов
 	if (pq($inp)->html()=="") {	pq($inp)->html(pq($inp)->attr("placeholder")); }
 }
+if ($mode=="print") {
+	pq($out)->html(pq($out)->find("#form-027u"));
+	pq($out)->append("<style>".file_get_contents($_SERVER['DOCUMENT_ROOT']."/forms/msk36/epicriz.css")."</style>");
+	pq($out)->find("style")->append("div {display:none;}");
+	pq($out)->find("input[type=hidden]")->remove();
+	foreach(pq($out)->find("textarea") as $inc) {
+		pq($inc)->after("<u>".pq($inc)->html()."</u>");
+		pq($inc)->remove();
+	}
+	foreach(pq($out)->find("input,select") as $inc) {
+		pq($inc)->after("<u>".pq($inc)->attr("value")."</u>");
+		pq($inc)->remove();
+
+	}
+}
 $out=ereg_replace("{{.*}}", "", $out->htmlOuter());
 return $out;
 }
