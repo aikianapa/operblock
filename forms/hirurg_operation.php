@@ -4,29 +4,22 @@
 <form id="operation">
 	<input type="hidden" name="action_id" >
 	<input type="hidden" name="person_id" >
+	<input type="hidden" name="orgStrId" >
 	<input type="hidden" name="actionType_id" >
+
+<select name="operType_id" id="operType" data-native-menu="false" data-filter="true" data-input='#operType-filter' >
+	<option value="">Выберите тип опреации...</option>
+</select>
+<div><label>Наименование операции</label>
+<textarea name="specifiedName"></textarea>
+</div>
 	
 <div data-role="foreach" from="protocol">
 <div ><label>{{label}}</label> 
 {{input}}
 </div>
 </div>	
-<!--	
-	<div data-role="fieldcontain"><label>Время начала операции</label><input type="time" name="begTime"  ></div>
-	<div data-role="fieldcontain"><label>Время окончания операции</label><input type="datetime" required name="endDate" ></div>
-	<div data-role="fieldcontain"><label>Кровопотеря</label><input type="text" name="blooding"  ></div>
-	<div data-role="fieldcontain"><label>Диагноз после операции</label><input type="text" name="diagnoz" ></div>
-	<div data-role="fieldcontain"><label>Осложнения во время операции</label><input type="text" name="problems"  ></div>
-	<div data-role="fieldcontain"><label>Осложнения после операции</label><input type="text" name="problemsAfter"  ></div>
-	<div data-role="fieldcontain"><label>Исход операции</label>
-	<select name="result" data-mini="true" data-native-menu="false" required>
-		<option value="1" selected>Выписка</option>
-		<option value="0">Смерть</option>
-    </select>
-	</div>
-	<div data-role="fieldcontain"><label>Препарат</label><input type="text" name="drugs" ></div>
-	<div data-role="fieldcontain"><label>Протокол операции</label><textarea name="protocol" ></textarea></div>
--->
+
 	<a href="#" class="submit ui-btn ui-btn-inline ui-btn-icon-left ui-icon-check ui-corner-all">Сохранить</a>
 	<a href="#" data-rel="back" class="ui-btn ui-btn-inline ui-btn-icon-left ui-icon-back  ui-corner-all">Выйти</a>
 	<a href="#cancelOp" class="ui-btn ui-btn-inline ui-btn-icon-left ui-icon-delete ui-corner-all" style="float:right;" data-rel="popup">Отменить операцию</a>
@@ -35,3 +28,6 @@
 </div>
 
 </div>
+<style>
+.ui-dialog-contain {max-width:99%;}
+</style>

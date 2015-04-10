@@ -40,6 +40,11 @@ $diagnoses=patientGetDiagnosis($event_id);
 return json_encode($diagnoses);
 }
 
+function get_action() {
+	$action=mysqlReadItem("Action",$_GET["action_id"]);
+	return json_encode($action);
+}
+
 function get_table_data() {
 	$date=$_GET["date"];
 	$orgStr_id=$_GET["orgStr_id"];
@@ -399,6 +404,8 @@ unset($_POST["action_id"]);
 	$Parent["status"]=2;
 	$Parent["endDate"]=$Item["endDate"];
 	$Parent["modufyPerson_id"]=$_POST["person_id"];
+	$Parent["actionType_id"]=$_POST["operType_id"];
+	$Parent["specifiedName"]=$_POST["specifiedName"];
 	$error=mysqlSaveItem("Action",$Parent);
 	
 	

@@ -46,9 +46,44 @@ $(document).on("pageinit",function(){
 		$( "table" ).disableSelection();	
 });
 
+$(document).delegate(".ui-dialog","dialogcreate", function( event ) {
+	if ($(event.target).attr("id")=="operType-dialog") {
+		var dialog="#operType-dialog";
+		setTimeout(function(){
+			if (!$(dialog).find("form").length) {
+				$(dialog).find("ul").before("<form><input data-type='search' id='operType-filter' ><br></form>");
+				$(dialog).find("form").enhanceWithin();
+			} else {$(dialog).find("form input").val("");}
+			$(dialog).find("ul").attr("data-input","#operType-filter").filterable();
+		},600);
+	}
+});
+
 function hirurg_form_show(aid) {
+	var orgStrId=$("#hirurgOperation").find("input[name=orgStrId]").val();
 	$("#hirurgOperation").find("form")[0].reset();
 	$("#hirurgOperation").find("input[name=action_id]").val(aid);
+	// Получаем список операций, выполняемых отделением
+	$.get("/json/operation.php?mode=nazn_oper_list&orgStrId="+orgStrId,function(data){
+		var data=jQuery.parseJSON(data);
+		$(data).each(function(){
+			if ($("#hirurgOperation input#appId").val()=="msk36") {
+				$("#hirurgOperation select[name=operType_id] option:last").after("<option value='"+this["id"]+"'>"+this["code"]+"   - "+this["name"]+"</option>");
+			}	else {
+				$("#hirurgOperation select[name=operType_id] option:last").after("<option value='"+this["id"]+"'>"+this["name"]+"</option>");
+			}
+		});
+		
+		$.get("/json/operation.php?mode=get_action&action_id="+aid,function(data){
+			var data=jQuery.parseJSON(data);
+			$("#hirurgOperation select[name=operType_id]").val(data["actionType_id"]);
+			$("#hirurgOperation textarea[name=specifiedName]").val(data["specifiedName"]);
+			$("#hirurgOperation select[name=operType_id]").selectmenu();
+		});
+		
+	});
+	
+
 	// ============ Читаем данные в форму ==========
 	$.get("/json/operation.php?mode=get_operation_protocol&action_id="+aid,function(data){
 		

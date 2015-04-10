@@ -14,6 +14,7 @@ $aType='Протокол операции';
 $form=getActionTypeForm($aType);
 $Item["actionType_id"]=getActionTypeByName($aType);
 $Item["person_id"]=$_SESSION["person_id"];
+$Item["orgStrId"]=$_SESSION["orgStrId"];
 $Item["protocol"]=$form;
 $out=contentSetData($out,$Item);
 $out->find("#operation [name=fld_0]")->attr("type","time");
