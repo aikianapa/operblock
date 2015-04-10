@@ -209,6 +209,11 @@ function zavtable_defaults() {
 				});
 				$("#zavtable select").trigger("change");
      }
+     var hemotrans=0;
+    $("#tables ul[tid="+tid+"] li[tid="+tid+"]").each(function(){
+			if ($(this).hasClass("hemotrans-1")) {hemotrans=1;}
+	});
+	if (hemotrans==0) {$("#zavtable select[name=hemo_id]").removeAttr("required");} else {$("#zavtable select[name=hemo_id]").attr("required","required");}
 	});
 }
 

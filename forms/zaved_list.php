@@ -45,7 +45,7 @@
 	<div class="drag-zone-apps common-list">
 		<ul class="ui-draggable " id="common-list">
 		<div data-role="foreach" from="result">
-		<li tid='{{table}}' class="status-{{status}}" aid="{{id}}" ><a href="#" title="{{id}}"><span class="ui-hidden">{{tooltip}}</span>Пациент: {{client}}<br />Хирург: {{person}}</a>
+		<li tid='{{table}}' class="status-{{status}} hemotrans-{{transfusion_req}}" aid="{{id}}" ><a href="#" title="{{id}}"><span class="ui-hidden">{{tooltip}}</span>Пациент: {{client}}<br />Хирург: {{person}}</a>
     	<div class="warn">
 			<div class="time">{{begTime}}</div>
 			<div class="blood-warn-{{blood_warning}} ui-red">!</div>
@@ -134,7 +134,7 @@
 <select name="hemo_id"  data-native-menu="true"><option value="">Выберите...</option></select>
 </div>
 <div data-role="fieldcontain"><label>Ассистенты</label>
-<select name="assist_id[]" multiple="multiple"  data-native-menu="false" ><option value="">Выберите...</option></select>
+<select name="assist_id[]" multiple="multiple"  data-native-menu="false" ><option value="">Без ассистента</option></select>
 </div>
 <div data-role="fieldcontain"><label>Ассистенты (доп.)</label>
 <input name="assist_name"></div>
@@ -142,6 +142,9 @@
 <div data-role="fieldcontain"><label>Дежурный по оперблоку</label>
 <select name="dejur_id"   data-native-menu="true"><option value="">Выберите...</option></select>
 </div>
+<div data-role="fieldcontain"><label>Помошник дежурного</label>
+<input name="dejur_assist"></div>
+
 <div data-role="fieldcontain"><label>Примечание</label><textarea name="note"></textarea></div>
 <a href="#" class="submit ui-btn ui-btn-inline ui-btn-icon-left ui-icon-check ui-corner-all">Сохранить</a>
 <a href="#" data-rel="back" class="cancel ui-btn ui-btn-inline ui-btn-icon-left ui-icon-back ui-corner-all">Вернуться</a>

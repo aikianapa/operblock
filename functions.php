@@ -508,7 +508,9 @@ function getActionInfo($action_id) {
 	$Anest	=getPersonInfo($action["an_person_id"]); 
 	$OpSis	=getPersonInfo($action["operSister_id"]);
 	$ActionType=mysqlReadItem("ActionType",$action["actionType_id"]); $action["_ActionType"]=$ActionType;
-	if ($action["epicriz"]["transfusion_req"]==1) {$action["hemotrans"]="переливание";} else {$action["hemotrans"]="";}  
+	if ($action["epicriz"]["transfusion_req"]==1) {
+			$action["hemotrans"]="переливание"; $action["transfusion_req"]=1;
+	} else {$action["hemotrans"]=""; $action["transfusion_req"]=0;} 
 	$action["actionType"]=$ActionType["title"];
 	$action["operation"]=$action["specifiedName"];
 	if ($action["operation"]=="") {$action["operation"]=$action["actionType"];}
@@ -555,6 +557,7 @@ function getActionInfo($action_id) {
 	$action["hemoist"]=$Hemoist["personShort"];
 	$action["hirurg"]=$Hemoist["personShort"];
 	$action["dejur"]=$Dejur["personShort"];
+	if ($action["dejur_assist"]>"") {$action["dejur"].=", ".$action["dejur_assist"];}
 	$action["anest"]=$Anest["personShort"];
 	$action["bloodmen"]=$Hemo["personShort"];
 	$action["oper_sister"]=$OpSis["personShort"];
@@ -566,7 +569,8 @@ function getActionInfo($action_id) {
   if ($action["status"]==3) {$cnote="<li><span class='ui-red ui-bold'>Отменена:</span> ".$action["cancelNote"]."</li>";} else {$cnote="";}
 	$action["tooltip"]="<ul class='inner'>
         $cnote
-				<li>Диагноз: $action[diagnose]</li>
+				<li>Пациент: {$action["client"]} ({$action["age"]} лет)</li>
+				<li>Диагноз: {$action["diagnose"]}</li>
 				<li>Название операции: $action[operation]</li>
 				<li>Хирург: $action[person]</li>
 				<li>Ассистент: $action[brigada]</li>

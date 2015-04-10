@@ -273,6 +273,7 @@ if (isset($_POST["assist_id"])) {$_action["assist_id"]=$_POST["assist_id"]; $rol
 if (isset($_POST["hemo_id"])) {$_action["hemo_id"]=$_POST["hemo_id"];}
 if (isset($_POST["person_id"])) {$action["person_id"]=$_POST["person_id"];}
 if (isset($_POST["dejur_id"])) {$_action["dejur_id"]=$_POST["dejur_id"];}
+if (isset($_POST["dejur_assist"])) {$_action["dejur_assist"]=$_POST["dejur_assist"];}
 if (isset($_POST["an_person_id"])) {$_action["an_person_id"]=$_POST["an_person_id"]; $role="anest";}
 if (isset($_POST["an_sister_id"])) {$_action["an_sister_id"]=$_POST["an_sister_id"];}
 if (isset($_POST["an_posobie"])) {$_action["an_posobie"]=$_POST["an_posobie"];}
