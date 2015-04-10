@@ -7,7 +7,7 @@
 	<input type="hidden" name="orgStrId" >
 	<input type="hidden" name="actionType_id" >
 
-<select name="operType_id" id="operType" data-native-menu="false" data-filter="true" data-input='#operType-filter' >
+<select name="operType_id" id="operType" required data-native-menu="false" data-filter="true" data-input='#operType-filter' >
 	<option value="">Выберите тип опреации...</option>
 </select>
 <div><label>Наименование операции</label>
