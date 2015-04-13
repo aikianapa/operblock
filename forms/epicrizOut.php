@@ -70,7 +70,6 @@ $event=mysqlReadItem("Event",$id);
 	$Item["doctor"]=$person["doctorShort"];
 	$Item["client"]=$client["client"];
 	$Item["bDate"]=getRusDate($client["birthDate"])."г.";
-	$Item["docDate"]=getRusDate(date("d-m-Y"))."г.";
 	$Item["address"]=$client["addressLive"];
 	$Item["work"]=$client["work"];
 //	$Item["diag_main"]=$Diag["main"]["MKB"]." ".$Diag["main"]["DiagName"];
@@ -85,7 +84,7 @@ $event=mysqlReadItem("Event",$id);
 	} else {
 		$Item["s_date2"]=getRusDate(date("Y-m-d"))."г.";
 	}
-
+		$Item["docDate"]=$Item["s_date2"];
 	$Item["orgStrBoss"]=getPersonInfo($orgstructure["chief_id"]); $Item["orgStrBoss"]=$Item["orgStrBoss"]["personShort"];
 	if ($_SESSION["settings"]["appId"]=="msk36") {
 		if ($Item["action_id"]=="_new") {
@@ -143,7 +142,7 @@ foreach(pq($out)->find("textarea[placeholder]") as $inp) {
 }
 if ($mode=="print") {
 	pq($out)->html(pq($out)->find("#form-027u"));
-//	pq($out)->append("<style>".file_get_contents($_SERVER['DOCUMENT_ROOT']."/forms/msk36/epicriz.css")."</style>");
+	pq($out)->append("<style>".file_get_contents($_SERVER['DOCUMENT_ROOT']."/forms/msk36/epicriz.css")."</style>");
 	pq($out)->find("style")->append("div {display:none;}");
 	pq($out)->find("input[type=hidden]")->remove();
 	foreach(pq($out)->find("textarea") as $inc) {

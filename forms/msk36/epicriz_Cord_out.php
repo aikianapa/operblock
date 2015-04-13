@@ -181,7 +181,7 @@
 
 <br>
 <br>
-{{docDate}}г.<br />
+<span class="docDate">{{docDate}}г.</span><br />
 Лечащий врач _________________ /{{person}}/<br>
 <br />
 Зав. отделением _________________ /{{orgStrBoss}}/<br>
