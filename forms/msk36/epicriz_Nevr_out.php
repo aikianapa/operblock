@@ -14,36 +14,36 @@
 <h2>ВЫПИСНОЙ  ЭПИКРИЗ ИЗ  ИСТОРИИ  БОЛЕЗНИ    № {{externalId}}</h2>
 <br />
 		<ul class="fields">
-		<li><b>Пациент:</b> <u>{{client}}</u></li>
-		<li><b>Возраст:</b> <u>полных лет - {{age}}, дата рождения - {{bDate}}</u></li>
-		<li><b>Место работы:</b> <u>{{work}}</u></li>
-		<li><b>Адрес:</b> <u>{{address}}</u></li>
-		<li><b>Дата поступления <u>{{s_date1}}</u></li>
-		<li><b>Находил{{suffix1}} на стационарном лечении в ГБУЗ "Городская клиническая больница №36" ДЗ г.Москвы с <u>{{s_date1}}</u> по 
-		<u><input type="text" class="medium" name="endDate" value="{{s_date2}}"></u></b>
+		<li><b>Пациент:</b> {{client}}</li>
+		<li><b>Возраст:</b> полных лет - {{age}}, дата рождения - {{bDate}}</li>
+		<li><b>Место работы:</b> {{work}}</li>
+		<li><b>Адрес:</b> {{address}}</li>
+		<li><b>Дата поступления {{s_date1}}</li>
+		<li><b>Находил{{suffix1}} на стационарном лечении в ГБУЗ "Городская клиническая больница №36" ДЗ г.Москвы с {{s_date1}} по 
+		<input type="text" class="medium" name="endDate" value="{{s_date2}}"></b>
 		<ul>
 			<div data-role="foreach" from="moving">
 			<li>{{31}} - {{14}}</li>
 			</div>
 		</ul>
-		<u><textarea name="e_stationar">{{e_stationar}}</textarea></u>
+		<textarea name="e_stationar">{{e_stationar}}</textarea>
 		</li>
 		<li><b>Диагноз при выписке:</b>
 			<ul>
-				<li><b>Основное заболевание:</b><br><u><textarea name="e_diag_main">{{e_diag_main}}</textarea></u> </li>
-				<li><b>Фоновые заболевания:</b><br><u><textarea name="e_diag_fon">{{e_diag_fon}}</textarea></u></li>
-				<li><b>Осложнения основного заболевания:</b><br><u><textarea name="e_diag_comp">{{e_diag_comp}}</textarea></u></li>
-				<li><b>Сопутствующие заболевания:</b><br><u><textarea name="e_diag_satt">{{e_diag_satt}}</textarea></u></li>
+				<li><b>Основное заболевание:</b><br><textarea name="e_diag_main">{{e_diag_main}}</textarea> </li>
+				<li><b>Фоновые заболевания:</b><br><textarea name="e_diag_fon">{{e_diag_fon}}</textarea></li>
+				<li><b>Осложнения основного заболевания:</b><br><textarea name="e_diag_comp">{{e_diag_comp}}</textarea></li>
+				<li><b>Сопутствующие заболевания:</b><br><textarea name="e_diag_satt">{{e_diag_satt}}</textarea></li>
 			</ul>
 		</li>
-		<li><b>Жалобы при поступлении:</b><br><u><textarea name="e_complaint1">{{e_complaint1}}</textarea></u> </li>
-		<li><b>Жалобы при осмотре в н\о:</b><br><u><textarea name="e_complaint2">{{e_complaint2}}</textarea></u> </li>
-		<li><b>Анамнез заболевания:{{e_anamnez1}}</b><br><u><textarea name="e_anamnez1">{{e_anamnez1}}</textarea></u> </li>
-		<li><b>Анамнез жизни:</b><br><u><textarea name="e_anamnez2">{{e_anamnez2}}</textarea></u> </li>
-		<li><b>Аллергоанамнез:</b><br><u><textarea name="e_anamnez3">{{e_anamnez3}}</textarea></u> </li>
-		<li><b>Эпид.анамнез:</b><br><u><textarea name="e_anamnez4">{{e_anamnez4}}</textarea></u> </li>
-		<li><b>Находился на больничном листе в течение последних 12 месяцев:</b><br><u><textarea name="e_blist12">{{e_blist12}}</textarea></u> </li>
-		<li><b>Состояние при поступлении:</b><br><u><textarea name="e_stateIn">{{e_stateIn}}</textarea></u> </li>
+		<li><b>Жалобы при поступлении:</b><br><textarea name="e_complaint1">{{e_complaint1}}</textarea> </li>
+		<li><b>Жалобы при осмотре в н\о:</b><br><textarea name="e_complaint2">{{e_complaint2}}</textarea> </li>
+		<li><b>Анамнез заболевания:{{e_anamnez1}}</b><br><textarea name="e_anamnez1">{{e_anamnez1}}</textarea> </li>
+		<li><b>Анамнез жизни:</b><br><textarea name="e_anamnez2">{{e_anamnez2}}</textarea> </li>
+		<li><b>Аллергоанамнез:</b><br><textarea name="e_anamnez3">{{e_anamnez3}}</textarea> </li>
+		<li><b>Эпид.анамнез:</b><br><textarea name="e_anamnez4">{{e_anamnez4}}</textarea> </li>
+		<li><b>Находился на больничном листе в течение последних 12 месяцев:</b><br><textarea name="e_blist12">{{e_blist12}}</textarea> </li>
+		<li><b>Состояние при поступлении:</b><br><textarea name="e_stateIn">{{e_stateIn}}</textarea> </li>
 		<li><b>При выписке:</b> 
 		<select name="e_stateOut" value="{{e_stateOut}}">
 			<option>удовлетворительное</option>
@@ -53,13 +53,13 @@
 			<option>тяжелое</option>
 			<option>крайне тяжелое</option>
 		</select>
-		<br><u><textarea name="e_stateOutText">{{e_stateOutText}}</textarea></u> </li>
+		<br><textarea name="e_stateOutText">{{e_stateOutText}}</textarea> </li>
 		<li><b>Тяжесть состояния обусловлена:</b>
 		<select name="e_hardState" value="{{e_hardState}}">
 			<option>основным заболеванием</option>
 			<option>сопутствующей соматической патологией</option>
 		</select>
-		<br><u><textarea name="e_hardStateText">{{e_hardStateText}}</textarea></u> </li>
+		<br><textarea name="e_hardStateText">{{e_hardStateText}}</textarea> </li>
 		<li><b>Телосложение:</b>
 		<select name="e_bodyType" value="{{e_bodyType}}">
 			<option>нормостеническое</option>
@@ -72,7 +72,7 @@
 			<option class="add">пастозность</option>
 			<option class="add">отёки</option>
 		</select>
-		<br><u><textarea name="e_perEdemaText">{{e_perEdemaText}}</textarea></u> </li>
+		<br><textarea name="e_perEdemaText">{{e_perEdemaText}}</textarea> </li>
 
 		<li><b>Кожные  покровы:</b> 
 		<select name="e_skin1" value="{{e_skin1}}">
@@ -84,8 +84,8 @@
 		<select name="e_skin3" value="{{e_skin3}}">
 		<option>трофические нарушения отсутствуют</option><option class="add">трофические нарушения</option>
 		</select>	&nbsp;
-		<br><u><textarea name="e_skinText">{{e_skinText}}</textarea></u> </li>
-		<li><b>St.locales:</b><br><u><textarea name="e_stLocales">{{e_stLocales}}</textarea></u> </li>
+		<br><textarea name="e_skinText">{{e_skinText}}</textarea> </li>
+		<li><b>St.locales:</b><br><textarea name="e_stLocales">{{e_stLocales}}</textarea> </li>
 		<li><b>Pulm.:</b><br>
 					<b>Дыхание:</b>
 					<select name="e_pulm1" value="{{e_pulm1}}">
@@ -105,7 +105,7 @@
 					</select>
 				</li>
 			</ul>
-			<textarea name="e_pulm">{{e_pulm}}</textarea></u> </li>
+			<textarea name="e_pulm">{{e_pulm}}</textarea> </li>
 		<li><b>Cor:</b><br>
 			<ul>
 			<li><b>ЧСС:</b> <input name="e_corFreq" class="small"> в 1 мин.</li>
@@ -150,7 +150,7 @@
 			<option>самостоятельно</option>
 			<option>по катетеру</option>
 		</select> Моча <input name="e_urineColor" class="small"> цвета
-		<br><u><textarea name="e_perEdemaText">{{e_perEdemaText}}</textarea></u> </li>
+		<br><textarea name="e_perEdemaText">{{e_perEdemaText}}</textarea> </li>
 		
 		<li><b>Дизурические явления:</b> 
 		<select name="e_dizur" value="{{e_dizur}}">
@@ -361,7 +361,7 @@
 		<option>нет</option>
 		<option class="add">есть</option>
 		</select>
-		<u><textarea name="e_cmnBulbText">{{e_cmnBulbText}}</textarea></u>
+		<textarea name="e_cmnBulbText">{{e_cmnBulbText}}</textarea>
 		</li>
 		
 		<li><b>Мышечный тонус: </b><br>
@@ -439,7 +439,7 @@
 			<option>отсутствуют</option>
 			<option class="add">Есть</option>
 		</select>
-		<br><u><textarea name="e_cmnOralAutoText">{{e_cmnOralAutoText}}</textarea></u>
+		<br><textarea name="e_cmnOralAutoText">{{e_cmnOralAutoText}}</textarea>
 		</li>
 		
 		<li><b>Брюшные рефлексы: </b>
@@ -509,7 +509,7 @@
 		</select>
 		</li>
 		<li><b>Дополнительная информация: </b>
-		<br><u><textarea name="e_moreText">{{e_moreText}}</textarea></u>
+		<br><textarea name="e_moreText">{{e_moreText}}</textarea>
 		</li>
 		</ul></li>
 	
@@ -517,7 +517,7 @@
 		<li>
 			<a href='#del' class='del_fld'>Уд.</a>
 			<input data-role="none" name="fld[]" value="{{fld}}">
-			<u><textarea name="val[]">{{val}}</textarea></u>
+			<textarea name="val[]">{{val}}</textarea>
 		</li>
 		</div>
 -->
@@ -534,7 +534,7 @@
 	
 	</div>
 	</ul>
-	<u><textarea name="e_drugsText">{{e_drugsText}}</textarea></u></li>
+	<textarea name="e_drugsText">{{e_drugsText}}</textarea></li>
 	
 	<li><b>Инструментальные методы исследования: </b>
 	<ul>
@@ -554,7 +554,7 @@
 				<p>{{lab}}</p></li>
 		</div>
 	</ul>
-	<u><textarea name="e_anayseText">{{e_anayseText}}</textarea></u></li>
+	<textarea name="e_anayseText">{{e_anayseText}}</textarea></li>
 	
 	<li><b>Консультации: </b>
 	<ul>
@@ -562,7 +562,7 @@
 			<li>{{cons}}</li>
 		</div>
 	</ul>
-	<u><textarea name="e_consultText">{{e_consultText}}</textarea></u></li>
+	<textarea name="e_consultText">{{e_consultText}}</textarea></li>
 	
 	<li><b>Выписан{{suffix2}}: </b>
 	<select name="e_out" value="{{e_out}}">
@@ -587,13 +587,13 @@
 
 
 <ul>
-<li><u>Диспансерное наблюдение врачами-специалистами по месту жительства в поликлинике: <textarea name="e_recom1">{{e_recom1}}</textarea></u></li>
-<li><u>Диета: <textarea name="e_recom2" placeholder="С ограничением легкоусвояемых углеводов, животных жиров и соли. Питьевой режим.">{{e_recom2}}</textarea></u></li>
-<li><u>Контроль АД и ЧСС постоянно. <textarea name="e_recom3" placeholder="При подъеме АД свыше 170-180\90-100 мм рт.ст. – каптоприл 25 мг под язык или нифедипин 10 мг с последующим контролем АД.">{{e_recom3}}</textarea></u></li>
-<li><u>Продолжить приём следующих препаратов: <textarea name="e_recom4">{{e_recom4}}</textarea></u></li>
-<li><u>Курсовой прием сосудистых, нейротрофических препаратов, антигипоксантов: <textarea name="e_recom5">{{e_recom5}}</textarea></u></li>
-<li><u>Консультация в ОКДО ГКБ №36 <textarea placeholder="через __ месяцев с целью коррекции лечения при необходимости." name="e_recom6">{{e_recom6}}</textarea></u></li>
-<li><u>Дополнительная информация: <textarea name="e_recom7">{{e_recom7}}</textarea></u></li>
+<li>Диспансерное наблюдение врачами-специалистами по месту жительства в поликлинике: <textarea name="e_recom1">{{e_recom1}}</textarea></li>
+<li>Диета: <textarea name="e_recom2" placeholder="С ограничением легкоусвояемых углеводов, животных жиров и соли. Питьевой режим.">{{e_recom2}}</textarea></li>
+<li>Контроль АД и ЧСС постоянно. <textarea name="e_recom3" placeholder="При подъеме АД свыше 170-180\90-100 мм рт.ст. – каптоприл 25 мг под язык или нифедипин 10 мг с последующим контролем АД.">{{e_recom3}}</textarea></li>
+<li>Продолжить приём следующих препаратов: <textarea name="e_recom4">{{e_recom4}}</textarea></li>
+<li>Курсовой прием сосудистых, нейротрофических препаратов, антигипоксантов: <textarea name="e_recom5">{{e_recom5}}</textarea></li>
+<li>Консультация в ОКДО ГКБ №36 <textarea placeholder="через __ месяцев с целью коррекции лечения при необходимости." name="e_recom6">{{e_recom6}}</textarea></li>
+<li>Дополнительная информация: <textarea name="e_recom7">{{e_recom7}}</textarea></li>
 </li>
 
 </ol-->

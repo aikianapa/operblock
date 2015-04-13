@@ -229,7 +229,7 @@ if ($_POST["action_id"]=="_new") {
 	$action=mysqlReadItem("Action",$_POST["action_id"]);
 	$_action=jdbReadItem("Action",$_POST["action_id"]);
 }
-$action["endDate"]=setRusDate($_POST["endDate"]);
+$action["endDate"]=date("Y-m-d H:i:s",strtotime(setRusDate($_POST["endDate"])));
 $action["status"]=2;
 $epic=array();
 foreach($_POST["fld"] as $key => $val) {

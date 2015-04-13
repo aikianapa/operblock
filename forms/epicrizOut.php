@@ -143,15 +143,15 @@ foreach(pq($out)->find("textarea[placeholder]") as $inp) {
 }
 if ($mode=="print") {
 	pq($out)->html(pq($out)->find("#form-027u"));
-	pq($out)->append("<style>".file_get_contents($_SERVER['DOCUMENT_ROOT']."/forms/msk36/epicriz.css")."</style>");
+//	pq($out)->append("<style>".file_get_contents($_SERVER['DOCUMENT_ROOT']."/forms/msk36/epicriz.css")."</style>");
 	pq($out)->find("style")->append("div {display:none;}");
 	pq($out)->find("input[type=hidden]")->remove();
 	foreach(pq($out)->find("textarea") as $inc) {
-		pq($inc)->after("<u>".pq($inc)->html()."</u>");
+		pq($inc)->after("".pq($inc)->html()."");
 		pq($inc)->remove();
 	}
 	foreach(pq($out)->find("input,select") as $inc) {
-		pq($inc)->after("<u>".pq($inc)->attr("value")."</u>");
+		pq($inc)->after("".pq($inc)->attr("value")."");
 		pq($inc)->remove();
 
 	}
@@ -359,7 +359,7 @@ function epicLabPrep($event_id,$aType) {
 				$present[]=$line["name"];
 				$action=getAction($line["actionId"],$event_id); 
 				$actionType_id=$action["data"]["actionType_id"];
-				if (checkActionTypeParrent($actionType_id,$aType)) {
+//				if (checkActionTypeParrent($actionType_id,$aType)) {
 					$time=date("d/m/Y h:i",strtotime($action["data"]["endDate"]));
 					$action=$action["data"]["fields"];
 					$doc=phpQuery::newDocument("<table></table>");
@@ -384,7 +384,7 @@ function epicLabPrep($event_id,$aType) {
 					}
 					
 					$res[]["lab"]=pq($doc)->htmlOuter();
-				}
+//				}
 			}
 		}}
 	}

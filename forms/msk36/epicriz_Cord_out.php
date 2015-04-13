@@ -18,40 +18,40 @@
 </p>
 
 		<ul class="fields">
-		<li><b>Фамилия, Имя, Отчество:</b> <u>{{client}}</u></li>
-		<li><b>Возраст:</b> <u>{{age}}</u></li>
-		<li><b>Дата госпитализации:</b> <u>{{s_date1}}</u></li>
-		<li><b>Дата выписки:</b> <u><input type="text" class="medium" name="s_date2" value="{{s_date2}}"></u></li>
+		<li><b>Фамилия, Имя, Отчество:</b> {{client}}</li>
+		<li><b>Возраст:</b> {{age}}</li>
+		<li><b>Дата госпитализации:</b> {{s_date1}}</li>
+		<li><b>Дата выписки:</b> <input type="text" class="medium" name="endDate" value="{{s_date2}}"></li>
 
 		<li><b>ДИАГНОЗ:</b>
 			<ul>
-				<li><b>Основное заболевание:</b><br><u><textarea name="e_diag_main">{{e_diag_main}}</textarea></u> </li>
-				<li><b>Фоновые заболевания:</b><br><u><textarea name="e_diag_fon">{{e_diag_fon}}</textarea></u></li>
-				<li><b>Осложнения основного заболевания:</b><br><u><textarea name="e_diag_comp">{{e_diag_comp}}</textarea></u></li>
-				<li><b>Сопутствующие заболевания:</b><br><u><textarea name="e_diag_satt">{{e_diag_satt}}</textarea></u></li>
+				<li><b>Основное заболевание:</b><br><textarea name="e_diag_main">{{e_diag_main}}</textarea> </li>
+				<li><b>Фоновые заболевания:</b><br><textarea name="e_diag_fon">{{e_diag_fon}}</textarea></li>
+				<li><b>Осложнения основного заболевания:</b><br><textarea name="e_diag_comp">{{e_diag_comp}}</textarea></li>
+				<li><b>Сопутствующие заболевания:</b><br><textarea name="e_diag_satt">{{e_diag_satt}}</textarea></li>
 			</ul>
 		</li>
-		<li><p><b>Код стандарта:</b> <u><input name="e_code1" class="small"></u> <b>Шифр по МКБ-10:</b> <u><input name="e_code2" class="small"></u></p></li>
-		<li><b>Жалобы:</b><br><u><textarea name="e_complaint1">{{e_complaint1}}</textarea></u> </li>
-		<li><b>An.morbi:</b><br><u><textarea name="e_anamnez1">{{e_anamnez1}}</textarea></u> </li>
-		<li><b>Состояние при поступлении:</b><br><u><textarea name="e_stateIn">{{e_stateIn}}</textarea></u></li>
+		<li><p><b>Код стандарта:</b> <input name="e_code1" class="small"> <b>Шифр по МКБ-10:</b> <input name="e_code2" class="small"></p></li>
+		<li><b>Жалобы:</b><br><textarea name="e_complaint1">{{e_complaint1}}</textarea> </li>
+		<li><b>An.morbi:</b><br><textarea name="e_anamnez1">{{e_anamnez1}}</textarea> </li>
+		<li><b>Состояние при поступлении:</b><br><textarea name="e_stateIn">{{e_stateIn}}</textarea></li>
 		
 		<li><b>Дыхание:</b>
 			<ul class="inline">
-				<li><u><input class="medium" name="e_pulm_in"></u></li>
-				<li><b>ЧДД:</b> <u><input class="medium" name="e_pulmFreq_in"></u></li>
+				<li><input class="medium" name="e_pulm_in"></li>
+				<li><b>ЧДД:</b> <input class="medium" name="e_pulmFreq_in"></li>
 			</ul>
 		</li>
 		
 		<li><b>Сердце:</b>
 			<ul class="inline">
-			<li><b>Тоны сердца:</b> <u><input class="medium" name="e_corTone_in"></u></li>
-			<li><b>ЧСС: </b><u><input class="medium" name="e_corFreq"></u></li>
-			<li><b>АД:</b> <u><input class="medium" name="e_corPress_in"></u></li>
+			<li><b>Тоны сердца:</b> <input class="medium" name="e_corTone_in"></li>
+			<li><b>ЧСС: </b><input class="medium" name="e_corFreq"></li>
+			<li><b>АД:</b> <input class="medium" name="e_corPress_in"></li>
 			</ul>
 		</li>	
 		
-		<li><b>Течение заболевания в стационаре:</b><br><u><textarea name="e_stationar">{{e_stationar}}</textarea></u> </li>
+		<li><b>Течение заболевания в стационаре:</b><br><textarea name="e_stationar">{{e_stationar}}</textarea> </li>
 		
 		<li><b>Терапия: </b>
 		<ul>
@@ -60,7 +60,7 @@
 		
 		</div>
 		</ul>
-		<u><textarea name="e_drugsText">{{e_drugsText}}</textarea></u></li>
+		<textarea name="e_drugsText">{{e_drugsText}}</textarea></li>
 		
 		<li><b>Состояние при выписке:</b> 
 		<select name="e_stateOut" value="{{e_stateOut}}">
@@ -71,7 +71,7 @@
 			<option>тяжелое</option>
 			<option>крайне тяжелое</option>
 		</select>
-		<br><u><textarea name="e_stateOutText">{{e_stateOutText}}</textarea></u> </li>
+		<br><textarea name="e_stateOutText">{{e_stateOutText}}</textarea> </li>
 
 		<li><b>Дыхание:</b>
 			<ul class="inline">
@@ -90,7 +90,7 @@
 						</select>
 				</li>
 				<li><b>ЧДД:</b> <input name="e_pulmFreq" class="small"> в 1 мин.</li>
-				<li><textarea name="e_pulm">{{e_pulm}}</textarea></u></li>
+				<li><textarea name="e_pulm">{{e_pulm}}</textarea></li>
 			</ul>
 		</li>
 		
@@ -113,7 +113,7 @@
 			<li><b>АД:</b> <input name="e_corPress" class="small"> мм.рт.ст.</li>
 			</ul>
 		</li>	
-		<li><b>Печень:</b><br><u><textarea name="e_liverText">{{e_liverText}}</textarea></u></li>
+		<li><b>Печень:</b><br><textarea name="e_liverText">{{e_liverText}}</textarea></li>
 		
 
 		<li><b>Живот:</b>
@@ -129,7 +129,7 @@
 		<li>
 			<a href='#del' class='del_fld'>Уд.</a>
 			<input data-role="none" name="fld[]" value="{{fld}}">
-			<u><textarea name="val[]">{{val}}</textarea></u>
+			<textarea name="val[]">{{val}}</textarea>
 		</li>
 		</div>
 -->
@@ -155,7 +155,7 @@
 				<p>{{lab}}</p></li>
 		</div>
 	</ul>
-	<u><textarea name="e_anayseText">{{e_anayseText}}</textarea></u></li>
+	<textarea name="e_anayseText">{{e_anayseText}}</textarea></li>
 	
 	<li><b>Консультации: </b>
 	<ul>
@@ -163,7 +163,7 @@
 			<li>{{cons}}</li>
 		</div>
 	</ul>
-	<u><textarea name="e_consultText">{{e_consultText}}</textarea></u></li>
+	<textarea name="e_consultText">{{e_consultText}}</textarea></li>
 	
 	<li><b>Больничный лист: </b>
 	<select name="e_hospList" value="{{e_hospList}}">
@@ -175,7 +175,7 @@
 
 <ul>
 <b>Рекомендации по дальнейшему ведению пациента: </b>
-<li><textarea name="e_recom7">{{e_recom7}}</textarea></u></li>
+<li><textarea name="e_recom7">{{e_recom7}}</textarea></li>
 
 </ul>
 

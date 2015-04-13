@@ -37,7 +37,7 @@ $content["head"]->append('<link rel="stylesheet" href="/engine/engine.css" type=
 $content["head"]->append('<link rel="stylesheet" href="/style.css" type="text/css" />');
 $content["head"]->append('<script type="text/javascript" src="/js/scripts.js"></script>');
 $content["head"]->append('<script type="text/javascript" src="/js/jquery.selection.js"></script>');
-}
+} 
 
 $content=phpQuery::newDocument(engine($content));
 
@@ -60,7 +60,7 @@ $content["head"]->append('
 
 
 //$content["#DeleteConfirm"]->remove();
-if (!$content["body #DeleteConfirm]"]->length()) {
+if (!$content["body #DeleteConfirm]"]->length() AND $tmp["mode"]!="print") {
 	$confirm=phpQuery::newDocument(formGetContent("admin","confirm"));
 	$content["body"]->append($confirm);
 }
@@ -71,6 +71,13 @@ if ($_SESSION["User"]=="Admin") {
 	$content["body"]->append( phpQuery::newDocumentFilePHP($url.$admin) );
 }
 $content["*[data-theme]"]->attr("data-theme","a");
+
+if ( $tmp["mode"]=="print") {
+$content["head"]->html("");
+$content["data-role=page"]->remove();
+}
+
+
 echo $content->htmlOuter();
 mysql_close();
 ?>
