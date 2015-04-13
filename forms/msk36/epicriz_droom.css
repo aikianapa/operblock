@@ -1,0 +1,25 @@
+#form-027u {margin:15px;}
+#form-027u * {font-size:14px; }
+#form-027u ul li {list-style-type: none; margin-bottom:7px;}
+#form-027u input {width:99%;  font-style: italic; border:0; color: #000;}
+#form-027u input[name=toOrg] {border-bottom: 1px #000 solid; text-align:center;}
+#form-027u input.small {width:100px;}
+#form-027u input.medium {width:200px;}
+#form-027u input.addinf {width:auto; height:auto; display:none;}
+#form-027u textarea {width:99%; resize:none;  font-style: italic; border:0; display:none;}
+#form-027u select {border:0; -webkit-appearance: none;  font-style: italic; color: #000;}
+#form-027u select[multiple] {display:none;}
+#form-027u u {font-style: italic;}
+#form-027u ul {list-style: none;}
+#form-027u ul.inline li {display: inline-block;}
+#form-027u .text {line-height:32px; }
+#form-027u .text .remark {position:absolute; width:100%; margin-top: 15px; text-align:center; font-size:70%;}
+#form-027u table {border:0; border-top:1px #000 solid; border-bottom:1px #000 solid; clear:both; width: 100%; }
+#form-027u table td {text-align:left; vertical-align:top; border-right:1px #000 solid; border-bottom: 1px #000 solid;}
+#form-027u table td:last {border-right:0px; border-bottom: none;}
+#form-027u table tr { border: 1px #555 solid;}
+#form-027u table tr th { text-align:center; background-color: #bbb; border-bottom: 1px #000 solid;}
+#form-027u h2 {text-align:center; font-size:18px;}
+#form-027u h2 * {font-size:18px;}
+#form-027u a.del_fld {display:none;}
+#form-027u span { font-style: italic;}
