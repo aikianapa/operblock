@@ -142,8 +142,7 @@ foreach(pq($out)->find("textarea[placeholder]") as $inp) {
 }
 if ($mode=="print") {
 	pq($out)->html(pq($out)->find("#form-027u"));
-	pq($out)->append("<style>".file_get_contents($_SERVER['DOCUMENT_ROOT']."/forms/msk36/epicriz.css")."</style>");
-	pq($out)->find("style")->append("div {display:none;}");
+	pq($out)->append("<style>".file_get_contents($_SERVER['DOCUMENT_ROOT']."/forms/msk36/epicriz_droom.css")."</style>");
 	pq($out)->find("input[type=hidden]")->remove();
 	foreach(pq($out)->find("textarea") as $inc) {
 		pq($inc)->after("".pq($inc)->html()."");
