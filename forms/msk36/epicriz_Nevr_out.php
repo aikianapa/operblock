@@ -620,5 +620,8 @@
 <script language="javascript">
 $("#form-027u select[multiple]").each(function(){
 	$(this).css("height",$(this).find("option").length*18+"px");
+	$("input[name=endDate]").on("change",function(){
+		$("#form-027u span.docDate").html($(this).val());
+	});
 });
 </script>

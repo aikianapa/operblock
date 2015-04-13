@@ -73,8 +73,8 @@ if ($_SESSION["User"]=="Admin") {
 $content["*[data-theme]"]->attr("data-theme","a");
 
 if ( $tmp["mode"]=="print") {
-$content["head"]->html("");
-$content["data-role=page"]->remove();
+	$content["head"]->html("");
+	$content["div[data-role=page]"]->remove();
 }
 
 

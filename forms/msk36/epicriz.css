@@ -2,11 +2,11 @@
 #form-027u {margin-left:15px; display:block; width:100%;}
 #form-027u * {color: #000;}
 #form-027u ul li {list-style-type: none;}
-#form-027u input {width:95%; padding: 1px; text-decoration:underline; font-style: italic;}
+#form-027u input {width:95%; padding: 1px;  font-style: italic;}
 #form-027u input.small {width:100px;}
 #form-027u input.medium {width:200px;}
 #form-027u input.addinf {width:200px; display:none;}
-#form-027u textarea {width:95%; resize:none; text-decoration:underline; font-style: italic; padding: 3px;}
+#form-027u textarea {width:95%; resize:none;  font-style: italic; padding: 3px;}
 #form-027u textarea.current, #form-027u input.current {border: 1px solid #000;}
 #form-027u select[multiple] {overflow: hidden; background: transparent; border:0px;}
 #form-027u select[multiple] option {padding-left: 20px; padding-right: 20px;}
@@ -32,13 +32,13 @@ div {display:none;}
 #form-027u {margin-left:50px;}
 #form-027u * {font-size:14px; }
 #form-027u ul li {list-style-type: none; margin-bottom:7px;}
-#form-027u input {width:99%; text-decoration:underline; font-style: italic; border:0; color: #000;}
+#form-027u input {width:99%;  font-style: italic; border:0; color: #000;}
 #form-027u input[name=toOrg] {border-bottom: 1px #000 solid; text-align:center;}
 #form-027u input.small {width:100px;}
 #form-027u input.medium {width:200px;}
 #form-027u input.addinf {width:auto; height:auto; display:none;}
-#form-027u textarea {width:99%; resize:none; text-decoration:underline; font-style: italic; border:0; display:none;}
-#form-027u select {border:0; -webkit-appearance: none; text-decoration:underline; font-style: italic; color: #000;}
+#form-027u textarea {width:99%; resize:none;  font-style: italic; border:0; display:none;}
+#form-027u select {border:0; -webkit-appearance: none;  font-style: italic; color: #000;}
 #form-027u select[multiple] {display:none;}
 #form-027u u {font-style: italic;}
 #form-027u ul {list-style: none;}
@@ -54,5 +54,5 @@ div {display:none;}
 #form-027u h2 {text-align:center; font-size:18px;}
 #form-027u h2 * {font-size:18px;}
 #form-027u a.del_fld {display:none;}
-#form-027u span {text-decoration:underline; font-style: italic;}
+#form-027u span { font-style: italic;}
 }
