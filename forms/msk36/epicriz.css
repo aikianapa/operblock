@@ -28,7 +28,7 @@
 }
 
 @media print {
-div {display:none;}
+body {display:none;}
 #form-027u {margin-left:50px;}
 #form-027u * {font-size:14px; }
 #form-027u ul li {list-style-type: none; margin-bottom:7px;}
