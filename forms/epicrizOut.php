@@ -217,12 +217,12 @@ function fields_msk36($event_id,$orgstr="") {
 	AND a.deleted = 0 
 	AND t.name LIKE '%осмотр%' 
 	ORDER BY endDate LIMIT 1";
-
 	$res=mysql_query($SQL) or die ("Query failed fields_msk36(): [1]" . mysql_error());
 	while($data = mysql_fetch_array($res)) {
 		$action_id=$data[0];
 		$first_osmotr=getActionProperties($data[0],"");
 	}
+	$action_in=getActionDataIn($event_id);
 	$first_osmotr1=getAction($action_id);
 	$first_osmotr1=$first_osmotr1["data"]["fields"];
 	$f=array(); // $f[""]="";
@@ -237,6 +237,8 @@ function fields_msk36($event_id,$orgstr="") {
 			$f["e_anamnez3"]=$first_osmotr1["Аллергологический анамнез:"]["value"];
 			$f["e_anamnez4"]=$first_osmotr["fld_26"];
 			$f["e_stateIn"]=$first_osmotr1["Состояние"]["value"];
+			$f["e_diag_in"]=$action_in["Основной:"]["value"];
+			$f["e_diag_out"]=$Diag["main"]["DiagName"];
 			$f["e_diag_main"]=$first_osmotr1["Основной:"]["value"];
 			$f["e_diag_fon"]=$first_osmotr1["Фон:"]["value"];
 			$f["e_diag_comp"]=$first_osmotr1["Осложнения:"]["value"];
@@ -273,6 +275,24 @@ function fields_msk36($event_id,$orgstr="") {
 			break;
 	}
 	return $f;
+}
+
+function getActionDataIn($event_id) {
+	$SQL="SELECT a.* FROM Action AS a
+	INNER JOIN  Event AS e ON a.event_id = e.id
+	INNER JOIN  ActionType AS t ON t.id = a.actionType_id
+	WHERE e.id = {$event_id} 
+	AND a.deleted = 0 
+	AND t.name LIKE '%осмотр%' 
+	AND t.name LIKE '%в приемном%' 
+	ORDER BY endDate LIMIT 1";
+	$action_id=""; $res=mysql_query($SQL) or die ("Query failed getActionDataIn(): [1]" . mysql_error());
+	while($data = mysql_fetch_array($res)) {
+		$action_id=$data[0];
+	}
+	$action=getAction($action_id);
+	$action=$action["data"]["fields"];
+	return $action;
 }
 
 function getDiaryLast($event_id) {

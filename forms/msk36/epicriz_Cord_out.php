@@ -25,6 +25,8 @@
 
 		<li><b>ДИАГНОЗ:</b>
 			<ul>
+				<li><b>Диагноз при поступлении:</b><br><textarea name="e_diag_in">{{e_diag_in}}</textarea> </li>
+				<li><b>Диагноз при выписке:</b><br><textarea name="e_diag_out">{{e_diag_out}}</textarea> </li>
 				<li><b>Основное заболевание:</b><br><textarea name="e_diag_main">{{e_diag_main}}</textarea> </li>
 				<li><b>Фоновые заболевания:</b><br><textarea name="e_diag_fon">{{e_diag_fon}}</textarea></li>
 				<li><b>Осложнения основного заболевания:</b><br><textarea name="e_diag_comp">{{e_diag_comp}}</textarea></li>
