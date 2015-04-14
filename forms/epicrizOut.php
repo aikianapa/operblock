@@ -373,11 +373,11 @@ function epicLabPrep($event_id,$aType) {
 */
 	foreach($labHistory as $key => $labline) {
 		foreach($labline as $key =>$line) {		if ($line["status"]==2) {
-			if (!in_array($line["name"],$present)) {
+//			if (!in_array($line["name"],$present)) {
 				$present[]=$line["name"];
 				$action=getAction($line["actionId"],$event_id); 
 				$actionType_id=$action["data"]["actionType_id"];
-//				if (checkActionTypeParrent($actionType_id,$aType)) {
+				if (checkActionTypeParrent($actionType_id,$aType)) {
 					$time=date("d/m/Y h:i",strtotime($action["data"]["endDate"]));
 					$action=$action["data"]["fields"];
 					$doc=phpQuery::newDocument("<table></table>");
@@ -402,8 +402,8 @@ function epicLabPrep($event_id,$aType) {
 					}
 					
 					$res[]["lab"]=pq($doc)->htmlOuter();
-//				}
-			}
+				}
+//			}
 		}}
 	}
 	return $res;
