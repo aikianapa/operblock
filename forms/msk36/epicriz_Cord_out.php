@@ -166,6 +166,31 @@
 		</div>
 	</ul>
 	<textarea name="e_consultText">{{e_consultText}}</textarea></li>
+
+	<li><b>Выписан{{suffix2}} с: </b>
+	<select name="e_outType" value="{{e_outType}}">
+		<option>с выздоровлением</option>
+		<option>улучшением</option>
+		<option>без изменения</option>
+	</select>
+	</li>
+
+	<li><b>Трудоспособность: </b>
+	<select name="e_Jobness" value="{{e_Jobness}}">
+		<option>восстановлена полностью</option>
+		<option>снижена</option>
+		<option>утрачена временно</option>
+		<option>стойко утрачена всвязи с данным заболеванием</option>
+		<option class="add">с другими причинами</option>
+	</select>.
+	Посыльный лист на МСЭК 
+	<select name="e_JobnessMsek" value="{{e_JobnessMsek}}">
+		<option>оформлен</option>
+		<option>не оформлен</option>
+	</select>
+	<br /><textarea name="e_JobnessText">{{e_JobnessText}}</textarea>	
+	</li>
+
 	
 	<li><b>Больничный лист: </b>
 	<select name="e_hospList" value="{{e_hospList}}">
@@ -173,13 +198,35 @@
 		<option>выдавался</option>
 	</select>
 	</li>
+
+
+
+
 </ul>
 
-<ul>
 <b>Рекомендации по дальнейшему ведению пациента: </b>
-<li><textarea name="e_recom7">{{e_recom7}}</textarea></li>
-
-</ul>
+<ol>
+<li><b>Лекарственные препараты:</b><br/>
+<textarea name="e_recom_drugs">{{e_recom_drugs}}</textarea>
+</li>
+<li><b>Физиолечение и ЛФК:</b><br/>
+<textarea name="e_recom_lfk">{{e_recom_lfk}}</textarea>
+</li>
+<li><b>Санаторно-курортное лечение:</b><br/>
+<textarea name="e_recom_kurort">{{e_recom_kurort}}</textarea>
+</li>
+<li><b>Трудовые:</b><br/>
+<textarea name="e_recom_job">{{e_recom_job}}</textarea>
+</li>
+<li><b>Повторная госпитализация:</b><br/>
+<textarea name="e_recom_hosp">{{e_recom_hosp}}</textarea>
+</li>
+<li><b>Диспансеризация и наблюдение врачами-специалистами:</b><br/>
+<textarea name="e_recom_disp">{{e_recom_disp}}</textarea>
+</li>
+<br/>
+<textarea name="e_recom7">{{e_recom7}}</textarea>
+</ol>
 
 <br>
 <br>

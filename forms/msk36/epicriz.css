@@ -18,6 +18,7 @@
 #form-027u table {border:0; border-top:1px #000 solid; border-bottom:1px #000 solid; clear:both; width: 100%; }
 #form-027u table td {text-align:center; vertical-align:top;border-right:1px #000 solid;}
 #form-027u table td:last {border-right:0px;}
+#form-027u table td:first {width:50%;}
 #form-027u table tr { border: 1px #555 solid;}
 #form-027u table tr th { text-align:center; background-color: #bbb;}
 #form-027u table tr td { text-align:left;}
@@ -46,10 +47,11 @@ body {display:none;}
 #form-027u .text {line-height:32px; }
 #form-027u .text .remark {position:absolute; width:100%; margin-top: 15px; text-align:center; font-size:70%;}
 #form-027u table {border:0; border-top:1px #000 solid; border-bottom:1px #000 solid; clear:both; width: 100%; }
-#form-027u table td {text-align:center; vertical-align:top;border-right:1px #000 solid;}
+#form-027u table td {text-align:center; vertical-align:top;border-right:1px #000 solid; font-size:70%;}
 #form-027u table td:last {border-right:0px;}
+#form-027u table td:first {width:50%;}
 #form-027u table tr { border: 1px #555 solid;}
-#form-027u table tr th { text-align:center; background-color: #bbb;}
+#form-027u table tr th { text-align:center; background-color: #bbb; font-size:70%;}
 #form-027u table tr td { text-align:left;}
 #form-027u h2 {text-align:center; font-size:18px;}
 #form-027u h2 * {font-size:18px;}
