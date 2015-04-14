@@ -168,7 +168,7 @@
 	<textarea name="e_consultText">{{e_consultText}}</textarea></li>
 
 	<li><b>Выписан{{suffix2}} с: </b>
-	<select name="e_outType" value="{{e_outType}}">
+	<select name="e_out" value="{{e_out}}">
 		<option>с выздоровлением</option>
 		<option>улучшением</option>
 		<option>без изменения</option>
