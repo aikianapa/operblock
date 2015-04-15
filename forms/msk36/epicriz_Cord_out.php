@@ -220,7 +220,7 @@
 <textarea name="e_recom_disp">{{e_recom_disp}}</textarea>
 </li>
 <br/>
-<textarea name="e_recom7">{{e_recom7}}</textarea>
+<textarea name="e_recom7" placeholder="Сохранять выписной эпикриз, ЭКГ. Предоставить выписку при последующих госпитализациях.">{{e_recom7}}</textarea>
 </ol>
 
 <br>
