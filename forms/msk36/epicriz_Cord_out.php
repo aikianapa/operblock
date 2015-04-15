@@ -38,9 +38,9 @@
 		<li><b>An.morbi:</b><br><textarea name="e_anamnez1">{{e_anamnez1}}</textarea> </li>
 		<li><b>Состояние при поступлении:</b><br><textarea name="e_stateIn">{{e_stateIn}}</textarea></li>
 		
-		<li><b>Дыхание:</b>
+		<li>
 			<ul class="inline">
-				<li><input class="medium" name="e_pulm_in"></li>
+				<li><b>Дыхание:</b> <input class="medium" name="e_pulm_in"></li>
 				<li><b>ЧДД:</b> <input class="medium" name="e_pulmFreq_in"></li>
 			</ul>
 		</li>
@@ -48,7 +48,7 @@
 		<li><b>Сердце:</b>
 			<ul class="inline">
 			<li><b>Тоны сердца:</b> <input class="medium" name="e_corTone_in"></li>
-			<li><b>ЧСС: </b><input class="medium" name="e_corFreq"></li>
+			<li><b>ЧСС: </b> <input class="medium" name="e_corFreq"></li>
 			<li><b>АД:</b> <input class="medium" name="e_corPress_in"></li>
 			</ul>
 		</li>	
