@@ -34,22 +34,18 @@
 			</ul>
 		</li>
 		<li><p><b>Код стандарта:</b> <input name="e_code1" class="small"> <b>Шифр по МКБ-10:</b> <input name="e_code2" class="small"></p></li>
-		<li><b>Жалобы:</b><br><textarea name="e_complaint1">{{e_complaint1}}</textarea> </li>
+		<li><b>Жалобы при поступлении:</b><br><textarea name="e_complaint1">{{e_complaint1}}</textarea> </li>
 		<li><b>An.morbi:</b><br><textarea name="e_anamnez1">{{e_anamnez1}}</textarea> </li>
 		<li><b>Состояние при поступлении:</b><br><textarea name="e_stateIn">{{e_stateIn}}</textarea></li>
 		
 		<li>
 			<ul class="inline">
 				<li><b>Дыхание:</b> <input class="medium" name="e_pulm_in"></li>
-				<li><b>ЧДД:</b> <input class="medium" name="e_pulmFreq_in"></li>
-			</ul>
-		</li>
-		
-		<li><b>Сердце:</b>
-			<ul class="inline">
-			<li><b>Тоны сердца:</b> <input class="medium" name="e_corTone_in"></li>
-			<li><b>ЧСС: </b> <input class="medium" name="e_corFreq"></li>
-			<li><b>АД:</b> <input class="medium" name="e_corPress_in"></li>
+				<li><b>ЧДД:</b> <input class="medium" name="e_pulmFreq_in"> в 1 мин.</li>
+				<li><b>Сердце:</b></li>
+				<li><b>Тоны сердца:</b> <input class="medium" name="e_corTone_in"></li>
+				<li><b>ЧСС: </b> <input class="medium" name="e_corFreq"> в 1 мин.</li>
+				<li><b>АД:</b> <input class="medium" name="e_corPress_in"> мм.рт.ст.</li>
 			</ul>
 		</li>	
 		
@@ -75,9 +71,9 @@
 		</select>
 		<br><textarea name="e_stateOutText">{{e_stateOutText}}</textarea> </li>
 
-		<li><b>Дыхание:</b>
+		<li>
 			<ul class="inline">
-				<li>
+				<li><b>Дыхание:</b> 
 						<select name="e_pulm1" multiple="multiple"  value="{{e_pulm1}}">
 						<option>везикулярное</option>
 						<option>жесткое</option>
@@ -93,11 +89,7 @@
 				</li>
 				<li><b>ЧДД:</b> <input name="e_pulmFreq" class="small"> в 1 мин.</li>
 				<li><textarea name="e_pulm">{{e_pulm}}</textarea></li>
-			</ul>
-		</li>
-		
-		<li><b>Сердце:</b>
-			<ul class="inline">
+			<li><b>Сердце:</b></li>
 			<li><b>Тоны сердца:</b> 
 				<select name="e_corTone" multiple="multiple"  value="{{e_corTone}}">
 				<option>чистые</option>
