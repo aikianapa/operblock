@@ -183,7 +183,8 @@ function setRusDate($str) {
 	$str[0]=str_replace("»","",$str[0]);
 	$str[0]=str_replace("'","",$str[0]);
 	$str[0]=str_replace('"',"",$str[0]);
-	$str[0]=0+$str[0];
+	$str[0]=0+$str[0
+	$str[1]=strtolower($str[1]);
 	$str[1]=array_search($str[1],$mon);
 	$str[2]=0+$str[2];
 	$date=date("Y-m-d",strtotime($str[2]."-".$str[1]."-".$str[0]));
