@@ -345,7 +345,7 @@ function epicLabPrep($event_id,$aType) {
 	$labHistory=$actionHistory["data"][1];
 	$res=array();
 	$present=array();
-	$exclude=array("1","Дата Назначения","Номерок","Направлен","Описание:","Дата и время Выполнения");
+	$exclude=array("1","Дата Назначения","Номерок","Направлен","Дата и время Выполнения");
 /*
 	foreach($labHistory as $key => $labline) {
 		foreach($labline as $key =>$line) {		if ($line["status"]==2) {
