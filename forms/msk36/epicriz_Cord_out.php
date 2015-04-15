@@ -146,8 +146,7 @@
 				<a href='#del' class='del_fld'><span class="ui-icon ui-icon-circle-close"></span></a>
 				<p>{{lab}}</p></li>
 		</div>
-	</ul>
-	</li>
+	</ul><textarea name="e_researchText">{{e_researchText}}</textarea></li>
 
 	<li><b>Лабораторная диагностика: </b>
 	<ul>
@@ -182,8 +181,9 @@
 		<option>утрачена временно</option>
 		<option>стойко утрачена всвязи с данным заболеванием</option>
 		<option class="add">с другими причинами</option>
-	</select>.
-	Посыльный лист на МСЭК 
+	</select>
+	</li>
+	<li><b>Посыльный лист на МСЭК: </b>
 	<select name="e_JobnessMsek" value="{{e_JobnessMsek}}">
 		<option>оформлен</option>
 		<option>не оформлен</option>
@@ -211,6 +211,9 @@
 </li>
 <li><b>Физиолечение и ЛФК:</b><br/>
 <textarea name="e_recom_lfk">{{e_recom_lfk}}</textarea>
+</li>
+<li><b>Диета:</b><br/>
+<textarea name="e_recom_dieta">{{e_recom_dieta}}</textarea>
 </li>
 <li><b>Санаторно-курортное лечение:</b><br/>
 <textarea name="e_recom_kurort">{{e_recom_kurort}}</textarea>
