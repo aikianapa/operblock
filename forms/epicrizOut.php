@@ -265,6 +265,8 @@ function fields_msk36($event_id,$orgstr="") {
 			$DiaryLast=getDiaryLast($event_id);
 			$f["e_stateOut"]=$DiaryLast["fields"]["Состояние при осмотре:"]["value"];
 			//===========
+			$f["e_diag_in"]=$action_in["Основной:"]["value"];
+			$f["e_diag_out"]=$Diag["main"]["DiagName"];
 			$f["e_diag_main"]=$first_osmotr1["Основной:"]["value"];
 			$f["e_diag_fon"]=$first_osmotr1["Фон:"]["value"];
 			$f["e_diag_comp"]=$first_osmotr1["Осложнения:"]["value"];
