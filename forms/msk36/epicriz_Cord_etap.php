@@ -34,6 +34,7 @@
 		<li><p><b>Код стандарта:</b> <input name="e_code1" class="small"> <b>Шифр по МКБ-10:</b> <input name="e_code2" class="small"></p></li>
 		<li><b>Жалобы:</b><br><textarea name="e_complaint1">{{e_complaint1}}</textarea> </li>
 		<li><b>An.morbi:</b><br><textarea name="e_anamnez1">{{e_anamnez1}}</textarea> </li>
+		<li><b>An.vitae:</b><br><textarea name="e_an_vitae">{{e_an_vitae}}</textarea> </li>
 		<li><b>Состояние при поступлении:</b><br><textarea name="e_stateIn">{{e_stateIn}}</textarea></li>
 		
 		<li><b>Дыхание:</b>

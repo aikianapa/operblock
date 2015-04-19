@@ -18,7 +18,7 @@
 		<ul class="fields">
 		<li><b>Жалобы при поступлении:</b><br><textarea name="e_complaint1">{{e_complaint1}}</textarea> </li>
 		<li><b>Жалобы при осмотре в н\о:</b><br><textarea name="e_complaint2">{{e_complaint2}}</textarea> </li>
-		<li><b>Анамнез заболевания:{{e_anamnez1}}</b><br><textarea name="e_anamnez1">{{e_anamnez1}}</textarea> </li>
+		<li><b>Анамнез заболевания:</b><br><textarea name="e_anamnez1">{{e_anamnez1}}</textarea> </li>
 		<li><b>Анамнез жизни:</b><br><textarea name="e_anamnez2">{{e_anamnez2}}</textarea> </li>
 		<li><b>Аллергоанамнез:</b><br><textarea name="e_anamnez3">{{e_anamnez3}}</textarea> </li>
 		<li><b>Эпид.анамнез:</b><br><textarea name="e_anamnez4">{{e_anamnez4}}</textarea> </li>
@@ -155,7 +155,7 @@
 		<b>ШКГ:</b> <input name="e_nervShkg" class="small"> б.&nbsp;
 		<b>NIHSS:</b> <input name="e_nervNihss" class="small"> б.&nbsp;
 		<b>Ранкин:</b> <input name="e_nervRankin" class="small"> б.&nbsp;
-		<b>Ривермет:</b> <input name="e_nervRiverted" class="small"> б.&nbsp;
+		<b>Ривермид:</b> <input name="e_nervRiverted" class="small"> б.&nbsp;
 		</li>
 		<li>
 		<b>Речевому контакту: </b>
@@ -291,6 +291,7 @@
 		
 		<li><b>Нистагм: </b>
 		<select multiple="multiple" name="e_cmnNistagm[]">
+		<option>отсутствует</option>
 		<option>мелкоразмашистый</option>
 		<option>среднеразмашистый</option>
 		<option>крупноразмашистый</option>
@@ -575,8 +576,9 @@
 <li>Консультация в ОКДО ГКБ №36 <textarea placeholder="через __ месяцев с целью коррекции лечения при необходимости." name="e_recom6">{{e_recom6}}</textarea></li>
 <li>Дополнительная информация: <textarea name="e_recom7">{{e_recom7}}</textarea></li>
 </li>
+</ul>
 
-</ol-->
+<p>Все препараты могут быть заменены на аналогичные в пределах одной фармакологической группы с соответствующей коррекцией принимаемой дозы под наблюдением врачей-специалистов.</p>
 
 <br>
 <br>
