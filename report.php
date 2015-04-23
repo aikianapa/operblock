@@ -9,5 +9,9 @@ include_once("$path/engine/engine.php");
 include($_SERVER["DOCUMENT_ROOT"]."/functions.php");
 $name="DoctorRoom: Выписной эпикриз";
 $aType=getActionTypeByName($name);
-echo $aType;
+$SQL="SELECT COUNT(*) FROM `Action` WHERE actionType_id = {$aType} ";
+	$res=mysql_query($SQL) or die ("Query failed getEpicrizOut(): " . mysql_error());
+	while($data = mysql_fetch_array($res)) {
+		echo $name.": ".$data[0];
+	}
 ?>
