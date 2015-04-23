@@ -7,10 +7,10 @@ $path=$_SERVER['DOCUMENT_ROOT'];
 $url="http://".$_SERVER['HTTP_HOST'];
 include_once("$path/engine/engine.php");
 include($_SERVER["DOCUMENT_ROOT"]."/functions.php");
-$epic=array({
+$epic=array(
 	"DoctorRoom: Этапный эпикриз",
 	"DoctorRoom: Выписной эпикриз"
-});
+);
 foreach($epic as $key => $name) {
 $aType=getActionTypeByName($name);
 $SQL="SELECT COUNT(*) FROM `Action` WHERE actionType_id = {$aType} ";
