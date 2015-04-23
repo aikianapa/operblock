@@ -25,19 +25,19 @@
 
 		<li><b>ДИАГНОЗ:</b>
 			<ul>
-				<li><b>Диагноз при поступлении:</b><br><textarea name="e_diag_in">{{e_diag_in}}</textarea> </li>
-				<li><b>Диагноз при выписке:</b><br><textarea name="e_diag_out">{{e_diag_out}}</textarea> </li>
-				<li><b>Основное заболевание:</b><br><textarea name="e_diag_main">{{e_diag_main}}</textarea> </li>
-				<li><b>Фоновые заболевания:</b><br><textarea name="e_diag_fon">{{e_diag_fon}}</textarea></li>
-				<li><b>Осложнения основного заболевания:</b><br><textarea name="e_diag_comp">{{e_diag_comp}}</textarea></li>
-				<li><b>Сопутствующие заболевания:</b><br><textarea name="e_diag_satt">{{e_diag_satt}}</textarea></li>
+				<li><b>Диагноз при поступлении:</b><textarea name="e_diag_in">{{e_diag_in}}</textarea> </li>
+				<li><b>Диагноз при выписке:</b><textarea name="e_diag_out">{{e_diag_out}}</textarea> </li>
+				<li><b>Основное заболевание:</b><textarea name="e_diag_main">{{e_diag_main}}</textarea> </li>
+				<li><b>Фоновые заболевания:</b><textarea name="e_diag_fon">{{e_diag_fon}}</textarea></li>
+				<li><b>Осложнения основного заболевания:</b><textarea name="e_diag_comp">{{e_diag_comp}}</textarea></li>
+				<li><b>Сопутствующие заболевания:</b><textarea name="e_diag_satt">{{e_diag_satt}}</textarea></li>
 			</ul>
 		</li>
 		<li><p><b>Код стандарта:</b> <input name="e_code1" class="small"> <b>Шифр по МКБ-10:</b> <input name="e_code2" class="small"></p></li>
-		<li><b>Жалобы при поступлении:</b><br><textarea name="e_complaint1">{{e_complaint1}}</textarea> </li>
-		<li><b>An.morbi:</b><br><textarea name="e_anamnez1">{{e_anamnez1}}</textarea> </li>
-		<li><b>An.vitae:</b><br><textarea name="e_an_vitae">{{e_an_vitae}}</textarea> </li>
-		<li><b>Состояние при поступлении:</b><br><textarea name="e_stateIn">{{e_stateIn}}</textarea></li>
+		<li><b>Жалобы при поступлении:</b><textarea name="e_complaint1">{{e_complaint1}}</textarea> </li>
+		<li><b>An.morbi:</b><textarea name="e_anamnez1">{{e_anamnez1}}</textarea> </li>
+		<li><b>An.vitae:</b><textarea name="e_an_vitae">{{e_an_vitae}}</textarea> </li>
+		<li><b>Состояние при поступлении:</b><textarea name="e_stateIn">{{e_stateIn}}</textarea></li>
 		
 		<li>
 			<ul class="inline">
@@ -47,13 +47,11 @@
 				<li><b>Тоны сердца:</b> <input class="medium" name="e_corTone_in"></li>
 				<li><b>ЧСС: </b> <input class="medium" name="e_corFreq_in"> в 1 мин.</li>
 				<li><b>АД:</b> <input class="medium" name="e_corPress_in"> мм.рт.ст.</li>
-				<li><br /><b>Печень:</b> <input type="text" name="e_liverText_in"></li>
-				<li><br /><b>Живот:</b> <input type="text" name="e_bellyText_in"></li>
 			</ul>
 		</li>	
-		
-		<li><b>Течение заболевания в стационаре:</b><br><textarea name="e_stationar">{{e_stationar}}</textarea> </li>
-		
+		<li><b>Печень:</b> <textarea type="text" name="e_liverText_in">{{e_liverText_in}}</textarea></li>
+		<li><b>Живот:</b> <textarea type="text" name="e_bellyText_in">{{e_bellyText_in}}</textarea></li>
+		<li><b>Течение заболевания в стационаре:</b><textarea name="e_stationar">{{e_stationar}}</textarea> </li>
 		<li><b>Терапия: </b>
 		<ul>
 		<div data-role="foreach" from="Drugs">
@@ -72,7 +70,7 @@
 			<option>тяжелое</option>
 			<option>крайне тяжелое</option>
 		</select>
-		<br><textarea name="e_stateOutText">{{e_stateOutText}}</textarea> </li>
+		<textarea name="e_stateOutText">{{e_stateOutText}}</textarea> </li>
 
 		<li>
 			<ul class="inline">
@@ -110,7 +108,7 @@
 			<li><b>АД:</b> <input name="e_corPress" class="small"> мм.рт.ст.</li>
 			</ul>
 		</li>	
-		<li><b>Печень:</b><br><textarea name="e_liverText">{{e_liverText}}</textarea></li>
+		<li><b>Печень:</b><textarea name="e_liverText">{{e_liverText}}</textarea></li>
 		
 
 		<li><b>Живот:</b>
@@ -201,25 +199,25 @@
 
 <b>Рекомендации по дальнейшему ведению пациента: </b>
 <ol>
-<li><b>Лекарственные препараты:</b><br/>
+<li><b>Лекарственные препараты:</b>
 <textarea name="e_recom_drugs">{{e_recom_drugs}}</textarea>
 </li>
-<li><b>Физиолечение и ЛФК:</b><br/>
+<li><b>Физиолечение и ЛФК:</b>
 <textarea name="e_recom_lfk">{{e_recom_lfk}}</textarea>
 </li>
-<li><b>Диета:</b><br/>
+<li><b>Диета:</b>
 <textarea name="e_recom_dieta">{{e_recom_dieta}}</textarea>
 </li>
-<li><b>Санаторно-курортное лечение:</b><br/>
+<li><b>Санаторно-курортное лечение:</b>
 <textarea name="e_recom_kurort">{{e_recom_kurort}}</textarea>
 </li>
-<li><b>Трудовые:</b><br/>
+<li><b>Трудовые:</b>
 <textarea name="e_recom_job">{{e_recom_job}}</textarea>
 </li>
-<li><b>Повторная госпитализация:</b><br/>
+<li><b>Повторная госпитализация:</b>
 <textarea name="e_recom_hosp">{{e_recom_hosp}}</textarea>
 </li>
-<li><b>Диспансеризация и наблюдение врачами-специалистами:</b><br/>
+<li><b>Диспансеризация и наблюдение врачами-специалистами:</b>
 <textarea name="e_recom_disp">{{e_recom_disp}}</textarea>
 </li>
 <br/>
