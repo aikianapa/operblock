@@ -248,6 +248,8 @@ function fields_msk36($event_id,$orgstr="") {
 			$f["e_corTone_in"]=$first_osmotr1["Тоны сердца"]["value"];
 			$f["e_corPress_in"]=$first_osmotr1["АД"]["value"];
 			$f["e_corFreq_in"]=field_multi($first_osmotr1["ЧСС , Пульс, Дефицит пульса"]["value"]);
+			$f["e_liverText_in"]=$first_osmotr1["Печень"]["value"];
+			$f["e_bellyText_in"]=$first_osmotr1["Живот"]["value"];
 			break;
 		case "Nevr":
 		// =========== Неврология ============
