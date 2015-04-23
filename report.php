@@ -7,11 +7,16 @@ $path=$_SERVER['DOCUMENT_ROOT'];
 $url="http://".$_SERVER['HTTP_HOST'];
 include_once("$path/engine/engine.php");
 include($_SERVER["DOCUMENT_ROOT"]."/functions.php");
-$name="DoctorRoom: Выписной эпикриз";
+$epic=array({
+	"DoctorRoom: Этапный эпикриз",
+	"DoctorRoom: Выписной эпикриз"
+});
+foreach($epic as $key => $name) {
 $aType=getActionTypeByName($name);
 $SQL="SELECT COUNT(*) FROM `Action` WHERE actionType_id = {$aType} ";
 	$res=mysql_query($SQL) or die ("Query failed getEpicrizOut(): " . mysql_error());
 	while($data = mysql_fetch_array($res)) {
-		echo $name.": ".$data[0];
+		echo $name.": ".$data[0]."<br>";
 	}
+}
 ?>
