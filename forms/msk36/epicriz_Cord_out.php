@@ -47,8 +47,8 @@
 				<li><b>Тоны сердца:</b> <input class="medium" name="e_corTone_in"></li>
 				<li><b>ЧСС: </b> <input class="medium" name="e_corFreq_in"> в 1 мин.</li>
 				<li><b>АД:</b> <input class="medium" name="e_corPress_in"> мм.рт.ст.</li>
-				<li><br /><b>Печень:</b><br /><textarea name="e_liverText_in">{{e_liverText_in}}</textarea></li>
-				<li><br /><b>Живот:</b><br /><textarea name="e_bellyText_in">{{e_bellyText_in}}</textarea></li>
+				<li><br /><b>Печень:</b> <input type="text" name="e_liverText_in"></li>
+				<li><br /><b>Живот:</b> <input type="text" name="e_bellyText_in"></li>
 			</ul>
 		</li>	
 		
