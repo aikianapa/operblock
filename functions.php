@@ -315,7 +315,6 @@ foreach ($array as $i => $field){
 		   }
 		  $out = implode(',', $out);
 		  $SQL="INSERT INTO ActionProperty SET {$out}";
-		  echo $SQL;
 		  mysql_query($SQL) or die ("Query failed 1: " . mysql_error());
 	}
 

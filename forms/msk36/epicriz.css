@@ -21,12 +21,13 @@
 #form-027u table td:last {border-right:0px;}
 #form-027u table td:first {width:50%;}
 #form-027u table tr { border: 1px #555 solid;}
-#form-027u table tr th { text-align:center; background-color: #bbb;}
+#form-027u table tr th { text-align:center; background-color: #bbb; padding-left: 15px;}
 #form-027u table tr td { text-align:left;}
 #form-027u h2 {text-align:center; font-size:18px;}
 #form-027u h2 * {font-size:18px;}
-#form-027u a.del_fld {position:absolute; margin-left: -25px; margin-top: 0px;;}
+#form-027u a.del_fld {position:absolute; margin-left: 0px; margin-top: 0px;;}
 #form-027u select[multiple] {display:block; height: auto;}
+#form-027u ul.inline-block li {display: inline-block; vertical-align: top;}
 }
 
 @media print {
@@ -59,7 +60,8 @@ body {display:none;}
 #form-027u h2 * {font-size:18px;}
 #form-027u a.del_fld {display:none;}
 #form-027u span { font-style: italic;}
-
+#form-027u ul.inline-block li {display: inline-block; vertical-align: top;}
+}
 
 
 

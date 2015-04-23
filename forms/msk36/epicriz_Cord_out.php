@@ -92,7 +92,7 @@
 				</li>
 				<li><b>ЧДД:</b> <input name="e_pulmFreq" class="small"> в 1 мин.</li>
 				<li><textarea name="e_pulm">{{e_pulm}}</textarea></li>
-			<li><b>Сердце:</b></li>
+			<li><br /><b>Сердце:</b></li>
 			<li><b>Тоны сердца:</b> 
 				<select name="e_corTone" multiple="multiple"  value="{{e_corTone}}">
 				<option>чистые</option>
@@ -144,7 +144,7 @@
 	</ul><textarea name="e_researchText">{{e_researchText}}</textarea></li>
 
 	<li><b>Лабораторная диагностика: </b>
-	<ul>
+	<ul class="inline-block">
 		<div data-role="foreach" from="lab">
 			<li>
 				<a href='#del' class='del_fld'><span class="ui-icon ui-icon-circle-close"></span></a>
