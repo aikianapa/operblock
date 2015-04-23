@@ -144,7 +144,7 @@
 	</ul><textarea name="e_researchText">{{e_researchText}}</textarea></li>
 
 	<li><b>Лабораторная диагностика: </b>
-	<ul class="inline-block">
+	<ul>
 		<div data-role="foreach" from="lab">
 			<li>
 				<a href='#del' class='del_fld'><span class="ui-icon ui-icon-circle-close"></span></a>
