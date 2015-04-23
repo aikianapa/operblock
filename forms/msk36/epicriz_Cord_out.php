@@ -43,10 +43,12 @@
 			<ul class="inline">
 				<li><b>Дыхание:</b> <input class="medium" name="e_pulm_in"></li>
 				<li><b>ЧДД:</b> <input class="medium" name="e_pulmFreq_in"> в 1 мин.</li>
-				<li><b>Сердце:</b></li>
+				<li><br /><b>Сердце:</b></li>
 				<li><b>Тоны сердца:</b> <input class="medium" name="e_corTone_in"></li>
-				<li><b>ЧСС: </b> <input class="medium" name="e_corFreq"> в 1 мин.</li>
+				<li><b>ЧСС: </b> <input class="medium" name="e_corFreq_in"> в 1 мин.</li>
 				<li><b>АД:</b> <input class="medium" name="e_corPress_in"> мм.рт.ст.</li>
+				<li><br /><b>Печень:</b><br /><textarea name="e_liverText_in">{{e_liverText_in}}</textarea></li>
+				<li><br /><b>Живот:</b><br /><textarea name="e_bellyText_in">{{e_bellyText_in}}</textarea></li>
 			</ul>
 		</li>	
 		
