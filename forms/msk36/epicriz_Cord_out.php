@@ -18,8 +18,7 @@
 </p>
 
 		<ul class="fields">
-		<li><b>Фамилия, Имя, Отчество:</b> {{client}}</li>
-		<li><b>Возраст:</b> {{age}}</li>
+		<li><b>Фамилия, Имя, Отчество:</b> {{client}}, <b>возраст</b> {{age}}</li>
 		<li><b>Дата госпитализации:</b> {{s_date1}}</li>
 		<li><b>Дата выписки:</b> <input type="text" class="medium" name="endDate" value="{{s_date2}}"></li>
 

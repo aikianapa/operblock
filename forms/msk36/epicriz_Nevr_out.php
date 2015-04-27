@@ -40,6 +40,7 @@
 		</li>
 		<li><b>Жалобы при поступлении:</b><br><textarea name="e_complaint1">{{e_complaint1}}</textarea> </li>
 		<li><b>Жалобы при осмотре в н\о:</b><br><textarea name="e_complaint2">{{e_complaint2}}</textarea> </li>
+		<li><b>Состояние при осмотре в н\о:</b><br><textarea name="e_stateNo">{{e_stateNo}}</textarea> </li>
 		<li><b>Анамнез заболевания:{{e_anamnez1}}</b><br><textarea name="e_anamnez1">{{e_anamnez1}}</textarea> </li>
 		<li><b>Анамнез жизни:</b><br><textarea name="e_anamnez2">{{e_anamnez2}}</textarea> </li>
 		<li><b>Аллергоанамнез:</b><br><textarea name="e_anamnez3">{{e_anamnez3}}</textarea> </li>
@@ -399,7 +400,7 @@
 		</select></li>
 		
 		<li><b>Сухожильные и периостальные рефлексы: </b><br>
-		На руках 
+		<b>На руках</b> 
 		<select name="e_cmnReflHands" value="{{e_cmnReflHands}}">
 			<option>средней живости</option>
 			<option>живые</option>
@@ -408,9 +409,10 @@
 			<option>снижены</option>
 			<option>низкие</option>
 			<option>отсутствуют</option>
-			<option class="add">иное:</option>
+			<option class="add">&nbsp;</option>
 		</select><br>
-		На ногах 
+
+		<b>На ногах</b> 
 		<select name="e_cmnReflLegs" value="{{e_cmnReflLegs}}">
 			<option>средней живости</option>
 			<option>живые</option>
@@ -419,7 +421,7 @@
 			<option>снижены</option>
 			<option>низкие</option>
 			<option>отсутствуют</option>
-			<option class="add">иное:</option>
+			<option class="add">&nbsp;</option>
 		</select>
 		</li>
 		
@@ -530,6 +532,7 @@
 Проводилось лечение в соответствии со стандартами оказания стационарной медицинской помощи<br>
 </b></p>
 <ul>
+	<li><p style="text-align:center;"><b>Код стандарта:</b> <input name="e_code1" class="small"> <b>Шифр по МКБ-10:</b> <input name="e_code2" class="small"></p></li>
 	<li><b>Препараты: </b>
 	<ul>
 	<div data-role="foreach" from="Drugs">
