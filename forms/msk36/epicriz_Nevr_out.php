@@ -41,7 +41,7 @@
 		<li><b>Жалобы при поступлении:</b><br><textarea name="e_complaint1">{{e_complaint1}}</textarea> </li>
 		<li><b>Жалобы при осмотре в н\о:</b><br><textarea name="e_complaint2">{{e_complaint2}}</textarea> </li>
 		<li><b>Состояние при осмотре в н\о:</b><br><textarea name="e_stateNo">{{e_stateNo}}</textarea> </li>
-		<li><b>Анамнез заболевания:{{e_anamnez1}}</b><br><textarea name="e_anamnez1">{{e_anamnez1}}</textarea> </li>
+		<li><b>Анамнез заболевания:</b><br><textarea name="e_anamnez1">{{e_anamnez1}}</textarea> </li>
 		<li><b>Анамнез жизни:</b><br><textarea name="e_anamnez2">{{e_anamnez2}}</textarea> </li>
 		<li><b>Аллергоанамнез:</b><br><textarea name="e_anamnez3">{{e_anamnez3}}</textarea> </li>
 		<li><b>Эпид.анамнез:</b><br><textarea name="e_anamnez4">{{e_anamnez4}}</textarea> </li>
