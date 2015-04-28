@@ -300,7 +300,6 @@ function getTemplateValues($docs=array()) {
 	foreach(pq($out)->find("[from]") as $inc) {
 		$from=array(); $from=explode("@",pq($inc)->attr("from"));
 		foreach($docs[$from[0]] as $fld => $data) {
-			echo fldname($fld);
 			// нормализуем поля (удаляем пробелы, двоеточия)
 			$docs[$from[0]][fldname($fld)]=$docs[$from[0]][$fld];
 		}
