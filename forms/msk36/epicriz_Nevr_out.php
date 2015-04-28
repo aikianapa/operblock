@@ -38,15 +38,15 @@
 				<li><b>Сопутствующие заболевания:</b><br><textarea name="e_diag_satt">{{e_diag_satt}}</textarea></li>
 			</ul>
 		</li>
-		<li><b>Жалобы при поступлении:</b><br><textarea name="e_complaint1">{{e_complaint1}}</textarea> </li>
-		<li><b>Жалобы при осмотре в н\о:</b><br><textarea name="e_complaint2">{{e_complaint2}}</textarea> </li>
-		<li><b>Состояние при осмотре в н\о:</b><br><textarea name="e_stateNo">{{e_stateNo}}</textarea> </li>
-		<li><b>Анамнез заболевания:</b><br><textarea name="e_anamnez1">{{e_anamnez1}}</textarea> </li>
-		<li><b>Анамнез жизни:</b><br><textarea name="e_anamnez2">{{e_anamnez2}}</textarea> </li>
-		<li><b>Аллергоанамнез:</b><br><textarea name="e_anamnez3">{{e_anamnez3}}</textarea> </li>
-		<li><b>Эпид.анамнез:</b><br><textarea name="e_anamnez4">{{e_anamnez4}}</textarea> </li>
-		<li><b>Находился на больничном листе в течение последних 12 месяцев:</b><br><textarea name="e_blist12">{{e_blist12}}</textarea> </li>
-		<li><b>Состояние при поступлении:</b><br><textarea name="e_stateIn">{{e_stateIn}}</textarea> </li>
+		<li><b>Жалобы при поступлении:</b> <textarea name="e_complaint1">{{e_complaint1}}</textarea> </li>
+		<li><b>Жалобы при осмотре в н\о:</b> <textarea name="e_complaint2">{{e_complaint2}}</textarea> </li>
+		<li><b>Состояние при осмотре в н\о:</b> <textarea name="e_stateNo">{{e_stateNo}}</textarea> </li>
+		<li><b>Анамнез заболевания:</b> <textarea name="e_anamnez1">{{e_anamnez1}}</textarea> </li>
+		<li><b>Анамнез жизни:</b> <textarea name="e_anamnez2">{{e_anamnez2}}</textarea> </li>
+		<li><b>Аллергоанамнез:</b> <textarea name="e_anamnez3">{{e_anamnez3}}</textarea> </li>
+		<li><b>Эпид.анамнез:</b> <textarea name="e_anamnez4">{{e_anamnez4}}</textarea> </li>
+		<li><b>Находился на больничном листе в течение последних 12 месяцев:</b> <textarea name="e_blist12">{{e_blist12}}</textarea> </li>
+		<li><b>Состояние при поступлении:</b> <textarea name="e_stateIn">{{e_stateIn}}</textarea> </li>
 		<li><b>Состояние при выписке:</b> 
 		<select name="e_stateOut" value="{{e_stateOut}}" from="DiaryLast@Состояние при осмотре:">
 			<option>удовлетворительное</option>
@@ -56,7 +56,7 @@
 			<option>тяжелое</option>
 			<option>крайне тяжелое</option>
 		</select>
-		<br><textarea name="e_stateOutText">{{e_stateOutText}}</textarea> </li>
+		<textarea name="e_stateOutText">{{e_stateOutText}}</textarea> </li>
 		<li><b>Тяжесть состояния обусловлена:</b>
 		<select name="e_hardState" from="DiaryLast@Тяжесть состояния обусловлена" value="{{e_hardState}}">
 			<option>&nbsp;</option>
@@ -80,7 +80,7 @@
 		<br><textarea name="e_perEdemaText">{{e_perEdemaText}}</textarea> </li>
 
 		<li><b>Кожные  покровы:</b> 
-		<select name="e_skin1" multiple="multiple" from="DiaryLast@Кожные покровы:"	value="{{e_skin1}}">
+		<select name="e_skin1" multiple="multiple" from="DiaryLast@Кожные    покровы"	value="{{e_skin1}}">
 			<option>розовые</option><option>бледно - розовые</option><option>бледные</option>
 			<option>цианоз</option><option>сухие</option><option>влажные</option>
 			<option>трофические нарушения отсутствуют</option><option>обычной окраски и влажности</option>
@@ -88,13 +88,13 @@
 		</select>
 		<textarea name="e_skinText">{{e_skinText}}</textarea></li>
 		<li><b>St.locales:</b><br><textarea from="DiaryLast@St. locales :" name="e_stLocales">{{e_stLocales}}</textarea> </li>
-		<li><b>Pulm.:</b><br>
+		<li><b>Pulm.:</b>
 				<b>Дыхание:</b>
 				<select name="e_pulm1" from="DiaryLast@Pulm.:Дыхание :" value="{{e_pulm1}}">
 					<option>везикулярное</option><option>с жестковатым оттенком</option></option>жесткое</option>
 					<option>проводится во все отделы</option><option class="add">ослабленное</option>
 				</select>,&nbsp;                            
-			<ul>
+			<ul class="inline">
 				<li><b>ЧДД:</b> <input from="DiaryLast@ЧДД" name="e_pulmFreq" class="small"> в 1 мин.</li>
 				<li><b>Хрипы:</b> 
 					<select from="DiaryLast@Хрипы:" name="e_pulmHrip1" value="{{e_pulmHrip1}}">
@@ -106,8 +106,8 @@
 				</li>
 			</ul>
 			<textarea name="e_pulm">{{e_pulm}}</textarea> </li>
-		<li><b>Cor:</b><br>
-			<ul>
+		<li><b>Cor:</b> 
+			<ul class="inline">
 			<li><b>ЧСС:</b> <input from="DiaryLast@Cor. ЧСС" name="e_corFreq" class="small"> в 1 мин.</li>
 			<li><b>АД:</b> <input from="DiaryLast@АД" name="e_corPress" class="small"> мм.рт.ст.</li>
 			<li><b>Тоны сердца:</b> 
@@ -157,7 +157,7 @@
 		</select>
 		</li>
 		
-		<li><b>Неврологический статус на момент осмотра:</b><br>
+		<li><b>Неврологический статус на момент осмотра:</b>
 		<ul>
 		<li>
 		<b>Уровень сознания:</b>

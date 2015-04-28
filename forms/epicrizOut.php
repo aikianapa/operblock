@@ -299,10 +299,16 @@ function fields_msk36($event_id,$orgstr="") {
 function getTemplateValues($docs=array()) {
 	foreach(pq($out)->find("[from]") as $inc) {
 		$from=array(); $from=explode("@",pq($inc)->attr("from"));
-		if (isset($docs[$from[0]]) AND $from[1]>"") {
+		foreach($docs[$from[0]] as $fld => $data) {
+			echo fldname($fld);
+			// нормализуем поля (удаляем пробелы, двоеточия)
+			$docs[$from[0]][fldname($fld)]=$docs[$from[0]][$fld];
+		}
+		$fld=fldname($from[1]);
+		if (isset($docs[$from[0]]) AND $fld>"") {
 	// ============ SELECT ==============
 			if (pq($inc)->is("select")) {
-			pq($inc)->attr("value",$docs[$from[0]][$from[1]]["value"]);
+			pq($inc)->attr("value",$docs[$from[0]][$fld]["value"]);
 				if (pq($inc)->attr("multiple")=="multiple") {
 					$multi=true;
 					$val=explode(",",pq($inc)->attr("value")); foreach($val as $k => $v) {$val[$k]=trim($v);}
@@ -319,9 +325,9 @@ function getTemplateValues($docs=array()) {
 			}
 			
 	// ============ INPUT ==============
-			if (pq($inc)->is("input")) {pq($inc)->attr("value",$docs[$from[0]][$from[1]]["value"]);}
+			if (pq($inc)->is("input")) {pq($inc)->attr("value",$docs[$from[0]][$fld]["value"]);}
 	// ============ TEXTAREA ==============
-			if (pq($inc)->is("textarea")) {pq($inc)->html($docs[$from[0]][$from[1]]["value"]);}
+			if (pq($inc)->is("textarea")) {pq($inc)->html($docs[$from[0]][$fld]["value"]);}
 		}
 	}
 }
@@ -357,6 +363,14 @@ function getDiaryLast($event_id) {
 		$action=getAction($action_id); $action=$action["data"];
 	}
 	return $action;
+}
+
+function fldname($name) {
+	$name=str_replace(":","",$name);
+	$name=str_replace("  "," ",$name);
+	$name=str_replace("  "," ",$name); // так нада!
+	$name=trim($name);
+	return $name;
 }
 
 function getTextFromAction($action,$from,$to=NULL) {
