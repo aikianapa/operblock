@@ -86,6 +86,30 @@ $event=mysqlReadItem("Event",$id);
 	}
 		$Item["docDate"]=$Item["s_date2"];
 	$Item["orgStrBoss"]=getPersonInfo($orgstructure["chief_id"]); $Item["orgStrBoss"]=$Item["orgStrBoss"]["personShort"];
+	
+	
+	
+			if ($_SESSION["settings"]["appId"]=="msk36") {
+			// =========================================================	
+			// ========= привязываем шаблоны к кодам отделений =========	
+			// =========================================================
+				foreach($tpl as $key => $arr) {
+					if (in_array($Item["OrgStrCode"],$arr[0])) {
+						$out=phpQuery::newDocumentFile($_SERVER['DOCUMENT_ROOT']."/forms/msk36/epicriz_".$arr[1]."_".$arr[2].".php");
+					}
+				}
+			// ========= по-умолчанию простой эпикриз =========	
+			if ($out=="") {$out=phpQuery::newDocumentFile($_SERVER['DOCUMENT_ROOT']."/forms/epicrizOut_edit.php");}
+			pq($out)->append("<style>".file_get_contents($_SERVER['DOCUMENT_ROOT']."/forms/msk36/epicriz.css")."</style>");
+			if ($_SESSION["epic_atid"]=="") { 
+				pq($out)->find("form")->html("Необходимо создать ActionType - {$name}"); 
+			}
+			} else {
+				$out=formGetForm($form,$mode);
+			}
+				
+				
+	
 	if ($_SESSION["settings"]["appId"]=="msk36") {
 		if ($Item["action_id"]=="_new") {
 			$Item=array_merge($Item,fields_msk36($id,$Item["OrgStrCode"]));
@@ -93,24 +117,7 @@ $event=mysqlReadItem("Event",$id);
 			$Item=array_merge(fields_msk36($id,$Item["OrgStrCode"]),$Item);
 		}
 	}
-if ($_SESSION["settings"]["appId"]=="msk36") {
-// =========================================================	
-// ========= привязываем шаблоны к кодам отделений =========	
-// =========================================================
-	foreach($tpl as $key => $arr) {
-		if (in_array($Item["OrgStrCode"],$arr[0])) {
-			$out=phpQuery::newDocumentFile($_SERVER['DOCUMENT_ROOT']."/forms/msk36/epicriz_".$arr[1]."_".$arr[2].".php");
-		}
-	}
-// ========= по-умолчанию простой эпикриз =========	
-if ($out=="") {$out=phpQuery::newDocumentFile($_SERVER['DOCUMENT_ROOT']."/forms/epicrizOut_edit.php");}
-pq($out)->append("<style>".file_get_contents($_SERVER['DOCUMENT_ROOT']."/forms/msk36/epicriz.css")."</style>");
-if ($_SESSION["epic_atid"]=="") { 
-	pq($out)->find("form")->html("Необходимо создать ActionType - {$name}"); 
-}
-} else {
-	$out=formGetForm($form,$mode);
-}
+
 
 pq($out)->find("form")->prepend("<input type='hidden' name='actionType_id' value='{$_SESSION["epic_atid"]}'>");
 
@@ -265,11 +272,12 @@ function fields_msk36($event_id,$orgstr="") {
 			$f["e_anamnez3"]=$first_osmotr1["Аллергоанамнез:"]["value"];
 			$f["e_anamnez4"]=$first_osmotr1["Эпид. анамнез:"]["value"];
 			$f["e_blist12"]=$first_osmotr1["Находился на больничном листе в течение последних 12 месяцев:"]["value"];
-			$f["e_stateIn"]=$first_osmotr1["Состояние при поступлении:"]["value"];
+			$f["e_stateIn"]=getTextFromAction($first_osmotr1,"Состояние при поступлении:","Диагноз:");
+			$f["e_stateIn"]=explode(", Диагноз:",$f["e_stateIn"]); $f["e_stateIn"]=$f["e_stateIn"][0];
 			$f["e_stateNo"]=$first_osmotr1["Состояние при осмотре в н\о:"]["value"];
 			
-			$DiaryLast=getDiaryLast($event_id);
-			$f["e_stateOut"]=$DiaryLast["fields"]["Состояние при осмотре:"]["value"];
+			$DiaryLast=getDiaryLast($event_id); $DiaryLast=$DiaryLast["fields"];
+			$f["e_stateOut"]=$DiaryLast["Состояние при осмотре:"]["value"];
 			//===========
 			$f["e_diag_in"]=$action_in["Основной:"]["value"];
 			$f["e_diag_main"]=$first_osmotr1["Основной:"]["value"];
@@ -279,9 +287,43 @@ function fields_msk36($event_id,$orgstr="") {
 			//===========
 			$f["work"]=$first_osmotr1["Место работы:"]["value"];
 			$f["address"]=$first_osmotr1["Адрес:"]["value"];
+			$docs=array();
+			$docs["FirstOsmotr"]=$first_osmotr1;
+			$docs["DiaryLast"]=$DiaryLast;
+			getTemplateValues($docs);
 			break;
 	}
 	return $f;
+}
+
+function getTemplateValues($docs=array()) {
+	foreach(pq($out)->find("[from]") as $inc) {
+		$from=array(); $from=explode("@",pq($inc)->attr("from"));
+		if (isset($docs[$from[0]]) AND $from[1]>"") {
+	// ============ SELECT ==============
+			if (pq($inc)->is("select")) {
+			pq($inc)->attr("value",$docs[$from[0]][$from[1]]["value"]);
+				if (pq($inc)->attr("multiple")=="multiple") {
+					$multi=true;
+					$val=explode(",",pq($inc)->attr("value")); foreach($val as $k => $v) {$val[$k]=trim($v);}
+				} else {
+					$multi=false;
+					$val=array(); $val[0]=pq($inc)->attr("value");
+				}
+				foreach(pq($inc)->find("option") as $opt) {
+					foreach($val as $k => $v) {
+						if (pq($opt)->text()==$v AND $multi==true) {pq($opt)->attr("set","set");}
+						if (pq($opt)->text()==$v AND $multi==false) {pq($opt)->attr("selected","selected");}
+					}
+				}
+			}
+			
+	// ============ INPUT ==============
+			if (pq($inc)->is("input")) {pq($inc)->attr("value",$docs[$from[0]][$from[1]]["value"]);}
+	// ============ TEXTAREA ==============
+			if (pq($inc)->is("textarea")) {pq($inc)->html($docs[$from[0]][$from[1]]["value"]);}
+		}
+	}
 }
 
 function getActionDataIn($event_id) {
@@ -307,7 +349,7 @@ function getDiaryLast($event_id) {
 	$action_id=""; $action=array();
 	$SQL="SELECT id FROM Action 
 	WHERE event_id = {$event_id} AND actionType_id = {$atype}  
-	AND deleted = 0  
+	AND deleted = 0  AND status = 2
 	ORDER BY id DESC LIMIT 1	";
 	$res=mysql_query($SQL) or die ("Query failed morfoLab(): " . mysql_error());
 	while($data = mysql_fetch_array($res)) { $action_id=$data["id"]; }
