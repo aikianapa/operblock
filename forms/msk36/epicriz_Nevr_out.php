@@ -47,7 +47,7 @@
 		<li><b>Эпид.анамнез:</b><br><textarea name="e_anamnez4">{{e_anamnez4}}</textarea> </li>
 		<li><b>Находился на больничном листе в течение последних 12 месяцев:</b><br><textarea name="e_blist12">{{e_blist12}}</textarea> </li>
 		<li><b>Состояние при поступлении:</b><br><textarea name="e_stateIn">{{e_stateIn}}</textarea> </li>
-		<li><b>При выписке:</b> 
+		<li><b>Состояние при выписке:</b> 
 		<select name="e_stateOut" value="{{e_stateOut}}">
 			<option>удовлетворительное</option>
 			<option>относительно удовлетворительное</option>
@@ -59,6 +59,7 @@
 		<br><textarea name="e_stateOutText">{{e_stateOutText}}</textarea> </li>
 		<li><b>Тяжесть состояния обусловлена:</b>
 		<select name="e_hardState" value="{{e_hardState}}">
+			<option>&nbsp;</option>
 			<option>основным заболеванием</option>
 			<option>сопутствующей соматической патологией</option>
 		</select>
@@ -74,29 +75,25 @@
 			<option>отсутствуют</option>
 			<option class="add">пастозность</option>
 			<option class="add">отёки</option>
+			<option class="add noprint">иное</option>
 		</select>
 		<br><textarea name="e_perEdemaText">{{e_perEdemaText}}</textarea> </li>
 
 		<li><b>Кожные  покровы:</b> 
-		<select name="e_skin1" value="{{e_skin1}}">
-		<option>обычной окраски</option><option>бледные</option></option>цианоз</option>
-		</select>,&nbsp;                            
-		<select name="e_skin2" value="{{e_skin2}}">
-		<option>сухие</option><option>влажные</option>
-		</select>,&nbsp;                            
-		<select name="e_skin3" value="{{e_skin3}}">
-		<option>трофические нарушения отсутствуют</option><option class="add">трофические нарушения</option>
-		</select>	&nbsp;
-		<br><textarea name="e_skinText">{{e_skinText}}</textarea> </li>
+		<select name="e_skin1" multiple="multiple" value="{{e_skin1}}">
+			<option>розовые</option><option>бледно - розовые</option><option>бледные</option>
+			<option>цианоз</option><option>сухие</option><option>влажные</option>
+			<option>трофические нарушения отсутствуют</option><option>обычной окраски и влажности</option>
+			<option>свежих следов травм на голове и туловище не выявлено</option>
+		</select>
+		<br><textarea name="e_skinText">{{e_skinText}}</textarea></li>
 		<li><b>St.locales:</b><br><textarea name="e_stLocales">{{e_stLocales}}</textarea> </li>
 		<li><b>Pulm.:</b><br>
-					<b>Дыхание:</b>
-					<select name="e_pulm1" value="{{e_pulm1}}">
+				<b>Дыхание:</b>
+				<select name="e_pulm1" value="{{e_pulm1}}">
 					<option>везикулярное</option><option>с жестковатым оттенком</option></option>жесткое</option>
-					</select>,&nbsp;                            
-					<select name="e_pulm2" value="{{e_pulm2}}">
 					<option>проводится во все отделы</option><option class="add">ослабленное</option>
-					</select>
+				</select>,&nbsp;                            
 			<ul>
 				<li><b>ЧДД:</b> <input name="e_pulmFreq" class="small"> в 1 мин.</li>
 				<li><b>Хрипы:</b> 
@@ -104,7 +101,7 @@
 					<option>да</option><option>нет</option>
 					</select>
 					<select name="e_pulmHrip2" value="{{e_pulmHrip2}}">
-					<option>сухие</option><option class="add">влажные</option>
+					<option>&nbsp;</option><option>сухие</option><option class="add">влажные</option>
 					</select>
 				</li>
 			</ul>
@@ -115,7 +112,7 @@
 			<li><b>АД:</b> <input name="e_corPress" class="small"> мм.рт.ст.</li>
 			<li><b>Тоны сердца:</b> 
 				<select name="e_corTone" value="{{e_corTone}}">
-				<option>ясные</option><option>приглушенные</option><option>глухие</option>
+				<option>ясные</option><option>приглушенные</option><option>глухие</option><option class="add noprint">прочее</option>
 				</select>
 			</li>
 			<li><b>Ритм:</b> 
@@ -132,7 +129,7 @@
 		<option>мягкий</option><option class="add">напряжён</option>
 		</select>,&nbsp; 
 		<select name="e_belly2" value="{{e_belly2}}">
-		<option>безболезненный</option><option class="add">болезненный</option>
+		<option>без динамики</option><option>безболезненный во всех отделах</option><option>безболезненный</option><option class="add">болезненный</option>
 		</select>
 		</li>
 			
@@ -198,12 +195,17 @@
 		</select>
 		</li>
 		<li><b>Речь:</b>
-		<select name="e_nervTalk" value="{{e_nervTalk}}">
+		<select name="e_nervTalk" multiple="multiple" value="{{e_nervTalk}}">
 			<option>не нарушена</option>
 			<option>дизартрия</option>
-			<option class="add">афазия</option>
+			<option>афазия</option>
 			<option>мутизм</option>
 			<option>отсутствует</option>
+			<option>сенсорная</option>
+			<option>тотальная</option>
+			<option>сенсо-моторная</option>
+			<option>сохранена</option>
+			<option>лёгкая</option>
 		</select>
 		</li>
 		<li><b>Ориентирован{{suffix2}}: </b>
@@ -225,6 +227,8 @@
 		<select name="e_nervPsih" value="{{e_nervPsih}}">
 			<option>психотических расстройств нет</option>
 			<option class="add">есть</option>
+			<option>эмоционально лабильна</option>
+			<option>оценить на момент осмотра затруднительно</option>
 		</select>
 		</li>
 		<li><b>Когнитивные функции: </b>
@@ -353,11 +357,12 @@
 		</select></li>
 
 		<li><b>Язык: </b>
-		<select name="e_cmnTongue" value="{{e_cmnTongue}}">
+		<select multiple="multiple" name="e_cmnTongue" value="{{e_cmnTongue}}">
 		<option>по средней линии</option>
 		<option>девиирует вправо</option>
 		<option>девиирует влево</option>
 		<option>в полости рта</option>
+		<option>легко</option>
 		</select></li>
 		
 		<li><b>Бульбарные нарушения:</b>
@@ -426,15 +431,18 @@
 		</li>
 		
 		<li><b>Патологические кистевые знаки: </b>
-		<select name="e_cmnPatHands" value="{{e_cmnPatHands}}">
+		<select name="e_cmnPatHands"  value="{{e_cmnPatHands}}">
 			<option>отсутствуют</option>
+			<option>с двух сторон</option>
 			<option>справа</option>
 			<option>слева</option>
 		</select></li>
 
 		<li><b>Патологические стопные знаки: </b>
-		<select name="e_cmnPatFoots" value="{{e_cmnPatFoots}}">
+		<select multiple="multiple" name="e_cmnPatFoots" value="{{e_cmnPatFoots}}">
+			<option>Бабинского</option><option>Оппенгейма</option><option>Россолимо</option>
 			<option>отсутствуют</option>
+			<option>с двух сторон</option>
 			<option>справа</option>
 			<option>слева</option>
 		</select></li>
@@ -448,9 +456,14 @@
 		</li>
 		
 		<li><b>Брюшные рефлексы: </b>
-		<select name="e_cmnReflBelly" value="{{e_cmnReflBelly}}">
+		<select multiple="multiple" name="e_cmnReflBelly" value="{{e_cmnReflBelly}}">
+			<option>средней живости</option>
+			<option>D</option><option>S</option><option>&lt;</option><option>&gt;</option><option>=</option>
+			<option>живые</option>
+			<option>оживлены</option>
 			<option>вызываются</option>
 			<option>снижены</option>
+			<option>низкие</option>
 			<option>отсутствуют</option>
 		</select></li>
 		
@@ -466,6 +479,8 @@
 			<option>с промахиванием</option>
 			<option>с интенцией</option>
 			<option>с атаксией</option>
+			<option>оценить невозможно из-за гемипареза</option>
+			<option>оценить невозможно по тяжести состояния</option>
 			<option>не выполняет</option>
 		</select>&nbsp;
 		<b>Слева: </b>
@@ -475,6 +490,8 @@
 			<option>с промахиванием</option>
 			<option>с интенцией</option>
 			<option>с атаксией</option>
+			<option>оценить невозможно из-за гемипареза</option>
+			<option>оценить невозможно по тяжести состояния</option>
 			<option>не выполняет</option>
 		</select>
 		</li>
@@ -486,6 +503,8 @@
 			<option>с промахиванием</option>
 			<option>с интенцией</option>
 			<option>с атаксией</option>
+			<option>оценить невозможно из-за гемипареза</option>
+			<option>оценить невозможно по тяжести состояния</option>
 			<option>не выполняет</option>
 		</select>&nbsp;
 		<b>Слева: </b>
@@ -495,6 +514,8 @@
 			<option>с промахиванием</option>
 			<option>с интенцией</option>
 			<option>с атаксией</option>
+			<option>оценить невозможно из-за гемипареза</option>
+			<option>оценить невозможно по тяжести состояния</option>
 			<option>не выполняет</option>
 		</select>&nbsp;
 		<b>В позе Ромберга: </b>
@@ -506,11 +527,13 @@
 		</select>
 		</li>
 		<li><b>Нарушения  чувствительности: </b>
-		<select name="e_coorSens" value="{{e_coorSens}}">
+		<select multiple="multiple" name="e_coorSens" value="{{e_coorSens}}">
 			<option>не предъявляет</option>
-			<option>гемигипестезия справа/слева</option>
-			<option>на уколы хуже реагирует справа/слева</option>
-			<option class="add">иное:</option>
+			<option>гемигипестезия справа</option>
+			<option>гемигипестезия слева</option>
+			<option>на уколы хуже реагирует справа</option>
+			<option>на уколы хуже реагирует слева</option>
+			<option class="add noprint">иное:</option>
 		</select>
 		</li>
 		<li><b>Дополнительная информация: </b>

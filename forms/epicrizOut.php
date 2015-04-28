@@ -252,23 +252,26 @@ function fields_msk36($event_id,$orgstr="") {
 			$f["e_bellyText_in"]=$first_osmotr1["Живот"]["value"];
 			break;
 		case "Nevr":
-		// =========== Неврология ============
-			$f["e_complaint1"]=$first_osmotr1["Жалобы при поступлении:"]["value"];
-			$f["e_complaint2"]="";
+		// =========== Неврология
+		
+			$f["e_complaint1"]=$action_in["Жалобы при поступлении:"]["value"];
+			$f["e_complaint2"]=$first_osmotr1["Жалобы при осмотре в н\о:"]["value"];
 			$f["e_code1"]=$first_osmotr1["МЭС:"]["value"];
 			$f["e_anamnez1"]=$first_osmotr1["Анамнез заболевания:"]["value"];
 			$f["e_anamnez2"]=$first_osmotr1["Анамнез жизни:"]["value"];
-			$f["e_anamnez2"].=getTextFromAction($first_osmotr1,"Гипертоническая болезнь:","Травмы:");
-			$f["e_anamnez2"].=getTextFromAction($first_osmotr1,"Другие заболевания:");
+				$f["e_anamnez2"].=getTextFromAction($first_osmotr1,"Гипертоническая болезнь:","Травмы:");
+				$f["e_anamnez2"].=getTextFromAction($first_osmotr1,"Другие заболевания:");
+				$f["e_anamnez2"].=getTextFromAction($first_osmotr1,"Постоянно принимает препараты:");
 			$f["e_anamnez3"]=$first_osmotr1["Аллергоанамнез:"]["value"];
 			$f["e_anamnez4"]=$first_osmotr1["Эпид. анамнез:"]["value"];
 			$f["e_blist12"]=$first_osmotr1["Находился на больничном листе в течение последних 12 месяцев:"]["value"];
 			$f["e_stateIn"]=$first_osmotr1["Состояние при поступлении:"]["value"];
+			$f["e_stateNo"]=$first_osmotr1["Состояние при осмотре в н\о:"]["value"];
+			
 			$DiaryLast=getDiaryLast($event_id);
 			$f["e_stateOut"]=$DiaryLast["fields"]["Состояние при осмотре:"]["value"];
 			//===========
 			$f["e_diag_in"]=$action_in["Основной:"]["value"];
-			$f["e_diag_out"]=$Diag["main"]["DiagName"];
 			$f["e_diag_main"]=$first_osmotr1["Основной:"]["value"];
 			$f["e_diag_fon"]=$first_osmotr1["Фон:"]["value"];
 			$f["e_diag_comp"]=$first_osmotr1["Осложнения:"]["value"];
