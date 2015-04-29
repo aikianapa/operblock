@@ -1,5 +1,5 @@
 <div data-role="page" data-theme="a" id="hirurgOperation" >
-<div data-role="header"  data-position="fixed"><h2>Этапный эпикриз</h2></div>
+<div data-role="header"  data-position="fixed"><h2>Выписной эпикриз</h2></div>
 <div data-role="content" >
 <div class="copytext">
 <div id="form-027u"  class="print_page">
@@ -15,88 +15,79 @@
 <h2>ЭТАПНЫЙ  ЭПИКРИЗ ИЗ  ИСТОРИИ  БОЛЕЗНИ № {{externalId}}</h2>
 <br />
 <p>Пациент{{suffix3}} <b>{{client}}, {{age}} лет,</b> поступил{{suffix2}} в 36 ГКБ {{s_date1}} по СМП с направительным диагнозом: </p>
-		<ul class="fields">
-		<li><b>Жалобы при поступлении:</b><br><textarea name="e_complaint1">{{e_complaint1}}</textarea> </li>
-		<li><b>Жалобы при осмотре в н\о:</b><br><textarea name="e_complaint2">{{e_complaint2}}</textarea> </li>
-		<li><b>Анамнез заболевания:</b><br><textarea name="e_anamnez1">{{e_anamnez1}}</textarea> </li>
-		<li><b>Анамнез жизни:</b><br><textarea name="e_anamnez2">{{e_anamnez2}}</textarea> </li>
-		<li><b>Аллергоанамнез:</b><br><textarea name="e_anamnez3">{{e_anamnez3}}</textarea> </li>
-		<li><b>Эпид.анамнез:</b><br><textarea name="e_anamnez4">{{e_anamnez4}}</textarea> </li>
-		<li><b>Находился на больничном листе в течение последних 12 месяцев:</b><br><textarea name="e_blist12">{{e_blist12}}</textarea> </li>
-		<li><b>Состояние при поступлении:</b><br><textarea name="e_stateIn">{{e_stateIn}}</textarea> </li>
-		<li><b>При выписке:</b> 
-		<select name="e_stateOut" value="{{e_stateOut}}">
-			<option>удовлетворительное</option>
-			<option>относительно удовлетворительное</option>
-			<option>средней тяжести</option>
-			<option>ближе к тяжелому</option>
-			<option>тяжелое</option>
-			<option>крайне тяжелое</option>
-		</select>
-		<br><textarea name="e_stateOutText">{{e_stateOutText}}</textarea> </li>
-		<li><b>Тяжесть состояния обусловлена:</b>
-		<select name="e_hardState" value="{{e_hardState}}">
-			<option>основным заболеванием</option>
-			<option>сопутствующей соматической патологией</option>
-		</select>
-		<br><textarea name="e_hardStateText">{{e_hardStateText}}</textarea> </li>
+<ul>
+		<li><b>ДИАГНОЗ:</b>
+			<ul>
+				<li><b>Диагноз при поступлении:</b><br><textarea name="e_diag_in">{{e_diag_in}}</textarea> </li>
+				<li><b>Основное заболевание:</b><br><textarea name="e_diag_main">{{e_diag_main}}</textarea> </li>
+				<li><b>Фоновые заболевания:</b><br><textarea name="e_diag_fon">{{e_diag_fon}}</textarea></li>
+				<li><b>Осложнения основного заболевания:</b><br><textarea name="e_diag_comp">{{e_diag_comp}}</textarea></li>
+				<li><b>Сопутствующие заболевания:</b><br><textarea name="e_diag_satt">{{e_diag_satt}}</textarea></li>
+			</ul>
+		</li>
+		<li><b>Жалобы при поступлении:</b> <textarea name="e_complaint1">{{e_complaint1}}</textarea> </li>
+		<li><b>Жалобы при осмотре в н\о:</b> <textarea name="e_complaint2">{{e_complaint2}}</textarea> </li>
+		<li><b>Состояние при осмотре в н\о:</b> <textarea name="e_stateNo">{{e_stateNo}}</textarea> </li>
+		<li><b>Анамнез заболевания:</b> <textarea name="e_anamnez1">{{e_anamnez1}}</textarea> </li>
+		<li><b>Анамнез жизни:</b> <textarea name="e_anamnez2">{{e_anamnez2}}</textarea> </li>
+		<li><b>Аллергоанамнез:</b> <textarea name="e_anamnez3">{{e_anamnez3}}</textarea> </li>
+		<li><b>Эпид.анамнез:</b> <textarea name="e_anamnez4">{{e_anamnez4}}</textarea> </li>
+		<li><b>Находился на больничном листе в течение последних 12 месяцев:</b> <textarea name="e_blist12">{{e_blist12}}</textarea> </li>
+		<li><b>Состояние при поступлении:</b> <textarea name="e_stateIn">{{e_stateIn}}</textarea> </li>
+
 		<li><b>Телосложение:</b>
-		<select name="e_bodyType" value="{{e_bodyType}}">
+		<select multiple="multiple" from="DiaryLast@Телосложение:" name="e_bodyType" value="{{e_bodyType}}">
 			<option>нормостеническое</option>
 			<option>гиперстеническое</option>
 			<option>астеническое</option>
 		</select></li>
 		<li><b>Периферические отеки:</b>
-		<select name="e_perEdema" value="{{e_perEdema}}">
+		<select name="e_perEdema" from="DiaryLast@Переферические отеки:" value="{{e_perEdema}}">
 			<option>отсутствуют</option>
 			<option class="add">пастозность</option>
 			<option class="add">отёки</option>
+			<option class="add noprint">иное</option>
 		</select>
 		<br><textarea name="e_perEdemaText">{{e_perEdemaText}}</textarea> </li>
 
 		<li><b>Кожные  покровы:</b> 
-		<select name="e_skin1" value="{{e_skin1}}">
-		<option>обычной окраски</option><option>бледные</option></option>цианоз</option>
-		</select>,&nbsp;                            
-		<select name="e_skin2" value="{{e_skin2}}">
-		<option>сухие</option><option>влажные</option>
-		</select>,&nbsp;                            
-		<select name="e_skin3" value="{{e_skin3}}">
-		<option>трофические нарушения отсутствуют</option><option class="add">трофические нарушения</option>
-		</select>	&nbsp;
-		<br><textarea name="e_skinText">{{e_skinText}}</textarea> </li>
-		<li><b>St.locales:</b><br><textarea name="e_stLocales">{{e_stLocales}}</textarea> </li>
-		<li><b>Pulm.:</b><br>
-					<b>Дыхание:</b>
-					<select name="e_pulm1" value="{{e_pulm1}}">
+		<select name="e_skin1" multiple="multiple" from="DiaryLast@Кожные    покровы"	value="{{e_skin1}}">
+			<option>розовые</option><option>бледно - розовые</option><option>бледные</option>
+			<option>цианоз</option><option>сухие</option><option>влажные</option>
+			<option>трофические нарушения отсутствуют</option><option>обычной окраски и влажности</option>
+			<option>свежих следов травм на голове и туловище не выявлено</option>
+		</select>
+		<textarea name="e_skinText">{{e_skinText}}</textarea></li>
+		<li><b>St.locales:</b><br><textarea from="DiaryLast@St. locales :" name="e_stLocales">{{e_stLocales}}</textarea> </li>
+		<li><b>Pulm.:</b>
+				<b>Дыхание:</b>
+				<select name="e_pulm1" from="DiaryLast@Pulm.:Дыхание :" value="{{e_pulm1}}">
 					<option>везикулярное</option><option>с жестковатым оттенком</option></option>жесткое</option>
-					</select>,&nbsp;                            
-					<select name="e_pulm2" value="{{e_pulm2}}">
 					<option>проводится во все отделы</option><option class="add">ослабленное</option>
-					</select>
-			<ul>
-				<li><b>ЧДД:</b> <input name="e_pulmFreq" class="small"> в 1 мин.</li>
+				</select>,&nbsp;                            
+			<ul class="inline">
+				<li><b>ЧДД:</b> <input from="DiaryLast@ЧДД" name="e_pulmFreq" class="small"> в 1 мин.</li>
 				<li><b>Хрипы:</b> 
-					<select name="e_pulmHrip1" value="{{e_pulmHrip1}}">
+					<select from="DiaryLast@Хрипы:" name="e_pulmHrip1" value="{{e_pulmHrip1}}">
 					<option>да</option><option>нет</option>
 					</select>
 					<select name="e_pulmHrip2" value="{{e_pulmHrip2}}">
-					<option>сухие</option><option class="add">влажные</option>
+					<option>&nbsp;</option><option>сухие</option><option class="add">влажные</option>
 					</select>
 				</li>
 			</ul>
 			<textarea name="e_pulm">{{e_pulm}}</textarea> </li>
-		<li><b>Cor:</b><br>
-			<ul>
-			<li><b>ЧСС:</b> <input name="e_corFreq" class="small"> в 1 мин.</li>
-			<li><b>АД:</b> <input name="e_corPress" class="small"> мм.рт.ст.</li>
+		<li><b>Cor:</b> 
+			<ul class="inline">
+			<li><b>ЧСС:</b> <input from="DiaryLast@Cor. ЧСС" name="e_corFreq" class="small"> в 1 мин.</li>
+			<li><b>АД:</b> <input from="DiaryLast@АД" name="e_corPress" class="small"> мм.рт.ст.</li>
 			<li><b>Тоны сердца:</b> 
-				<select name="e_corTone" value="{{e_corTone}}">
-				<option>ясные</option><option>приглушенные</option><option>глухие</option>
+				<select from="DiaryLast@Тоны сердца" name="e_corTone" value="{{e_corTone}}">
+				<option>ясные</option><option>приглушенные</option><option>глухие</option><option class="add noprint">прочее</option>
 				</select>
 			</li>
 			<li><b>Ритм:</b> 
-				<select name="e_corRitm" value="{{e_corRitm}}">
+				<select from="DiaryLast@Ритм" name="e_corRitm" value="{{e_corRitm}}">
 				<option>правильный</option><option>неправильный</option>
 				</select>
 			</li>
@@ -105,44 +96,43 @@
 		</li>	
 
 		<li><b>Живот при пальпации:</b> 
-		<select name="e_belly1" value="{{e_belly1}}">
+		<select multiple="multiple" from="DiaryLast@Живот при пальпации" name="e_belly1" value="{{e_belly1}}">
 		<option>мягкий</option><option class="add">напряжён</option>
-		</select>,&nbsp; 
-		<select name="e_belly2" value="{{e_belly2}}">
-		<option>безболезненный</option><option class="add">болезненный</option>
-		</select>
+		<option>без динамики</option><option>безболезненный во всех отделах</option>
+		<option>безболезненный</option><option>болезненный</option>
+		</select>,&nbsp; <input class="middle" name="e_belly2" value="{{e_belly2}}">
 		</li>
 			
 		<li><b>Перистальтика:</b> 
-		<select name="e_prest" value="{{e_prest}}">
+		<select name="e_prest" from="DiaryLast@Перистальтика" value="{{e_prest}}">
 		<option>выслушивается</option><option>не выслушивается</option>
 		</select>
 		</li>
 		
 		<li><b>Тазовые функции:</b> 
-		<select name="e_taz" value="{{e_taz}}">
+		<select name="e_taz" from="DiaryLast@Тазовые функции" value="{{e_taz}}">
 		<option>контролирует</option><option>частично контролирует</option><option>не контролирует</option>
 		</select>
 		</li>
 
 		<li><b>Мочеиспускание:</b>
-		<select name="e_urine" value="{{e_urine}}">
+		<select name="e_urine" from="DiaryLast@Мочеиспускание" value="{{e_urine}}">
 			<option>самостоятельно</option>
 			<option>по катетеру</option>
-		</select> Моча <input name="e_urineColor" class="small"> цвета
+		</select> Моча <input from="DiaryLast@моча цвет" name="e_urineColor" class="small"> цвета
 		<br><textarea name="e_perEdemaText">{{e_perEdemaText}}</textarea> </li>
 		
 		<li><b>Дизурические явления:</b> 
-		<select name="e_dizur" value="{{e_dizur}}">
+		<select name="e_dizur" from="DiaryLast@Дизурические явления:" value="{{e_dizur}}">
 		<option>нет</option><option class="add">да</option>
 		</select>
 		</li>
 		
-		<li><b>Неврологический статус на момент осмотра:</b><br>
+		<li><b>Неврологический статус на момент осмотра:</b>
 		<ul>
 		<li>
 		<b>Уровень сознания:</b>
-		<select name="e_nevrMind" value="{{e_nevrMind}}">
+		<select from="DiaryLast@Уровень сознания:" name="e_nevrMind" value="{{e_nevrMind}}">
 		<option>в сознании</option>
 		<option>оглушение</option>
 		<option>сопор</option>
@@ -152,14 +142,14 @@
 		<option>мед.седация</option>
 		</select></li>
 		<li>
-		<b>ШКГ:</b> <input name="e_nervShkg" class="small"> б.&nbsp;
+		<b>ШКГ:</b> <input from="DiaryLast@ШКГ" name="e_nervShkg" class="small"> б.&nbsp;
 		<b>NIHSS:</b> <input name="e_nervNihss" class="small"> б.&nbsp;
 		<b>Ранкин:</b> <input name="e_nervRankin" class="small"> б.&nbsp;
-		<b>Ривермид:</b> <input name="e_nervRiverted" class="small"> б.&nbsp;
+		<b>Ривермет:</b> <input name="e_nervRiverted" class="small"> б.&nbsp;
 		</li>
 		<li>
 		<b>Речевому контакту: </b>
-		<select name="e_nervContact" value="{{e_nervContact}}">
+		<select from="DiaryLast@Речевому контакту" name="e_nervContact" value="{{e_nervContact}}">
 		<option>доступен</option>
 		<option>контакт затруднен из-за речевых нарушений</option>
 		<option>контакту недоступен по тяжести состояния</option>
@@ -167,7 +157,7 @@
 		</li>
 		<li>
 		<b>Простые инструкции: </b>
-		<select name="e_nervSimple" value="{{e_nervSimple}}">
+		<select from="DiaryLast@Простые инструкции" name="e_nervSimple" value="{{e_nervSimple}}">
 			<option>выполняет</option>
 			<option>частично</option>
 			<option>частично выполняет</option>
@@ -175,12 +165,17 @@
 		</select>
 		</li>
 		<li><b>Речь:</b>
-		<select name="e_nervTalk" value="{{e_nervTalk}}">
+		<select from="DiaryLast@Речь:" name="e_nervTalk" multiple="multiple" value="{{e_nervTalk}}">
 			<option>не нарушена</option>
 			<option>дизартрия</option>
-			<option class="add">афазия</option>
+			<option>афазия</option>
 			<option>мутизм</option>
 			<option>отсутствует</option>
+			<option>сенсорная</option>
+			<option>тотальная</option>
+			<option>сенсо-моторная</option>
+			<option>сохранена</option>
+			<option>лёгкая</option>
 		</select>
 		</li>
 		<li><b>Ориентирован{{suffix2}}: </b>
@@ -192,33 +187,35 @@
 		</select>
 		</li>
 		<li><b>Реакция на осмотр: </b>
-		<select name="e_nervReaction" value="{{e_nervReaction}}">
+		<select from="DiaryLast@Реакция на осмотр:" name="e_nervReaction" value="{{e_nervReaction}}">
 			<option>сохранена</option>
 			<option>вялая</option>
 			<option>отсутствует</option>
 		</select>
 		</li>
 		<li><b>Изменение психики: </b>
-		<select name="e_nervPsih" value="{{e_nervPsih}}">
+		<select from="DiaryLast@Изменение психики:" name="e_nervPsih" value="{{e_nervPsih}}">
 			<option>психотических расстройств нет</option>
 			<option class="add">есть</option>
+			<option>эмоционально лабильна</option>
+			<option>оценить на момент осмотра затруднительно</option>
 		</select>
 		</li>
 		<li><b>Когнитивные функции: </b>
-		<select name="e_nervCogn" value="{{e_nervCogn}}">
+		<select from="DiaryLast@Когнитивные функции:" name="e_nervCogn" value="{{e_nervCogn}}">
 			<option>сохранены</option>
 			<option>снижены</option>
 		</select>
 		</li>
 		<li><b>Критика: </b>
-		<select name="e_nervCritic" value="{{e_nervCritic}}">
+		<select from="DiaryLast@Критика:" name="e_nervCritic" value="{{e_nervCritic}}">
 			<option>сохранена</option>
 			<option>снижена</option>
 			<option>отсутствует</option>
 		</select>
 		</li>
 		<li><b>Общемозговая симптоматика: </b>
-		<select name="e_nervBrain" value="{{e_nervBrain}}">
+		<select from="DiaryLast@Общемозговая симптоматика:" name="e_nervBrain" value="{{e_nervBrain}}">
 			<option>нет</option>
 			<option>головная боль</option>
 			<option>головокружение</option>
@@ -226,8 +223,8 @@
 			<option>рвота</option>
 		</select>
 		</li>
-		<li><b>Менингеальный  синдром: </b>
-		<select name="e_nervMening" value="{{e_nervMening}}">
+		<li><b>Менингеальный синдром: </b>
+		<select from="DiaryLast@Менингеальный синдром:" name="e_nervMening" value="{{e_nervMening}}">
 			<option>нет</option>
 			<option class="add">есть</option>
 		</select>
@@ -238,7 +235,7 @@
 		<b>ЧМН:</b><ul>
 
 		<li><b>Обоняние: </b>
-		<select name="e_cmnObon" value="{{e_cmnObon}}">
+		<select from="DiaryLast@Обоняние" name="e_cmnObon" value="{{e_cmnObon}}">
 			<option>сохранено</option>
 			<option>снижено</option>
 			<option>не исследовалось</option>
@@ -246,7 +243,7 @@
 		</select></li>
 
 		<li><b>Предметное зрение: </b>
-		<select name="e_cmnZrenie" value="{{e_cmnZrenie}}">
+		<select from="DiaryLast@Предметное зрение" name="e_cmnZrenie" value="{{e_cmnZrenie}}">
 			<option>сохранено</option>
 			<option>снижено OD</option>
 			<option>снижено OS</option>
@@ -256,7 +253,7 @@
 		</select></li>
 
 		<li><b>Выпадение полей зрения: </b>
-		<select name="e_cmnPole" value="{{e_cmnPole}}">	
+		<select from="DiaryLast@Выпадение полей зрения: Гемианопсия:" name="e_cmnPole" value="{{e_cmnPole}}">	
 			<option>контрольным путем не выявлено</option>
 			<option>проверить невозможно</option>
 			<option>гемианопсия гетеронимная справа</option>
@@ -266,17 +263,17 @@
 			<option class="add">иное:</option>
 		</select></li>
 
-		<li><b>Зрачки: </b><input name="e_cmnZrachki" class="small"></li>
-		<li><b>Глазные щели: </b><input name="e_cmnSchel" class="small"></li>
+		<li><b>Зрачки: </b><input from="DiaryLast@Зрачки" name="e_cmnZrachki" class="small"></li>
+		<li><b>Глазные щели: </b><input from="DiaryLast@Глазные щели" name="e_cmnSchel" class="small"></li>
 		<li><b>Фотореакция: </b>
-		<select name="e_cmnFoto" value="{{e_cmnFoto}}">	
+		<select from="DiaryLast@Фотореакция" name="e_cmnFoto" value="{{e_cmnFoto}}">	
 		<option>сохранена</option>
 		<option>снижена</option>
 		<option>отсутствует</option>
 		</select></li>
 
 		<li><b>Движения глазных яблок: </b>
-		<select multiple="multiple" name="e_cmnApple[]">	
+		<select multiple="multiple" from="DiaryLast@Движения глазных яблок:" name="e_cmnApple[]">	
 		<option>в полном объеме</option>
 		<option>за ориентиром не следит</option>
 		<option>не доводит глазные яблоки вправо</option>
@@ -290,7 +287,7 @@
 		</select></li>
 		
 		<li><b>Нистагм: </b>
-		<select multiple="multiple" name="e_cmnNistagm[]">
+		<select multiple="multiple" from="DiaryLast@Нистагм:" name="e_cmnNistagm[]">
 		<option>отсутствует</option>
 		<option>мелкоразмашистый</option>
 		<option>среднеразмашистый</option>
@@ -301,7 +298,7 @@
 		</select></li>
 		
 		<li><b>Диплопия: </b>
-		<select multiple="multiple" name="e_cmnDiplop[]">
+		<select multiple="multiple" from="DiaryLast@Диплопия:" name="e_cmnDiplop[]">
 		<option>отрицает</option>
 		<option>по горизонтали</option>
 		<option>по вертикали</option>
@@ -312,7 +309,7 @@
 		</select></li>
 
 		<li><b>Слух: </b>
-		<select multiple="multiple" name="e_cmnSluh[]">
+		<select multiple="multiple" from="DiaryLast@Слух:" name="e_cmnSluh[]">
 		<option>сохранен</option>
 		<option>ориентировочно снижен AS</option>
 		<option>ориентировочно снижен AD</option>
@@ -321,7 +318,7 @@
 		</select></li>
 		
 		<li><b>Лицо: </b>
-		<select multiple="multiple" name="e_cmnFace[]">
+		<select multiple="multiple" from="DiaryLast@Лицо:" name="e_cmnFace[]">
 		<option>симметрично</option>
 		<option>асимметрично за счет сглаженности правой носогубной складки</option>
 		<option>асимметрично за счет сглаженности левой носогубной складки</option>
@@ -330,15 +327,16 @@
 		</select></li>
 
 		<li><b>Язык: </b>
-		<select name="e_cmnTongue" value="{{e_cmnTongue}}">
+		<select multiple="multiple" from="DiaryLast@Язык:" name="e_cmnTongue" value="{{e_cmnTongue}}">
 		<option>по средней линии</option>
 		<option>девиирует вправо</option>
 		<option>девиирует влево</option>
 		<option>в полости рта</option>
+		<option>легко</option>
 		</select></li>
 		
 		<li><b>Бульбарные нарушения:</b>
-		<select name="e_cmnBulb" value="{{e_cmnBulb}}">
+		<select name="e_cmnBulb" from="DiaryLast@Бульбарные нарушения:" value="{{e_cmnBulb}}">
 		<option>нет</option>
 		<option class="add">есть</option>
 		</select>
@@ -367,8 +365,8 @@
 		</select>
 		</li>
 		
-		<li><b>Двигательные  нарушения: </b>
-		<select name="e_cmnMotion" value="{{e_cmnMotion}}">
+		<li><b>Двигательные нарушения: </b>
+		<select name="e_cmnMotion" from="DiaryLast@Двигательные нарушения:" value="{{e_cmnMotion}}">
 			<option>явных парезов, параличей не выявлено</option>
 			<option class="add">гемипарез</option>
 			<option class="add">монопарез</option>
@@ -377,8 +375,8 @@
 		</select></li>
 		
 		<li><b>Сухожильные и периостальные рефлексы: </b><br>
-		На руках 
-		<select name="e_cmnReflHands" value="{{e_cmnReflHands}}">
+		<b>На руках</b> 
+		<select name="e_cmnReflHands" from="DiaryLast@Сухожильные и периостальные рефлексы: На руках:" value="{{e_cmnReflHands}}">
 			<option>средней живости</option>
 			<option>живые</option>
 			<option>оживлены</option>
@@ -386,10 +384,11 @@
 			<option>снижены</option>
 			<option>низкие</option>
 			<option>отсутствуют</option>
-			<option class="add">иное:</option>
+			<option class="add">&nbsp;</option>
 		</select><br>
-		На ногах 
-		<select name="e_cmnReflLegs" value="{{e_cmnReflLegs}}">
+
+		<b>На ногах</b> 
+		<select name="e_cmnReflLegs" from="DiaryLast@Сухожильные и периостальные рефлексы: На ногах" value="{{e_cmnReflLegs}}">
 			<option>средней живости</option>
 			<option>живые</option>
 			<option>оживлены</option>
@@ -397,26 +396,29 @@
 			<option>снижены</option>
 			<option>низкие</option>
 			<option>отсутствуют</option>
-			<option class="add">иное:</option>
+			<option class="add">&nbsp;</option>
 		</select>
 		</li>
 		
 		<li><b>Патологические кистевые знаки: </b>
-		<select name="e_cmnPatHands" value="{{e_cmnPatHands}}">
+		<select name="e_cmnPatHands"  from="DiaryLast@Патологические кистевые знаки:" value="{{e_cmnPatHands}}">
 			<option>отсутствуют</option>
+			<option>с двух сторон</option>
 			<option>справа</option>
 			<option>слева</option>
 		</select></li>
 
 		<li><b>Патологические стопные знаки: </b>
-		<select name="e_cmnPatFoots" value="{{e_cmnPatFoots}}">
+		<select multiple="multiple" from="DiaryLast@Патологические стопные знаки:" name="e_cmnPatFoots" value="{{e_cmnPatFoots}}">
+			<option>Бабинского</option><option>Оппенгейма</option><option>Россолимо</option>
 			<option>отсутствуют</option>
+			<option>с двух сторон</option>
 			<option>справа</option>
 			<option>слева</option>
 		</select></li>
 		
 		<li><b>Симптомы орального автоматизма: </b>
-		<select name="e_cmnOralAuto" value="{{e_cmnOralAuto}}">
+		<select name="e_cmnOralAuto" from="DiaryLast@Симптомы орального автоматизма:" value="{{e_cmnOralAuto}}">
 			<option>отсутствуют</option>
 			<option class="add">Есть</option>
 		</select>
@@ -424,9 +426,14 @@
 		</li>
 		
 		<li><b>Брюшные рефлексы: </b>
-		<select name="e_cmnReflBelly" value="{{e_cmnReflBelly}}">
+		<select multiple="multiple" from="DiaryLast@Брюшные рефлексы" name="e_cmnReflBelly" value="{{e_cmnReflBelly}}">
+			<option>средней живости</option>
+			<option>D</option><option>S</option><option>&lt;</option><option>&gt;</option><option>=</option>
+			<option>живые</option>
+			<option>оживлены</option>
 			<option>вызываются</option>
 			<option>снижены</option>
+			<option>низкие</option>
 			<option>отсутствуют</option>
 		</select></li>
 		
@@ -442,6 +449,8 @@
 			<option>с промахиванием</option>
 			<option>с интенцией</option>
 			<option>с атаксией</option>
+			<option>оценить невозможно из-за гемипареза</option>
+			<option>оценить невозможно по тяжести состояния</option>
 			<option>не выполняет</option>
 		</select>&nbsp;
 		<b>Слева: </b>
@@ -451,6 +460,8 @@
 			<option>с промахиванием</option>
 			<option>с интенцией</option>
 			<option>с атаксией</option>
+			<option>оценить невозможно из-за гемипареза</option>
+			<option>оценить невозможно по тяжести состояния</option>
 			<option>не выполняет</option>
 		</select>
 		</li>
@@ -462,6 +473,8 @@
 			<option>с промахиванием</option>
 			<option>с интенцией</option>
 			<option>с атаксией</option>
+			<option>оценить невозможно из-за гемипареза</option>
+			<option>оценить невозможно по тяжести состояния</option>
 			<option>не выполняет</option>
 		</select>&nbsp;
 		<b>Слева: </b>
@@ -471,10 +484,12 @@
 			<option>с промахиванием</option>
 			<option>с интенцией</option>
 			<option>с атаксией</option>
+			<option>оценить невозможно из-за гемипареза</option>
+			<option>оценить невозможно по тяжести состояния</option>
 			<option>не выполняет</option>
 		</select>&nbsp;
 		<b>В позе Ромберга: </b>
-		<select multiple="multiple" name="e_coorRomberg" value="{{e_coorRomberg}}">
+		<select multiple="multiple" from="DiaryLast@В позе Ромберга" name="e_coorRomberg" value="{{e_coorRomberg}}">
 			<option>устойчив</option>
 			<option>не устойчив</option>
 			<option>пошатывается</option>
@@ -482,15 +497,17 @@
 		</select>
 		</li>
 		<li><b>Нарушения  чувствительности: </b>
-		<select name="e_coorSens" value="{{e_coorSens}}">
+		<select multiple="multiple" from="DiaryLast@Нарушения чувствительность:" name="e_coorSens" value="{{e_coorSens}}">
 			<option>не предъявляет</option>
-			<option>гемигипестезия справа/слева</option>
-			<option>на уколы хуже реагирует справа/слева</option>
-			<option class="add">иное:</option>
+			<option>гемигипестезия справа</option>
+			<option>гемигипестезия слева</option>
+			<option>на уколы хуже реагирует справа</option>
+			<option>на уколы хуже реагирует слева</option>
+			<option class="add noprint">иное:</option>
 		</select>
 		</li>
 		<li><b>Дополнительная информация: </b>
-		<br><textarea name="e_moreText">{{e_moreText}}</textarea>
+		<br><textarea from="DiaryLast@Дополнительная информация:" name="e_moreText">{{e_moreText}}</textarea>
 		</li>
 		</ul></li>
 	
@@ -508,35 +525,6 @@
 Проводилось лечение в соответствии со стандартами оказания стационарной медицинской помощи<br>
 </b></p>
 <ul>
-	<li><b>Препараты: </b>
-	<ul>
-	<div data-role="foreach" from="Drugs">
-	<li>{{drugs}}</li>
-	
-	</div>
-	</ul>
-	<textarea name="e_drugsText">{{e_drugsText}}</textarea></li>
-	
-	<li><b>Инструментальные методы исследования: </b>
-	<ul>
-		<div data-role="foreach" from="res">
-			<li>
-				<a href='#del' class='del_fld'><span class="ui-icon ui-icon-circle-close"></span></a>
-				<p>{{lab}}</p></li>
-		</div>
-	</ul>
-	</li>
-
-	<li><b>Лабораторная диагностика: </b>
-	<ul>
-		<div data-role="foreach" from="lab">
-			<li>
-				<a href='#del' class='del_fld'><span class="ui-icon ui-icon-circle-close"></span></a>
-				<p>{{lab}}</p></li>
-		</div>
-	</ul>
-	<textarea name="e_anayseText">{{e_anayseText}}</textarea></li>
-	
 	<li><b>Консультации: </b>
 	<ul>
 		<div data-role="foreach" from="cons">
@@ -545,24 +533,11 @@
 	</ul>
 	<textarea name="e_consultText">{{e_consultText}}</textarea></li>
 	
-	<li><b>Выписан{{suffix2}}: </b>
-	<select name="e_out" value="{{e_out}}">
-	<option>с выздоровлением</option>
-	<option>с улучшением</option>
-	<option>без перемен</option>
-	<option>с ухудшением</option>
-	<option>по собственному желанию</option>
-	<option>за нарушение больничного режима</option>
-	<option>переведен в другое учреждение</option>
-	</select>
-	</li>
-	<li><b>Больничный лист: </b>
-	<select name="e_hospList" value="{{e_hospList}}">
-		<option>не выдавался</option>
-		<option>выдавался</option>
-	</select>
-	</li>
+
+	<li><b>Заключение: </b>
+	<textarea name="e_etapText" >{{e_etapText}}</textarea></li>
 </ul>
+
 
 <b>Рекомендации: </b>
 
@@ -576,13 +551,13 @@
 <li>Консультация в ОКДО ГКБ №36 <textarea placeholder="через __ месяцев с целью коррекции лечения при необходимости." name="e_recom6">{{e_recom6}}</textarea></li>
 <li>Дополнительная информация: <textarea name="e_recom7">{{e_recom7}}</textarea></li>
 </li>
-</ul>
 
+</ul>
 <p>Все препараты могут быть заменены на аналогичные в пределах одной фармакологической группы с соответствующей коррекцией принимаемой дозы под наблюдением врачей-специалистов.</p>
 
 <br>
 <br>
-{{docDate}}г.<br />
+<span class="docDate">{{docDate}}г.</span><br />
 Лечащий врач _________________ /{{person}}/<br>
 <br />
 Зав. отделением _________________ /{{orgStrBoss}}/<br>
@@ -602,7 +577,8 @@
 <script language="javascript">
 $("#form-027u select[multiple]").each(function(){
 	$(this).css("height",$(this).find("option").length*18+"px");
+	$("input[name=endDate]").on("change",function(){
+		$("#form-027u span.docDate").html($(this).val());
+	});
 });
-	
 </script>
-

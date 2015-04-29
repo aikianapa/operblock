@@ -142,14 +142,12 @@
 <div data-role="fieldcontain"><label>Дежурный по оперблоку</label>
 <select name="dejur_id"   data-native-menu="true"><option value="">Выберите...</option></select>
 </div>
-<div data-role="fieldcontain"><label>Помошник дежурного</label>
+<div data-role="fieldcontain"><label>Помощник дежурного</label>
 <input name="dejur_assist"></div>
-
 <div data-role="fieldcontain"><label>Примечание</label><textarea name="note"></textarea></div>
 <a href="#" class="submit ui-btn ui-btn-inline ui-btn-icon-left ui-icon-check ui-corner-all">Сохранить</a>
 <a href="#" data-rel="back" class="cancel ui-btn ui-btn-inline ui-btn-icon-left ui-icon-back ui-corner-all">Вернуться</a>
 <a href="#cancelOp" class="ui-btn ui-btn-inline ui-btn-icon-left ui-icon-delete ui-corner-all" style="float:right;" data-rel="popup">Отменить операцию</a>
-
 </div>
 </form>
 </div>
@@ -162,7 +160,6 @@
 </div>
 
 <!-- ======================================== -->
-
 
 <!-- Форма утверждения операционного стола ===============
 =========================================== -->
