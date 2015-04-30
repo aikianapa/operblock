@@ -232,7 +232,6 @@ function fields_msk36($event_id,$orgstr="") {
 	$action_in=getActionDataIn($event_id);
 	$first_osmotr1=getAction($action_id);
 	$first_osmotr1=$first_osmotr1["data"]["fields"];
-	print_r($first_osmotr1);
 	$f=array(); // $f[""]="";
 	switch($tpl) {
 		case "Cord":
