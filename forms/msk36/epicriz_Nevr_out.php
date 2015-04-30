@@ -39,12 +39,12 @@
 			</ul>
 		</li>
 		<li><b>Жалобы при поступлении:</b> <textarea name="e_complaint1">{{e_complaint1}}</textarea> </li>
-		<li><b>Жалобы при осмотре в н\о:</b> <textarea name="e_complaint2">{{e_complaint2}}</textarea> </li>
-		<li><b>Состояние при осмотре в н\о:</b> <textarea name="e_stateNo">{{e_stateNo}}</textarea> </li>
 		<li><b>Анамнез заболевания:</b> <textarea name="e_anamnez1">{{e_anamnez1}}</textarea> </li>
 		<li><b>Анамнез жизни:</b> <textarea name="e_anamnez2">{{e_anamnez2}}</textarea> </li>
 		<li><b>Аллергоанамнез:</b> <textarea name="e_anamnez3">{{e_anamnez3}}</textarea> </li>
 		<li><b>Эпид.анамнез:</b> <textarea name="e_anamnez4">{{e_anamnez4}}</textarea> </li>
+		<li><b>Жалобы при осмотре в н\о:</b> <textarea name="e_complaint2">{{e_complaint2}}</textarea> </li>
+		<li><b>Состояние при осмотре в н\о:</b> <textarea name="e_stateNo">{{e_stateNo}}</textarea> </li>
 		<li><b>Находился на больничном листе в течение последних 12 месяцев:</b> <textarea name="e_blist12">{{e_blist12}}</textarea> </li>
 		<li><b>Состояние при поступлении:</b> <textarea name="e_stateIn">{{e_stateIn}}</textarea> </li>
 		<li><b>Состояние при выписке:</b> 
@@ -372,7 +372,7 @@
 		<textarea name="e_cmnBulbText">{{e_cmnBulbText}}</textarea>
 		</li>
 		
-		<li><b>Мышечный тонус: </b><br>
+		<li><b>Мышечный тонус: </b>
 		<b>В руках</b> 
 		<select name="e_cmnMuscHands" value="{{e_cmnMuscHands}}">
 		<option>существенно не изменен</option>

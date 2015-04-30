@@ -135,7 +135,6 @@
 				<option>по катетеру</option>
 			</select> Моча <input from="DiaryLast@моча цвет" name="e_urineColor" class="small"> цвета
 			<br><textarea name="e_perEdemaText">{{e_perEdemaText}}</textarea> </li>
-			
 			<li><b>Дизурические явления:</b> 
 			<select name="e_dizur" from="DiaryLast@Дизурические явления:" value="{{e_dizur}}">
 			<option>нет</option><option class="add">да</option>
@@ -358,7 +357,7 @@
 		<textarea name="e_cmnBulbText">{{e_cmnBulbText}}</textarea>
 		</li>
 		
-		<li><b>Мышечный тонус: </b><br>
+		<li><b>Мышечный тонус: </b>
 		<b>В руках</b> 
 		<select name="e_cmnMuscHands" value="{{e_cmnMuscHands}}">
 		<option>существенно не изменен</option>
@@ -368,7 +367,7 @@
 		<option class="add">низкий</option>
 		<option class="add">иное:</option>
 		</select>
-		<br>
+
 		<b>В ногах</b> 
 		<select name="e_cmnMuscLegs" value="{{e_cmnMuscLegs}}">
 		<option>существенно не изменен</option>
@@ -389,7 +388,7 @@
 			<option class="add">тетрапарез</option>
 		</select></li>
 		
-		<li><b>Сухожильные и периостальные рефлексы: </b><br>
+		<li><b>Сухожильные и периостальные рефлексы: </b>
 		<b>На руках</b> 
 		<select name="e_cmnReflHands" from="DiaryLast@Сухожильные и периостальные рефлексы: На руках:" value="{{e_cmnReflHands}}">
 			<option>средней живости</option>
@@ -400,8 +399,7 @@
 			<option>низкие</option>
 			<option>отсутствуют</option>
 			<option class="add">&nbsp;</option>
-		</select><br>
-
+		</select>
 		<b>На ногах</b> 
 		<select name="e_cmnReflLegs" from="DiaryLast@Сухожильные и периостальные рефлексы: На ногах" value="{{e_cmnReflLegs}}">
 			<option>средней живости</option>
@@ -437,7 +435,7 @@
 			<option>отсутствуют</option>
 			<option class="add">Есть</option>
 		</select>
-		<br><textarea name="e_cmnOralAutoText">{{e_cmnOralAutoText}}</textarea>
+		<textarea name="e_cmnOralAutoText">{{e_cmnOralAutoText}}</textarea>
 		</li>
 		
 		<li><b>Брюшные рефлексы: </b>
@@ -454,9 +452,9 @@
 		
 		</ul></li>
 		
-		<li><b>Координаторная сфера: </b><br>
+		<li><b>Координаторная сфера: </b>
 		<ul>
-		<li><b>Пальценосовая проба:</b><br>
+		<li><b>Пальценосовая проба:</b>
 		<b>Справа: </b>
 		<select multiple="multiple" name="e_coorFingerR" value="{{e_coorFingerR}}">
 			<option>удовлетворительно</option>
@@ -480,7 +478,7 @@
 			<option>не выполняет</option>
 		</select>
 		</li>
-		<li><b>Пяточно-коленная проба: </b><br>
+		<li><b>Пяточно-коленная проба: </b>
 		<b>Справа: </b>
 		<select multiple="multiple" name="e_coorFootR" value="{{e_coorFootR}}">
 			<option>удовлетворительно</option>
@@ -522,7 +520,7 @@
 		</select>
 		</li>
 		<li><b>Дополнительная информация: </b>
-		<br><textarea from="DiaryLast@Дополнительная информация:" name="e_moreText">{{e_moreText}}</textarea>
+		<textarea from="DiaryLast@Дополнительная информация:" name="e_moreText">{{e_moreText}}</textarea>
 		</li>
 		</ul></li>
 	

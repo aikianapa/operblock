@@ -232,6 +232,7 @@ function fields_msk36($event_id,$orgstr="") {
 	$action_in=getActionDataIn($event_id);
 	$first_osmotr1=getAction($action_id);
 	$first_osmotr1=$first_osmotr1["data"]["fields"];
+	print_r($first_osmotr1);
 	$f=array(); // $f[""]="";
 	switch($tpl) {
 		case "Cord":
@@ -385,6 +386,7 @@ function getTextFromAction($action,$from,$to=NULL) {
 	} else {$arr=$from;}
 	foreach($arr as $key => $fld) {
 		$name=str_replace(":","",$fld);
+		$action[$fld]["value"]=str_replace('\\',"/",$action[$fld]['value']);
 		if ($action[$fld]["value"]>"") {$text[]="{$name}: {$action[$fld]["value"]}";}
 	}
 	return "\r\n".implode(", ",$text);
