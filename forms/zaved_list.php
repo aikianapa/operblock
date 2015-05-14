@@ -179,7 +179,7 @@
 <select name="hemo_id" data-native-menu="true" required><option value="">Выберите...</option></select>
 </div>
 <div data-role="fieldcontain"><label>Ассистенты</label>
-<select name="assist_id[]" multiple="multiple"  required data-native-menu="false" ><option value="">Выберите...</option></select>
+<select name="assist_id[]" multiple="multiple"  data-native-menu="false" ><option value="">Без ассистента</option></select>
 </div>
 <div data-role="fieldcontain"><label>Ассистенты (доп.)</label>
 <input name="assist_name"></div>
