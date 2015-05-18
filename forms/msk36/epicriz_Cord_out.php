@@ -35,7 +35,7 @@
 		<li><p style="text-align:center;"><b>Код стандарта:</b> <input name="e_code1" class="small"> <b>Шифр по МКБ-10:</b> <input name="e_code2" class="small"></p></li>
 		<li><b>Жалобы при поступлении:</b><textarea name="e_complaint1">{{e_complaint1}}</textarea> </li>
 		<li><b>An.morbi:</b><textarea name="e_anamnez1">{{e_anamnez1}}</textarea> </li>
-		<li><b>An.vitae:</b><textarea name="e_an_vitae">{{e_an_vitae}}</textarea> </li>
+		<li><b>An.vitae:</b><textarea name="e_an_vitae" from="FirstOsmotr@Anamnesis vitae: Инвалидность">{{e_an_vitae}}</textarea> </li>
 		<li><b>Состояние при поступлении:</b><textarea name="e_stateIn">{{e_stateIn}}</textarea></li>
 		
 		<li>

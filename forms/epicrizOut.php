@@ -287,12 +287,14 @@ function fields_msk36($event_id,$orgstr="") {
 			//===========
 			$f["work"]=$first_osmotr1["Место работы:"]["value"];
 			$f["address"]=$first_osmotr1["Адрес:"]["value"];
-			$docs=array();
-			$docs["FirstOsmotr"]=$first_osmotr1;
-			$docs["DiaryLast"]=$DiaryLast;
-			getTemplateValues($docs);
+
+			
 			break;
 	}
+	$docs=array();
+	$docs["FirstOsmotr"]=$first_osmotr1;
+	$docs["DiaryLast"]=$DiaryLast;
+	getTemplateValues($docs);
 	return $f;
 }
 
@@ -303,6 +305,7 @@ function getTemplateValues($docs=array()) {
 			// нормализуем поля (удаляем пробелы, двоеточия)
 			$docs[$from[0]][fldname($fld)]=$docs[$from[0]][$fld];
 		}
+		echo $fld;
 		$fld=fldname($from[1]);
 		if (isset($docs[$from[0]]) AND $fld>"") {
 	// ============ SELECT ==============
