@@ -222,6 +222,7 @@ function fields_msk36($event_id,$orgstr="") {
 	WHERE e.id = {$event_id} 
 	AND (a.setPerson_id = e.execPerson_id OR a.person_id = e.execPerson_id )
 	AND a.deleted = 0 
+	AND a.status = 2 
 	AND t.name LIKE '%осмотр%' 
 	ORDER BY endDate LIMIT 1";
 	$res=mysql_query($SQL) or die ("Query failed fields_msk36(): [1]" . mysql_error());
@@ -340,6 +341,7 @@ function getActionDataIn($event_id) {
 	INNER JOIN  ActionType AS t ON t.id = a.actionType_id
 	WHERE e.id = {$event_id} 
 	AND a.deleted = 0 
+	AND a.status = 2
 	AND t.name LIKE '%осмотр%' 
 	AND t.name LIKE '%в приемном%' 
 	ORDER BY endDate LIMIT 1";
