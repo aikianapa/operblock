@@ -444,7 +444,7 @@ function epicLabPrep($event_id,$aType) {
 				$action=getAction($line["actionId"],$event_id); 
 				$actionType_id=$action["data"]["actionType_id"];
 				if (checkActionTypeParrent($actionType_id,$aType)) {
-					$time=date("d/m/Y h:i",strtotime($action["data"]["endDate"]));
+					$time=date("d/m/Y H:i",strtotime($action["data"]["endDate"]));
 					$action=$action["data"]["fields"];
 					$doc=phpQuery::newDocument("<table></table>");
 					pq($doc)->find("table")->prepend("<tr><th colspan='2'>{$time} {$line["name"]}</th><th>Норма</th><th>Ед.изм.</th></tr>");
