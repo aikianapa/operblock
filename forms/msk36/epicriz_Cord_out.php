@@ -26,30 +26,30 @@
 			<ul>
 				<li><b>Диагноз при поступлении:</b><textarea name="e_diag_in">{{e_diag_in}}</textarea> </li>
 				<li><b>Диагноз при выписке:</b><textarea name="e_diag_out">{{e_diag_out}}</textarea> </li>
-				<li><b>Основное заболевание:</b><textarea name="e_diag_main">{{e_diag_main}}</textarea> </li>
-				<li><b>Фоновые заболевания:</b><textarea name="e_diag_fon">{{e_diag_fon}}</textarea></li>
-				<li><b>Осложнения основного заболевания:</b><textarea name="e_diag_comp">{{e_diag_comp}}</textarea></li>
-				<li><b>Сопутствующие заболевания:</b><textarea name="e_diag_satt">{{e_diag_satt}}</textarea></li>
+				<li><b>Основное заболевание:</b><textarea name="e_diag_main" from="FirstOsmotr@Основное заболевание">{{e_diag_main}}</textarea> </li>
+				<li><b>Фоновые заболевания:</b><textarea name="e_diag_fon" from="FirstOsmotr@Фоновые заболевания">{{e_diag_fon}}</textarea></li>
+				<li><b>Осложнения основного заболевания:</b><textarea name="e_diag_comp" from="FirstOsmotr@Осложнения основного заболевания:">{{e_diag_comp}}</textarea></li>
+				<li><b>Сопутствующие заболевания:</b><textarea name="e_diag_satt" from="FirstOsmotr@Сопутствующие заболевания:">{{e_diag_satt}}</textarea></li>
 			</ul>
 		</li>
 		<li><p style="text-align:center;"><b>Код стандарта:</b> <input name="e_code1" class="small"> <b>Шифр по МКБ-10:</b> <input name="e_code2" class="small"></p></li>
-		<li><b>Жалобы при поступлении:</b><textarea name="e_complaint1">{{e_complaint1}}</textarea> </li>
-		<li><b>An.morbi:</b><textarea name="e_anamnez1">{{e_anamnez1}}</textarea> </li>
-		<li><b>An.vitae:</b><textarea name="e_an_vitae" from="FirstOsmotr@Anamnesis vitae: Инвалидность">{{e_an_vitae}}</textarea> </li>
+		<li><b>Жалобы при поступлении:</b><textarea name="e_complaint1" from="firstView@Жалобы">{{e_complaint1}}</textarea> </li>
+		<li><b>An.morbi:</b><textarea name="e_anamnez1" from="FirstOsmotr@Anamnesis morbi">{{e_anamnez1}}</textarea> </li>
+		<li><b>An.vitae:</b><textarea name="e_an_vitae" from="FirstOsmotr@Anamnesis vitae">{{e_an_vitae}}</textarea> </li>
 		<li><b>Состояние при поступлении:</b><textarea name="e_stateIn">{{e_stateIn}}</textarea></li>
 		
 		<li>
 			<ul class="inline">
-				<li><b>Дыхание:</b> <input class="medium" name="e_pulm_in"></li>
-				<li><b>ЧДД:</b> <input class="medium" name="e_pulmFreq_in"> в 1 мин.</li>
+				<li><b>Дыхание:</b> <input class="medium" name="e_pulm_in" from="FirstOsmotr@Дыхание через нос"></li>
+				<li><b>ЧДД:</b> <input class="medium" name="e_pulmFreq_in" from="FirstOsmotr@ЧДД"> в 1 мин.</li>
 				<li><br /><b>Сердце:</b></li>
-				<li><b>Тоны сердца:</b> <input class="medium" name="e_corTone_in"></li>
-				<li><b>ЧСС: </b> <input class="medium" name="e_corFreq_in"> в 1 мин.</li>
-				<li><b>АД:</b> <input class="medium" name="e_corPress_in"> мм.рт.ст.</li>
+				<li><b>Тоны сердца:</b> <input class="medium" name="e_corTone_in" from="FirstOsmotr@Тоны сердца"></li>
+				<li><b>ЧСС: </b> <input class="medium" name="e_corFreq_in" from="FirstOsmotr@ЧСС"> в 1 мин.</li>
+				<li><b>АД:</b> <input class="medium" name="e_corPress_in" from="FirstOsmotr@АД"> мм.рт.ст.</li>
 			</ul>
 		</li>	
-		<li><b>Печень:</b> <textarea type="text" name="e_liverText_in">{{e_liverText_in}}</textarea></li>
-		<li><b>Живот:</b> <textarea type="text" name="e_bellyText_in">{{e_bellyText_in}}</textarea></li>
+		<li><b>Печень:</b> <textarea type="text" name="e_liverText_in" from="FirstOsmotr@Печень:">{{e_liverText_in}}</textarea></li>
+		<li><b>Живот:</b> <textarea type="text" name="e_bellyText_in" from="FirstOsmotr@Живот:">{{e_bellyText_in}}</textarea></li>
 		<li><b>Течение заболевания в стационаре:</b><textarea name="e_stationar">{{e_stationar}}</textarea> </li>
 		<li><b>Терапия: </b>
 		<ul>
@@ -177,8 +177,8 @@
 	</li>
 	<li><b>Посыльный лист на МСЭК: </b>
 	<select name="e_JobnessMsek" value="{{e_JobnessMsek}}">
-		<option>оформлен</option>
 		<option>не оформлен</option>
+		<option>оформлен</option>
 	</select>
 	<br /><textarea name="e_JobnessText">{{e_JobnessText}}</textarea>	
 	</li>

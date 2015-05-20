@@ -220,7 +220,7 @@ function fields_msk36($event_id,$orgstr="") {
 	INNER JOIN  Event AS e ON a.event_id = e.id
 	INNER JOIN  ActionType AS t ON t.id = a.actionType_id
 	WHERE e.id = {$event_id} 
-	AND (a.setPerson_id = e.execPerson_id OR a.person_id = e.execPerson_id )
+	# AND (a.setPerson_id = e.execPerson_id OR a.person_id = e.execPerson_id )
 	AND a.deleted = 0 
 	AND a.status = 2 
 	AND t.name LIKE '%осмотр%' 
@@ -231,9 +231,10 @@ function fields_msk36($event_id,$orgstr="") {
 		$first_osmotr=getActionProperties($data[0],"");
 	}
 	$action_in=getActionDataIn($event_id);
-	$first_osmotr1=getAction($action_id);
+	$first_osmotr=$first_osmotr1=getAction($action_id);
 	$first_osmotr1=$first_osmotr1["data"]["fields"];
 	$f=array(); // $f[""]="";
+	$docs=array();
 	switch($tpl) {
 		case "Cord":
 		// =========== Кордиология ===========
@@ -258,6 +259,18 @@ function fields_msk36($event_id,$orgstr="") {
 			$f["e_corFreq_in"]=field_multi($first_osmotr1["ЧСС , Пульс, Дефицит пульса"]["value"]);
 			$f["e_liverText_in"]=$first_osmotr1["Печень"]["value"];
 			$f["e_bellyText_in"]=$first_osmotr1["Живот"]["value"];
+			
+// ====================== Новые осмотры =================== //
+	if ($f["e_stateIn"]=="") {$f["e_stateIn"]=getTextFromAction($first_osmotr1,"Status praesens: Общее состояние:","Периферические отеки:");}
+	foreach(array("Базовый осмотр 2-го кардиологического отделения.","Базовый осмотр отделения кардиологии ОНК") as $key => $name) {
+		$data=getFirstView($event_id,$name);
+		if (count($data>1)) {$docs["firstView"]=$data;}
+	}
+	
+// ======================================================== //	
+
+			
+			
 			break;
 		case "Nevr":
 		// =========== Неврология
@@ -273,8 +286,8 @@ function fields_msk36($event_id,$orgstr="") {
 			$f["e_anamnez3"]=$first_osmotr1["Аллергоанамнез:"]["value"];
 			$f["e_anamnez4"]=$first_osmotr1["Эпид. анамнез:"]["value"];
 			$f["e_blist12"]=$first_osmotr1["Находился на больничном листе в течение последних 12 месяцев:"]["value"];
-			$f["e_stateIn"]=getTextFromAction($first_osmotr1,"Состояние при поступлении:","Диагноз:");
-			$f["e_stateIn"]=explode(", Диагноз:",$f["e_stateIn"]); $f["e_stateIn"]=$f["e_stateIn"][0];
+			$f["e_stateIn"]=getTextFromAction($first_osmotr1,"Status praesens: Общее состояние:","Периферические отеки:");
+			//$f["e_stateIn"]=explode(", Диагноз:",$f["e_stateIn"]); $f["e_stateIn"]=$f["e_stateIn"][0];
 			$f["e_stateNo"]=$first_osmotr1["Состояние при осмотре в н\о:"]["value"];
 			
 			$DiaryLast=getDiaryLast($event_id); $DiaryLast=$DiaryLast["fields"];
@@ -292,7 +305,7 @@ function fields_msk36($event_id,$orgstr="") {
 			
 			break;
 	}
-	$docs=array();
+
 	$docs["FirstOsmotr"]=$first_osmotr1;
 	$docs["DiaryLast"]=$DiaryLast;
 	getTemplateValues($docs);
@@ -306,8 +319,7 @@ function getTemplateValues($docs=array()) {
 			// нормализуем поля (удаляем пробелы, двоеточия)
 			$docs[$from[0]][fldname($fld)]=$docs[$from[0]][$fld];
 		}
-		echo $fld;
-		$fld=fldname($from[1]);
+		$fld=fldname($from[1],$docs[$from[0]]);
 		if (isset($docs[$from[0]]) AND $fld>"") {
 	// ============ SELECT ==============
 			if (pq($inc)->is("select")) {
@@ -331,19 +343,49 @@ function getTemplateValues($docs=array()) {
 			if (pq($inc)->is("input")) {pq($inc)->attr("value",$docs[$from[0]][$fld]["value"]);}
 	// ============ TEXTAREA ==============
 			if (pq($inc)->is("textarea")) {pq($inc)->html($docs[$from[0]][$fld]["value"]);}
+	// ============ SPAN ==============
+			if (pq($inc)->is("span")) {pq($inc)->html($docs[$from[0]][$fld]["value"]);}
 		}
 	}
 }
+
+function fldname($name,$doc=NULL) {
+	$name=str_replace(":","",$name);
+	$name=str_replace("  "," ",$name);
+	$name=str_replace("  "," ",$name); // так нада!
+	$name=trim($name);
+	if (is_array($doc) && $name>" ")	{
+		foreach($doc as $key => $test) {
+			if (preg_match("/{$name}/iU", $key)) {$name=$key;}
+		}
+	}
+	return $name;
+}
+
+function getFirstView($event_id,$name) {
+	$SQL="SELECT a.* FROM Action AS a
+	INNER JOIN  Event AS e ON a.event_id = e.id
+	INNER JOIN  ActionType AS t ON t.id = a.actionType_id
+	WHERE e.id = {$event_id} 
+	AND a.deleted = 0 AND a.status = 2 AND t.name LIKE '%{$name}%' 
+	ORDER BY endDate LIMIT 1";
+	$action_id=""; $res=mysql_query($SQL) or die ("Query failed getActionDataIn(): [1]" . mysql_error());
+	while($data = mysql_fetch_array($res)) {
+		$action_id=$data[0];
+	}
+	$action=getAction($action_id);
+	$action=$action["data"]["fields"];
+	return $action;
+}
+
+
 
 function getActionDataIn($event_id) {
 	$SQL="SELECT a.* FROM Action AS a
 	INNER JOIN  Event AS e ON a.event_id = e.id
 	INNER JOIN  ActionType AS t ON t.id = a.actionType_id
 	WHERE e.id = {$event_id} 
-	AND a.deleted = 0 
-	AND a.status = 2
-	AND t.name LIKE '%осмотр%' 
-	AND t.name LIKE '%в приемном%' 
+	AND a.deleted = 0 AND a.status = 2 AND t.name LIKE '%осмотр%' AND t.name LIKE '%в приемном%' 
 	ORDER BY endDate LIMIT 1";
 	$action_id=""; $res=mysql_query($SQL) or die ("Query failed getActionDataIn(): [1]" . mysql_error());
 	while($data = mysql_fetch_array($res)) {
@@ -367,14 +409,6 @@ function getDiaryLast($event_id) {
 		$action=getAction($action_id); $action=$action["data"];
 	}
 	return $action;
-}
-
-function fldname($name) {
-	$name=str_replace(":","",$name);
-	$name=str_replace("  "," ",$name);
-	$name=str_replace("  "," ",$name); // так нада!
-	$name=trim($name);
-	return $name;
 }
 
 function getTextFromAction($action,$from,$to=NULL) {
