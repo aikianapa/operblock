@@ -249,10 +249,12 @@ function fields_msk36($event_id,$orgstr="") {
 		if ($f["e_stateIn"]=="") {$f["e_stateIn"]=getTextFromAction($docs["firstView"],"Status praesens: Общее состояние:","Периферические отеки:");}		
 	} else {
 		// ====================== Старые осмотры =================== //
+		$docs["firstView"]=$first_osmotr1;
 			$f["e_complaint1"]=$first_osmotr1["Жалобы при поступлении:"]["value"];
 			$f["e_complaint2"]="";
 			$f["e_code1"]=$first_osmotr1["МЭС:"]["value"];
 			$f["e_anamnez1"]=$first_osmotr1["Anamnesis morbi"]["value"];
+			$f["e_an_vitae"]=$first_osmotr1["Anamnesis morbi"]["value"];
 			$f["e_anamnez2"]=$first_osmotr["fld_11"];
 			$f["e_anamnez3"]=$first_osmotr1["Аллергологический анамнез:"]["value"];
 			$f["e_anamnez4"]=$first_osmotr["fld_26"];
