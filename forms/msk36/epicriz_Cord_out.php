@@ -118,6 +118,9 @@
 		</select>
 		</li>
 			
+		<li><b>Отёки:</b>
+			<textarea name="e_otekText">{{e_otekText}}</textarea>
+		</li>
 	
 <!--		<div data-role="foreach" from="fields">
 		<li>
