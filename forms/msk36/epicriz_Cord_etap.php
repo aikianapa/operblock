@@ -25,30 +25,30 @@
 
 		<li><b>ДИАГНОЗ:</b>
 			<ul>
-				<li><b>Основное заболевание:</b><br><textarea name="e_diag_main">{{e_diag_main}}</textarea> </li>
-				<li><b>Фоновые заболевания:</b><br><textarea name="e_diag_fon">{{e_diag_fon}}</textarea></li>
-				<li><b>Осложнения основного заболевания:</b><br><textarea name="e_diag_comp">{{e_diag_comp}}</textarea></li>
-				<li><b>Сопутствующие заболевания:</b><br><textarea name="e_diag_satt">{{e_diag_satt}}</textarea></li>
+				<li><b>Основное заболевание:</b><br><textarea name="e_diag_main" from="firstView@Основное заболевание">{{e_diag_main}}</textarea> </li>
+				<li><b>Фоновые заболевания:</b><br><textarea name="e_diag_fon" from="firstView@Фоновые заболевания">{{e_diag_fon}}</textarea></li>
+				<li><b>Осложнения основного заболевания:</b><br><textarea name="e_diag_comp" from="firstView@Осложнения основного заболевания:">{{e_diag_comp}}</textarea></li>
+				<li><b>Сопутствующие заболевания:</b><br><textarea name="e_diag_satt" from="firstView@Сопутствующие заболевания:">{{e_diag_satt}}</textarea></li>
 			</ul>
 		</li>
 		<li><p><b>Код стандарта:</b> <input name="e_code1" class="small"> <b>Шифр по МКБ-10:</b> <input name="e_code2" class="small"></p></li>
-		<li><b>Жалобы:</b><br><textarea name="e_complaint1">{{e_complaint1}}</textarea> </li>
-		<li><b>An.morbi:</b><br><textarea name="e_anamnez1">{{e_anamnez1}}</textarea> </li>
-		<li><b>An.vitae:</b><br><textarea name="e_an_vitae">{{e_an_vitae}}</textarea> </li>
+		<li><b>Жалобы:</b><br><textarea name="e_complaint1" from="firstView@Жалобы">{{e_complaint1}}</textarea> </li>
+		<li><b>An.morbi:</b><br><textarea name="e_anamnez1" from="firstView@Anamnesis morbi">{{e_anamnez1}}</textarea> </li>
+		<li><b>An.vitae:</b><br><textarea name="e_an_vitae" from="firstView@Anamnesis vitae">{{e_an_vitae}}</textarea> </li>
 		<li><b>Состояние при поступлении:</b><br><textarea name="e_stateIn">{{e_stateIn}}</textarea></li>
 		
 		<li><b>Дыхание:</b>
 			<ul class="inline">
-				<li><input name="e_pulm_in" class="medium"></li>
-				<li><b>ЧДД:</b> <input class="medium" name="e_pulmFreq_in"></li>
+				<li><input name="e_pulm_in" class="medium" from="firstView@Дыхание через нос"></li>
+				<li><b>ЧДД:</b> <input class="medium" name="e_pulmFreq_in" from="firstView@ЧДД"></li>
 			</ul>
 		</li>
 		
 		<li><b>Сердце:</b>
 			<ul class="inline">
-			<li><b>Тоны сердца:</b> <input class="medium" name="e_corTone_in"></li>
-			<li><b>ЧСС: </b><input class="medium" name="e_corFreq"></li>
-			<li><b>АД:</b> <input class="medium" name="e_corPress_in"></li>
+			<li><b>Тоны сердца:</b> <input class="medium" name="e_corTone_in" from="firstView@Тоны сердца"></li>
+			<li><b>ЧСС: </b><input class="medium" name="e_corFreq" from="firstView@ЧСС"></li>
+			<li><b>АД:</b> <input class="medium" name="e_corPress_in" from="firstView@АД"></li>
 			</ul>
 		</li>	
 		
