@@ -223,21 +223,32 @@ function fields_msk36($event_id,$orgstr="") {
 	# AND (a.setPerson_id = e.execPerson_id OR a.person_id = e.execPerson_id )
 	AND a.deleted = 0 
 	AND a.status = 2 
-	AND t.name LIKE '%осмотр%' 
+	AND t.name LIKE '%осмотр%' AND t.name NOT LIKE '%приемном%'
 	ORDER BY endDate LIMIT 1";
 	$res=mysql_query($SQL) or die ("Query failed fields_msk36(): [1]" . mysql_error());
 	while($data = mysql_fetch_array($res)) {
 		$action_id=$data[0];
 		$first_osmotr=getActionProperties($data[0],"");
 	}
-	$action_in=getActionDataIn($event_id);
-	$first_osmotr=$first_osmotr1=getAction($action_id);
+	$action_in=getActionDataIn($event_id); // Осмотр в приёмном отделении
+	$first_osmotr1=getAction($action_id);
 	$first_osmotr1=$first_osmotr1["data"]["fields"];
 	$f=array(); // $f[""]="";
 	$docs=array();
 	switch($tpl) {
 		case "Cord":
 		// =========== Кордиология ===========
+
+// ====================== Новые осмотры =================== //
+	$res=false;
+	foreach(array("Базовый осмотр 2-го кардиологического отделения.","Базовый осмотр отделения кардиологии ОНК") as $key => $name) {
+		$data=getFirstView($event_id,$name);
+		if (is_array($data)) {$docs["firstView"]=$data; $res=true;}
+	}
+	if ($res==true) {
+		if ($f["e_stateIn"]=="") {$f["e_stateIn"]=getTextFromAction($docs["firstView"],"Status praesens: Общее состояние:","Периферические отеки:");}		
+	} else {
+		// ====================== Старые осмотры =================== //
 			$f["e_complaint1"]=$first_osmotr1["Жалобы при поступлении:"]["value"];
 			$f["e_complaint2"]="";
 			$f["e_code1"]=$first_osmotr1["МЭС:"]["value"];
@@ -260,13 +271,7 @@ function fields_msk36($event_id,$orgstr="") {
 			$f["e_liverText_in"]=$first_osmotr1["Печень"]["value"];
 			$f["e_bellyText_in"]=$first_osmotr1["Живот"]["value"];
 			
-// ====================== Новые осмотры =================== //
-	if ($f["e_stateIn"]=="") {$f["e_stateIn"]=getTextFromAction($first_osmotr1,"Status praesens: Общее состояние:","Периферические отеки:");}
-	foreach(array("Базовый осмотр 2-го кардиологического отделения.","Базовый осмотр отделения кардиологии ОНК") as $key => $name) {
-		$data=getFirstView($event_id,$name);
-		if (count($data>1)) {$docs["firstView"]=$data;}
 	}
-	
 // ======================================================== //	
 
 			
@@ -423,11 +428,13 @@ function getTextFromAction($action,$from,$to=NULL) {
 		}
 	} else {$arr=$from;}
 	foreach($arr as $key => $fld) {
-		$name=str_replace(":","",$fld);
+		$name=fldname($fld);
 		$action[$fld]["value"]=str_replace('\\',"/",$action[$fld]['value']);
 		if ($action[$fld]["value"]>"") {$text[]="{$name}: {$action[$fld]["value"]}";}
 	}
-	return "\r\n".implode(", ",$text);
+	$text=trim("\r\n".implode(", ",$text));
+	if (!is_array($from)) {$text=str_replace(fldname($from).": ","",$text);}
+	return $text;
 }
 
 function field_multi($value) {
