@@ -62,69 +62,6 @@
 		</div>
 		</ul>
 		<textarea name="e_drugsText">{{e_drugsText}}</textarea></li>
-		
-		<li><b>Состояние при выписке:</b> 
-		<select name="e_stateOut" value="{{e_stateOut}}">
-			<option>удовлетворительное</option>
-			<option>относительно удовлетворительное</option>
-			<option>средней тяжести</option>
-			<option>ближе к тяжелому</option>
-			<option>тяжелое</option>
-			<option>крайне тяжелое</option>
-		</select>
-		<br><textarea name="e_stateOutText">{{e_stateOutText}}</textarea> </li>
-
-		<li><b>Дыхание:</b>
-			<ul class="inline">
-				<li>
-						<select name="e_pulm1" multiple="multiple"  value="{{e_pulm1}}">
-						<option>везикулярное</option>
-						<option>жесткое</option>
-						<option>ослабленное</option>
-						<option>проводится во все отделы</option>
-						<option>хрипов нет</option>
-						<option>не проводится</option>
-						<option>в задне-нижних отделах слева</option>
-						<option>в задне-нижних отделах справа</option>
-						<option>с жестким оттенком</option>
-						<option>проводится во все отделы</option>
-						</select>
-				</li>
-				<li><b>ЧДД:</b> <input name="e_pulmFreq" class="small"> в 1 мин.</li>
-				<li><textarea name="e_pulm">{{e_pulm}}</textarea></li>
-			</ul>
-		</li>
-		
-		<li><b>Сердце:</b>
-			<ul class="inline">
-			<li><b>Тоны сердца:</b> 
-				<select name="e_corTone" multiple="multiple"  value="{{e_corTone}}">
-				<option>чистые</option>
-				<option>ясные</option>
-				<option>приглушенные</option>
-				<option>глухие</option>
-				<option>ритмичные</option>
-				<option>аритмичные</option>
-				<option>акцент II тона</option>
-				<option>на аорте</option>
-				<option>на лёгочной артерии</option>
-				</select>
-			</li>
-			<li><b>ЧСС:</b> <input name="e_corFreq" class="small"> в 1 мин.</li>
-			<li><b>АД:</b> <input name="e_corPress" class="small"> мм.рт.ст.</li>
-			</ul>
-		</li>	
-		<li><b>Печень:</b><br><textarea name="e_liverText">{{e_liverText}}</textarea></li>
-		
-
-		<li><b>Живот:</b>
-		<select name="e_belly1" multiple="multiple" value="{{e_belly1}}">
-		<option>мягкий</option>
-		<option>болезненный</option>
-		<option>безболезненный</option>
-		</select>
-		</li>
-			
 	
 <!--		<div data-role="foreach" from="fields">
 		<li>
@@ -165,24 +102,16 @@
 		</div>
 	</ul>
 	<textarea name="e_consultText">{{e_consultText}}</textarea></li>
-	
-	<li><b>Больничный лист: </b>
-	<select name="e_hospList" value="{{e_hospList}}">
-		<option>не выдавался</option>
-		<option>выдавался</option>
-	</select>
-	</li>
 </ul>
 
 <ul>
-<b>Рекомендации по дальнейшему ведению пациента: </b>
 <li><textarea name="e_recom7">{{e_recom7}}</textarea></li>
 
 </ul>
 
 <br>
 <br>
-{{docDate}}г.<br />
+{{docDate}}<br />
 Лечащий врач _________________ /{{person}}/<br>
 <br />
 Зав. отделением _________________ /{{orgStrBoss}}/<br>
