@@ -22,13 +22,13 @@
 		<li><b>Возраст:</b> {{age}}</li>
 		<li><b>Дата госпитализации:</b> {{s_date1}}</li>
 		<li><b>Дата выписки:</b> <input type="text" class="medium" name="s_date2" value="{{s_date2}}"></li>
-
+		
 		<li><b>ДИАГНОЗ:</b>
-			<ul>
-				<li><b>Основное заболевание:</b><br><textarea name="e_diag_main" from="firstView@Основное заболевание">{{e_diag_main}}</textarea> </li>
-				<li><b>Фоновые заболевания:</b><br><textarea name="e_diag_fon" from="firstView@Фоновые заболевания">{{e_diag_fon}}</textarea></li>
-				<li><b>Осложнения основного заболевания:</b><br><textarea name="e_diag_comp" from="firstView@Осложнения основного заболевания:">{{e_diag_comp}}</textarea></li>
-				<li><b>Сопутствующие заболевания:</b><br><textarea name="e_diag_satt" from="firstView@Сопутствующие заболевания:">{{e_diag_satt}}</textarea></li>
+			<ul class="inline">
+				<li><b>Основное заболевание:</b><textarea name="e_diag_main" from="firstView@Основное заболевание">{{e_diag_main}}</textarea> </li>
+				<li><b>Фоновые заболевания:</b><textarea name="e_diag_fon" from="firstView@Фоновые заболевания">{{e_diag_fon}}</textarea></li>
+				<li><b>Осложнения основного заболевания:</b><textarea name="e_diag_comp" from="firstView@Осложнения основного заболевания:">{{e_diag_comp}}</textarea></li>
+				<li><b>Сопутствующие заболевания:</b><textarea name="e_diag_satt" from="firstView@Сопутствующие заболевания:">{{e_diag_satt}}</textarea></li>
 			</ul>
 		</li>
 		<li><p><b>Код стандарта:</b> <input name="e_code1" class="small"> <b>Шифр по МКБ-10:</b> <input name="e_code2" class="small"></p></li>
