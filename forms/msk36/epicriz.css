@@ -49,6 +49,7 @@ body {display:none;}
 #form-027u ul li > ul {display:inline;} 
 #form-027u ul li > ul li {display:inline;} 
 #form-027u ul.inline li {display: inline;}
+#form-027u ul.block li {display: block;}
 #form-027u .text {line-height:32px; }
 #form-027u .text .remark {position:absolute; width:100%; margin-top: 15px; text-align:center; font-size:70%;}
 #form-027u table {border:0; border-top:1px #000 solid; border-bottom:1px #000 solid; clear:both; width: auto; margin-bottom: 10px;}

@@ -23,7 +23,7 @@
 		<li><b>Дата выписки:</b> <input type="text" class="medium" name="endDate" value="{{s_date2}}"></li>
 
 		<li><b>ДИАГНОЗ:</b>
-			<ul>
+			<ul class="block">
 				<li><b>Диагноз при поступлении:</b><textarea name="e_diag_in">{{e_diag_in}}</textarea> </li>
 				<li><b>Диагноз при выписке:</b><textarea name="e_diag_out">{{e_diag_out}}</textarea> </li>
 				<li><b>Основное заболевание:</b><textarea name="e_diag_main" from="firstView@Основное заболевание">{{e_diag_main}}</textarea> </li>
