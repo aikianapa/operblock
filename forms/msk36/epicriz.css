@@ -14,6 +14,8 @@
 #form-027u u {font-style: italic;}
 #form-027u ul {list-style: none;}
 #form-027u ul.inline li {display: inline;}
+#form-027u ul.block li {display: block;}
+#form-027u ul.inline-block li {display: inline-block; vertical-align: top;}
 #form-027u .text {line-height:32px; }
 #form-027u .text .remark {position:absolute; width:100%; margin-top: 22px; text-align:center; font-size:70%;}
 #form-027u table {border:0; border-top:1px #000 solid; border-bottom:1px #000 solid; clear:both; width: auto; margin-bottom: 10px;}
@@ -27,7 +29,6 @@
 #form-027u h2 * {font-size:18px;}
 #form-027u a.del_fld {position:absolute; margin-left: 0px; margin-top: 0px;;}
 #form-027u select[multiple] {display:block; height: auto;}
-#form-027u ul.inline-block li {display: inline-block; vertical-align: top;}
 }
 
 @media print {
@@ -50,6 +51,7 @@ body {display:none;}
 #form-027u ul li > ul li {display:inline;} 
 #form-027u ul.inline li {display: inline;}
 #form-027u ul.block li {display: block;}
+#form-027u ul.inline-block li {display: inline-block; vertical-align: top;}
 #form-027u .text {line-height:32px; }
 #form-027u .text .remark {position:absolute; width:100%; margin-top: 15px; text-align:center; font-size:70%;}
 #form-027u table {border:0; border-top:1px #000 solid; border-bottom:1px #000 solid; clear:both; width: auto; margin-bottom: 10px;}
@@ -63,6 +65,5 @@ body {display:none;}
 #form-027u h2 * {font-size:18px;}
 #form-027u a.del_fld {display:none;}
 #form-027u span { font-style: italic;}
-#form-027u ul.inline-block li {display: inline-block; vertical-align: top;}
 #form-027u .noprint {display:none;}
 }
