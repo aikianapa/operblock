@@ -16,9 +16,7 @@
 		<ul class="fields">
 		<li><b>Пациент:</b> {{client}}</li>
 		<li><b>Возраст:</b> полных лет - {{age}}, дата рождения - {{bDate}}</li>
-		<li><b>Место работы:</b> {{work}}</li>
 		<li><b>Адрес:</b> {{address}}</li>
-		<li><b>Дата поступления {{s_date1}}</li>
 		<li><b>Находил{{suffix1}} на стационарном лечении в ГБУЗ "Городская клиническая больница №36" ДЗ г.Москвы с {{s_date1}} по 
 		<input type="text" class="medium" name="endDate" value="{{s_date2}}"></b>
 		<ul>
@@ -28,6 +26,8 @@
 		</ul>
 		<textarea name="e_stationar">{{e_stationar}}</textarea>
 		</li>
+		<li><b>Место работы:</b> {{work}}</li>
+		<li><b>Дата поступления {{s_date1}}</li>
 		<li><b>ДИАГНОЗ:</b>
 			<ul>
 				<li><b>Диагноз при поступлении:</b><br><textarea name="e_diag_in">{{e_diag_in}}</textarea> </li>
@@ -38,13 +38,13 @@
 				<li><b>Сопутствующие заболевания:</b><br><textarea name="e_diag_satt">{{e_diag_satt}}</textarea></li>
 			</ul>
 		</li>
-		<li><b>Жалобы при поступлении:</b> <textarea name="e_complaint1">{{e_complaint1}}</textarea> </li>
 		<li><b>Анамнез заболевания:</b> <textarea name="e_anamnez1">{{e_anamnez1}}</textarea> </li>
 		<li><b>Анамнез жизни:</b> <textarea name="e_anamnez2">{{e_anamnez2}}</textarea> </li>
+		<li><b>Жалобы при поступлении:</b> <textarea name="e_complaint1">{{e_complaint1}}</textarea> </li>
 		<li><b>Аллергоанамнез:</b> <textarea name="e_anamnez3">{{e_anamnez3}}</textarea> </li>
 		<li><b>Эпид.анамнез:</b> <textarea name="e_anamnez4">{{e_anamnez4}}</textarea> </li>
-		<li><b>Жалобы при осмотре в н\о:</b> <textarea name="e_complaint2">{{e_complaint2}}</textarea> </li>
 		<li><b>Состояние при осмотре в н\о:</b> <textarea name="e_stateNo">{{e_stateNo}}</textarea> </li>
+		<li><b>Жалобы при осмотре в н\о:</b> <textarea name="e_complaint2">{{e_complaint2}}</textarea> </li>
 		<li><b>Находился на больничном листе в течение последних 12 месяцев:</b> <textarea name="e_blist12">{{e_blist12}}</textarea> </li>
 		<li><b>Состояние при поступлении:</b> <textarea name="e_stateIn">{{e_stateIn}}</textarea> </li>
 		<li><b>Состояние при выписке:</b> 

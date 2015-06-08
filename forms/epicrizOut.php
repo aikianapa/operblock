@@ -7,6 +7,7 @@ function epicrizOut_edit($form,$mode,$id,$datatype) {
 	$tpl=array();
 	$tpl[]=array(array("КО (ОНК) РСЦ","2 КО РСЦ"),"Cord",$type);
 	$tpl[]=array(array("1 НО ОНМК РСЦ"),"Nevr",$type);
+	$tpl[]=array(array("ОСХ РСЦ"),"Ocx",$type);
 	$_SESSION["epic_tpl"]=$tpl;
 	switch($type) {
 		case "out":		$name="DoctorRoom: Выписной эпикриз"; break;
