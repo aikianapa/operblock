@@ -114,9 +114,10 @@ $event=mysqlReadItem("Event",$id);
 		if ($Item["action_id"]=="_new") {
 			$Item=array_merge($Item,fields_msk36($id,$Item["OrgStrCode"]));
 		} else {
-			$Item=array_merge($Item,fields_msk36($id,$Item["OrgStrCode"]),$Item);
+			$Item=array_merge(fields_msk36($id,$Item["OrgStrCode"]),$Item);
 		}
 	}
+
 
 pq($out)->find("form")->prepend("<input type='hidden' name='actionType_id' value='{$_SESSION["epic_atid"]}'>");
 
