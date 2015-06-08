@@ -122,7 +122,10 @@ $event=mysqlReadItem("Event",$id);
 pq($out)->find("form")->prepend("<input type='hidden' name='actionType_id' value='{$_SESSION["epic_atid"]}'>");
 
 foreach(pq($out)->find("input,select,textarea") as $inp) {
-	if (!isset($Item[pq($inp)->attr("name")])) {$Item[pq($inp)->attr("name")]="";}
+	if (!isset($Item[pq($inp)->attr("name")])) {$Item[pq($inp)->attr("name")]="";} else {
+		if (pq($inp)->is("textarea")) {pq($inp)->html($Item[pq($inp)->attr("name")]);}
+	}
+	
 }
 
 foreach(pq($out)->find("select option.add") as $add) {
