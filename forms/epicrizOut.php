@@ -126,7 +126,6 @@ foreach(pq($out)->find("input,select,textarea") as $inp) {
 	if (!isset($Item[pq($inp)->attr("name")])) {$Item[pq($inp)->attr("name")]="";} else {
 		if (pq($inp)->is("textarea")) {pq($inp)->html($Item[pq($inp)->attr("name")]);}
 	}
-	
 }
 
 foreach(pq($out)->find("select option.add") as $add) {
@@ -256,14 +255,19 @@ function fields_msk36($event_id,$orgstr="") {
 				if ($diary["Проведено лечение:"]["value"]>"") {$f["e_therapy"][]=$diary["Проведено лечение:"]["value"];}
 			}
 			$f["e_therapy"]=implode(", ",$f["e_therapy"]);
-			// Status vascularis
-			$f["e_st_vascularis_in"]="сонные справа: ".getTextFromAction($docs["firstView"],"сонные справа","лучевая справа").", ";
-			$f["e_st_vascularis_in"].="сонные слева: ".getTextFromAction($docs["firstView"],"сонные слева","ЗББА слева");
-			// Status. localis
-			$f["e_st_localis_in"]="цвет справа: ".getTextFromAction($docs["firstView"],"цвет справа","подкожные вены справа").", ";
-			$f["e_st_localis_in"].="цвет слева: ".getTextFromAction($docs["firstView"],"цвет слева","подкожные вены слева");
-
-		
+			op_add(array("e_stlr_color","e_stll_color"),array("физиологичные окраски","бледные","циаонитчно","мрамороной окраски","гипермия","прочее"));
+			op_add(array("e_stlr_temp","e_stll_temp"),array("нормальная","прохладная","холодная","ледяная","прочее"));
+			op_add(array("e_stlr_sens","e_stll_sens"),array("сохранена","снижена","отсутствует","прочее"));
+			op_add(array("e_stlr_mov","e_stll_mov"),array("сохранены",""));
+			op_add(array("e_stlr_sub","e_stll_sub"),array("есть","нет","прочее"));
+			op_add(array("e_stlr_contr","e_stll_contr"),array("нет","да","прочее"));
+			op_add(array("e_stlr_trof","e_stll_trof"),array("отсутствуют",""));
+			op_add(array("e_stlr_otek","e_stll_otek"),array("отсутствует","на голени","на бедре","прочее"));
+			op_add(array("e_stlr_ven","e_stll_ven"),array("не расширены","варикозное расширение","телеангиоэктазии","прочее"));
+			op_add(array("e_stvr_son","e_stvl_son","e_stvr_ask","e_stvl_ask","e_stvr_pl","e_stvl_pl","e_stvr_lok","e_stvl_lok",
+						"e_stvr_luch","e_stvl_luch","e_stvr_nad","e_stvl_nad","e_stvr_pod","e_stvl_pod","e_stvr_poa","e_stvl_poa",
+						"e_stvr_pbba","e_stvl_pbba","e_stvr_zbba","e_stvl_zbba","e_stvr_simp","e_stvl_simp",),
+						array("отчётливый","ослаблен","отсутствует","зона пульсации расширена"));
 		case "Cord":
 		// =========== Кордиология ===========
 // ====================== Новые осмотры =================== //
@@ -344,6 +348,15 @@ function fields_msk36($event_id,$orgstr="") {
 	$docs["DiaryLast"]=$DiaryLast;
 	getTemplateValues($docs);
 	return $f;
+}
+
+function op_add($name,$values=array()) {
+	if (!is_array($name)) {$name=array($name);}
+	foreach($name as $n => $fld) {
+		foreach($values as $key => $val) {
+			pq($out)->find("[name=".$fld."]")->append("<option class='add'>{$val}</option>");
+		}
+	}
 }
 
 function getTemplateValues($docs=array()) {
