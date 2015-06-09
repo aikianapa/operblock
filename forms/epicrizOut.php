@@ -266,7 +266,7 @@ function fields_msk36($event_id,$orgstr="") {
 			op_add(array("e_stlr_ven","e_stll_ven"),array("не расширены","варикозное расширение","телеангиоэктазии","прочее"));
 			op_add(array("e_stvr_son","e_stvl_son","e_stvr_ask","e_stvl_ask","e_stvr_pl","e_stvl_pl","e_stvr_lok","e_stvl_lok",
 						"e_stvr_luch","e_stvl_luch","e_stvr_nad","e_stvl_nad","e_stvr_pod","e_stvl_pod","e_stvr_poa","e_stvl_poa",
-						"e_stvr_pbba","e_stvl_pbba","e_stvr_zbba","e_stvl_zbba","e_stvr_simp","e_stvl_simp",),
+						"e_stvr_pbba","e_stvl_pbba","e_stvr_zbba","e_stvl_zbba","e_stvr_simp","e_stvl_simp"),
 						array("отчётливый","ослаблен","отсутствует","зона пульсации расширена"));
 		case "Cord":
 		// =========== Кордиология ===========
