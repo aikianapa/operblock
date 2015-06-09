@@ -268,6 +268,12 @@ function fields_msk36($event_id,$orgstr="") {
 						"e_stvr_luch","e_stvl_luch","e_stvr_nad","e_stvl_nad","e_stvr_pod","e_stvl_pod","e_stvr_poa","e_stvl_poa",
 						"e_stvr_pbba","e_stvl_pbba","e_stvr_zbba","e_stvl_zbba","e_stvr_simp","e_stvl_simp"),
 						array("отчётливый","ослаблен","отсутствует","зона пульсации расширена"));
+			$f["e_an_vitae"]=array(); // Anamnesis vitae
+			if ($docs["firstView"]["Anamnesis vitae:"]["value"]>"") $f["e_an_vitae"][]=$docs["firstView"]["Anamnesis vitae:"]["value"];
+			$f["e_an_vitae"][]="Количество инфаркта миокарда: ".getTextFromAction($docs["firstView"],"Количество инфаркта миокарда:","Другие заболевания:");
+			if ($docs["firstView"]["Перенесенные операции:"]["value"]>"") $f["e_an_vitae"][]=$docs["firstView"]["Перенесенные операции:"]["value"];
+			$f["e_an_vitae"]=implode(", ",$f["e_an_vitae"]);
+			break;
 		case "Cord":
 		// =========== Кордиология ===========
 // ====================== Новые осмотры =================== //

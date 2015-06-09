@@ -36,8 +36,8 @@
 			</ul>
 		</li>
 		<li><b>Жалобы при поступлении:</b><textarea name="e_complaint1" from="firstView@Жалобы">{{e_complaint1}}</textarea> </li>
-		<li><b>An.morbi:</b><textarea name="e_anamnez1" from="firstView@Anamnesis morbi">{{e_anamnez1}}</textarea> </li>
-		<li><b>An.vitae:</b><textarea name="e_an_vitae" from="firstView@Anamnesis vitae">{{e_an_vitae}}</textarea> </li>
+		<li><b>An.morbi:</b><textarea name="e_an_morbi" from="firstView@Anamnesis morbi">{{e_an_morbi}}</textarea> </li>
+		<li><b>An.vitae:</b><textarea name="e_an_vitae">{{e_an_vitae}}</textarea> </li>
 		<li><b>Status vascularis при поступлении:</b>
 			<table>
 			<tr><th colspan="2">Пульс справа</th><th colspan="2">Пульс слева</th></tr>
@@ -121,7 +121,7 @@
 			<tr><td>Плечевая на плече:</td><td><select name="e_stvr_pl" value="{{e_stvr_pl}}"></select></td><td>Плечевая на плече:</td><td><select name="e_stvl_pl" value="{{e_stvl_pl}}"></select></td></tr>
 			<tr><td>Локтевая:</td><td><select name="e_stvr_lok" value="{{e_stvr_lok}}"></select></td><td>Локтевая:</td><td><select name="e_stvl_lok" value="{{e_stvl_lok}}"></select></td></tr>
 			<tr><td>Лучевая:</td><td><select name="e_stvr_luch" value="{{e_stvr_luch}}"></select></td><td>Лучевая:</td><td><select name="e_stvl_luch" value="{{e_stvl_luch}}"></select></td></tr>
-			<tr><td colspan="4">Брюшная АОРТА: <select name="e_stv_aorta" value="{{e_stv_aorta}}"></select></td></tr>
+			<tr><td colspan="4">Брюшная АОРТА: <textarea name="e_stv_aorta">{{e_stv_aorta}}</textarea></td></tr>
 			<tr><th colspan="4">Артерии нижних конечностей</th></tr>
 			<tr><td>Над пупартовой связкой:</td><td><select name="e_stvr_nad" value="{{e_stvr_nad}}"></select></td><td>Над пупартовой связкой:</td><td><select name="e_stvl_nad" value="{{e_stvl_nad}}"></select></td></tr>
 			<tr><td>Под пупартовой связкой:</td><td><select name="e_stvr_pod" value="{{e_stvr_pod}}"></select></td><td>Под пупартовой связкой:</td><td><select name="e_stvl_pod" value="{{e_stvl_pod}}"></select></td></tr>
