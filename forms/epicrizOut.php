@@ -122,6 +122,13 @@ $event=mysqlReadItem("Event",$id);
 
 pq($out)->find("form")->prepend("<input type='hidden' name='actionType_id' value='{$_SESSION["epic_atid"]}'>");
 
+$i=0; foreach(pq($out)->find("[name=e_recom_sel] option") as $recom) {
+	if (pq($recom)->html()==$Item["e_recom_sel"]) {
+		pq($out)->find(".recom_tab > li:eq({$i}) textarea")->attr("name","e_recom_text");
+	}
+	$i++;
+}
+
 foreach(pq($out)->find("input,select,textarea") as $inp) {
 	if (!isset($Item[pq($inp)->attr("name")])) {$Item[pq($inp)->attr("name")]="";} else {
 		if (pq($inp)->is("textarea")) {pq($inp)->html($Item[pq($inp)->attr("name")]);}
@@ -150,6 +157,7 @@ foreach(pq($out)->find("textarea[placeholder]") as $inp) {
 	// устанавливаем знечение placeholder для пустых текстов
 	if (pq($inp)->html()=="") {	pq($inp)->html(pq($inp)->attr("placeholder")); }
 }
+
 if ($mode=="print") {
 	pq($out)->html(pq($out)->find("#form-027u"));
 	pq($out)->append("<style>".file_get_contents($_SERVER['DOCUMENT_ROOT']."/forms/msk36/epicriz_droom.css")."</style>");
@@ -427,7 +435,6 @@ function getFirstView($event_id,$name) {
 		$action_id=$data[0];
 	}
 	$action=getAction($action_id);
-			print_r($action);
 	$action=$action["data"]["fields"];
 	return $action;
 }
