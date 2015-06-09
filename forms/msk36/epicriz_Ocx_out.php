@@ -26,7 +26,7 @@
 				<li><b>Диагноз при поступлении:</b><textarea name="e_diag_in">{{e_diag_in}}</textarea> </li>
 			</ul>
 		</li>
-		<li><b>Диагноз при выписке:</b><!--textarea name="e_diag_out">{{e_diag_out}}</textarea-->
+		<li><b>Диагноз при выписке:</b>
 			<ul class="block">
 				<li><b>Основное заболевание:</b><textarea name="e_diag_main" from="firstView@Основное заболевание">{{e_diag_main}}</textarea> </li>
 				<li><b>Фоновые заболевания:</b><textarea name="e_diag_fon" from="firstView@Фоновые заболевания">{{e_diag_fon}}</textarea></li>
@@ -34,10 +34,13 @@
 				<li><b>Сопутствующие заболевания:</b><textarea name="e_diag_satt" from="firstView@Сопутствующие заболевания:">{{e_diag_satt}}</textarea></li>
 			</ul>
 		</li>
-		<li><p style="text-align:center;"><b>Код стандарта:</b> <input name="e_code1" class="small"> <b>Шифр по МКБ-10:</b> <input name="e_code2" class="small"></p></li>
 		<li><b>Жалобы при поступлении:</b><textarea name="e_complaint1" from="firstView@Жалобы">{{e_complaint1}}</textarea> </li>
 		<li><b>An.morbi:</b><textarea name="e_anamnez1" from="firstView@Anamnesis morbi">{{e_anamnez1}}</textarea> </li>
 		<li><b>An.vitae:</b><textarea name="e_an_vitae" from="firstView@Anamnesis vitae">{{e_an_vitae}}</textarea> </li>
+		<li><b>Status vascularis при поступлении:</b><textarea name="e_st_vascularis_in" >{{e_st_vascularis_in}}</textarea> </li>
+		<li><b>Status localis при поступлении:</b><textarea name="e_st_localis_in">{{e_st_localis_in}}</textarea> </li>
+		<li><b>Проведено:</b><textarea name="e_therapy">{{e_therapy}}</textarea> </li>
+		<li><p style="text-align:center;"><b>Код стандарта:</b> <input name="e_code1" class="small"> <b>Шифр по МКБ-10:</b> <input name="e_code2" class="small"></p></li>
 		<li><b>Состояние при поступлении:</b><textarea name="e_stateIn">{{e_stateIn}}</textarea></li>
 		
 		<li>
@@ -123,15 +126,7 @@
 		<li><b>Отёки:</b>
 			<textarea name="e_otekText">{{e_otekText}}</textarea>
 		</li>
-	
-<!--		<div data-role="foreach" from="fields">
-		<li>
-			<a href='#del' class='del_fld'>Уд.</a>
-			<input data-role="none" name="fld[]" value="{{fld}}">
-			<textarea name="val[]">{{val}}</textarea>
-		</li>
-		</div>
--->
+
 		</ul>
 
 <ul>
@@ -162,6 +157,10 @@
 		</div>
 	</ul>
 	<textarea name="e_consultText">{{e_consultText}}</textarea></li>
+
+		<li><b>Status vascularis при выписке:</b><textarea name="e_st_vascularis_out" from="firstView@Status vascularis">{{e_st_vascularis_out}}</textarea> </li>
+		<li><b>Status localis при выписке:</b><textarea name="e_st_localis_out" from="firstView@Status localis">{{e_st_localis_out}}</textarea> </li>
+
 
 	<li><b>Выписан{{suffix2}} с: </b>
 	<select name="e_out" value="{{e_out}}">

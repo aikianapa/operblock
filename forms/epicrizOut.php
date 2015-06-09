@@ -240,9 +240,32 @@ function fields_msk36($event_id,$orgstr="") {
 	$f=array(); // $f[""]="";
 	$docs=array();
 	switch($tpl) {
+		case "Ocx":
+		// =========== ОСХ ===================
+		$res=false;
+		foreach(array("Осмотр отделения сосудистой хирургии РСЦ") as $key => $name) {
+			$data=getFirstView($event_id,$name);
+			if (is_array($data)) {$docs["firstView"]=$data; $res=true;}
+		}		
+			$DiaryLast=getDiaryLast($event_id,"Дневник ОСХ"); $DiaryLast=$DiaryLast["fields"];
+			$DiaryList=getDiaryList($event_id,"Дневник ОСХ");
+
+			$f["e_therapy"]=array(); // Лечение
+			foreach($DiaryList as $diary) {
+				$diary=$diary["fields"];
+				if ($diary["Проведено лечение:"]["value"]>"") {$f["e_therapy"][]=$diary["Проведено лечение:"]["value"];}
+			}
+			$f["e_therapy"]=implode(", ",$f["e_therapy"]);
+			// Status vascularis
+			$f["e_st_vascularis_in"]="Пульс справа: ".getTextFromAction($docs["firstView"],"Status vascularis Пульс справа","лучевая справа").", ";
+			$f["e_st_vascularis_in"].="Пульс слева: ".getTextFromAction($docs["firstView"],"Status vascularis Пульс слева","Положительные симптомы слева");
+			// Status. localis
+			$f["e_st_localis_in"]="справа: ".getTextFromAction($docs["firstView"],"Status. localis справа","подкожные вены справа").", ";
+			$f["e_st_localis_in"].="слева: ".getTextFromAction($docs["firstView"],"Status. localis слева","подкожные вены слева");
+
+		
 		case "Cord":
 		// =========== Кордиология ===========
-
 // ====================== Новые осмотры =================== //
 	$res=false;
 	foreach(array("Базовый осмотр 2-го кардиологического отделения.","Базовый осмотр отделения кардиологии ОНК") as $key => $name) {
@@ -407,8 +430,8 @@ function getActionDataIn($event_id) {
 	return $action;
 }
 
-function getDiaryLast($event_id) {
-	$atype=getActionTypeByName("Дневниковая запись врача - Невролога");
+function getDiaryLast($event_id,$name="Дневниковая запись врача - Невролога") {
+	$atype=getActionTypeByName($name);
 	$action_id=""; $action=array();
 	$SQL="SELECT id FROM Action 
 	WHERE event_id = {$event_id} AND actionType_id = {$atype}  
@@ -421,6 +444,21 @@ function getDiaryLast($event_id) {
 	}
 	return $action;
 }
+
+function getDiaryList($event_id,$name) {
+	$atype=getActionTypeByName($name);
+	$action_id=""; $action=array();
+	$SQL="SELECT id FROM Action 
+	WHERE event_id = {$event_id} AND actionType_id = {$atype}  
+	AND deleted = 0  AND status = 2
+	ORDER BY id";
+	$res=mysql_query($SQL) or die ("Query failed morfoLab(): " . mysql_error());
+	while($data = mysql_fetch_array($res)) { 
+		$data=getAction($data["id"]); $action[]=$data["data"];
+	}
+	return $action;
+}
+
 
 function getTextFromAction($action,$from,$to=NULL) {
 	$text=array();
