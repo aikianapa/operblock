@@ -257,11 +257,11 @@ function fields_msk36($event_id,$orgstr="") {
 			}
 			$f["e_therapy"]=implode(", ",$f["e_therapy"]);
 			// Status vascularis
-			$f["e_st_vascularis_in"]="Пульс справа: ".getTextFromAction($docs["firstView"],"Status vascularis Пульс справа","лучевая справа").", ";
-			$f["e_st_vascularis_in"].="Пульс слева: ".getTextFromAction($docs["firstView"],"Status vascularis Пульс слева","Положительные симптомы слева");
+			$f["e_st_vascularis_in"]="сонные справа: ".getTextFromAction($docs["firstView"],"сонные справа","лучевая справа").", ";
+			$f["e_st_vascularis_in"].="сонные слева: ".getTextFromAction($docs["firstView"],"сонные слева","ЗББА слева");
 			// Status. localis
-			$f["e_st_localis_in"]="справа: ".getTextFromAction($docs["firstView"],"Status. localis справа","подкожные вены справа").", ";
-			$f["e_st_localis_in"].="слева: ".getTextFromAction($docs["firstView"],"Status. localis слева","подкожные вены слева");
+			$f["e_st_localis_in"]="цвет справа: ".getTextFromAction($docs["firstView"],"цвет справа","подкожные вены справа").", ";
+			$f["e_st_localis_in"].="цвет слева: ".getTextFromAction($docs["firstView"],"цвет слева","подкожные вены слева");
 
 		
 		case "Cord":
@@ -408,6 +408,7 @@ function getFirstView($event_id,$name) {
 		$action_id=$data[0];
 	}
 	$action=getAction($action_id);
+			print_r($action);
 	$action=$action["data"]["fields"];
 	return $action;
 }
