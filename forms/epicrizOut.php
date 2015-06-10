@@ -257,12 +257,12 @@ function fields_msk36($event_id,$orgstr="") {
 			$DiaryLast=getDiaryLast($event_id,"Дневник ОСХ"); $DiaryLast=$DiaryLast["fields"];
 			$DiaryList=getDiaryList($event_id,"Дневник ОСХ");
 
-			$f["e_therapy"]=array(); // Лечение
+			$tmp=array(); // Лечение
 			foreach($DiaryList as $diary) {
 				$diary=$diary["fields"];
-				if ($diary["Проведено лечение:"]["value"]>"") {$f["e_therapy"][]=$diary["Проведено лечение:"]["value"];}
+				if ($diary["Проведено лечение:"]["value"]>"") {$tmp[]=$diary["Проведено лечение:"]["value"];}
 			}
-			$f["e_therapy"]=implode(", ",$f["e_therapy"]);
+			$f["e_therapy"]=implode(", ",$tmp);
 			op_add(array("e_stlr_color","e_stll_color"),array("физиологичные окраски","бледные","циаонитчно","мрамороной окраски","гипермия","прочее"));
 			op_add(array("e_stlr_temp","e_stll_temp"),array("нормальная","прохладная","холодная","ледяная","прочее"));
 			op_add(array("e_stlr_sens","e_stll_sens"),array("сохранена","снижена","отсутствует","прочее"));
