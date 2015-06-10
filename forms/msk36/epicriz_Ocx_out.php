@@ -176,13 +176,7 @@
 		<option class="add">с другими причинами</option>
 	</select>
 	</li>
-	<li><b>Посыльный лист на МСЭК: </b>
-	<select name="e_JobnessMsek" value="{{e_JobnessMsek}}">
-		<option>не оформлен</option>
-		<option>оформлен</option>
-	</select>
-	<br /><textarea name="e_JobnessText">{{e_JobnessText}}</textarea>	
-	</li>
+	
 
 	
 	<li><b>Больничный лист: </b>
