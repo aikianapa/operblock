@@ -16,15 +16,18 @@
 <br />
 <h2>ЭТАПНЫЙ  ЭПИКРИЗ ИЗ  ИСТОРИИ  БОЛЕЗНИ    № {{externalId}}</h2>
 </p>
-
 		<ul class="fields">
+		<li><b>Дата:</b> <input type="text" class="medium datepicker" name="endDate" value="{{endDate}}"></li>
 		<li><b>Фамилия, Имя, Отчество:</b> {{client}}</li>
 		<li><b>Возраст:</b> {{age}}</li>
 		<li><b>Дата госпитализации:</b> {{s_date1}}</li>
-		<li><b>Дата выписки:</b> <input type="text" class="medium" name="s_date2" value="{{s_date2}}"></li>
+		<li><b>Койко-дней:</b> 
+			<input autofocus type="text" class="medium" name="e_bedday" value="{{e_bedday}}">
+			<input type="hidden" name="setDate" value="{{setDate}}">
+		</li>
 		
 		<li><b>ДИАГНОЗ:</b>
-			<ul class="inline">
+			<ul class="block">
 				<li><b>Основное заболевание:</b><textarea name="e_diag_main" from="firstView@Основное заболевание">{{e_diag_main}}</textarea> </li>
 				<li><b>Фоновые заболевания:</b><textarea name="e_diag_fon" from="firstView@Фоновые заболевания">{{e_diag_fon}}</textarea></li>
 				<li><b>Осложнения основного заболевания:</b><textarea name="e_diag_comp" from="firstView@Осложнения основного заболевания:">{{e_diag_comp}}</textarea></li>
@@ -111,7 +114,7 @@
 
 <br>
 <br>
-{{docDate}}<br />
+<span class="docDate">{{docDate}}</span><br />
 Лечащий врач _________________ /{{person}}/<br>
 <br />
 Зав. отделением _________________ /{{orgStrBoss}}/<br>
@@ -123,7 +126,8 @@
 </div>
 
 <script language="javascript">
-$("#form-027u select[multiple]").each(function(){
-	$(this).css("height",$(this).find("option").length*18+"px");
-});
+	$("#epic_window").delegate(".datepicker","mouseenter",function(){$(".datepicker").datepick();});
+	$("#form-027u select[multiple]").each(function(){
+		$(this).css("height",$(this).find("option").length*18+"px");
+	});
 </script>

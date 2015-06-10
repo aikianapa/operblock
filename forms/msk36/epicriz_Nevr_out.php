@@ -29,20 +29,20 @@
 		<li><b>Место работы:</b> {{work}}</li>
 		<li><b>Дата поступления {{s_date1}}</li>
 		<li><b>ДИАГНОЗ:</b>
-			<ul>
+			<ul class="block">
 				<li><b>Диагноз при поступлении:</b><br><textarea name="e_diag_in">{{e_diag_in}}</textarea> </li>
 				<li><b>Диагноз при выписке:</b><br><textarea name="e_diag_out">{{e_diag_out}}</textarea> </li>
-				<li><b>Основное заболевание:</b><br><textarea name="e_diag_main">{{e_diag_main}}</textarea> </li>
-				<li><b>Фоновые заболевания:</b><br><textarea name="e_diag_fon">{{e_diag_fon}}</textarea></li>
-				<li><b>Осложнения основного заболевания:</b><br><textarea name="e_diag_comp">{{e_diag_comp}}</textarea></li>
-				<li><b>Сопутствующие заболевания:</b><br><textarea name="e_diag_satt">{{e_diag_satt}}</textarea></li>
+				<li><b>Основное заболевание:</b><br><textarea from="firstView@Диагноз: Основное заболевание:" name="e_diag_main">{{e_diag_main}}</textarea> </li>
+				<li><b>Фоновые заболевания:</b><br><textarea from="firstView@Фоновые заболевания:" name="e_diag_fon">{{e_diag_fon}}</textarea></li>
+				<li><b>Осложнения основного заболевания:</b><br><textarea from="firstView@Осложнения основного заболевания:" name="e_diag_comp">{{e_diag_comp}}</textarea></li>
+				<li><b>Сопутствующие заболевания:</b><br><textarea from="firstView@Сопутствующие заболевания:" name="e_diag_satt">{{e_diag_satt}}</textarea></li>
 			</ul>
 		</li>
-		<li><b>Анамнез заболевания:</b> <textarea name="e_anamnez1">{{e_anamnez1}}</textarea> </li>
-		<li><b>Анамнез жизни:</b> <textarea name="e_anamnez2">{{e_anamnez2}}</textarea> </li>
+		<li><b>Анамнез заболевания:</b> <textarea from="firstView@Anamnesis morbi:" name="e_an_morbi">{{e_an_morbi}}</textarea> </li>
+		<li><b>Анамнез жизни:</b> <textarea from="firstView@Anamnesis vitae:" name="e_an_vitae">{{e_an_vitae}}</textarea> </li>
 		<li><b>Жалобы при поступлении:</b> <textarea name="e_complaint1">{{e_complaint1}}</textarea> </li>
-		<li><b>Аллергоанамнез:</b> <textarea name="e_anamnez3">{{e_anamnez3}}</textarea> </li>
-		<li><b>Эпид.анамнез:</b> <textarea name="e_anamnez4">{{e_anamnez4}}</textarea> </li>
+		<li><b>Аллергоанамнез:</b> <textarea from="firstView@Аллергологический анамнез:" name="e_an_alerg">{{e_an_alerg}}</textarea> </li>
+		<li><b>Эпид.анамнез:</b> <textarea from="firstView@Эпидимиологический анамнез:" name="e_an_epid">{{e_an_epid}}</textarea> </li>
 		<li><b>Состояние при осмотре в н\о:</b> <textarea name="e_stateNo">{{e_stateNo}}</textarea> </li>
 		<li><b>Жалобы при осмотре в н\о:</b> <textarea name="e_complaint2">{{e_complaint2}}</textarea> </li>
 		<li><b>Находился на больничном листе в течение последних 12 месяцев:</b> <textarea name="e_blist12">{{e_blist12}}</textarea> </li>

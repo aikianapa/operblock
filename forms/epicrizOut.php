@@ -73,6 +73,7 @@ $event=mysqlReadItem("Event",$id);
 	$Item["bDate"]=getRusDate($client["birthDate"])."г.";
 	$Item["address"]=$client["addressLive"];
 	$Item["work"]=$client["work"];
+	$Item["setDate"]=date("m.d.Y 00:00:00",strtotime($event["setDate"]));
 //	$Item["diag_main"]=$Diag["main"]["MKB"]." ".$Diag["main"]["DiagName"];
 //	$Item["diag_satt"]=$Diag["satt"]["MKB"]." ".$Diag["satt"]["DiagName"];
 //	$Item["diag_tera"]=$Diag["terapevt"]["MKB"]." ".$Diag["terapevt"]["DiagName"];
@@ -326,6 +327,10 @@ function fields_msk36($event_id,$orgstr="") {
 			break;
 		case "Nevr":
 		// =========== Неврология
+	foreach(array("Базовый осмотр 1-го неврологического отделения РСЦ") as $key => $name) {
+		$data=getFirstView($event_id,$name);
+		if (is_array($data)) {$docs["firstView"]=$data; $res=true;}
+	}
 		
 			$f["e_complaint1"]=$action_in["Жалобы при поступлении:"]["value"];
 			$f["e_complaint2"]=$first_osmotr1["Жалобы при осмотре в н\о:"]["value"];
@@ -594,14 +599,14 @@ function epicConsPrep($event_id) {
 	$actionDiary=$actionDiary["data"];
 	$res=array();
 	$exclude=array("Дневниковая запись врача","обход заведующего отделением");
-	$excludefld=array("Дата Назначения","Дата консультации");
+	$excludefld=array("Дата Назначения","Дата консультации","Дата и время Выполнения");
 	foreach($actionDiary as $key => $line) {
 		if (!in_array($line["name"],$exclude)) {
 			$action=getAction($line["actionId"],$event_id); $action=$action["data"];
 			if (isset($action["fields"]["Дата консультации"])) {
 				$info=array();
 				foreach($action["fields"] as $key => $val) {
-					$val=$val["value"]; if ($key=="Дата и время Выполнения:") {$val=$action["fields"]["Дата консультации"];}
+					$val=$val["value"]; 
 					if (!in_array($key,$excludefld) AND $val>"") {$info[]="<b>$key</b>: $val";}
 				}
 				$res[]["cons"]="<b>".$line["name"]."</b><br>".implode(", ",$info);
