@@ -423,7 +423,7 @@ function fldname($name,$doc=NULL) {
 	return $name;
 }
 
-function getFirstView($event_id,$name) {
+function getFirstView($event_id,$name,$person_id="") {
 	$SQL="SELECT a.* FROM Action AS a
 	INNER JOIN  Event AS e ON a.event_id = e.id
 	INNER JOIN  ActionType AS t ON t.id = a.actionType_id
