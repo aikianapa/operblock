@@ -601,6 +601,7 @@ function epicConsPrep($event_id) {
 			if (isset($action["fields"]["Дата консультации"])) {
 				$info=array();
 				foreach($action["fields"] as $key => $val) {
+					$val=$val["value"];
 					if (!in_array($key,$excludefld) AND $val>"") {$info[]="<b>$key</b>: $val";}
 				}
 				$res[]["cons"]="<b>".$line["name"]."</b><br>".implode(", ",$info);
