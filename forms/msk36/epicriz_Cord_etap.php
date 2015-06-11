@@ -10,6 +10,7 @@
 <p style="text-align:center;">
 <b>{{OrgName}} г.Москвы<br />
 {{orgStr}}<br /></p>
+<b>Дата:</b> <input type="text" class="medium datepicker" name="endDate" value="{{endDate}}">
 <hr />
 <p style="text-align:center;">
 {{OrgAddr}}                                                   тел. +7 (499) 369-34-75</b>
@@ -17,7 +18,6 @@
 <h2>ЭТАПНЫЙ  ЭПИКРИЗ ИЗ  ИСТОРИИ  БОЛЕЗНИ    № {{externalId}}</h2>
 </p>
 		<ul class="fields">
-		<li><b>Дата:</b> <input type="text" class="medium datepicker" name="endDate" value="{{endDate}}"></li>
 		<li><b>Фамилия, Имя, Отчество:</b> {{client}}</li>
 		<li><b>Возраст:</b> {{age}}</li>
 		<li><b>Дата госпитализации:</b> {{s_date1}}</li>
