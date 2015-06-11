@@ -71,7 +71,9 @@
 			</table>
 		</li>
 		<li><b>Проведено:</b><textarea name="e_therapy">{{e_therapy}}</textarea> </li>
-		<li><p style="text-align:center;"><b>Код стандарта:</b> <input name="e_code1" class="small"> <b>Шифр по МКБ-10:</b> <input name="e_code2" class="small"></p></li>
+		<li><p style="text-align:center;">
+			<b>Код стандарта:</b> <input from="firstView@Код стандарта:" name="e_code1" class="small"> 
+			<b>Шифр по МКБ-10:</b> <input from="firstView@Шифр по МКБ-10:" name="e_code2" class="small"></p></li>
 
 		<li><b>Терапия: </b>
 		<ul>
