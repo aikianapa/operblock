@@ -8,6 +8,7 @@ function epicrizOut_edit($form,$mode,$id,$datatype) {
 	$tpl[]=array(array("КО (ОНК) РСЦ","2 КО РСЦ"),"Cord",$type);
 	$tpl[]=array(array("1 НО ОНМК РСЦ"),"Nevr",$type);
 	$tpl[]=array(array("ОСХ РСЦ"),"Ocx",$type);
+	$tpl[]=array(array("ОАР ОНМК"),"Oar",$type);
 	$_SESSION["epic_tpl"]=$tpl;
 	switch($type) {
 		case "out":		$name="DoctorRoom: Выписной эпикриз"; break;
@@ -248,6 +249,15 @@ function fields_msk36($event_id,$orgstr="") {
 	$f=array(); // $f[""]="";
 	$docs=array();
 	switch($tpl) {
+		case "Oar":
+		foreach(array("Базовый осмотр ОАР ОНМК") as $key => $name) {
+			$data=getFirstView($event_id,$name);
+			if (is_array($data)) {$docs["firstView"]=$data; $res=true;}
+		}		
+		$DiaryLast=getDiaryLast($event_id,"Дневник ОАР ОНМК"); $DiaryLast=$DiaryLast["fields"];
+		
+		
+		break;
 		case "Ocx":
 		// =========== ОСХ ===================
 		$res=false;
