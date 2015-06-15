@@ -16,12 +16,10 @@
 		<ul class="fields">
 		<li><b>Пациент:</b> {{client}}</li>
 		<li><b>Возраст:</b> полных лет - {{age}}, дата рождения - {{bDate}}</li>
-		<li><b>Дата перевода: {{s_date2}}</li>
+		<li><b>Дата перевода:  <input type="text" class="medium datepicker" name="endDate" value="{{endDate}}"></li>
 		<li><b>ДИАГНОЗ:</b>
 			<ul class="block">
-				<li><b>Диагноз при поступлении:</b><br><textarea from="firstView@Диагноз:" name="e_diag_in">{{e_diag_in}}</textarea> </li>
-				<li><b>Диагноз при выписке:</b><br><textarea name="e_diag_out">{{e_diag_out}}</textarea> </li>
-				<li><b>Основное заболевание:</b><br><textarea from="firstView@Основное заболевание:" name="e_diag_main">{{e_diag_main}}</textarea> </li>
+				<li><b>Основное заболевание:</b><br><textarea autofocus from="firstView@Основное заболевание:" name="e_diag_main">{{e_diag_main}}</textarea> </li>
 				<li><b>Фоновые заболевания:</b><br><textarea from="firstView@Фоновые заболевания:" name="e_diag_fon">{{e_diag_fon}}</textarea></li>
 				<li><b>Осложнения основного заболевания:</b><br><textarea from="firstView@Осложнения основного заболевания:" name="e_diag_comp">{{e_diag_comp}}</textarea></li>
 				<li><b>Сопутствующие заболевания:</b><br><textarea from="firstView@Сопутствующие заболевания:" name="e_diag_satt">{{e_diag_satt}}</textarea></li>
@@ -492,6 +490,7 @@
 </div>
 
 <script language="javascript">
+$("#epic_window").delegate(".datepicker","mouseenter",function(){$(".datepicker").datepick();});
 $("#form-027u select[multiple]").each(function(){
 	$(this).css("height",$(this).find("option").length*18+"px");
 	$("input[name=endDate]").on("change",function(){
