@@ -130,10 +130,7 @@
 		<option>мед.седация</option>
 		</select></li>
 		<li>
-		<b>ШКГ:</b> <input from="firstView@ШКГ" name="e_nervShkg" class="small"> б.&nbsp;
-		<b>NIHSS:</b> <input name="e_nervNihss" class="small"> б.&nbsp;
-		<b>Ранкин:</b> <input name="e_nervRankin" class="small"> б.&nbsp;
-		<b>Ривермет:</b> <input name="e_nervRiverted" class="small"> б.&nbsp;
+			<b>ШКГ:</b> <input from="firstView@ШКГ" name="e_nervShkg" class="small">
 		</li>
 		<li>
 		<b>Речевому контакту: </b>
