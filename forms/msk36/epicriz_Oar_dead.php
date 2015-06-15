@@ -27,7 +27,7 @@
 		</li>
 		<li><b>Анамнез заболевания:</b> <textarea from="firstView@Anamnesis morbi:" name="e_an_morbi">{{e_an_morbi}}</textarea> </li>
 		<li><b>Анамнез жизни:</b> <textarea from="firstView@Anamnesis vitae:" name="e_an_vitae">{{e_an_vitae}}</textarea> </li>
-		<li><b>Жалобы при поступлении:</b> <textarea  from="firstView@AnaЖалобы при поступлении:" name="e_complaint1">{{e_complaint1}}</textarea> </li>
+		<li><b>Жалобы при поступлении:</b> <textarea  from="firstView@Жалобы при поступлении:" name="e_complaint1">{{e_complaint1}}</textarea> </li>
 		<li><b>Тяжесть состояния обусловлена:</b>
 		<select name="e_hardState" value="{{e_hardState}}">
 			<option>&nbsp;</option>
