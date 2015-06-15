@@ -16,17 +16,6 @@
 		<ul class="fields">
 		<li><b>Пациент:</b> {{client}}</li>
 		<li><b>Возраст:</b> полных лет - {{age}}, дата рождения - {{bDate}}</li>
-		<li><b>Адрес:</b> {{address}}</li>
-		<li><b>Находил{{suffix1}} на стационарном лечении в ГБУЗ "Городская клиническая больница №36" ДЗ г.Москвы с {{s_date1}} по 
-		<input type="text" class="medium" name="endDate" value="{{s_date2}}"></b>
-		<ul>
-			<div data-role="foreach" from="moving">
-			<li>{{31}} - {{14}}</li>
-			</div>
-		</ul>
-		<textarea name="e_stationar">{{e_stationar}}</textarea>
-		</li>
-		<li><b>Место работы:</b> {{work}}</li>
 		<li><b>Дата поступления {{s_date1}}</li>
 		<li><b>ДИАГНОЗ:</b>
 			<ul class="block">
