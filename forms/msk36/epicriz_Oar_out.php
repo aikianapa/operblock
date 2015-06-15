@@ -355,23 +355,43 @@
 		</select>
 		</li>
 		
-		<li><b>Двигательные нарушения: </b>
-		<select name="e_cmnMotion" from="firstView@Двигательные нарушения:" value="{{e_cmnMotion}}">
-			<option>явных парезов, параличей не выявлено</option>
-			<option class="add">гемипарез</option>
-			<option class="add">монопарез</option>
-			<option class="add">парапарез</option>
-			<option class="add">тетрапарез</option>
-		</select></li>
-		
 		<li><b>Сухожильные и периостальные рефлексы: </b><br>
-		<textarea name="e_cmnRefl" from="firstView@Сухожильные и периостальные рефлексы:">{{e_cmnRefl}}</textarea>
+		<b>На руках</b> 
+		<select name="e_cmnReflHands" from="firstView@Сухожильные и периостальные рефлексы: На руках:" value="{{e_cmnReflHands}}">
+			<option>средней живости</option>
+			<option>живые</option>
+			<option>оживлены</option>
+			<option>вызываются</option>
+			<option>снижены</option>
+			<option>низкие</option>
+			<option>отсутствуют</option>
+			<option class="add">&nbsp;</option>
+		</select><br>
+
+		<b>На ногах</b> 
+		<select name="e_cmnReflLegs" from="firstView@Сухожильные и периостальные рефлексы: На ногах" value="{{e_cmnReflLegs}}">
+			<option>средней живости</option>
+			<option>живые</option>
+			<option>оживлены</option>
+			<option>вызываются</option>
+			<option>снижены</option>
+			<option>низкие</option>
+			<option>отсутствуют</option>
+			<option class="add">&nbsp;</option>
+		</select>
 		</li>
 		
-		<li><b>Патологические знаки: </b>
-		<select name="e_cmnPatHands"  from="firstView@Патологические знаки:" value="{{e_cmnPatHands}}">
-			<option>Бабинского</option>
-			<option>Оппенгейма</option>
+		<li><b>Патологические кистевые знаки: </b>
+		<select name="e_cmnPatHands"  from="firstView@Патологические кистевые знаки:" value="{{e_cmnPatHands}}">
+			<option>отсутствуют</option>
+			<option>с двух сторон</option>
+			<option>справа</option>
+			<option>слева</option>
+		</select></li>
+
+		<li><b>Патологические стопные знаки: </b>
+		<select multiple="multiple" from="firstView@Патологические стопные знаки:" name="e_cmnPatFoots" value="{{e_cmnPatFoots}}">
+			<option>Бабинского</option><option>Оппенгейма</option><option>Россолимо</option>
 			<option>отсутствуют</option>
 			<option>с двух сторон</option>
 			<option>справа</option>
@@ -463,11 +483,6 @@
 Лечащий врач _________________ /{{person}}/<br>
 <br />
 Зав. отделением _________________ /{{orgStrBoss}}/<br>
-
-
-  
-
-
 
 </form>
 </div>
