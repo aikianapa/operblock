@@ -41,22 +41,6 @@
 		<li><b>Анамнез заболевания:</b> <textarea from="firstView@Anamnesis morbi:" name="e_an_morbi">{{e_an_morbi}}</textarea> </li>
 		<li><b>Анамнез жизни:</b> <textarea from="firstView@Anamnesis vitae:" name="e_an_vitae">{{e_an_vitae}}</textarea> </li>
 		<li><b>Жалобы при поступлении:</b> <textarea name="e_complaint1">{{e_complaint1}}</textarea> </li>
-		<li><b>Аллергоанамнез:</b> <textarea from="firstView@Аллергологический анамнез:" name="e_an_alerg">{{e_an_alerg}}</textarea> </li>
-		<li><b>Эпид.анамнез:</b> <textarea from="firstView@Эпидимиологический анамнез:" name="e_an_epid">{{e_an_epid}}</textarea> </li>
-		<li><b>Состояние при осмотре в н\о:</b> <textarea name="e_stateNo">{{e_stateNo}}</textarea> </li>
-		<li><b>Жалобы при осмотре в н\о:</b> <textarea name="e_complaint2">{{e_complaint2}}</textarea> </li>
-		<li><b>Находился на больничном листе в течение последних 12 месяцев:</b> <textarea name="e_blist12">{{e_blist12}}</textarea> </li>
-		<li><b>Состояние при поступлении:</b> <textarea name="e_stateIn">{{e_stateIn}}</textarea> </li>
-		<li><b>Состояние при выписке:</b> 
-		<select name="e_stateOut" value="{{e_stateOut}}" from="DiaryLast@Состояние при осмотре:">
-			<option>удовлетворительное</option>
-			<option>относительно удовлетворительное</option>
-			<option>средней тяжести</option>
-			<option>ближе к тяжелому</option>
-			<option>тяжелое</option>
-			<option>крайне тяжелое</option>
-		</select>
-		<textarea name="e_stateOutText">{{e_stateOutText}}</textarea> </li>
 		<li><b>Тяжесть состояния обусловлена:</b>
 		<select name="e_hardState" from="DiaryLast@Тяжесть состояния обусловлена" value="{{e_hardState}}">
 			<option>&nbsp;</option>
@@ -87,7 +71,6 @@
 			<option>свежих следов травм на голове и туловище не выявлено</option>
 		</select>
 		<textarea name="e_skinText">{{e_skinText}}</textarea></li>
-		<li><b>St.locales:</b><br><textarea from="DiaryLast@St. locales :" name="e_stLocales">{{e_stLocales}}</textarea> </li>
 		<li><b>Pulm.:</b>
 				<b>Дыхание:</b>
 				<select name="e_pulm1" from="DiaryLast@Pulm.:Дыхание :" value="{{e_pulm1}}">
@@ -106,7 +89,7 @@
 				</li>
 			</ul>
 			<textarea name="e_pulm">{{e_pulm}}</textarea> </li>
-		<li><b>Cor:</b> 
+		<li><b>Гемодинамика:</b> 
 			<ul class="inline">
 			<li><b>ЧСС:</b> <input from="DiaryLast@Cor. ЧСС" name="e_corFreq" class="small"> в 1 мин.</li>
 			<li><b>АД:</b> <input from="DiaryLast@АД" name="e_corPress" class="small"> мм.рт.ст.</li>
@@ -151,13 +134,8 @@
 		</select> Моча <input from="DiaryLast@моча цвет" name="e_urineColor" class="small"> цвета
 		<br><textarea name="e_perEdemaText">{{e_perEdemaText}}</textarea> </li>
 		
-		<li><b>Дизурические явления:</b> 
-		<select name="e_dizur" from="DiaryLast@Дизурические явления:" value="{{e_dizur}}">
-		<option>нет</option><option class="add">да</option>
-		</select>
-		</li>
 		
-		<li><b>Неврологический статус на момент осмотра:</b>
+		<li><b>Неврологический статус:</b>
 		<ul>
 		<li>
 		<b>Уровень сознания:</b>
@@ -454,134 +432,19 @@
 		<br><textarea name="e_cmnOralAutoText">{{e_cmnOralAutoText}}</textarea>
 		</li>
 		
-		<li><b>Брюшные рефлексы: </b>
-		<select multiple="multiple" from="DiaryLast@Брюшные рефлексы" name="e_cmnReflBelly" value="{{e_cmnReflBelly}}">
-			<option>средней живости</option>
-			<option>D</option><option>S</option><option>&lt;</option><option>&gt;</option><option>=</option>
-			<option>живые</option>
-			<option>оживлены</option>
-			<option>вызываются</option>
-			<option>снижены</option>
-			<option>низкие</option>
-			<option>отсутствуют</option>
-		</select></li>
-		
-		</ul></li>
-		
-		<li><b>Координаторная сфера: </b><br>
-		<ul>
-		<li><b>Пальценосовая проба:</b><br>
-		<b>Справа: </b>
-		<select multiple="multiple" name="e_coorFingerR" value="{{e_coorFingerR}}">
-			<option>удовлетворительно</option>
-			<option>неуверенно</option>
-			<option>с промахиванием</option>
-			<option>с интенцией</option>
-			<option>с атаксией</option>
-			<option>оценить невозможно из-за гемипареза</option>
-			<option>оценить невозможно по тяжести состояния</option>
-			<option>не выполняет</option>
-		</select>&nbsp;
-		<b>Слева: </b>
-		<select multiple="multiple" name="e_coorFingerL" value="{{e_coorFingerL}}">
-			<option>удовлетворительно</option>
-			<option>неуверенно</option>
-			<option>с промахиванием</option>
-			<option>с интенцией</option>
-			<option>с атаксией</option>
-			<option>оценить невозможно из-за гемипареза</option>
-			<option>оценить невозможно по тяжести состояния</option>
-			<option>не выполняет</option>
-		</select>
-		</li>
-		<li><b>Пяточно-коленная проба: </b><br>
-		<b>Справа: </b>
-		<select multiple="multiple" name="e_coorFootR" value="{{e_coorFootR}}">
-			<option>удовлетворительно</option>
-			<option>неуверенно</option>
-			<option>с промахиванием</option>
-			<option>с интенцией</option>
-			<option>с атаксией</option>
-			<option>оценить невозможно из-за гемипареза</option>
-			<option>оценить невозможно по тяжести состояния</option>
-			<option>не выполняет</option>
-		</select>&nbsp;
-		<b>Слева: </b>
-		<select multiple="multiple" name="e_coorFootL" value="{{e_coorFootL}}">
-			<option>удовлетворительно</option>
-			<option>неуверенно</option>
-			<option>с промахиванием</option>
-			<option>с интенцией</option>
-			<option>с атаксией</option>
-			<option>оценить невозможно из-за гемипареза</option>
-			<option>оценить невозможно по тяжести состояния</option>
-			<option>не выполняет</option>
-		</select>&nbsp;
-		<b>В позе Ромберга: </b>
-		<select multiple="multiple" from="DiaryLast@В позе Ромберга" name="e_coorRomberg" value="{{e_coorRomberg}}">
-			<option>устойчив</option>
-			<option>не устойчив</option>
-			<option>пошатывается</option>
-			<option class="add">иное: </option>
-		</select>
-		</li>
-		<li><b>Нарушения  чувствительности: </b>
-		<select multiple="multiple" from="DiaryLast@Нарушения чувствительность:" name="e_coorSens" value="{{e_coorSens}}">
-			<option>не предъявляет</option>
-			<option>гемигипестезия справа</option>
-			<option>гемигипестезия слева</option>
-			<option>на уколы хуже реагирует справа</option>
-			<option>на уколы хуже реагирует слева</option>
-			<option class="add noprint">иное:</option>
-		</select>
-		</li>
-		<li><b>Дополнительная информация: </b>
-		<br><textarea from="DiaryLast@Дополнительная информация:" name="e_moreText">{{e_moreText}}</textarea>
-		</li>
-		</ul></li>
 	
-<!--		<div data-role="foreach" from="fields">
-		<li>
-			<a href='#del' class='del_fld'>Уд.</a>
-			<input data-role="none" name="fld[]" value="{{fld}}">
-			<textarea name="val[]">{{val}}</textarea>
-		</li>
-		</div>
--->
+		</ul></li>
+		
+
 		</ul>
 
-<p align="center"><b><br>
-Проводилось лечение в соответствии со стандартами оказания стационарной медицинской помощи<br>
-</b></p>
 <ul>
-	<li><p style="text-align:center;"><b>Код стандарта:</b> <input name="e_code1" class="small"> <b>Шифр по МКБ-10:</b> <input name="e_code2" class="small"></p></li>
-	<li><b>Препараты: </b>
-	<ul>
-	<div data-role="foreach" from="Drugs">
-	<li>{{drugs}}</li>
-	
-	</div>
-	</ul>
-	<textarea name="e_drugsText">{{e_drugsText}}</textarea></li>
 	
 	<li><b>Инструментальные методы исследования: </b>
-	<ul>
-		<div data-role="foreach" from="res">
-			<li>
-				<a href='#del' class='del_fld'><span class="ui-icon ui-icon-circle-close"></span></a>
-				<p>{{lab}}</p></li>
-		</div>
-	</ul>
+	<textarea name="e_researchText">{{e_researchText}}</textarea>
 	</li>
 
 	<li><b>Лабораторная диагностика: </b>
-	<ul>
-		<div data-role="foreach" from="lab">
-			<li>
-				<a href='#del' class='del_fld'><span class="ui-icon ui-icon-circle-close"></span></a>
-				<p>{{lab}}</p></li>
-		</div>
-	</ul>
 	<textarea name="e_anayseText">{{e_anayseText}}</textarea></li>
 	
 	<li><b>Консультации: </b>
@@ -609,21 +472,18 @@
 		<option>выдавался</option>
 	</select>
 	</li>
+
+	<li><b>Переводится в отделение: </b>
+	<li><textarea name="e_outText">{{e_outText}}</textarea></li>
+	</li>
 </ul>
 
-<b>Рекомендации: </b>
 
 
+
+<b>Рекомендовано: </b>
 <ul>
-<li>Диспансерное наблюдение врачами-специалистами по месту жительства в поликлинике: <textarea name="e_recom1">{{e_recom1}}</textarea></li>
-<li>Диета: <textarea name="e_recom2" placeholder="С ограничением легкоусвояемых углеводов, животных жиров и соли. Питьевой режим.">{{e_recom2}}</textarea></li>
-<li>Контроль АД и ЧСС постоянно. <textarea name="e_recom3" placeholder="При подъеме АД свыше 170-180\90-100 мм рт.ст. – каптоприл 25 мг под язык или нифедипин 10 мг с последующим контролем АД.">{{e_recom3}}</textarea></li>
-<li>Продолжить приём следующих препаратов: <textarea name="e_recom4">{{e_recom4}}</textarea></li>
-<li>Курсовой прием сосудистых, нейротрофических препаратов, антигипоксантов: <textarea name="e_recom5">{{e_recom5}}</textarea></li>
-<li>Консультация в ОКДО ГКБ №36 <textarea placeholder="через __ месяцев с целью коррекции лечения при необходимости." name="e_recom6">{{e_recom6}}</textarea></li>
-<li>Дополнительная информация: <textarea name="e_recom7">{{e_recom7}}</textarea></li>
-</li>
-
+<li><textarea name="e_recom1">{{e_recom1}}</textarea></li>
 </ul>
 <p>Все препараты могут быть заменены на аналогичные в пределах одной фармакологической группы с соответствующей коррекцией принимаемой дозы под наблюдением врачей-специалистов.</p>
 
