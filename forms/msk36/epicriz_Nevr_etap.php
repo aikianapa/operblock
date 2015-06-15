@@ -12,7 +12,7 @@
 {{OrgName}} г.Москвы<br />
 {{orgStr}}<br />
 <br />
-<h2>ЭТАПНЫЙ  ЭПИКРИЗ ИЗ  ИСТОРИИ  БОЛЕЗНИ № {{externalId}}</h2>
+<h2>{{docType}} ЭПИКРИЗ ИЗ  ИСТОРИИ  БОЛЕЗНИ № {{externalId}}</h2>
 <br />
 <p>Пациент{{suffix3}} <b>{{client}}, {{age}} лет,</b> поступил{{suffix2}} в 36 ГКБ {{s_date1}} по СМП с направительным диагнозом: 
 <textarea name="e_diag_in">{{e_diag_in}}</textarea>

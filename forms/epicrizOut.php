@@ -11,10 +11,11 @@ function epicrizOut_edit($form,$mode,$id,$datatype) {
 	$tpl[]=array(array("ОАР ОНМК"),"Oar",$type);
 	$_SESSION["epic_tpl"]=$tpl;
 	switch($type) {
-		case "out":		$name="DoctorRoom: Выписной эпикриз"; break;
-		case "etap":	$name="DoctorRoom: Этапный эпикриз"; break;
-		case "move":	$name="DoctorRoom: Переводной эпикриз"; break;
-		default:		$name="DoctorRoom: Выписной эпикриз"; break;
+		case "out":		$name="DoctorRoom: Выписной эпикриз"; $docType="ВЫПИСНОЙ"; break;
+		case "etap":	$name="DoctorRoom: Этапный эпикриз"; $docType="ЭТАПНЫЙ"; break;
+		case "move":	$name="DoctorRoom: Переводной эпикриз"; $docType="ПЕРЕВОДНОЙ"; break;
+		case "dead":	$name="DoctorRoom: Посмертный эпикриз"; $docType="ПОСМЕРТНЫЙ"; break;
+		default:		$name="DoctorRoom: Выписной эпикриз"; $docType="ВЫПИСНОЙ"; break;
 	}
 	$_SESSION["epic_atid"]=getActionTypeByName($name);
 if ($id!="_new" AND $id!="" AND $_SESSION["epic_atid"]>"") {
@@ -75,6 +76,7 @@ $event=mysqlReadItem("Event",$id);
 	$Item["address"]=$client["addressLive"];
 	$Item["work"]=$client["work"];
 	$Item["setDate"]=date("m.d.Y 00:00:00",strtotime($event["setDate"]));
+	$Item["docType"]=$docType;
 //	$Item["diag_main"]=$Diag["main"]["MKB"]." ".$Diag["main"]["DiagName"];
 //	$Item["diag_satt"]=$Diag["satt"]["MKB"]." ".$Diag["satt"]["DiagName"];
 //	$Item["diag_tera"]=$Diag["terapevt"]["MKB"]." ".$Diag["terapevt"]["DiagName"];
@@ -86,6 +88,7 @@ $event=mysqlReadItem("Event",$id);
 		$Item["s_date2"]=getRusDate($action["endDate"])."г.";
 	} else {
 		$Item["s_date2"]=getRusDate(date("Y-m-d"))."г.";
+		$Item["endDate"]=date("d.m.Y");
 	}
 		$Item["docDate"]=$Item["s_date2"];
 	$Item["orgStrBoss"]=getPersonInfo($orgstructure["chief_id"]); $Item["orgStrBoss"]=$Item["orgStrBoss"]["personShort"];

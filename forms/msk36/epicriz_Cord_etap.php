@@ -15,7 +15,7 @@
 {{OrgAddr}}                                                   тел. +7 (499) 369-34-75</b>
 <br />
 <b>Дата:</b> <input type="text" class="medium datepicker" name="endDate" value="{{endDate}}">
-<h2>ЭТАПНЫЙ  ЭПИКРИЗ ИЗ  ИСТОРИИ  БОЛЕЗНИ    № {{externalId}}</h2>
+<h2>{{docType}} ЭПИКРИЗ ИЗ  ИСТОРИИ  БОЛЕЗНИ    № {{externalId}}</h2>
 </p>
 		<ul class="fields">
 		<li><b>Фамилия, Имя, Отчество:</b> {{client}}</li>

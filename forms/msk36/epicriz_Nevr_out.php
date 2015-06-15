@@ -11,7 +11,7 @@
 {{orgStr}}<br />
 {{OrgAddr}}                                                    тел. +7 {{OrgPhone}}</b></p>
 <br>
-<h2>ВЫПИСНОЙ  ЭПИКРИЗ ИЗ  ИСТОРИИ  БОЛЕЗНИ    № {{externalId}}</h2>
+<h2>{{docType}} ЭПИКРИЗ ИЗ  ИСТОРИИ  БОЛЕЗНИ    № {{externalId}}</h2>
 <br />
 		<ul class="fields">
 		<li><b>Пациент:</b> {{client}}</li>
