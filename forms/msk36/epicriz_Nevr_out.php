@@ -347,13 +347,7 @@
 		</select></li>
 		
 		<li><b>Лицо: </b>
-		<select multiple="multiple" from="DiaryLast@Лицо:" name="e_cmnFace[]">
-		<option>симметрично</option>
-		<option>асимметрично за счет сглаженности правой носогубной складки</option>
-		<option>асимметрично за счет сглаженности левой носогубной складки</option>
-		<option>асимметрично за счет опущения правого угла рта</option>
-		<option>асимметрично за счет опущения левого угла рта</option>
-		</select></li>
+		<textarea from="DiaryLast@Лицо:" name="e_cmnFace"></textarea></li>
 
 		<li><b>Язык: </b>
 		<select multiple="multiple" from="DiaryLast@Язык:" name="e_cmnTongue" value="{{e_cmnTongue}}">
