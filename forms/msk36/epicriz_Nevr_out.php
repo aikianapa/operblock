@@ -347,7 +347,7 @@
 		</select></li>
 		
 		<li><b>Лицо: </b>
-		<textarea from="DiaryLast@Лицо:" name="e_cmnFace"></textarea></li>
+		<textarea from="DiaryLast@Лицо:" name="e_cmnFace">{{e_cmnFace}}</textarea></li>
 
 		<li><b>Язык: </b>
 		<select multiple="multiple" from="DiaryLast@Язык:" name="e_cmnTongue" value="{{e_cmnTongue}}">
