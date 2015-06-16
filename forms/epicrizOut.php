@@ -10,6 +10,7 @@ function epicrizOut_edit($form,$mode,$id,$datatype) {
 	$tpl[]=array(array("ОСХ РСЦ"),"Ocx",$type);
 	$tpl[]=array(array("ОАР ОНМК"),"Oar",$type);
 	$_SESSION["epic_tpl"]=$tpl;
+	$_SESSION["epic_type"]=$type;
 	switch($type) {
 		case "out":		$name="DoctorRoom: Выписной эпикриз"; $docType="ВЫПИСНОЙ"; break;
 		case "etap":	$name="DoctorRoom: Этапный эпикриз"; $docType="ЭТАПНЫЙ"; break;
@@ -253,10 +254,18 @@ function fields_msk36($event_id,$orgstr="") {
 	$docs=array();
 	switch($tpl) {
 		case "Oar":
-		foreach(array("Базовый осмотр ОАР ОНМК") as $key => $name) {
-			$data=getFirstView($event_id,$name);
-			if (is_array($data)) {$docs["firstView"]=$data; $res=true;}
-		}		
+			if ($_SESSION["epic_type"]=="dead") {
+				foreach(array("Базовый осмотр ОАР ОНМК") as $key => $name) {
+					$data=getFirstView($event_id,$name);
+					if (is_array($data)) {$docs["firstView"]=$data; $res=true;}
+				}		
+			} else {
+				foreach(array("Базовый осмотр ОАР ОНМК") as $key => $name) {
+					$_SESSION["tmp_limit"]="LIMIT 2"; // берём из второго по счёту осмотра
+					$data=getFirstView($event_id,$name);
+					if (is_array($data)) {$docs["firstView"]=$data; $res=true;}
+				}		
+			}
 		$DiaryLast=getDiaryLast($event_id,"Дневник ОАР ОНМК"); $DiaryLast=$DiaryLast["fields"];
 		
 		
@@ -340,12 +349,11 @@ function fields_msk36($event_id,$orgstr="") {
 			break;
 		case "Nevr":
 		// =========== Неврология
-	foreach(array("Базовый осмотр ОАР ОНМК") as $key => $name) {
-		$_SESSION["tmp_limit"]="LIMIT 2";
-		$data=getFirstView($event_id,$name);
-		if (is_array($data)) {$docs["firstView"]=$data; $res=true;}
-	}
-		
+				foreach(array("Базовый осмотр 1-го неврологического отделения РСЦ") as $key => $name) {
+					$data=getFirstView($event_id,$name);
+					if (is_array($data)) {$docs["firstView"]=$data; $res=true;}
+				}
+	
 			$f["e_complaint1"]=$action_in["Жалобы при поступлении:"]["value"];
 			$f["e_complaint2"]=$first_osmotr1["Жалобы при осмотре в н\о:"]["value"];
 			$f["e_code1"]=$first_osmotr1["МЭС:"]["value"];
@@ -454,6 +462,7 @@ function getFirstView($event_id,$name,$person_id="") {
 	
 	$action_id=""; $res=mysql_query($SQL) or die ("Query failed getActionDataIn(): [1]" . mysql_error());
 	while($data = mysql_fetch_array($res)) {
+		print_r($data); die;
 		$action_id=$data[0];
 	}
 	$action=getAction($action_id);
