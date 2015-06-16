@@ -462,14 +462,19 @@ function getFirstView($event_id,$name,$person_id="") {
 	
 	$action_id=""; $res=mysql_query($SQL) or die ("Query failed getActionDataIn(): [1]" . mysql_error());
 	while($data = mysql_fetch_array($res)) {
-		print_r($data); die;
 		$action_id=$data[0];
 	}
 	$action=getAction($action_id);
+	
+	$form=getActionTypeForm($action["data"]["name"]);
 	$action=$action["data"]["fields"];
+	getConstructorData($action,$form);
 	return $action;
 }
 
+function getConstructorData($action,$form) {
+	
+}
 
 
 function getActionDataIn($event_id) {
