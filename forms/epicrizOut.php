@@ -341,6 +341,7 @@ function fields_msk36($event_id,$orgstr="") {
 		case "Nevr":
 		// =========== Неврология
 	foreach(array("Базовый осмотр ОАР ОНМК") as $key => $name) {
+		$_SESSION["tmp_limit"]="LIMIT 2";
 		$data=getFirstView($event_id,$name);
 		if (is_array($data)) {$docs["firstView"]=$data; $res=true;}
 	}
@@ -448,6 +449,9 @@ function getFirstView($event_id,$name,$person_id="") {
 	WHERE e.id = {$event_id} 
 	AND a.deleted = 0 AND a.status = 2 AND t.name LIKE '%{$name}%' 
 	ORDER BY endDate LIMIT 1";
+	if ($_SESSION["tmp_limit"]>"") {$SQL=str_replace("LIMIT 1",$_SESSION["tmp_limit"],$SQL); $_SESSION["tmp_limit"]="";}
+	
+	
 	$action_id=""; $res=mysql_query($SQL) or die ("Query failed getActionDataIn(): [1]" . mysql_error());
 	while($data = mysql_fetch_array($res)) {
 		$action_id=$data[0];
