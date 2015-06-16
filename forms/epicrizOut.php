@@ -340,7 +340,7 @@ function fields_msk36($event_id,$orgstr="") {
 			break;
 		case "Nevr":
 		// =========== Неврология
-	foreach(array("Базовый осмотр 1-го неврологического отделения РСЦ") as $key => $name) {
+	foreach(array("Базовый осмотр ОАР ОНМК") as $key => $name) {
 		$data=getFirstView($event_id,$name);
 		if (is_array($data)) {$docs["firstView"]=$data; $res=true;}
 	}
