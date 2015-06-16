@@ -349,7 +349,7 @@ function fields_msk36($event_id,$orgstr="") {
 			break;
 		case "Nevr":
 		// =========== Неврология
-				foreach(array("Базовый осмотр 1-го неврологического отделения РСЦ") as $key => $name) {
+				foreach(array("Базовый осмотр 1-го неврологического отделения РСЦ","Базовый осмотр ОАР ОНМК") as $key => $name) {
 					$data=getFirstView($event_id,$name);
 					if (is_array($data)) {$docs["firstView"]=$data; $res=true;}
 				}
@@ -468,12 +468,17 @@ function getFirstView($event_id,$name,$person_id="") {
 	
 	$form=getActionTypeForm($action["data"]["name"]);
 	$action=$action["data"]["fields"];
-	getConstructorData($action,$form);
+//	getConstructorData($action,$form);
 	return $action;
 }
 
 function getConstructorData($action,$form) {
-	
+	foreach($form as $key => $fld) {
+		print_r($fld);
+		if ($fld["type"]=="Constructor") {$action[$fld["label"]]["enum"]=$fld["enum"];}
+	}
+	print_r($action); die;
+	return $action;
 }
 
 
