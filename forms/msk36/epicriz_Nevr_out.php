@@ -40,13 +40,13 @@
 		</li>
 		<li><b>Анамнез заболевания:</b> <textarea from="firstView@Anamnesis morbi:" name="e_an_morbi">{{e_an_morbi}}</textarea> </li>
 		<li><b>Анамнез жизни:</b> <textarea from="firstView@Anamnesis vitae:" name="e_an_vitae">{{e_an_vitae}}</textarea> </li>
-		<li><b>Жалобы при поступлении:</b> <textarea name="e_complaint1">{{e_complaint1}}</textarea> </li>
+		<li><b>Жалобы при поступлении:</b> <textarea from="firstView@Жалобы при поступлении:" name="e_complaint1">{{e_complaint1}}</textarea> </li>
 		<li><b>Аллергоанамнез:</b> <textarea from="firstView@Аллергологический анамнез:" name="e_an_alerg">{{e_an_alerg}}</textarea> </li>
 		<li><b>Эпид.анамнез:</b> <textarea from="firstView@Эпидимиологический анамнез:" name="e_an_epid">{{e_an_epid}}</textarea> </li>
 		<li><b>Состояние при осмотре в н\о:</b> <textarea name="e_stateNo">{{e_stateNo}}</textarea> </li>
 		<li><b>Жалобы при осмотре в н\о:</b> <textarea name="e_complaint2">{{e_complaint2}}</textarea> </li>
 		<li><b>Находился на больничном листе в течение последних 12 месяцев:</b> <textarea name="e_blist12">{{e_blist12}}</textarea> </li>
-		<li><b>Состояние при поступлении:</b> <textarea name="e_stateIn">{{e_stateIn}}</textarea> </li>
+		<li><b>Состояние при поступлении:</b> <textarea from="firstView@Состояние при поступлении:" name="e_stateIn">{{e_stateIn}}</textarea> </li>
 		<li><b>Состояние при выписке:</b> 
 		<select name="e_stateOut" value="{{e_stateOut}}" from="DiaryLast@Состояние при осмотре:">
 			<option>удовлетворительное</option>
