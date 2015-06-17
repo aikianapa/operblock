@@ -331,6 +331,14 @@ function fields_msk36($event_id,$orgstr="") {
 			if ($docs["firstView"]["Постоянно принимает препараты:"]["value"]>"") $f["e_an_vitae"][]=$firstView["Постоянно принимает препараты:"]["value"];
 			$f["e_an_vitae"]=implode(", ",$f["e_an_vitae"]);
 	
+			$f["e_stateIn"]=array(); // Состояние при поступлении
+				if ($docs["firstView"]["Состояние при поступлении:"]["value"]>"") $f["e_stateIn"][]=$firstView["Состояние при поступлении:"]["value"];
+				if ($docs["firstView"]["Телосложение:"]["value"]>"") $f["e_stateIn"][]=$firstView["Телосложение:"]["value"];
+				$f["e_stateIn"][]="Периферические отеки: ".getTextFromAction($firstView,"Периферические отеки:","Живот при пальпации:");
+				if ($docs["firstView"]["Тазовые функции:"]["value"]>"") $f["e_stateIn"][]=$firstView["Тазовые функции:"]["value"];
+				if ($docs["firstView"]["St. localis :"]["value"]>"") $f["e_stateIn"][]=$firstView["St. localis :"]["value"];
+			$f["e_an_vitae"]=implode(", ",$f["e_an_vitae"]);
+	
 			break;
 	}
 
