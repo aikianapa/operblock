@@ -200,12 +200,9 @@
 			<option class="add">есть</option>
 		</select>
 		</li>
-		</ul>
-		</li>
-		<li>
-		<b>ЧМН:</b><ul>
 
-		<li><b>Обоняние: </b>
+		<li><b>ЧМН:</b> 
+		<b>Обоняние: </b>
 		<select from="DiaryLast@Обоняние" name="e_cmnObon" value="{{e_cmnObon}}">
 			<option>сохранено</option>
 			<option>снижено</option>
