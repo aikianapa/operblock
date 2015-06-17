@@ -30,8 +30,8 @@
 		<li><b>Дата поступления {{s_date1}}</li>
 		<li><b>ДИАГНОЗ:</b>
 			<ul class="block">
-				<li><b>Диагноз при поступлении:</b><br><textarea from="firstView@Диагноз предварительный:" name="e_diag_in">{{e_diag_in}}</textarea> </li>
-				<li><b>Основное заболевание:</b><br><textarea from="secondView@Диагноз: Основное заболевание:" name="e_diag_main">{{e_diag_main}}</textarea> </li>
+				<li><b>Диагноз при поступлении:</b><br>
+					<b>Основное заболевание:</b><br><textarea from="secondView@Диагноз: Основное заболевание:" name="e_diag_main">{{e_diag_main}}</textarea> </li>
 				<li><b>Фоновые заболевания:</b><br><textarea from="secondView@Фоновые заболевания:" name="e_diag_fon">{{e_diag_fon}}</textarea></li>
 				<li><b>Осложнения основного заболевания:</b><br><textarea from="secondView@Осложнения основного заболевания:" name="e_diag_comp">{{e_diag_comp}}</textarea></li>
 				<li><b>Сопутствующие заболевания:</b><br><textarea from="secondView@Сопутствующие заболевания:" name="e_diag_satt">{{e_diag_satt}}</textarea></li>
