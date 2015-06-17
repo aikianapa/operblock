@@ -335,6 +335,14 @@ function fields_msk36($event_id,$orgstr="") {
 				if ($docs["firstView"]["Тазовые функции:"]["value"]>"") $f["e_stateIn"][]=$firstView["Тазовые функции:"]["value"];
 				if ($docs["firstView"]["St. localis :"]["value"]>"") $f["e_stateIn"][]=$firstView["St. localis :"]["value"];
 			$f["e_stateIn"]=implode(", ",$f["e_stateIn"]); if ($f["e_stateIn"]=="Периферические отеки: ") {$f["e_stateIn"]="";}
+
+			$f["e_stateView"]=array(); // Состояние при осмотре
+				if ($docs[""]["Состояние при осмотре:"]["value"]>"") $f["e_stateView"][]=$["Состояние при поступлении:"]["value"];
+				if ($docs[""]["Тяжесть состояния обусловлена"]["value"]>"") $f["e_stateView"][]=$["Тяжесть состояния обусловлена"]["value"];
+				if ($docs[""]["Телосложение:"]["value"]>"") $f["e_stateView"][]=$["Телосложение:"]["value"];
+				$f["e_stateView"][]="Периферические отеки: ".getTextFromAction($,"Периферические отеки:","Дизурические явления:");
+			$f["e_stateView"]=implode(", ",$f["e_stateView"]); if ($f["e_stateView"]=="Периферические отеки: ") {$f["e_stateView"]="";}
+
 	
 			break;
 	}
