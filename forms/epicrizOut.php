@@ -313,80 +313,27 @@ function fields_msk36($event_id,$orgstr="") {
 		$data=getFirstView($event_id,$name);
 		if (is_array($data)) {$docs["firstView"]=$data; $res=true;}
 	}
-	if ($res==true) {
-		if ($f["e_stateIn"]=="") {$f["e_stateIn"]=getTextFromAction($docs["firstView"],"Status praesens: Общее состояние:","Периферические отеки:");}		
-	} else {
-		// ====================== Старые осмотры =================== //
-		$docs["firstView"]=$first_osmotr1;
-			$f["e_complaint1"]=$first_osmotr1["Жалобы при поступлении:"]["value"];
-			$f["e_complaint2"]="";
-			$f["e_code1"]=$first_osmotr1["МЭС:"]["value"];
-			$f["e_anamnez1"]=$first_osmotr1["Anamnesis morbi"]["value"];
-			$f["e_an_vitae"]=$first_osmotr1["Anamnesis morbi"]["value"];
-			$f["e_anamnez2"]=$first_osmotr["fld_11"];
-			$f["e_anamnez3"]=$first_osmotr1["Аллергологический анамнез:"]["value"];
-			$f["e_anamnez4"]=$first_osmotr["fld_26"];
-			$f["e_stateIn"]=$first_osmotr1["Состояние"]["value"];
-			$f["e_diag_in"]=$action_in["Основной:"]["value"];
-			$f["e_diag_out"]=$Diag["main"]["DiagName"];
-			$f["e_diag_main"]=$first_osmotr1["Основной:"]["value"];
-			$f["e_diag_fon"]=$first_osmotr1["Фон:"]["value"];
-			$f["e_diag_comp"]=$first_osmotr1["Осложнения:"]["value"];
-			$f["e_diag_satt"]=$first_osmotr1["Сопутствующий:"]["value"];
-			$f["e_pulm_in"]=$first_osmotr1["Дыхание через нос"]["value"];
-			$f["e_pulmFreq_in"]=$first_osmotr1["ЧДД"]["value"];
-			$f["e_corTone_in"]=$first_osmotr1["Тоны сердца"]["value"];
-			$f["e_corPress_in"]=$first_osmotr1["АД"]["value"];
-			$f["e_corFreq_in"]=field_multi($first_osmotr1["ЧСС , Пульс, Дефицит пульса"]["value"]);
-			$f["e_liverText_in"]=$first_osmotr1["Печень"]["value"];
-			$f["e_bellyText_in"]=$first_osmotr1["Живот"]["value"];
-			
-	}
+	if ($f["e_stateIn"]=="") {$f["e_stateIn"]=getTextFromAction($docs["firstView"],"Status praesens: Общее состояние:","Периферические отеки:");}		
+
 // ======================================================== //	
 
 			
 			
 			break;
 		case "Nevr":
-		// =========== Неврология
-				foreach(array("Базовый осмотр 1-го неврологического отделения РСЦ","Базовый осмотр ОАР ОНМК") as $key => $name) {
-					$data=getFirstView($event_id,$name);
-					if (is_array($data)) {$docs["firstView"]=$data; $res=true;}
-				}
-	
-			$f["e_complaint1"]=$action_in["Жалобы при поступлении:"]["value"];
-			$f["e_complaint2"]=$first_osmotr1["Жалобы при осмотре в н\о:"]["value"];
-			$f["e_code1"]=$first_osmotr1["МЭС:"]["value"];
-			$f["e_anamnez1"]=$first_osmotr1["Анамнез заболевания:"]["value"];
-			$f["e_anamnez2"]=$first_osmotr1["Анамнез жизни:"]["value"];
-				$f["e_anamnez2"].=getTextFromAction($first_osmotr1,"Гипертоническая болезнь:","Травмы:");
-				$f["e_anamnez2"].=getTextFromAction($first_osmotr1,"Другие заболевания:");
-				$f["e_anamnez2"].=getTextFromAction($first_osmotr1,"Постоянно принимает препараты:");
-			$f["e_anamnez3"]=$first_osmotr1["Аллергоанамнез:"]["value"];
-			$f["e_anamnez4"]=$first_osmotr1["Эпид. анамнез:"]["value"];
-			$f["e_blist12"]=$first_osmotr1["Находился на больничном листе в течение последних 12 месяцев:"]["value"];
-			$f["e_stateIn"]=getTextFromAction($first_osmotr1,"Status praesens: Общее состояние:","Периферические отеки:");
-			//$f["e_stateIn"]=explode(", Диагноз:",$f["e_stateIn"]); $f["e_stateIn"]=$f["e_stateIn"][0];
-			$f["e_stateNo"]=$first_osmotr1["Состояние при осмотре в н\о:"]["value"];
-			
-			$DiaryLast=getDiaryLast($event_id); $DiaryLast=$DiaryLast["fields"];
-			$f["e_stateOut"]=$DiaryLast["Состояние при осмотре:"]["value"];
-			//===========
-			$f["e_diag_in"]=$action_in["Основной:"]["value"];
-			$f["e_diag_main"]=$first_osmotr1["Основной:"]["value"];
-			$f["e_diag_fon"]=$first_osmotr1["Фон:"]["value"];
-			$f["e_diag_comp"]=$first_osmotr1["Осложнения:"]["value"];
-			$f["e_diag_satt"]=$first_osmotr1["Сопутствующий:"]["value"];
-			//===========
-			$f["work"]=$first_osmotr1["Место работы:"]["value"];
-			$f["address"]=$first_osmotr1["Адрес:"]["value"];
-
-			
+			// =========== Неврология
+			$data=getFirstView($event_id,$name);
+			$firstView=getFirstView($event_id,"Базовый осмотр ОАР ОНМК");
+			$secondView=getFirstView($event_id,"Базовый осмотр 1-го неврологического отделения РСЦ");
+			$DiaryLast=getDiaryLast($event_id,"Дневниковая запись врача - Невролога"); $DiaryLast=$DiaryLast["fields"];
 			break;
 	}
 
 	$docs["FirstOsmotr"]=$first_osmotr1;
 	$docs["DiaryLast"]=$DiaryLast;
+	$docs["diaryLast"]=$DiaryLast;
+	$docs["firstView"]=$firstView;
+	$docs["secondView"]=$secondView;
 	getTemplateValues($docs);
 	return $f;
 }

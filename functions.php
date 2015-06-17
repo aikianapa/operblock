@@ -62,6 +62,28 @@ function getStationarMovings($event_id) {
 	return json_decode($res,true);
 }
 
+function getConstructor($group) {
+	$url=$_SESSION["settings"]["url_doctorroom"]."/ajax.php";
+	phpQuery::ajaxAllowURL($url); 
+	$res = null; $fnCallback = function($data, $status) use (&$res) { $res = $data; };
+	phpQuery::ajax(array(
+                                'type' => 'POST',
+                                'url' => $url,
+                                'data' => array(
+												'cahce'=>false,
+												'valueDomain'=>$group,
+												'method'=>'combobox/get_rbConstructor',
+												),
+                                'success' => $fnCallback,
+                                'dataType' => 'data',
+                                'rnd'=>rand(10000,99999),
+                        ));
+                        $res=json_decode($res,true);
+                        $res=$res["data"];
+	return $res;	
+}
+
+
 function getActionsHistory($event_id) {
 	$url=$_SESSION["settings"]["url_doctorroom"]."/ajax.php";
 	phpQuery::ajaxAllowURL($url); 
