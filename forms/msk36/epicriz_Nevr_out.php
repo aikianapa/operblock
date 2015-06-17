@@ -57,7 +57,7 @@
 			<textarea multiple="multiple" from="DiaryLast@Телосложение:" name="e_bodyType" value="{{e_bodyType}}"></textarea>
 		</li>
 		<li><b>Периферические отеки:</b>
-			<textarea name="e_perEdema" from="DiaryLast@Переферические отеки:" value="{{e_perEdema}}"></textarea>
+			<textarea name="e_perEdema" from="DiaryLast@Периферические отеки:" value="{{e_perEdema}}"></textarea>
 		</li>
 		<li><b>Кожные  покровы:</b> 
 			<textarea name="e_skin1" multiple="multiple" from="DiaryLast@Кожные покровы"	value="{{e_skin1}}"></textarea>
@@ -371,6 +371,7 @@
 				<p>{{lab}}</p></li>
 		</div>
 	</ul>
+	<textarea name="e_resText">{{e_resText}}</textarea></li>
 	</li>
 
 	<li><b>Лабораторная диагностика: </b>
