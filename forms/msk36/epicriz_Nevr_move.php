@@ -38,10 +38,8 @@
 
 		<li>
 		<b>На фоне проводимой терапии:</b><br>
-		<b>Жалобы при осмотре в н\о:</b> <textarea from="secondView@Жалобы:" name="e_complaint2">{{e_complaint2}}</textarea> </li>
-		<li><b>Состояние при осмотре в н\о:</b> <textarea from="secondView@Status praesens: Общее состояние:" name="e_stateNo">{{e_stateNo}}</textarea> </li>
-		<li><b>Находился на больничном листе в течение последних 12 месяцев:</b> <textarea from="secondView@Страховой анамнез: Находился на больничном листе в течении последних 12-мес:" name="e_blist12">{{e_blist12}}</textarea> </li>
-
+		<b>Жалобы при осмотре:</b> <textarea from="DiaryLast@Жалобы при осмотре:" name="e_complaintView">{{e_complaintView}}</textarea> </li>
+		<li><b>Состояние при осмотре:</b> <textarea from="DiaryLast@Состояние при осмотре:" name="e_stateView">{{e_stateView}}</textarea> </li>
 		<li><b>Тяжесть состояния обусловлена:</b>
 			<textarea name="e_hardState" from="DiaryLast@Тяжесть состояния обусловлена" value="{{e_hardState}}"></textarea>
 		</li>
@@ -120,7 +118,7 @@
 		</select>
 		</li>
 		
-		<li><b>Неврологический статус на момент осмотра:</b>
+		<li><b>NS на момент осмотра:</b>
 		<ul>
 		<li>
 		<b>Уровень сознания:</b>
