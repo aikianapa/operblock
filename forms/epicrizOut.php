@@ -316,8 +316,6 @@ function fields_msk36($event_id,$orgstr="") {
 	if ($f["e_stateIn"]=="") {$f["e_stateIn"]=getTextFromAction($docs["firstView"],"Status praesens: Общее состояние:","Периферические отеки:");}		
 
 // ======================================================== //	
-
-			
 			
 			break;
 		case "Nevr":
