@@ -326,10 +326,10 @@ function fields_msk36($event_id,$orgstr="") {
 			$DiaryLast=getDiaryLast($event_id,"Дневниковая запись врача - Невролога"); $DiaryLast=$DiaryLast["fields"];
 			
 			$f["e_an_vitae"]=array(); // Anamnesis vitae
-			if ($docs["firstView"]["Anamnesis vitae:"]["value"]>"") $f["e_an_vitae"][]=$firstView["Anamnesis vitae:"]["value"];
-			$f["e_an_vitae"][]="Гипертоническая болезнь: ".getTextFromAction($firstView,"Гипертоническая болезнь:","Травмы:");
-			if ($docs["firstView"]["Постоянно принимает препараты:"]["value"]>"") $f["e_an_vitae"][]=$firstView["Постоянно принимает препараты:"]["value"];
-			$f["e_an_vitae"]=implode(", ",$f["e_an_vitae"]);
+				if ($docs["firstView"]["Anamnesis vitae:"]["value"]>"") $f["e_an_vitae"][]=$firstView["Anamnesis vitae:"]["value"];
+				$f["e_an_vitae"][]="Гипертоническая болезнь: ".getTextFromAction($firstView,"Гипертоническая болезнь:","Травмы:");
+				if ($docs["firstView"]["Постоянно принимает препараты:"]["value"]>"") $f["e_an_vitae"][]=$firstView["Постоянно принимает препараты:"]["value"];
+			$f["e_an_vitae"]=implode(", ",$f["e_an_vitae"]); if ($f["e_an_vitae"]=="Гипертоническая болезнь: ") {$f["e_an_vitae"]="";}
 	
 			$f["e_stateIn"]=array(); // Состояние при поступлении
 				if ($docs["firstView"]["Состояние при поступлении:"]["value"]>"") $f["e_stateIn"][]=$firstView["Состояние при поступлении:"]["value"];
@@ -337,7 +337,7 @@ function fields_msk36($event_id,$orgstr="") {
 				$f["e_stateIn"][]="Периферические отеки: ".getTextFromAction($firstView,"Периферические отеки:","Живот при пальпации:");
 				if ($docs["firstView"]["Тазовые функции:"]["value"]>"") $f["e_stateIn"][]=$firstView["Тазовые функции:"]["value"];
 				if ($docs["firstView"]["St. localis :"]["value"]>"") $f["e_stateIn"][]=$firstView["St. localis :"]["value"];
-			$f["e_an_vitae"]=implode(", ",$f["e_an_vitae"]);
+			$f["e_stateIn"]=implode(", ",$f["e_stateIn"]); if ($f["e_stateIn"]=="Периферические отеки: ") {$f["e_stateIn"]="";}
 	
 			break;
 	}
