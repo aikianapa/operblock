@@ -307,15 +307,12 @@ function fields_msk36($event_id,$orgstr="") {
 			break;
 		case "Cord":
 		// =========== Кордиология ===========
-// ====================== Новые осмотры =================== //
-	$res=false;
-	foreach(array("Базовый осмотр 2-го кардиологического отделения.","Базовый осмотр отделения кардиологии ОНК") as $key => $name) {
-		$data=getFirstView($event_id,$name);
-		if (is_array($data)) {$docs["firstView"]=$data; $res=true;}
-	}
-	if ($f["e_stateIn"]=="") {$f["e_stateIn"]=getTextFromAction($docs["firstView"],"Status praesens: Общее состояние:","Периферические отеки:");}		
-
-// ======================================================== //	
+			$res=false;
+			foreach(array("Базовый осмотр 2-го кардиологического отделения.","Базовый осмотр отделения кардиологии ОНК") as $key => $name) {
+				$data=getFirstView($event_id,$name);
+				if (is_array($data)) {$docs["firstView"]=$data; $res=true;}
+			}
+			if ($f["e_stateIn"]=="") {$f["e_stateIn"]=getTextFromAction($docs["firstView"],"Status praesens: Общее состояние:","Периферические отеки:");}		
 			
 			break;
 		case "Nevr":

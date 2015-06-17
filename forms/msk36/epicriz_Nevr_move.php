@@ -33,87 +33,88 @@
 
 		<li>
 		<b>На фоне проводимой терапии:</b><br>
-		<b>Жалобы при осмотре:</b> <textarea from="DiaryLast@Жалобы при осмотре:" name="e_complaintView">{{e_complaintView}}</textarea> </li>
-		<li><b>Состояние при осмотре:</b> <textarea from="DiaryLast@Состояние при осмотре:" name="e_stateView">{{e_stateView}}</textarea> </li>
-		<li><b>Тяжесть состояния обусловлена:</b>
-			<textarea name="e_hardState" from="DiaryLast@Тяжесть состояния обусловлена" value="{{e_hardState}}"></textarea>
-		</li>
-		<li><b>Телосложение:</b>
-			<textarea multiple="multiple" from="DiaryLast@Телосложение:" name="e_bodyType" value="{{e_bodyType}}"></textarea>
-		</li>
-		<li><b>Периферические отеки:</b>
-			<textarea name="e_perEdema" from="DiaryLast@Периферические отеки:" value="{{e_perEdema}}"></textarea>
-		</li>
-		<li><b>Кожные  покровы:</b> 
-			<textarea name="e_skin1" multiple="multiple" from="DiaryLast@Кожные покровы"	value="{{e_skin1}}"></textarea>
-		</li>
-		<li><b>Pulm.:</b>
-				<b>Дыхание:</b>
-				<select name="e_pulm1" from="DiaryLast@Pulm.:Дыхание :" value="{{e_pulm1}}">
-					<option>везикулярное</option><option>с жестковатым оттенком</option></option>жесткое</option>
-					<option>проводится во все отделы</option><option class="add">ослабленное</option>
-				</select>,&nbsp;                            
-			<ul class="inline">
-				<li><b>ЧДД:</b> <input from="DiaryLast@ЧДД" name="e_pulmFreq" class="small"> в 1 мин.</li>
-				<li><b>Хрипы:</b> 
-					<select from="DiaryLast@Хрипы:" name="e_pulmHrip1" value="{{e_pulmHrip1}}">
-					<option>да</option><option>нет</option>
-					</select>
-					<select name="e_pulmHrip2" value="{{e_pulmHrip2}}">
-					<option>&nbsp;</option><option>сухие</option><option class="add">влажные</option>
+		<ul class="inline">
+			<li><b>Жалобы при осмотре:</b> <textarea from="DiaryLast@Жалобы при осмотре:" name="e_complaintView">{{e_complaintView}}</textarea> </li>
+			<li><b>Состояние при осмотре:</b> <textarea from="DiaryLast@Состояние при осмотре:" name="e_stateView">{{e_stateView}}</textarea> </li>
+			<li><b>Тяжесть состояния обусловлена:</b>
+				<textarea name="e_hardState" from="DiaryLast@Тяжесть состояния обусловлена" value="{{e_hardState}}"></textarea>
+			</li>
+			<li><b>Телосложение:</b>
+				<textarea multiple="multiple" from="DiaryLast@Телосложение:" name="e_bodyType" value="{{e_bodyType}}"></textarea>
+			</li>
+			<li><b>Периферические отеки:</b>
+				<textarea name="e_perEdema" from="DiaryLast@Периферические отеки:" value="{{e_perEdema}}"></textarea>
+			</li>
+			<li><b>Кожные  покровы:</b> 
+				<textarea name="e_skin1" multiple="multiple" from="DiaryLast@Кожные покровы"	value="{{e_skin1}}"></textarea>
+			</li>
+			<li><b>Pulm.:</b>
+					<b>Дыхание:</b>
+					<select name="e_pulm1" from="DiaryLast@Pulm.:Дыхание :" value="{{e_pulm1}}">
+						<option>везикулярное</option><option>с жестковатым оттенком</option></option>жесткое</option>
+						<option>проводится во все отделы</option><option class="add">ослабленное</option>
+					</select>,&nbsp;                            
+				<ul class="inline">
+					<li><b>ЧДД:</b> <input from="DiaryLast@ЧДД" name="e_pulmFreq" class="small"> в 1 мин.</li>
+					<li><b>Хрипы:</b> 
+						<select from="DiaryLast@Хрипы:" name="e_pulmHrip1" value="{{e_pulmHrip1}}">
+						<option>да</option><option>нет</option>
+						</select>
+						<select name="e_pulmHrip2" value="{{e_pulmHrip2}}">
+						<option>&nbsp;</option><option>сухие</option><option class="add">влажные</option>
+						</select>
+					</li>
+				</ul>
+				<textarea name="e_pulm">{{e_pulm}}</textarea> </li>
+			<li><b>Cor:</b> 
+				<ul class="inline">
+				<li><b>ЧСС:</b> <input from="DiaryLast@Cor. ЧСС" name="e_corFreq" class="small"> в 1 мин.</li>
+				<li><b>АД:</b> <input from="DiaryLast@АД" name="e_corPress" class="small"> мм.рт.ст.</li>
+				<li><b>Тоны сердца:</b> 
+					<select from="DiaryLast@Тоны сердца" name="e_corTone" value="{{e_corTone}}">
+					<option>ясные</option><option>приглушенные</option><option>глухие</option><option class="add noprint">прочее</option>
 					</select>
 				</li>
-			</ul>
-			<textarea name="e_pulm">{{e_pulm}}</textarea> </li>
-		<li><b>Cor:</b> 
-			<ul class="inline">
-			<li><b>ЧСС:</b> <input from="DiaryLast@Cor. ЧСС" name="e_corFreq" class="small"> в 1 мин.</li>
-			<li><b>АД:</b> <input from="DiaryLast@АД" name="e_corPress" class="small"> мм.рт.ст.</li>
-			<li><b>Тоны сердца:</b> 
-				<select from="DiaryLast@Тоны сердца" name="e_corTone" value="{{e_corTone}}">
-				<option>ясные</option><option>приглушенные</option><option>глухие</option><option class="add noprint">прочее</option>
-				</select>
-			</li>
-			<li><b>Ритм:</b> 
-				<select from="DiaryLast@Ритм" name="e_corRitm" value="{{e_corRitm}}">
-				<option>правильный</option><option>неправильный</option>
-				</select>
-			</li>
+				<li><b>Ритм:</b> 
+					<select from="DiaryLast@Ритм" name="e_corRitm" value="{{e_corRitm}}">
+					<option>правильный</option><option>неправильный</option>
+					</select>
+				</li>
 
-			</ul>
-		</li>	
+				</ul>
+			</li>	
 
-		<li><b>Живот при пальпации:</b> 
-			<textarea from="DiaryLast@Живот при пальпации" name="e_belly1" value="{{e_belly1}}"></textarea>
-		</li>
+			<li><b>Живот при пальпации:</b> 
+				<textarea from="DiaryLast@Живот при пальпации" name="e_belly1" value="{{e_belly1}}"></textarea>
+			</li>
+				
+			<li><b>Перистальтика:</b> 
+			<select name="e_prest" from="DiaryLast@Перистальтика" value="{{e_prest}}">
+			<option>выслушивается</option><option>не выслушивается</option>
+			</select>
+			</li>
 			
-		<li><b>Перистальтика:</b> 
-		<select name="e_prest" from="DiaryLast@Перистальтика" value="{{e_prest}}">
-		<option>выслушивается</option><option>не выслушивается</option>
-		</select>
-		</li>
-		
-		<li><b>Тазовые функции:</b> 
-		<select name="e_taz" from="DiaryLast@Тазовые функции" value="{{e_taz}}">
-		<option>контролирует</option><option>частично контролирует</option><option>не контролирует</option>
-		</select>
-		</li>
+			<li><b>Тазовые функции:</b> 
+			<select name="e_taz" from="DiaryLast@Тазовые функции" value="{{e_taz}}">
+			<option>контролирует</option><option>частично контролирует</option><option>не контролирует</option>
+			</select>
+			</li>
 
-		<li><b>St.locales:</b><br><textarea from="DiaryLast@St. locales :" name="e_stLocales">{{e_stLocales}}</textarea> </li>
+			<li><b>St.locales:</b><br><textarea from="DiaryLast@St. locales :" name="e_stLocales">{{e_stLocales}}</textarea> </li>
 
-		<li><b>Мочеиспускание:</b>
-		<select name="e_urine" from="DiaryLast@Мочеиспускание" value="{{e_urine}}">
-			<option>самостоятельно</option>
-			<option>по катетеру</option>
-		</select> Моча <input from="DiaryLast@моча цвет" name="e_urineColor" class="small"> цвета
-		<br><textarea name="e_perEdemaText">{{e_perEdemaText}}</textarea> </li>
-		
-		<li><b>Дизурические явления:</b> 
-		<select name="e_dizur" from="DiaryLast@Дизурические явления:" value="{{e_dizur}}">
-		<option>нет</option><option class="add">да</option>
-		</select>
-		</li>
-		
+			<li><b>Мочеиспускание:</b>
+			<select name="e_urine" from="DiaryLast@Мочеиспускание" value="{{e_urine}}">
+				<option>самостоятельно</option>
+				<option>по катетеру</option>
+			</select> Моча <input from="DiaryLast@моча цвет" name="e_urineColor" class="small"> цвета
+			<br><textarea name="e_perEdemaText">{{e_perEdemaText}}</textarea> </li>
+			
+			<li><b>Дизурические явления:</b> 
+			<select name="e_dizur" from="DiaryLast@Дизурические явления:" value="{{e_dizur}}">
+			<option>нет</option><option class="add">да</option>
+			</select>
+			</li>
+		</ul></li>
 		<li><b>NS на момент осмотра:</b>
 		<ul>
 		<li>
