@@ -328,12 +328,11 @@ function fields_msk36($event_id,$orgstr="") {
 			$DiaryLast=getDiaryLast($event_id,"Дневниковая запись врача - Невролога"); $DiaryLast=$DiaryLast["fields"];
 			
 			$f["e_an_vitae"]=array(); // Anamnesis vitae
-			if ($docs["firstView"]["Anamnesis vitae:"]["value"]>"") $f["e_an_vitae"][]=$docs["firstView"]["Anamnesis vitae:"]["value"];
-			$f["e_an_vitae"][]="Гипертоническая болезнь: ".getTextFromAction($docs["firstView"],"Гипертоническая болезнь:","Травмы:");
-			if ($docs["firstView"]["Постоянно принимает препараты:"]["value"]>"") $f["e_an_vitae"][]=$docs["firstView"]["Постоянно принимает препараты:"]["value"];
+			if ($docs["firstView"]["Anamnesis vitae:"]["value"]>"") $f["e_an_vitae"][]=$firstView["Anamnesis vitae:"]["value"];
+			$f["e_an_vitae"][]="Гипертоническая болезнь: ".getTextFromAction($firstView,"Гипертоническая болезнь:","Травмы:");
+			if ($docs["firstView"]["Постоянно принимает препараты:"]["value"]>"") $f["e_an_vitae"][]=$firstView["Постоянно принимает препараты:"]["value"];
 			$f["e_an_vitae"]=implode(", ",$f["e_an_vitae"]);
-
-			
+	
 			break;
 	}
 
