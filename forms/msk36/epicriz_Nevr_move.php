@@ -31,6 +31,198 @@
 		<li><b>Состояние при поступлении:</b> <textarea from="firstView@Состояние при поступлении:" name="e_stateIn">{{e_stateIn}}</textarea> </li>
 
 
+
+		<li><b>NS на момент осмотра:</b>
+		<ul>
+		<li>
+		<b>Уровень сознания:</b>
+		<select from="firstView@Уровень сознания:" name="e_nevrMind" value="{{e_nevrMind}}">
+		<option>в сознании</option>
+		<option>оглушение</option>
+		<option>сопор</option>
+		<option>кома</option>
+		<option>уровень сознания меняющийся</option>
+		<option>спутанность</option>
+		<option>мед.седация</option>
+		</select></li>
+		<li>
+		<b>ШКГ:</b> <input from="firstView@ШКГ" name="e_nervShkg" class="small"> б.&nbsp;
+		<b>NIHSS:</b> <input name="e_nervNihss" class="small"> б.&nbsp;
+		<b>Ранкин:</b> <input name="e_nervRankin" class="small"> б.&nbsp;
+		<b>Ривермет:</b> <input name="e_nervRiverted" class="small"> б.&nbsp;
+		</li>
+		<li>
+		<b>Речевому контакту: </b>
+		<select from="firstView@Речевому контакту" name="e_nervContact" value="{{e_nervContact}}">
+		<option>доступен</option>
+		<option>контакт затруднен из-за речевых нарушений</option>
+		<option>контакту недоступен по тяжести состояния</option>
+		</select>		
+		</li>
+		<li>
+		<b>Простые инструкции: </b>
+		<select from="firstView@Простые инструкции" name="e_nervSimple" value="{{e_nervSimple}}">
+			<option>выполняет</option>
+			<option>частично</option>
+			<option>частично выполняет</option>
+			<option>не выполняет</option>
+		</select>
+		</li>
+		<li><b>Речь:</b>
+			<textarea from="firstView@Речь:" name="e_nervTalk" multiple="multiple" value="{{e_nervTalk}}"></textarea>
+		</li>
+		<li><b>Ориентирован{{suffix2}}: </b>
+			<textarea  from="firstView@Ориетирован:"  name="e_nervOrient" value="{{e_nervOrient}}"></textarea>
+		</li>
+		<li><b>Реакция на осмотр: </b>
+		<select from="firstView@Реакция на осмотр:" name="e_nervReaction" value="{{e_nervReaction}}">
+			<option>сохранена</option>
+			<option>вялая</option>
+			<option>отсутствует</option>
+		</select>
+		</li>
+		<li><b>Изменение психики: </b>
+		<select from="firstView@Изменение психики:" name="e_nervPsih" value="{{e_nervPsih}}">
+			<option>психотических расстройств нет</option>
+			<option class="add">есть</option>
+			<option>эмоционально лабильна</option>
+			<option>оценить на момент осмотра затруднительно</option>
+		</select>
+		</li>
+		<li><b>Когнитивные функции: </b>
+		<select from="firstView@Когнитивные функции:" name="e_nervCogn" value="{{e_nervCogn}}">
+			<option>сохранены</option>
+			<option>снижены</option>
+		</select>
+		</li>
+		<li><b>Критика: </b>
+		<select from="firstView@Критика:" name="e_nervCritic" value="{{e_nervCritic}}">
+			<option>сохранена</option>
+			<option>снижена</option>
+			<option>отсутствует</option>
+		</select>
+		</li>
+		<li><b>Общемозговая симптоматика: </b>
+		<select from="firstView@Общемозговая симптоматика:" name="e_nervBrain" value="{{e_nervBrain}}">
+			<option>нет</option>
+			<option>головная боль</option>
+			<option>головокружение</option>
+			<option>тошнота</option>
+			<option>рвота</option>
+		</select>
+		</li>
+		<li><b>Менингеальный синдром: </b>
+		<select from="firstView@Менингеальный синдром:" name="e_nervMening" value="{{e_nervMening}}">
+			<option>нет</option>
+			<option class="add">есть</option>
+		</select>
+		</li>
+
+		<li><b>ЧМН:</b> 
+		<b>Обоняние: </b>
+		<select from="firstView@Обоняние" name="e_cmnObon" value="{{e_cmnObon}}">
+			<option>сохранено</option>
+			<option>снижено</option>
+			<option>не исследовалось</option>
+			<option class="add">иное:</option>
+		</select></li>
+
+		<li><b>Предметное зрение: </b>
+		<select from="firstView@Предметное зрение" name="e_cmnZrenie" value="{{e_cmnZrenie}}">
+			<option>сохранено</option>
+			<option>снижено OD</option>
+			<option>снижено OS</option>
+			<option>снижено OU</option>
+			<option>не исследовалось</option>
+			<option class="add">иное:</option>
+		</select></li>
+
+		<li><b>Выпадение полей зрения: </b>
+		<textarea from="firstView@Выпадение полей зрения: Гемианопсия:" name="e_cmnPole" value="{{e_cmnPole}}">	
+		</textarea></li>
+
+		<li><b>Зрачки: </b><input from="firstView@Зрачки" name="e_cmnZrachki" class="small"></li>
+		<li><b>Глазные щели: </b><input from="firstView@Глазные щели" name="e_cmnSchel" class="small"></li>
+		<li><b>Фотореакция: </b>
+		<select from="firstView@Фотореакция" name="e_cmnFoto" value="{{e_cmnFoto}}">	
+		<option>сохранена</option>
+		<option>снижена</option>
+		<option>отсутствует</option>
+		</select></li>
+
+		<li><b>Движения глазных яблок: </b>
+		<textarea multiple="multiple" from="firstView@Движения глазных яблок:" name="e_cmnApple[]">	
+		</textarea></li>
+		
+		<li><b>Нистагм: </b>
+		<textarea multiple="multiple" from="firstView@Нистагм:" name="e_cmnNistagm[]">
+		</textarea></li>
+		
+		<li><b>Диплопия: </b>
+		<textarea multiple="multiple" from="firstView@Диплопия:" name="e_cmnDiplop[]">
+		</textarea></li>
+
+		<li><b>Слух: </b>
+		<textarea multiple="multiple" from="firstView@Слух:" name="e_cmnSluh[]">
+		</textarea></li>
+		
+		<li><b>Лицо: </b>
+		<textarea from="firstView@Лицо:" name="e_cmnFace">{{e_cmnFace}}</textarea></li>
+
+		<li><b>Язык: </b>
+		<textarea multiple="multiple" from="firstView@Язык:" name="e_cmnTongue" value="{{e_cmnTongue}}">
+		</textarea></li>
+		
+		<li><b>Бульбарные нарушения:</b>
+		<select name="e_cmnBulb" from="firstView@Бульбарные нарушения:" value="{{e_cmnBulb}}">
+		<option>нет</option>
+		<option class="add">есть</option>
+		</select>
+		<textarea name="e_cmnBulbText">{{e_cmnBulbText}}</textarea>
+		</li>
+		
+		<li><b>Мышечный тонус: </b>
+		<textarea from="firstView@Мышечный тонус:" name="e_cmnMuscHands" value="{{e_cmnMuscHands}}"></textarea>
+		</li>
+		
+		<li><b>Двигательные нарушения: </b>
+		<textarea name="e_cmnMotion" from="firstView@Двигательные нарушения:" value="{{e_cmnMotion}}">
+		</textarea></li>
+		
+		<li><b>Сухожильные и периостальные рефлексы на руках: </b><br>
+		<textarea name="e_cmnReflHands" from="firstView@Сухожильные и периостальные рефлексы: На руках:" value="{{e_cmnReflHands}}">
+		</textarea><li>
+
+		<b>Сухожильные и периостальные рефлексы на ногах</b> 
+		<textarea name="e_cmnReflLegs" from="firstView@Сухожильные и периостальные рефлексы: На ногах" value="{{e_cmnReflLegs}}">
+		</textarea>
+		</li>
+		
+		<li><b>Патологические кистевые знаки: </b>
+		<textarea name="e_cmnPatHands"  from="firstView@Патологические кистевые знаки:" value="{{e_cmnPatHands}}">
+		</textarea></li>
+
+		<li><b>Патологические стопные знаки: </b>
+		<textarea multiple="multiple" from="firstView@Патологические стопные знаки:" name="e_cmnPatFoots" value="{{e_cmnPatFoots}}">
+		</textarea></li>
+		
+		<li><b>Симптомы орального автоматизма: </b>
+		<select name="e_cmnOralAuto" from="firstView@Симптомы орального автоматизма:" value="{{e_cmnOralAuto}}">
+			<option>отсутствуют</option>
+			<option class="add">Есть</option>
+		</select>
+		<br><textarea name="e_cmnOralAutoText">{{e_cmnOralAutoText}}</textarea>
+		</li>
+		
+		<li><b>Брюшные рефлексы: </b>
+		<textarea multiple="multiple" from="firstView@Брюшные рефлексы" name="e_cmnReflBelly" value="{{e_cmnReflBelly}}">
+		</textarea></li>
+		
+		</ul></li>
+
+
+
+
 		<li>
 		<b>На фоне проводимой терапии:</b><br>
 		<ul class="inline">
