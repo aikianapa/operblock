@@ -321,11 +321,19 @@ function fields_msk36($event_id,$orgstr="") {
 			
 			break;
 		case "Nevr":
-			// =========== Неврология
+			// =========== Неврология ======================
 			$data=getFirstView($event_id,$name);
 			$firstView=getFirstView($event_id,"Базовый осмотр ОАР ОНМК");
 			$secondView=getFirstView($event_id,"Базовый осмотр 1-го неврологического отделения РСЦ");
 			$DiaryLast=getDiaryLast($event_id,"Дневниковая запись врача - Невролога"); $DiaryLast=$DiaryLast["fields"];
+			
+			$f["e_an_vitae"]=array(); // Anamnesis vitae
+			if ($docs["firstView"]["Anamnesis vitae:"]["value"]>"") $f["e_an_vitae"][]=$docs["firstView"]["Anamnesis vitae:"]["value"];
+			$f["e_an_vitae"][]="Гипертоническая болезнь: ".getTextFromAction($docs["firstView"],"Гипертоническая болезнь:","Травмы:");
+			if ($docs["firstView"]["Постоянно принимает препараты:"]["value"]>"") $f["e_an_vitae"][]=$docs["firstView"]["Постоянно принимает препараты:"]["value"];
+			$f["e_an_vitae"]=implode(", ",$f["e_an_vitae"]);
+
+			
 			break;
 	}
 
