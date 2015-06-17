@@ -14,11 +14,8 @@
 <h2>{{docType}} ЭПИКРИЗ ИЗ  ИСТОРИИ  БОЛЕЗНИ    № {{externalId}}</h2>
 <br />
 		<ul class="fields">
-		<li><b>Пациент:</b> {{client}}</li>
-		<li><b>Возраст:</b> полных лет - {{age}}, дата рождения - {{bDate}}</li>
-		<li><b>Адрес:</b> {{address}}</li>
-		<li><b>Находил{{suffix1}} на стационарном лечении в ГБУЗ "Городская клиническая больница №36" ДЗ г.Москвы с {{s_date1}} по 
-		<input type="text" class="medium" name="endDate" value="{{s_date2}}"></b>
+		<li><b>Пациент{{suffix3}} {{client}}, возраст {{age}}  ,поступил{{suffix2}} в 36 ГКБ {{s_date1}} по СМП с направительным диагнозом:
+		<span from="firstView@Диагноз направителя:"></span></b>
 		<ul>
 			<div data-role="foreach" from="moving">
 			<li>{{31}} - {{14}}</li>
@@ -26,13 +23,11 @@
 		</ul>
 		<textarea name="e_stationar">{{e_stationar}}</textarea>
 		</li>
-		<li><b>Место работы:</b> <span from="secondView@Трудовой анамнез:" ></span></li>
-		<li><b>Дата поступления {{s_date1}}</li>
+		<li><b>Жалобы при поступлении:</b> <textarea from="firstView@Жалобы при поступлении:" name="e_complaint1">{{e_complaint1}}</textarea> </li>
 		<li><b>Анамнез заболевания:</b> <textarea from="firstView@Anamnesis morbi:" name="e_an_morbi">{{e_an_morbi}}</textarea> </li>
 		<li><b>Анамнез жизни:</b> <textarea from="firstView@Anamnesis vitae:" name="e_an_vitae">{{e_an_vitae}}</textarea> </li>
 		<li><b>Аллергоанамнез:</b> <textarea from="firstView@Аллергоанамнез:" name="e_an_alerg">{{e_an_alerg}}</textarea> </li>
 		<li><b>Эпид.анамнез:</b> <textarea from="firstView@Эпид. анамнез:" name="e_an_epid">{{e_an_epid}}</textarea> </li>
-		<li><b>Жалобы при поступлении:</b> <textarea from="firstView@Жалобы при поступлении:" name="e_complaint1">{{e_complaint1}}</textarea> </li>
 		<li><b>Состояние при поступлении:</b> <textarea from="firstView@Состояние при поступлении:" name="e_stateIn">{{e_stateIn}}</textarea> </li>
 
 
@@ -52,7 +47,6 @@
 		<li><b>Кожные  покровы:</b> 
 			<textarea name="e_skin1" multiple="multiple" from="DiaryLast@Кожные покровы"	value="{{e_skin1}}"></textarea>
 		</li>
-		<li><b>St.locales:</b><br><textarea from="DiaryLast@St. locales :" name="e_stLocales">{{e_stLocales}}</textarea> </li>
 		<li><b>Pulm.:</b>
 				<b>Дыхание:</b>
 				<select name="e_pulm1" from="DiaryLast@Pulm.:Дыхание :" value="{{e_pulm1}}">
@@ -104,6 +98,8 @@
 		<option>контролирует</option><option>частично контролирует</option><option>не контролирует</option>
 		</select>
 		</li>
+
+		<li><b>St.locales:</b><br><textarea from="DiaryLast@St. locales :" name="e_stLocales">{{e_stLocales}}</textarea> </li>
 
 		<li><b>Мочеиспускание:</b>
 		<select name="e_urine" from="DiaryLast@Мочеиспускание" value="{{e_urine}}">
@@ -362,7 +358,7 @@
 	
 	<li><b>Заключение: </b>
 	<textarea name="e_diagText">
-	С учётом жалоб, данных анамнеза, динамики неврологического осмотра, результатов методов нейровизуализации, имеет место диагноз:
+С учётом жалоб, данных анамнеза, динамики неврологического осмотра, результатов методов нейровизуализации, имеет место диагноз:
 	</textarea>	
 
 			<ul class="block">
