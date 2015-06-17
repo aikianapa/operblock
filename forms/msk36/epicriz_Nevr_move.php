@@ -95,7 +95,7 @@
 			</li>
 			
 			<li><b>Тазовые функции:</b> 
-			<select name="e_taz" from="DiaryLast@Тазовые функции" value="{{e_taz}}">
+			<select name="e_taz" from="DiaryLast@Тазовые функции:" value="{{e_taz}}">
 			<option>контролирует</option><option>частично контролирует</option><option>не контролирует</option>
 			</select>
 			</li>
