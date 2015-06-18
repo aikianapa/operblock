@@ -311,7 +311,7 @@
 		<ul>
 		<li>
 		<b>Уровень сознания:</b>
-		<select from="DiaryLast@Уровень сознания:" name="e_nevrMind" value="{{e_nevrMind}}">
+		<select from="DiaryLast@Уровень сознания:" name="e_ns_nevrMind" value="{{e_ns_nevrMind}}">
 		<option>в сознании</option>
 		<option>оглушение</option>
 		<option>сопор</option>
@@ -321,14 +321,14 @@
 		<option>мед.седация</option>
 		</select></li>
 		<li>
-		<b>ШКГ:</b> <input from="DiaryLast@ШКГ" name="e_nervShkg" class="small"> б.&nbsp;
-		<b>NIHSS:</b> <input name="e_nervNihss" class="small"> б.&nbsp;
-		<b>Ранкин:</b> <input name="e_nervRankin" class="small"> б.&nbsp;
-		<b>Ривермет:</b> <input name="e_nervRiverted" class="small"> б.&nbsp;
+		<b>ШКГ:</b> <input from="DiaryLast@ШКГ" name="e_ns_nervShkg" class="small"> б.&nbsp;
+		<b>NIHSS:</b> <input name="e_ns_nervNihss" class="small"> б.&nbsp;
+		<b>Ранкин:</b> <input name="e_ns_nervRankin" class="small"> б.&nbsp;
+		<b>Ривермет:</b> <input name="e_ns_nervRiverted" class="small"> б.&nbsp;
 		</li>
 		<li>
 		<b>Речевому контакту: </b>
-		<select from="DiaryLast@Речевому контакту" name="e_nervContact" value="{{e_nervContact}}">
+		<select from="DiaryLast@Речевому контакту" name="e_ns_nervContact" value="{{e_ns_nervContact}}">
 		<option>доступен</option>
 		<option>контакт затруднен из-за речевых нарушений</option>
 		<option>контакту недоступен по тяжести состояния</option>
@@ -336,7 +336,7 @@
 		</li>
 		<li>
 		<b>Простые инструкции: </b>
-		<select from="DiaryLast@Простые инструкции" name="e_nervSimple" value="{{e_nervSimple}}">
+		<select from="DiaryLast@Простые инструкции" name="e_ns_nervSimple" value="{{e_ns_nervSimple}}">
 			<option>выполняет</option>
 			<option>частично</option>
 			<option>частично выполняет</option>
@@ -344,20 +344,20 @@
 		</select>
 		</li>
 		<li><b>Речь:</b>
-			<textarea from="DiaryLast@Речь:" name="e_nervTalk" multiple="multiple" value="{{e_nervTalk}}"></textarea>
+			<textarea from="DiaryLast@Речь:" name="e_ns_nervTalk" multiple="multiple" value="{{e_ns_nervTalk}}"></textarea>
 		</li>
 		<li><b>Ориентирован{{suffix2}}: </b>
-			<textarea  from="DiaryLast@Ориетирован:"  name="e_nervOrient" value="{{e_nervOrient}}"></textarea>
+			<textarea  from="DiaryLast@Ориетирован:"  name="e_ns_nervOrient" value="{{e_ns_nervOrient}}"></textarea>
 		</li>
 		<li><b>Реакция на осмотр: </b>
-		<select from="DiaryLast@Реакция на осмотр:" name="e_nervReaction" value="{{e_nervReaction}}">
+		<select from="DiaryLast@Реакция на осмотр:" name="e_ns_nervReaction" value="{{e_ns_nervReaction}}">
 			<option>сохранена</option>
 			<option>вялая</option>
 			<option>отсутствует</option>
 		</select>
 		</li>
 		<li><b>Изменение психики: </b>
-		<select from="DiaryLast@Изменение психики:" name="e_nervPsih" value="{{e_nervPsih}}">
+		<select from="DiaryLast@Изменение психики:" name="e_ns_nervPsih" value="{{e_ns_nervPsih}}">
 			<option>психотических расстройств нет</option>
 			<option class="add">есть</option>
 			<option>эмоционально лабильна</option>
@@ -365,20 +365,20 @@
 		</select>
 		</li>
 		<li><b>Когнитивные функции: </b>
-		<select from="DiaryLast@Когнитивные функции:" name="e_nervCogn" value="{{e_nervCogn}}">
+		<select from="DiaryLast@Когнитивные функции:" name="e_ns_nervCogn" value="{{e_ns_nervCogn}}">
 			<option>сохранены</option>
 			<option>снижены</option>
 		</select>
 		</li>
 		<li><b>Критика: </b>
-		<select from="DiaryLast@Критика:" name="e_nervCritic" value="{{e_nervCritic}}">
+		<select from="DiaryLast@Критика:" name="e_ns_nervCritic" value="{{e_ns_nervCritic}}">
 			<option>сохранена</option>
 			<option>снижена</option>
 			<option>отсутствует</option>
 		</select>
 		</li>
 		<li><b>Общемозговая симптоматика: </b>
-		<select from="DiaryLast@Общемозговая симптоматика:" name="e_nervBrain" value="{{e_nervBrain}}">
+		<select from="DiaryLast@Общемозговая симптоматика:" name="e_ns_nervBrain" value="{{e_ns_nervBrain}}">
 			<option>нет</option>
 			<option>головная боль</option>
 			<option>головокружение</option>
@@ -387,7 +387,7 @@
 		</select>
 		</li>
 		<li><b>Менингеальный синдром: </b>
-		<select from="DiaryLast@Менингеальный синдром:" name="e_nervMening" value="{{e_nervMening}}">
+		<select from="DiaryLast@Менингеальный синдром:" name="e_ns_nervMening" value="{{e_ns_nervMening}}">
 			<option>нет</option>
 			<option class="add">есть</option>
 		</select>
@@ -395,7 +395,7 @@
 
 		<li><b>ЧМН:</b> 
 		<b>Обоняние: </b>
-		<select from="DiaryLast@Обоняние" name="e_cmnObon" value="{{e_cmnObon}}">
+		<select from="DiaryLast@Обоняние" name="e_ns_cmnObon" value="{{e_ns_cmnObon}}">
 			<option>сохранено</option>
 			<option>снижено</option>
 			<option>не исследовалось</option>
@@ -403,7 +403,7 @@
 		</select></li>
 
 		<li><b>Предметное зрение: </b>
-		<select from="DiaryLast@Предметное зрение" name="e_cmnZrenie" value="{{e_cmnZrenie}}">
+		<select from="DiaryLast@Предметное зрение" name="e_ns_cmnZrenie" value="{{e_ns_cmnZrenie}}">
 			<option>сохранено</option>
 			<option>снижено OD</option>
 			<option>снижено OS</option>
@@ -413,84 +413,84 @@
 		</select></li>
 
 		<li><b>Выпадение полей зрения: </b>
-		<textarea from="DiaryLast@Выпадение полей зрения: Гемианопсия:" name="e_cmnPole" value="{{e_cmnPole}}">	
+		<textarea from="DiaryLast@Выпадение полей зрения: Гемианопсия:" name="e_ns_cmnPole" value="{{e_ns_cmnPole}}">	
 		</textarea></li>
 
-		<li><b>Зрачки: </b><input from="DiaryLast@Зрачки" name="e_cmnZrachki" class="small"></li>
-		<li><b>Глазные щели: </b><input from="DiaryLast@Глазные щели" name="e_cmnSchel" class="small"></li>
+		<li><b>Зрачки: </b><input from="DiaryLast@Зрачки" name="e_ns_cmnZrachki" class="small"></li>
+		<li><b>Глазные щели: </b><input from="DiaryLast@Глазные щели" name="e_ns_cmnSchel" class="small"></li>
 		<li><b>Фотореакция: </b>
-		<select from="DiaryLast@Фотореакция" name="e_cmnFoto" value="{{e_cmnFoto}}">	
+		<select from="DiaryLast@Фотореакция" name="e_ns_cmnFoto" value="{{e_ns_cmnFoto}}">	
 		<option>сохранена</option>
 		<option>снижена</option>
 		<option>отсутствует</option>
 		</select></li>
 
 		<li><b>Движения глазных яблок: </b>
-		<textarea multiple="multiple" from="DiaryLast@Движения глазных яблок:" name="e_cmnApple[]">	
+		<textarea multiple="multiple" from="DiaryLast@Движения глазных яблок:" name="e_ns_cmnApple[]">	
 		</textarea></li>
 		
 		<li><b>Нистагм: </b>
-		<textarea multiple="multiple" from="DiaryLast@Нистагм:" name="e_cmnNistagm[]">
+		<textarea multiple="multiple" from="DiaryLast@Нистагм:" name="e_ns_cmnNistagm[]">
 		</textarea></li>
 		
 		<li><b>Диплопия: </b>
-		<textarea multiple="multiple" from="DiaryLast@Диплопия:" name="e_cmnDiplop[]">
+		<textarea multiple="multiple" from="DiaryLast@Диплопия:" name="e_ns_cmnDiplop[]">
 		</textarea></li>
 
 		<li><b>Слух: </b>
-		<textarea multiple="multiple" from="DiaryLast@Слух:" name="e_cmnSluh[]">
+		<textarea multiple="multiple" from="DiaryLast@Слух:" name="e_ns_cmnSluh[]">
 		</textarea></li>
 		
 		<li><b>Лицо: </b>
-		<textarea from="DiaryLast@Лицо:" name="e_cmnFace">{{e_cmnFace}}</textarea></li>
+		<textarea from="DiaryLast@Лицо:" name="e_ns_cmnFace">{{e_ns_cmnFace}}</textarea></li>
 
 		<li><b>Язык: </b>
-		<textarea multiple="multiple" from="DiaryLast@Язык:" name="e_cmnTongue" value="{{e_cmnTongue}}">
+		<textarea multiple="multiple" from="DiaryLast@Язык:" name="e_ns_cmnTongue" value="{{e_ns_cmnTongue}}">
 		</textarea></li>
 		
 		<li><b>Бульбарные нарушения:</b>
-		<select name="e_cmnBulb" from="DiaryLast@Бульбарные нарушения:" value="{{e_cmnBulb}}">
+		<select name="e_ns_cmnBulb" from="DiaryLast@Бульбарные нарушения:" value="{{e_ns_cmnBulb}}">
 		<option>нет</option>
 		<option class="add">есть</option>
 		</select>
-		<textarea name="e_cmnBulbText">{{e_cmnBulbText}}</textarea>
+		<textarea name="e_ns_cmnBulbText">{{e_ns_cmnBulbText}}</textarea>
 		</li>
 		
 		<li><b>Мышечный тонус: </b>
-		<textarea from="DiaryLast@Мышечный тонус:" name="e_cmnMuscHands" value="{{e_cmnMuscHands}}"></textarea>
+		<textarea from="DiaryLast@Мышечный тонус:" name="e_ns_cmnMuscHands" value="{{e_ns_cmnMuscHands}}"></textarea>
 		</li>
 		
 		<li><b>Двигательные нарушения: </b>
-		<textarea name="e_cmnMotion" from="DiaryLast@Двигательные нарушения:" value="{{e_cmnMotion}}">
+		<textarea name="e_ns_cmnMotion" from="DiaryLast@Двигательные нарушения:" value="{{e_ns_cmnMotion}}">
 		</textarea></li>
 		
 		<li><b>Сухожильные и периостальные рефлексы на руках: </b><br>
-		<textarea name="e_cmnReflHands" from="DiaryLast@Сухожильные и периостальные рефлексы: На руках:" value="{{e_cmnReflHands}}">
+		<textarea name="e_ns_cmnReflHands" from="DiaryLast@Сухожильные и периостальные рефлексы: На руках:" value="{{e_ns_cmnReflHands}}">
 		</textarea><li>
 
 		<b>Сухожильные и периостальные рефлексы на ногах</b> 
-		<textarea name="e_cmnReflLegs" from="DiaryLast@Сухожильные и периостальные рефлексы: На ногах" value="{{e_cmnReflLegs}}">
+		<textarea name="e_ns_cmnReflLegs" from="DiaryLast@Сухожильные и периостальные рефлексы: На ногах" value="{{e_ns_cmnReflLegs}}">
 		</textarea>
 		</li>
 		
 		<li><b>Патологические кистевые знаки: </b>
-		<textarea name="e_cmnPatHands"  from="DiaryLast@Патологические кистевые знаки:" value="{{e_cmnPatHands}}">
+		<textarea name="e_ns_cmnPatHands"  from="DiaryLast@Патологические кистевые знаки:" value="{{e_ns_cmnPatHands}}">
 		</textarea></li>
 
 		<li><b>Патологические стопные знаки: </b>
-		<textarea multiple="multiple" from="DiaryLast@Патологические стопные знаки:" name="e_cmnPatFoots" value="{{e_cmnPatFoots}}">
+		<textarea multiple="multiple" from="DiaryLast@Патологические стопные знаки:" name="e_ns_cmnPatFoots" value="{{e_ns_cmnPatFoots}}">
 		</textarea></li>
 		
 		<li><b>Симптомы орального автоматизма: </b>
-		<select name="e_cmnOralAuto" from="DiaryLast@Симптомы орального автоматизма:" value="{{e_cmnOralAuto}}">
+		<select name="e_ns_cmnOralAuto" from="DiaryLast@Симптомы орального автоматизма:" value="{{e_ns_cmnOralAuto}}">
 			<option>отсутствуют</option>
 			<option class="add">Есть</option>
 		</select>
-		<br><textarea name="e_cmnOralAutoText">{{e_cmnOralAutoText}}</textarea>
+		<br><textarea name="e_ns_cmnOralAutoText">{{e_ns_cmnOralAutoText}}</textarea>
 		</li>
 		
 		<li><b>Брюшные рефлексы: </b>
-		<textarea multiple="multiple" from="DiaryLast@Брюшные рефлексы" name="e_cmnReflBelly" value="{{e_cmnReflBelly}}">
+		<textarea multiple="multiple" from="DiaryLast@Брюшные рефлексы" name="e_ns_cmnReflBelly" value="{{e_ns_cmnReflBelly}}">
 		</textarea></li>
 		
 		</ul></li>
