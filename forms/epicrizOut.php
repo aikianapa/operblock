@@ -365,6 +365,7 @@ function getTemplateValues($docs=array()) {
 			$docs[$from[0]][fldname($fld)]=$docs[$from[0]][$fld];
 		}
 		$fld=fldname($from[1],$docs[$from[0]]);
+		$fld=$from[1];
 		if (isset($docs[$from[0]]) AND $fld>"") {
 	// ============ SELECT ==============
 			if (pq($inc)->is("select")) {
