@@ -77,7 +77,7 @@
 		<li>
 			<ul class="inline">
 				<li><b>Дыхание:</b> 
-						<select name="e_pulm1" multiple="multiple"  value="{{e_pulm1}}">
+						<select name="e_pulm1" multiple="multiple" from="firstView@Аускультативно: Дыхание" :value="{{e_pulm1}}">
 						<option>везикулярное</option>
 						<option>жесткое</option>
 						<option>ослабленное</option>
@@ -90,8 +90,8 @@
 						<option>проводится во все отделы</option>
 						</select>
 				</li>
-				<li><b>ЧДД:</b> <input name="e_pulmFreq" class="small"> в 1 мин.</li>
-				<li><textarea name="e_pulm">{{e_pulm}}</textarea></li>
+				<li><b>ЧДД:</b> <input from="firstView@ЧДД" name="e_pulmFreq" class="small"> в 1 мин.</li>
+				<li><textarea  name="e_pulm">{{e_pulm}}</textarea></li>
 			<li><br /><b>Сердце:</b></li>
 			<li><b>Тоны сердца:</b> 
 				<select name="e_corTone" multiple="multiple"  value="{{e_corTone}}">
@@ -240,9 +240,10 @@
 <br/>
 <textarea name="e_recom7" placeholder="Сохранять выписной эпикриз, ЭКГ. Предоставить выписку при последующих госпитализациях.">{{e_recom7}}</textarea>
 </ol>
+<p>Все препараты могут быть заменены на аналогичные в пределах одной фармакологической группы с соответствующей коррекцией принимаемой дозы под наблюдением врачей-специалистов.</p>
+<br>
+<br>
 
-<br>
-<br>
 <span class="docDate">{{docDate}}</span><br />
 Лечащий врач _________________ /{{person}}/<br>
 <br />

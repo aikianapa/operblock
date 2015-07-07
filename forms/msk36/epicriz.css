@@ -34,7 +34,7 @@
 @media print {
 body {display:none;}
 #form-027u {margin-left:50px;}
-#form-027u * {font-size:14px; }
+#form-027u * {font-size:12px; }
 #form-027u ul li {list-style-type: none; margin-bottom:7px;}
 #form-027u input {width:99%;  font-style: italic; border:0; color: #000;}
 #form-027u input[name=toOrg] {border-bottom: 1px #000 solid; text-align:center;}
