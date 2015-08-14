@@ -46,7 +46,7 @@
 				<li><b>Дыхание:</b> <input class="medium" name="e_pulm_in" from="firstView@Дыхание через нос"></li>
 				<li><b>ЧДД:</b> <input class="medium" name="e_pulmFreq_in" from="firstView@ЧДД"> в 1 мин.</li>
 				<li><br /><b>Сердце:</b></li>
-				<li><b>Тоны сердца:</b> <input class="medium" name="e_corTone_in" from="firstView@Тоны сердца"></li>
+				<li><b>Тоны сердца:</b> <input class="medium" name="e_corTone_in" from="firstView@Тоны"></li>
 				<li><b>ЧСС: </b> <input class="medium" name="e_corFreq_in" from="firstView@ЧСС"> в 1 мин.</li>
 				<li><b>АД:</b> <input class="medium" name="e_corPress_in" from="firstView@АД"> мм.рт.ст.</li>
 			</ul>
@@ -142,7 +142,8 @@
 		<div data-role="foreach" from="res">
 			<li>
 				<a href='#del' class='del_fld'><span class="ui-icon ui-icon-circle-close"></span></a>
-				<p>{{lab}}</p></li>
+				<p>{{lab}}</p>
+			</li>
 		</div>
 	</ul><textarea name="e_researchText">{{e_researchText}}</textarea></li>
 

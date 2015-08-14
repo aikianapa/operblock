@@ -11,6 +11,8 @@ $content=phpQuery::newDocument("");
 if ($_GET["mode"]!="listview") {
 	$content=phpQuery::newDocument(file_get_contents($url."/".$tpl));
 }
+
+
 /*
 $aType='Протокол операции';
 $form=getActionTypeForm($aType);
@@ -40,7 +42,7 @@ $content["head"]->append('<script type="text/javascript" src="/js/jquery.selecti
 } 
 
 $content=phpQuery::newDocument(engine($content));
-
+	echo $content;
 if ($content["ul.commonGallery"]->length()) {
 // PhotoSwipe
 	$content["head"]->append('<script src="/engine/js/photoswipe/klass.min.js" type="text/javascript" ></script>');
@@ -65,10 +67,10 @@ if (!$content["body #DeleteConfirm]"]->length() AND $tmp["mode"]!="print") {
 	$content["body"]->append($confirm);
 }
 
+
 if ($_SESSION["User"]=="Admin") {
 	$admin="/forms/admin_show.php"; 
 	if (!is_file($path.$admin)) { $admin="/engine/forms/admin_show.php"; }
-	$content["body"]->append( phpQuery::newDocumentFilePHP($url.$admin) );
 }
 $content["*[data-theme]"]->attr("data-theme","a");
 
@@ -78,6 +80,6 @@ if ( $tmp["mode"]=="print") {
 }
 
 
-echo $content->htmlOuter();
+// echo print_r($_GET,true).'dsggfgsdgfb;ld;gldfgbkd;flgkdf;lkghldkh;lfkd'.$content->htmlOuter();
 mysql_close();
 ?>

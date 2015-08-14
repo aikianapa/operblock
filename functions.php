@@ -469,13 +469,15 @@ function getClientInfo($client_id,$event_id=0) {
 }
 
 function getClientAddress($client_id,$type=1) {
+		$backtrace = debug_backtrace();
 	$address=array();
 	if ($type==1) {
 		$SQL="SELECT getClientLocAddress({$client_id})";
 	} else {
 		$SQL="SELECT getClientRegAddress({$client_id})";
 	}
-	$res=mysql_query($SQL) or die("Query failed getActionPropertyFormData() [1]: " . mysql_error());
+
+	$res=mysql_query($SQL) or die("Query failed getActionPropertyFormData() [1]: " . mysql_error().print_rа( $backtrace, true ));
 		while($data = mysql_fetch_array($res)) {
 			$address=$data[0];
 		}
@@ -967,7 +969,7 @@ INNER JOIN Diagnostic as c ON b.id=c.diagnosis_id
 INNER JOIN rbDiagnosisType as d ON c.diagnosisType_id=d.id
 WHERE event_id=$event_id AND d.name LIKE 'клин%'";
 $result = mysql_query($SQL) or die("Query failed: (get_diagnoses) " . mysql_error());
-while($data = mysql_fetch_array($result)) {	$diagnoses["clinic"]=$data; print_r($data);}
+while($data = mysql_fetch_array($result)) {	$diagnoses["clinic"]=$data;}
  
 //Основной
 $data["DiagName"]=""; $data["MKB"]=""; $diagnoses["main"]=$data;

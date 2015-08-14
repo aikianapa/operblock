@@ -3,16 +3,6 @@ include($_SERVER["DOCUMENT_ROOT"]."/functions.php");
 prepareSessions();
 $_SESSION["allow"]=array("Врач");
 function epicrizOut_edit($form,$mode,$id,$datatype) {
-
-	$event=mysqlReadItem("Event",$id);
-
-	$eventStart = strtotime($event['createDatetime']);
-	$uploadData = strtotime('2015-08-14');
-	if ($eventStart < $uploadData ) {
-		return epicrizOut_edit_old($form,$mode,$id,$datatype);
-	}
-
-	print_r($event);
 	parse_str($_SERVER["REQUEST_URI"]);
 	$tpl=array();
 	$tpl[]=array(array("КО (ОНК) РСЦ","2 КО РСЦ"),"Cord",$type);
@@ -29,7 +19,8 @@ function epicrizOut_edit($form,$mode,$id,$datatype) {
 		default:		$name="DoctorRoom: Выписной эпикриз"; $docType="ВЫПИСНОЙ"; break;
 	}
 	$_SESSION["epic_atid"]=getActionTypeByName($name);
-	if ($id!="_new" AND $id!="" AND $_SESSION["epic_atid"]>"") {
+	echo 'ooz'.$id.'  '.$_SESSION["epic_type"].'ooz';
+if ($id!="_new" AND $id!="" AND $_SESSION["epic_atid"]>"") {
 	// print_r('actionout');
 	$action=getEpicrizOut($id);
 	// print_r($action);
@@ -79,6 +70,8 @@ $event=mysqlReadItem("Event",$id);
 	$client=getClientInfo($event["client_id"]);
 	$organisation=mysqlReadItem("Organisation",$person["org_id"]);
 	$orgstructure=mysqlReadItem("OrgStructure",$doctor["orgStructure_id"]);
+	echo 'orgst';
+		print_r($id);
 	$Item["dateShort"]=date("d.m.y");
 	if (empty($orgstructure)) {
 
@@ -117,7 +110,6 @@ $event=mysqlReadItem("Event",$id);
 	$Item["setDate"]=date("m.d.Y 00:00:00",strtotime($event["setDate"]));
 	$Item["docType"]=$docType;
 	$Item["diag_main"]=$Diag["main"]["MKB"]." ".$Diag["main"]["DiagName"];
-	$Item['client_adress'] = $client['addressLive'];
 	//	$Item["diag_satt"]=$Diag["satt"]["MKB"]." ".$Diag["satt"]["DiagName"];
 	//	$Item["diag_tera"]=$Diag["terapevt"]["MKB"]." ".$Diag["terapevt"]["DiagName"];
 	if ($client["sex"]=="мужской") {$Item["suffix1"]="ся";$Item["suffix2"]="";$Item["suffix3"]="";} else {$Item["suffix1"]="ась";$Item["suffix2"]="а";$Item["suffix3"]="ка";}
@@ -140,17 +132,16 @@ $event=mysqlReadItem("Event",$id);
 			// ========= привязываем шаблоны к кодам отделений =========	
 			// =========================================================
 				foreach($tpl as $key => $arr) {
+					echo 'lol1
+					';
+					echo print_r($Item, true).'
+					';
 
 					if (in_array($Item["OrgStrCode"],$arr[0])) {
-						if (false) {
-							$path = $_SERVER['DOCUMENT_ROOT']."/forms/msk36/epicriz_".$arr[1]."_".$arr[2].".php";
-						} else {
-							$path = $_SERVER['DOCUMENT_ROOT']."/forms/msk36/epicriz_Cord1.php";
-						}
-						$out=phpQuery::newDocumentFile($path);
+						echo $key . ' =>' . print_r($arr, true) . ' been found';
+						$out=phpQuery::newDocumentFile($_SERVER['DOCUMENT_ROOT']."/forms/msk36/epicriz_".$arr[1]."_".$arr[2].".php");
 					}
 				}
-
 			// ========= по-умолчанию простой эпикриз =========	
 			if ($out=="") {$out=phpQuery::newDocumentFile($_SERVER['DOCUMENT_ROOT']."/forms/epicrizOut_edit.php");}
 			pq($out)->append("<style>".file_get_contents($_SERVER['DOCUMENT_ROOT']."/forms/msk36/epicriz.css")."</style>");
@@ -196,19 +187,17 @@ foreach(pq($out)->find("select option.add") as $add) {
 	}
 }
 $out=contentSetData($out,$Item);
+print_r('I wanna crack the code2');
+print_r($Item);
 foreach($out->find("select option") as $opt) {
 	// устанавливаем option в соответствии с select.value
 	if (pq($opt)->parent("select")->attr("value")==pq($opt)->text()) {pq($opt)->attr("selected","selected");}
 }
-
 foreach($out->find("select[multiple] option") as $opt) {
 	// устанавливаем option для multiple select
-	$selname=pq($opt)->parent("select")->attr("name");$selname=substr($selname,0,-2);
-
+	$selname=pq($opt)->parent("select")->attr("name"); $selname=substr($selname,0,-2);
 	if (in_array(pq($opt)->text(),$Item[$selname])) {pq($opt)->attr("set","set");}
 }
-
-
 foreach(pq($out)->find("textarea[placeholder]") as $inp) {
 	// устанавливаем знечение placeholder для пустых текстов
 	if (pq($inp)->html()=="") {	pq($inp)->html(pq($inp)->attr("placeholder")); }
@@ -228,8 +217,7 @@ if ($mode=="print") {
 
 	}
 }
-
-$out=ereg_replace("/{{.*}}/", "", $out->htmlOuter());
+$out=ereg_replace("{{.*}}", "", $out->htmlOuter());
 return $out;
 }
 
@@ -292,8 +280,9 @@ function fields_msk36($event_id,$orgstr="") {
 	# AND (a.setPerson_id = e.execPerson_id OR a.person_id = e.execPerson_id )
 	AND a.deleted = 0 
 	AND a.status = 2 
-	AND t.name LIKE '%осмотр%'
-	ORDER BY endDate ASC LIMIT 1";
+	AND t.name LIKE '%осмотр%' AND t.name NOT LIKE '%приемном%'
+	ORDER BY endDate  LIMIT 1";
+	print_r($SQL);
 	$res=mysql_query($SQL) or die ("Query failed fields_msk36(): [1]" . mysql_error());
 	while($data = mysql_fetch_array($res)) {
 		$action_id=$data[0];
@@ -306,40 +295,144 @@ function fields_msk36($event_id,$orgstr="") {
 	$firstView = getAction($action_id);
 	$firstView = $firstView["data"]["fields"];
 
-	$SQL="SELECT a.* FROM Action AS a
-	INNER JOIN  Event AS e ON a.event_id = e.id
-	INNER JOIN  ActionType AS t ON t.id = a.actionType_id
-	WHERE e.id = {$event_id} 
-	# AND (a.setPerson_id = e.execPerson_id OR a.person_id = e.execPerson_id )
-	AND a.deleted = 0 
-	AND a.status = 2 
-	AND t.name LIKE '%осмотр%' 
-	ORDER BY endDate DESC LIMIT 1";
-	$res=mysql_query($SQL) or die ("Query failed fields_msk36(): [1]" . mysql_error());
-	while($data = mysql_fetch_array($res)) {
-		$action_id=$data[0];
-		$last_osmotr=getActionProperties($data[0],"");
-	}
-	$action_in=getActionDataIn($event_id); // Осмотр в приёмном отделении
-	// print_r($action_in);
-	// $first_osmotr1=getAction($action_id);
-	// $first_osmotr1=$first_osmotr1["data"]["fields"];
-	$lastView = getAction($action_id);
-	$lastView = $lastView["data"]["fields"];
-
 	// print_r($action_id);
 	$f=array(); // $f[""]="";
 	$docs=array();
+	switch($tpl) {
+		case "Oar":
+			if ($_SESSION["epic_type"]=="dead") {
+				foreach(array("Базовый осмотр ОАР ОНМК") as $key => $name) {
+					$data=getFirstView($event_id,$name);
+					if (is_array($data)) {$docs["firstView"]=$data; $res=true;}
+				}		
+			} else {
+				foreach(array("Базовый осмотр ОАР ОНМК") as $key => $name) {
+					$_SESSION["tmp_limit"]="LIMIT 2"; // берём из второго по счёту осмотра
+					$data=getFirstView($event_id,$name);
+					if (is_array($data)) {$docs["firstView"]=$data; $res=true;}
+				}		
+			}
+		$DiaryLast=getDiaryLast($event_id,"Дневник ОАР ОНМК"); $DiaryLast=$DiaryLast["fields"];
+		
+		
+		break;
+		case "Ocx":
+		// =========== ОСХ ===================
+		$res=false;
+		foreach(array("Осмотр отделения сосудистой хирургии РСЦ") as $key => $name) {
+			$data=getFirstView($event_id,$name);
+
+
+													echo 'oar first';
+					print_r($data);
+			if (is_array($data)) {$docs["firstView"]=$data; $res=true;}
+		}		
+			$DiaryLast=getDiaryLast($event_id,"Дневник ОСХ"); $DiaryLast=$DiaryLast["fields"];
+			$DiaryList=getDiaryList($event_id,"Дневник ОСХ");
+
+			$tmp=array(); // Лечение
+			foreach($DiaryList as $diary) {
+				$diary=$diary["fields"];
+				if ($diary["Проведено лечение:"]["value"]>"") {$tmp[]=$diary["Проведено лечение:"]["value"];}
+			}
+			$f["e_therapy"]=implode(", ",$tmp);
+			op_add(array("e_stlr_color","e_stll_color"),array("физиологичные окраски","бледные","циаонитчно","мрамороной окраски","гипермия","прочее"));
+			op_add(array("e_stlr_temp","e_stll_temp"),array("нормальная","прохладная","холодная","ледяная","прочее"));
+			op_add(array("e_stlr_sens","e_stll_sens"),array("сохранена","снижена","отсутствует","прочее"));
+			op_add(array("e_stlr_mov","e_stll_mov"),array("сохранены",""));
+			op_add(array("e_stlr_sub","e_stll_sub"),array("есть","нет","прочее"));
+			op_add(array("e_stlr_contr","e_stll_contr"),array("нет","да","прочее"));
+			op_add(array("e_stlr_trof","e_stll_trof"),array("отсутствуют",""));
+			op_add(array("e_stlr_otek","e_stll_otek"),array("отсутствует","на голени","на бедре","прочее"));
+			op_add(array("e_stlr_ven","e_stll_ven"),array("не расширены","варикозное расширение","телеангиоэктазии","прочее"));
+			op_add(array("e_stvr_son","e_stvl_son","e_stvr_ask","e_stvl_ask","e_stvr_pl","e_stvl_pl","e_stvr_lok","e_stvl_lok",
+						"e_stvr_luch","e_stvl_luch","e_stvr_nad","e_stvl_nad","e_stvr_pod","e_stvl_pod","e_stvr_poa","e_stvl_poa",
+						"e_stvr_pbba","e_stvl_pbba","e_stvr_zbba","e_stvl_zbba","e_stvr_simp","e_stvl_simp"),
+						array("отчётливый","ослаблен","отсутствует","зона пульсации расширена"));
+			$f["e_an_vitae"]=array(); // Anamnesis vitae
+			if ($docs["firstView"]["Anamnesis vitae:"]["value"]>"") $f["e_an_vitae"][]=$docs["firstView"]["Anamnesis vitae:"]["value"];
+			$f["e_an_vitae"][]="Количество инфаркта миокарда: ".getTextFromAction($docs["firstView"],"Количество инфаркта миокарда:","Другие заболевания:");
+			if ($docs["firstView"]["Перенесенные операции:"]["value"]>"") $f["e_an_vitae"][]=$docs["firstView"]["Перенесенные операции:"]["value"];
+			$f["e_an_vitae"]=implode(", ",$f["e_an_vitae"]);
+			break;
+		case "Cord":
+		// =========== Кордиология ===========
+// ====================== Новые осмотры =================== //
+	$res=false;
+	foreach(array("Базовый осмотр 2-го кардиологического отделения.","Базовый осмотр отделения кардиологии ОНК") as $key => $name) {
+		$data=getFirstView($event_id,$name);
+		if (is_array($data)) {$docs["firstView"]=$data; $res=true;}
+	}
+	if ($res==true) {
+		if ($f["e_stateIn"]=="") {$f["e_stateIn"]=getTextFromAction($docs["firstView"],"Status praesens: Общее состояние:","Периферические отеки:");}		
+	} else {
+		// ====================== Старые осмотры =================== //
+		// $docs["firstView"]=$first_osmotr1;
+		// 	$f["e_complaint1"]=$first_osmotr1["Жалобы при поступлении:"]["value"];
+		// 	$f["e_complaint2"]="";
+		// 	$f["e_code1"]=$first_osmotr1["МЭС:"]["value"];
+		// 	$f["e_anamnez1"]=$first_osmotr1["Anamnesis morbi"]["value"];
+		// 	$f["e_an_vitae"]=$first_osmotr1["Anamnesis morbi"]["value"];
+		// 	$f["e_anamnez2"]=$first_osmotr["fld_11"];
+		// 	$f["e_anamnez3"]=$first_osmotr1["Аллергологический анамнез:"]["value"];
+		// 	$f["e_anamnez4"]=$first_osmotr["fld_26"];
+		// 	$f["e_stateIn"]=$first_osmotr1["Состояние"]["value"];
+		// 	$f["e_diag_in"]=$action_in["Основной:"]["value"];
+		// 	$f["e_diag_out"]=$Diag["main"]["DiagName"];
+		// 	$f["e_diag_main"]=$first_osmotr1["Основной:"]["value"];
+		// 	$f["e_diag_fon"]=$first_osmotr1["Фон:"]["value"];
+		// 	$f["e_diag_comp"]=$first_osmotr1["Осложнения:"]["value"];
+		// 	$f["e_diag_satt"]=$first_osmotr1["Сопутствующий:"]["value"];
+		// 	$f["e_pulm_in"]=$first_osmotr1["Дыхание через нос"]["value"];
+		// 	$f["e_pulmFreq_in"]=$first_osmotr1["ЧДД"]["value"];
+		// 	$f["e_corTone_in"]=$first_osmotr1["Тоны сердца"]["value"];
+		// 	$f["e_corPress_in"]=$first_osmotr1["АД"]["value"];
+		// 	$f["e_corFreq_in"]=field_multi($first_osmotr1["ЧСС , Пульс, Дефицит пульса"]["value"]);
+		// 	$f["e_liverText_in"]=$first_osmotr1["Печень"]["value"];
+		// 	$f["e_bellyText_in"]=$first_osmotr1["Живот"]["value"];
+			
+	}
+// ======================================================== //	
+
+			
+			
+			break;
+		case "Nevr":
+			// =========== Неврология ======================
+			$data=getFirstView($event_id,$name);
+			$firstView=getFirstView($event_id,"Базовый осмотр ОАР ОНМК");
+			echo 'nevr firtst';print_r($firstView);
+			$secondView=getFirstView($event_id,"Базовый осмотр 1-го неврологического отделения РСЦ");
+			$DiaryLast=getDiaryLast($event_id,"Дневниковая запись врача - Невролога"); 
+			$DiaryLast=$DiaryLast["fields"];
+			
+			$f["e_an_vitae"]=array(); // Anamnesis vitae
+				if ($firstView["Anamnesis vitae:"]["value"]>"") $f["e_an_vitae"][]=$firstView["Anamnesis vitae:"]["value"];
+				$f["e_an_vitae"][]="Гипертоническая болезнь: ".getTextFromAction($firstView,"Гипертоническая болезнь:","Травмы:");
+				if ($firstView["Постоянно принимает препараты:"]["value"]>"") $f["e_an_vitae"][]=$firstView["Постоянно принимает препараты:"]["value"];
+			$f["e_an_vitae"]=implode(", ",$f["e_an_vitae"]); if ($f["e_an_vitae"]=="Гипертоническая болезнь: ") {$f["e_an_vitae"]="";}
 	
+			$f["e_stateIn"]=array(); // Состояние при поступлении
+				if ($firstView["Состояние при поступлении:"]["value"]>"") $f["e_stateIn"][]=$firstView["Состояние при поступлении:"]["value"];
+				if ($firstView["Телосложение:"]["value"]>"") $f["e_stateIn"][]=$firstView["Телосложение:"]["value"];
+				$f["e_stateIn"][]="Периферические отеки: ".getTextFromAction($firstView,"Периферические отеки:","Живот при пальпации:");
+				if ($firstView["Тазовые функции:"]["value"]>"") $f["e_stateIn"][]=$firstView["Тазовые функции:"]["value"];
+				if ($firstView["St. localis :"]["value"]>"") $f["e_stateIn"][]=$firstView["St. localis :"]["value"];
+			$f["e_stateIn"]=implode(", ",$f["e_stateIn"]); if ($f["e_stateIn"]=="Периферические отеки: ") {$f["e_stateIn"]="";}
+			$docs["firstView"]=$firstView;
+			break;
+	}
 
 	$docs["FirstOsmotr"]=$first_osmotr1;
 	$docs["DiaryLast"]=$DiaryLast;
 	$docs["diaryLast"]=$DiaryLast;
-	$docs["firstView"]=$firstView;
+	// $docs["firstView"]=$firstView;
 	$docs["secondView"]=$secondView;
-	$docs["lastView"]=$lastView;
 	// print_r('fsdfsd');
 	getTemplateValues($docs);
+	print_r('Last day of my life');
+	print_r($docs);
+
 	return $f;
 }
 
@@ -366,10 +459,7 @@ function getTemplateValues($docs=array()) {
 			pq($inc)->attr("value",$docs[$from[0]][$fld]["value"]);
 				if (pq($inc)->attr("multiple")=="multiple") {
 					$multi=true;
-					$val=explode(",",pq($inc)->attr("value")); 
-					foreach($val as $k => $v) {
-						$val[$k]=trim($v);
-					}
+					$val=explode(",",pq($inc)->attr("value")); foreach($val as $k => $v) {$val[$k]=trim($v);}
 				} else {
 					$multi=false;
 					$val=array(); $val[0]=pq($inc)->attr("value");
@@ -520,6 +610,10 @@ function field_multi($value) {
 }
 
 function epicLabPrep($event_id,$aType) {
+	print_r('qwer2');
+	print_r($event_id);
+	print_r('div');
+	print_r($aType);
 	$actionHistory=getActionsHistory($event_id);
 	$labHistory=$actionHistory["data"][1];
 	$res=array();
@@ -561,6 +655,8 @@ function epicLabPrep($event_id,$aType) {
 					$action=$action["data"]["fields"];
 					$doc=phpQuery::newDocument("<table></table>");
 					pq($doc)->find("table")->prepend("<tr><th colspan='2'>{$time} {$line["name"]}</th><th>Норма</th><th>Ед.изм.</th></tr>");
+					print_r(guilt);
+					print_r($action);
 					foreach($action as $key => $val) {
 						if (!in_array($key,$exclude) AND $val>"") {
 							if (substr($key,-1)==":") {$name=$key;} else {$name=$key.":";}
@@ -585,6 +681,8 @@ function epicLabPrep($event_id,$aType) {
 //			}
 		}}
 	}
+	echo 'qwer1';
+	print_r($res);
 	return $res;
 }
 
@@ -609,222 +707,5 @@ function epicConsPrep($event_id) {
 	}
 	return $res;
 }
-function epicrizOut_edit_old($form,$mode,$id,$datatype) {
-	parse_str($_SERVER["REQUEST_URI"]);
-	$tpl=array();
-	$tpl[]=array(array("КО (ОНК) РСЦ","2 КО РСЦ"),"Cord",$type);
-	$tpl[]=array(array("1 НО ОНМК РСЦ"),"Nevr",$type);
-	$tpl[]=array(array("ОСХ РСЦ"),"Ocx",$type);
-	$tpl[]=array(array("ОАР ОНМК"),"Oar",$type);
-	$_SESSION["epic_tpl"]=$tpl;
-	$_SESSION["epic_type"]=$type;
-	switch($type) {
-		case "out":		$name="DoctorRoom: Выписной эпикриз"; $docType="ВЫПИСНОЙ"; break;
-		case "etap":	$name="DoctorRoom: Этапный эпикриз"; $docType="ЭТАПНЫЙ"; break;
-		case "move":	$name="DoctorRoom: Переводной эпикриз"; $docType="ПЕРЕВОДНОЙ"; break;
-		case "dead":	$name="DoctorRoom: Посмертный эпикриз"; $docType="ПОСМЕРТНЫЙ"; break;
-		default:		$name="DoctorRoom: Выписной эпикриз"; $docType="ВЫПИСНОЙ"; break;
-	}
-	$_SESSION["epic_atid"]=getActionTypeByName($name);
-	echo 'ooz'.$id.'  '.$_SESSION["epic_type"].'ooz';
-if ($id!="_new" AND $id!="" AND $_SESSION["epic_atid"]>"") {
-	// print_r('actionout');
-	$action=getEpicrizOut($id);
-	// print_r($action);
-	if (isset($action["id"])) {
-		// $Item=array_merge($Item,$action);
-		foreach($action["epic_out"] as $key => $val) {
-			if (substr($key,0,2)=="e_") {
-				$Item[$key]=$val;
-			} 
-		}
-		$Item["fields"]=$action["epic_out"];
-		$Item["action_id"]=$action["id"];
-	} else {
-		$field=array();
-		$Item["action_id"]="_new";
-		$field[0]["val"]=""; $field[0]["fld"]="Полный диагноз, сопутствующее осложнение";
-		$field[1]["val"]=""; $field[1]["fld"]="Краткий анамнез, диагностические исследования, течение болезни";
-		$field[2]["val"]=""; $field[2]["fld"]="Лечебные и трудовые рекомендации";
-		$Item["fields"]=$field;
-	}
 
-if ($_SESSION["settings"]["appId"]=="msk36") {
-	$flds=array("e_pulm_in","e_pulmFreq_in","e_corTone_in","e_corFreq","e_corPress_in","a_date1","a_date2","s_date1","s_date2");
-	foreach($flds as $key =>$fld) {if (!isset($Item[$fld])) {$Item[$fld]="";}}
-	$Item["Drugs"]=drugsPrepare(json_decode(file_get_contents($getAssignList_url."assignlist/data?event_id=".$id),true));
-	$statMoving=getStationarMovings($id);
-	$Item["moving"]=$statMoving["data"]["moving"];
-	$Item["lab"]=epicLabPrep($id,"Лабораторные исследования");
-	$Item["res"]=epicLabPrep($id,"Инструментальная диагностика");
-	$Item["cons"]=epicConsPrep($id);
-}
-}	
-
-	$json_query_SQL="SELECT * FROM Action AS a 
-	INNER JOIN JsonData as jd on jd.id = concat('Action@',a.id)
-	WHERE a.actionType_id = 26618 
-	AND a.deleted = 0 
-	AND a.event_id = ".$id." 
-	LIMIT 1";
-	// $res=mysql_query($SQL) or die ("Query failed getEpicrizOut(): " . mysql_error());
-
-$event=mysqlReadItem("Event",$id);
-	$Item["execPerson_id"]=$event["execPerson_id"];
-	// $Diag=patientGetDiagnosis($id);
-	$person=getPersonInfo($person_id);
-	$doctor=getPersonInfo($event["execPerson_id"]);
-	$client=getClientInfo($event["client_id"]);
-	$organisation=mysqlReadItem("Organisation",$person["org_id"]);
-	$orgstructure=mysqlReadItem("OrgStructure",$doctor["orgStructure_id"]);
-	echo 'orgst';
-		print_r($id);
-	$Item["dateShort"]=date("d.m.y");
-	if (empty($orgstructure)) {
-
-		$orgStrId_query = "SELECT ap_os.value
-                                    FROM Action AS current
-                                    INNER JOIN ActionProperty AS ap ON (ap.action_id = current.id)
-                                    INNER JOIN ActionPropertyType AS apt ON (apt.id = ap.type_id AND name='Отделение пребывания')
-                                    INNER JOIN ActionProperty_OrgStructure AS ap_os ON (ap_os.id = ap.id)
-                                    INNER JOIN Event as ev on current.event_id = ev.id
-                                  
-                                    where ap.deleted=0 and ev.id = {$id} ORDER BY current.id DESC LIMIT 1";
-
-		$result = mysql_query($orgStrId_query) or die ("Query failed epicrizOut.php: " . mysql_error());
-		$orgStr_id = mysql_result($result, 0);
-		$orgstructure=mysqlReadItem("OrgStructure",$orgStr_id);
-		echo 'doctor1
-		 '. $orgStr_id;
-	}
-	$Item["OrgStrCode"]=$orgstructure["code"];
-	$Item["externalId"]=$event["externalId"];
-	$Item["OrgName"]=$organisation["title"];
-	$Item["OrgAddr"]=$organisation["Address"];
-	$Item["OrgPhone"]=$organisation["phone"];
-	$Item["event_id"]=$id;
-	$Item["org"]=$organisation["shortName"];
-	$Item["orgStr"]=$person["orgStructure"];
-	$Item["person"]=$person["personShort"];
-	$Item["person_id"]=$person_id;
-	$Item["person"]=$person["personShort"];
-	$Item["doctor_id"]=$event["execPerson_id"];
-	$Item["doctor"]=$person["doctorShort"];
-	$Item["client"]=$client["client"];
-	$Item["bDate"]=getRusDate($client["birthDate"])."г.";
-	$Item["address"]=$client["addressLive"];
-	$Item["work"]=$client["work"];
-	$Item["setDate"]=date("m.d.Y 00:00:00",strtotime($event["setDate"]));
-	$Item["docType"]=$docType;
-	$Item["diag_main"]=$Diag["main"]["MKB"]." ".$Diag["main"]["DiagName"];
-	//	$Item["diag_satt"]=$Diag["satt"]["MKB"]." ".$Diag["satt"]["DiagName"];
-	//	$Item["diag_tera"]=$Diag["terapevt"]["MKB"]." ".$Diag["terapevt"]["DiagName"];
-	if ($client["sex"]=="мужской") {$Item["suffix1"]="ся";$Item["suffix2"]="";$Item["suffix3"]="";} else {$Item["suffix1"]="ась";$Item["suffix2"]="а";$Item["suffix3"]="ка";}
-	$Item["age"]=$client["age"];
-
-	$Item["s_date1"]=getRusDate($event["setDate"])."г.";
-	if ($action["endDate"]>"") {
-		$Item["s_date2"]=getRusDate($action["endDate"])."г.";
-	} else {
-		$Item["s_date2"]=getRusDate(date("Y-m-d"))."г.";
-		$Item["endDate"]=date("d.m.Y");
-	}
-		$Item["docDate"]=$Item["s_date2"];
-	$Item["orgStrBoss"]=getPersonInfo($orgstructure["chief_id"]); $Item["orgStrBoss"]=$Item["orgStrBoss"]["personShort"];
-// $Item["e_diag_in"] = print_r($action, true);
-	
-	
-			if ($_SESSION["settings"]["appId"]=="msk36") {
-			// =========================================================	
-			// ========= привязываем шаблоны к кодам отделений =========	
-			// =========================================================
-				foreach($tpl as $key => $arr) {
-					echo 'lol1
-					';
-					echo print_r($Item, true).'
-					';
-
-					if (in_array($Item["OrgStrCode"],$arr[0])) {
-						echo $key . ' =>' . print_r($arr, true) . ' been found';
-						$path = $_SERVER['DOCUMENT_ROOT']."/forms/msk36/epicriz_".$arr[1]."_".$arr[2].".php";
-						$out=phpQuery::newDocumentFile($path);
-					}
-				}
-			// ========= по-умолчанию простой эпикриз =========	
-			if ($out=="") {$out=phpQuery::newDocumentFile($_SERVER['DOCUMENT_ROOT']."/forms/epicrizOut_edit.php");}
-			pq($out)->append("<style>".file_get_contents($_SERVER['DOCUMENT_ROOT']."/forms/msk36/epicriz.css")."</style>");
-			if ($_SESSION["epic_atid"]=="") { 
-				pq($out)->find("form")->html("Необходимо создать ActionType - {$name}"); 
-			}
-			} else {
-				$out=formGetForm($form,$mode);
-			}
-				
-// 	print_r('I wanna crack the code');
-// print_r($Item);
-	// print_r(fields_msk36($id,$Item["OrgStrCode"]));
-
-	if ($_SESSION["settings"]["appId"]=="msk36") {
-		if ($Item["action_id"]=="_new") {
-			$Item=array_merge($Item,fields_msk36($id,$Item["OrgStrCode"]));
-
-		} else {
-			$Item=array_merge(fields_msk36($id,$Item["OrgStrCode"]),$Item);
-		}
-	}
-// $Item["e_diag_in"]=print_r($Item, true);
-pq($out)->find("form")->prepend("<input type='hidden' name='actionType_id' value='{$_SESSION["epic_atid"]}'>");
-
-$i=0; foreach(pq($out)->find("[name=e_recom_sel] option") as $recom) {
-	if (pq($recom)->html()==$Item["e_recom_sel"]) {
-		pq($out)->find(".recom_tab > li:eq({$i}) textarea")->attr("name","e_recom_text");
-	}
-	$i++;
-}
-
-foreach(pq($out)->find("input,select,textarea") as $inp) {
-	if (!isset($Item[pq($inp)->attr("name")])) {$Item[pq($inp)->attr("name")]="";} else {
-		if (pq($inp)->is("textarea")) {pq($inp)->html($Item[pq($inp)->attr("name")]);}
-	}
-}
-
-foreach(pq($out)->find("select option.add") as $add) {
-	$add_name=pq($add)->parent("select")->attr("name")."_add";
-	if (!pq($add)->parent("select")->next("input.addinf")->length()) {
-		pq($add)->parent("select")->after("<input name='{$add_name}' class='addinf'>");
-	}
-}
-$out=contentSetData($out,$Item);
-
-foreach($out->find("select option") as $opt) {
-	// устанавливаем option в соответствии с select.value
-	if (pq($opt)->parent("select")->attr("value")==pq($opt)->text()) {pq($opt)->attr("selected","selected");}
-}
-foreach($out->find("select[multiple] option") as $opt) {
-	// устанавливаем option для multiple select
-	$selname=pq($opt)->parent("select")->attr("name"); $selname=substr($selname,0,-2);
-	if (in_array(pq($opt)->text(),$Item[$selname])) {pq($opt)->attr("set","set");}
-}
-foreach(pq($out)->find("textarea[placeholder]") as $inp) {
-	// устанавливаем знечение placeholder для пустых текстов
-	if (pq($inp)->html()=="") {	pq($inp)->html(pq($inp)->attr("placeholder")); }
-}
-
-if ($mode=="print") {
-	pq($out)->html(pq($out)->find("#form-027u"));
-	pq($out)->append("<style>".file_get_contents($_SERVER['DOCUMENT_ROOT']."/forms/msk36/epicriz_droom.css")."</style>");
-	pq($out)->find("input[type=hidden]")->remove();
-	foreach(pq($out)->find("textarea") as $inc) {
-		pq($inc)->after("".pq($inc)->html()."");
-		pq($inc)->remove();
-	}
-	foreach(pq($out)->find("input,select") as $inc) {
-		pq($inc)->after("".pq($inc)->attr("value")."");
-		pq($inc)->remove();
-
-	}
-}
-$out=ereg_replace("{{.*}}", "", $out->htmlOuter());
-return $out;
-}
 ?>
