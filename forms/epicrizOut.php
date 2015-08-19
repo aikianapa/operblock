@@ -8,7 +8,7 @@ function epicrizOut_edit($form,$mode,$id,$datatype) {
 
 	$eventStart = strtotime($event['createDatetime']);
 	$uploadData = strtotime('2015-08-14');
-	if ($eventStart < $uploadData ) {
+	if ($eventStart > $uploadData ) {
 		return epicrizOut_edit_old($form,$mode,$id,$datatype);
 	}
 
@@ -173,6 +173,8 @@ $event=mysqlReadItem("Event",$id);
 			$Item=array_merge(fields_msk36($id,$Item["OrgStrCode"]),$Item);
 		}
 	}
+$Item['RW'] = $Item['firstView']['RW'];
+$Item['rendgetnographia_organov_grudnoy_kletki'] = $Item['firstView']['Рентгенография органов грудной клетки'];
 // $Item["e_diag_in"]=print_r($Item, true);
 pq($out)->find("form")->prepend("<input type='hidden' name='actionType_id' value='{$_SESSION["epic_atid"]}'>");
 
@@ -286,7 +288,7 @@ function fields_msk36($event_id,$orgstr="") {
 	$event=mysqlReadItem("Event",$event_id);
 	$Diag=patientGetDiagnosis($event_id);
 	$SQL="SELECT a.* FROM Action AS a
-	INNER JOIN  Event AS e ON a.event_id = e.id
+	INNER JOIN  Event AS e ON (a.event_id = e.id and a.person_id = e.execPerson_id)
 	INNER JOIN  ActionType AS t ON t.id = a.actionType_id
 	WHERE e.id = {$event_id} 
 	# AND (a.setPerson_id = e.execPerson_id OR a.person_id = e.execPerson_id )
@@ -307,7 +309,7 @@ function fields_msk36($event_id,$orgstr="") {
 	$firstView = $firstView["data"]["fields"];
 
 	$SQL="SELECT a.* FROM Action AS a
-	INNER JOIN  Event AS e ON a.event_id = e.id
+	INNER JOIN  Event AS e ON (a.event_id = e.id and a.person_id = e.execPerson_id)
 	INNER JOIN  ActionType AS t ON t.id = a.actionType_id
 	WHERE e.id = {$event_id} 
 	# AND (a.setPerson_id = e.execPerson_id OR a.person_id = e.execPerson_id )

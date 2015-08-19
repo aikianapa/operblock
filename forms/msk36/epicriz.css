@@ -49,6 +49,7 @@ body {display:none;}
 #form-027u select[multiple] {display:none;}
 #form-027u u {font-style: italic;}
 #form-027u ul {list-style: none;}
+#form-027u ul .bord {border:1px black solid;}
 #form-027u ul li > ul {display:inline;} 
 #form-027u ul li > ul li {display:inline;} 
 #form-027u ul.inline li {display: inline;}
@@ -56,16 +57,18 @@ body {display:none;}
 #form-027u ul.inline-block li {display: inline-block; vertical-align: top;}
 #form-027u .text {line-height:32px; }
 #form-027u .text .remark {position:absolute; width:100%; margin-top: 15px; text-align:center; font-size:70%;}
-#form-027u table {border:0; border-top:1px #000 solid; border-bottom:1px #000 solid; clear:both; width: auto; margin-bottom: 10px;}
-#form-027u table td {text-align:center; vertical-align:top;border-right:1px #000 solid;}
+#form-027u table {border:0; border-top:1px #000 solid; border-bottom:1px #000 solid; clear:both; width: auto; margin-bottom: 10px; width:100%;}
+#form-027u table td {text-align:center; vertical-align:top;border-right:1px #000 solid; }
 #form-027u table td:last {border-right:0px;}
-#form-027u table td:first {width:50%;}
+/*#form-027u table td:first {width:50%;}*/
 #form-027u table tr { border: 1px #555 solid;}
 #form-027u table tr th { text-align:center; background-color: #bbb;}
 #form-027u table tr td { text-align:left;}
-#form-027u h2 {text-align:center; font-size:18px;}
+#form-027u h2 {text-align:center; font-size:14px; border-top:1px black solid; border-bottom:1px black solid;}
 #form-027u h2 * {font-size:18px;}
 #form-027u a.del_fld {display:none;}
 #form-027u span { font-style: italic;}
 #form-027u .noprint {display:none;}
+#form-027u .bottom-bord {border-bottom:1px black solid;}
+#form-027u .bottomtop-bord {border-bottom:1px black solid;border-top:1px black solid;}
 }

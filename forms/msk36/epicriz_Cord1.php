@@ -19,23 +19,26 @@
 
 <ul class="fields">
 		<li><b>Фамилия, Имя, Отчество:</b> {{client}}, <b>возраст</b> {{age}}</li>
+
+		<li class="bord">
+		<ul>
 		<li> <b>Находился(-лась) на стационарном лечении</b> с {{s_date1}} 	по {{s_date2}}   </li>
 		<li> <b>Проживает</b>: {{client_adress}} </li>
 
 		<li><b><h2>Диагноз при поступлении:</h2></b>
 			<ul class="block">
-				<li><b>Основное заболевание:</b><textarea name="e_diag_main_in" from="firstView@Основное заболевание">{{e_diag_main_in}}</textarea></li>
-				<li><b>Фоновые заболевания:</b><textarea name="e_diag_fon_in" from="firstView@Фоновые заболевания">{{e_diag_fon_in}}</textarea></li>
-				<li><b>Осложнения основного заболевания:</b><textarea name="e_diag_comp_in" from="firstView@Осложнения основного заболевания:">{{e_diag_comp_in}}</textarea></li>
-				<li><b>Сопутствующие заболевания:</b><textarea name="e_diag_satt_in" from="firstView@Сопутствующие заболевания:">{{e_diag_satt_in}}</textarea></li>
+				<li><b class="bottom-bord">Основное заболевание:</b><textarea name="e_diag_main_in" from="firstView@Основное заболевание">{{e_diag_main_in}}</textarea></li>
+				<li><b class="bottom-bord">Фоновые заболевания:</b><textarea name="e_diag_fon_in" from="firstView@Фоновые заболевания">{{e_diag_fon_in}}</textarea></li>
+				<li><b class="bottom-bord">Осложнения основного заболевания:</b><textarea name="e_diag_comp_in" from="firstView@Осложнения основного заболевания:">{{e_diag_comp_in}}</textarea></li>
+				<li><b class="bottom-bord">Сопутствующие заболевания:</b><textarea name="e_diag_satt_in" from="firstView@Сопутствующие заболевания:">{{e_diag_satt_in}}</textarea></li>
 			</ul>
 		</li>
 		<li><b><h2>Диагноз при выписке:</h2></b>
 			<ul class="block">
-				<li><b>Основное заболевание:</b><textarea name="e_diag_main_out" from="lastView@Основное заболевание">{{e_diag_main_out}}</textarea></li>
-				<li><b>Фоновые заболевания:</b><textarea name="e_diag_fon_out" from="lastView@Фоновые заболевания">{{e_diag_fon_out}}</textarea></li>
-				<li><b>Осложнения основного заболевания:</b><textarea name="e_diag_comp_out" from="lastView@Осложнения основного заболевания:">{{e_diag_comp_out}}</textarea></li>
-				<li><b>Сопутствующие заболевания:</b><textarea name="e_diag_satt_out" from="lastView@Сопутствующие заболевания:">{{e_diag_satt_out}}</textarea></li>
+				<li><b class="bottom-bord">Основное заболевание:</b><textarea name="e_diag_main_out" from="lastView@Основное заболевание">{{e_diag_main_out}}</textarea></li>
+				<li><b class="bottom-bord">Фоновые заболевания:</b><textarea name="e_diag_fon_out" from="lastView@Фоновые заболевания">{{e_diag_fon_out}}</textarea></li>
+				<li><b class="bottom-bord">Осложнения основного заболевания:</b><textarea name="e_diag_comp_out" from="lastView@Осложнения основного заболевания:">{{e_diag_comp_out}}</textarea></li>
+				<li><b class="bottom-bord">Сопутствующие заболевания:</b><textarea name="e_diag_satt_out" from="lastView@Сопутствующие заболевания:">{{e_diag_satt_out}}</textarea></li>
 			</ul>
 		</li>
 
@@ -53,12 +56,12 @@
 							<option>Тяжелое</option>
 							<option>Крайне тяжелое</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_sost_in_text">
 					</li>
 					<li><b>Сознание:</b> <textarea class="medium" name="e_diag_mind_out" from="firstView@Сознание">{{e_diag_mind_out}}</textarea></li>
 					<li><b>Кожные покровы и видимые слизистые:</b> <textarea class="medium" name="e_diag_skin_in" from="firstView@Кожные покровы">{{e_diag_skin_in}}</textarea></li>
 					<li><b>Отёки:</b>
-						<textarea class="medium" name="e_diag_edema_in" from="firstView@Отеки">{{e_diag_edema_in}}</textarea></li>
+						<textarea class="medium" name="e_diag_edema_in" from="firstView@Отеки">{{e_diag_edema_in}}</textarea>
 					</li>
 				</ul>
 			</li> 
@@ -78,7 +81,7 @@
 							<option>симметрична</option>
 							<option>асимметрична</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_formgrkl_in_text" value="">
 					</li>
 					<li>
 						<b>Участвует в акте дыхания:</b>
@@ -86,7 +89,7 @@
 							<option>равномерно</option>
 							<option>нет</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_uchakdh_in_text" value="">
 					</li>
 					<li>
 						<b>Дыхание:</b>
@@ -100,7 +103,7 @@
 							<option>ослаблено в нижних отделах с обеих сторон</option>
 							<option>ослаблено в верхних отделах</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_dihan_in_text" value="">
 					</li>
 					<li>
 						<b>Хрипы:</b>
@@ -123,7 +126,7 @@
 							<option>слева</option>
 							<option>с обеих сторон</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_hrip_in_text" value="">
 					</li>
 
 				</ul>
@@ -138,7 +141,7 @@
 						<option>не изменена</option>
 						<option>расширена</option>
 					</select>
-<input name="" value="{{}}">
+					<input name="e_diag_oblserd_in_text" value="">
 				</li>
 				<li>
 					<b>Границы сердца:</b>
@@ -152,7 +155,7 @@
 						<option>верх</option>
 						<option>верхняя</option>
 					</select>
-<input name="" value="{{}}">
+					<input name="e_diag_granserd_in_text" value="">
 				</li>
 				<li>
 					<b>Тоны сердца:</b>
@@ -166,7 +169,7 @@
 						<option>на аорте</option>
 						<option>не легочной артерии</option>
 					</select>
-<input name="" value="{{}}">
+					<input name="e_diag_tonserd_in_text" value="">
 				</li>
 				<li>
 					<b>Шумы:</b>
@@ -174,7 +177,7 @@
 						<option>есть</option>
 						<option>нет</option>
 					</select>
-<input name="" value="{{}}">
+					<input name="e_diag_shumi_in_text" value="">
 				</li>
 				<li>
 					<b>Пульсация на периферических артериях</b>
@@ -182,7 +185,7 @@
 						<option>есть</option>
 						<option>нет</option>
 					</select>
-<input name="" value="{{}}">
+					<input name="e_diag_pulsnaperar_in_text" value="">
 				</li>
 				<li><b>ЧСС:</b> <textarea class="medium" name="e_diag_chss_in" from="firstView@ЧСС">{{e_diag_chss_in}}</textarea></li>
 				<li><b>PS:
@@ -210,7 +213,7 @@
 							<option>увеличен в объеме за счет асцита</option>
 							<option>участвует в акте дыхания</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_belly_in_text" value="">
 					</li>
 					<li>
 						<b>Язык:</b>
@@ -220,7 +223,7 @@
 							<option>сухой</option>
 							<option>влажный</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_yazikpish_in_text" value="">
 					</li>
 					<li>
 						<b>Печень:</b>
@@ -238,7 +241,7 @@
 							<option>мягкий</option>
 							<option>закруглен</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_liver_in_text" value="">
 					</li>
 					<li>
 						<b>Симптом поколачивания по поясничной области</b>
@@ -247,7 +250,7 @@
 							<option>положительный справа</option>
 							<option>положительный слева</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_simpokpopoobl_in_text" value="">
 					</li>
 
 				</ul>
@@ -267,7 +270,7 @@
 							<option>спутанность</option>
 							<option>мед.седация</option>
 						</select>
-<input name="" value="{{}}">
+					<input name="e_diag_soznur_in_text" value="">
 					</li>
 					<li><b>ШКГ: 
 					</b> <textarea class="medium" name="e_diag_shkg_in" from="firstView@ШКГ">{{e_diag_shkg_in}}</textarea></li>
@@ -284,7 +287,7 @@
 							<option>недоступен из-за речевых нарушений</option>
 							<option>контакту недоступен по тяжести состояния</option>
 						</select>
-<input name="" value="{{}}">
+					<input name="e_diag_rechkont_in_text" value="">
 					</li>
 					<li>
 						<b>Простые инструкции:</b>
@@ -293,7 +296,7 @@
 							<option>выполняет частично</option>
 							<option>не выполняет</option>
 						</select>
-<input name="" value="{{}}">
+					<input name="e_diag_prostinsrt_in_text" value="">
 					</li>
 					<li>
 						<b>Речь:</b>
@@ -311,7 +314,7 @@
 							<option>сохранена</option>
 							<option>легкая</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_rech_in_text" value="">
 					</li>
 					<li>
 						<b>Реакция на осмотр:</b>
@@ -321,7 +324,7 @@
 							<option>вялая</option>
 							<option>отсутствует</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_reaktnaosm_in_text" value="">
 					</li>
 					<li>
 						<b>Изменения психики:</b>
@@ -380,7 +383,7 @@
 							<option>критика снижена</option>
 							<option>оценить не представляется возможным</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_izmpsyh_in_text" value="">
 					</li>
 					<li>
 						<b>Когнитивные функции:</b>
@@ -389,7 +392,7 @@
 							<option>снижены</option>
 							<option>оценить не представляется возможным</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_cognfun_in_text" value="">
 					</li>
 					<li>
 						<b>Менингеальный синдром:</b>
@@ -405,7 +408,7 @@
 							<option>Брудзинского нижний</option>
 							<option>Брудзинского верхний</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_miningalsynd_in_text" value="">
 					</li>
 					<li>
 						<b>Общемозговые симптомы:</b>
@@ -419,7 +422,7 @@
 							<option>есть</option>
 							<option>нет</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_obshemozg_in_text" value="">
 					</li>
 					<li><b>Черепно-мозговые нервы: 
 					</b> <textarea class="medium" name="e_diag_chemone_in" from="firstView@Черепно-мозговые нервы">{{e_diag_chemone_in}}</textarea></li>
@@ -432,7 +435,7 @@
 							<option>гиперосмия</option>
 							<option>не исследовалось</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_obon_in_text" value="">
 					</li>
 					<li>
 						<b>Острота зрения:</b>
@@ -442,7 +445,7 @@
 							<option>не исследована</option>
 							<option>снижена</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_ostrzren_in_text" value="">
 					</li>
 					<li>
 						<b>Поля зрения:</b>
@@ -451,7 +454,7 @@
 							<option>выпадения контрольным путем выявлено</option>
 							<option>проверить невозможно</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_polezren_in_text" value="">
 					</li>
 					<li>
 						<b>Гемианопсия:</b>
@@ -466,7 +469,7 @@
 							<option>проверить невозможно</option>
 							<option>гемианопсия</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_gepoksia_in_text" value="">
 					</li>
 					<li><b>Цветоощущение:
 					</b> <textarea class="medium" name="e_diag_cvetoosh_in" from="firstView@Цветоощущение">{{e_diag_cvetoosh_in}}</textarea></li>
@@ -481,7 +484,7 @@
 							<option>снижена</option>
 							<option>отсутствует</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_fotoreact_text" value="">
 					</li>
 					<li>
 						<b>Нистагм:</b>
@@ -496,7 +499,7 @@
 							<option>влево</option>
 							<option>вправо</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_nistagm_in_text" value="">
 					</li>
 					<li>
 						<b>Глазодвигательные нарушения:</b>
@@ -515,7 +518,7 @@
 							<option>установка взора</option>
 							<option>парез взора</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_glazovidnar_in_text" value="">
 					</li>
 					<li>
 						<b>Экзофтальм:</b>
@@ -523,7 +526,7 @@
 							<option>нет</option>
 							<option>есть</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_ekzoftalm_in_text" value="">
 					</li>
 					<li>
 						<b>Энофтальм:</b>
@@ -531,7 +534,7 @@
 							<option>нет</option>
 							<option>есть</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_enoftalm_in_text" value="">
 					</li>
 					<li>
 						<b>Птоз:</b>
@@ -542,7 +545,7 @@
 							<option>слева</option>
 							<option>с 2х сторон</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_ptoz_in_text" value="">
 					</li>
 					<li>
 						<b>Диплопия:</b>
@@ -555,7 +558,7 @@
 							<option>вверх</option>
 							<option>прямо</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_diplonia_in_text" value="">
 					</li>
 					<li>
 						<b>Движение нижней челюстью, жевательные мышцы:</b>
@@ -563,7 +566,7 @@
 							<option>не изменены</option>
 							<option>изменены</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_dvizhnizhnche_in_text" value="">
 					</li>
 					<li>
 						<b>Роговичный, конъюнктивальный рефлекс:</b>
@@ -572,7 +575,7 @@
 							<option>вялый</option>
 							<option>отсутствует</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_rogovichkon_in_text" value="">
 					</li>
 					<li>
 						<b>Чувствительность на лице:</b>
@@ -588,7 +591,7 @@
 							<option>триггерные точки</option>
 							<option>болезненны</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_chuvsctnalic_in_text" value="">
 					</li>
 					<li>
 						<b>Лицо:</b>
@@ -600,7 +603,7 @@
 							<option>за счет опущения правого угла рта, за счет опущения левого угла рта</option>
 							<option>симптом паруса</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_lico_in_text" value="">
 					</li>
 					<li>
 						<b>Лагофтальм:</b>
@@ -610,7 +613,7 @@
 							<option>справа</option>
 							<option>слева</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_lagoftalm_in_text" value="">
 					</li>
 					<li>
 						<b>Мимические пробы:</b>
@@ -629,7 +632,7 @@
 							<option>круговой мышцы глаза</option>
 							<option>щечной мышцы</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_mimiprob_in_text" value="">
 					</li>
 					<li>
 						<b>Гиперакузия:</b>
@@ -637,7 +640,7 @@
 							<option>нет</option>
 							<option>есть</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_giperakuz_in_text" value="">
 					</li>
 					<li>
 						<b>Сухость глаз:</b>
@@ -645,7 +648,7 @@
 							<option>нет</option>
 							<option>есть</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_suhglaz_in_text" value="">
 					</li>
 					<li>
 						<b>Слюноотделение:</b>
@@ -653,7 +656,7 @@
 							<option>нет</option>
 							<option>есть</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_slunotd_in_text" value="">
 					</li>
 					<li>
 						<b>Слух:</b>
@@ -664,7 +667,7 @@
 							<option>AD</option>
 							<option>AU</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_sluh_in_text" value="">
 					</li>
 					<li>
 						<b>Парез мягкого неба:</b>
@@ -674,7 +677,7 @@
 							<option>слева</option>
 							<option>справа</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_parezmyagneba_in_text" value="">
 					</li>
 					<li>
 						<b>Глоточный рефлекс:</b>
@@ -683,7 +686,7 @@
 							<option>дисфагия</option>
 							<option>дисфония</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_glotreflex_in_text" value="">
 					</li>
 					<li>
 						<b>Вкусовой анализатор:</b>
@@ -694,7 +697,7 @@
 							<option>есть</option>
 							<option>нет</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_vkusovoianalizator_in_text" value="">
 					</li>
 					<li>
 						<b>Положение головы и поднимание плеч:</b>
@@ -703,7 +706,7 @@
 							<option>насильственный поворот влево</option>
 							<option>насильственный поворот вправо</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_polozhgolov_in_text" value="">
 					</li>
 					<li>
 						<b>Язык:</b>
@@ -713,7 +716,7 @@
 							<option>девиирует влево</option>
 							<option>в полости рта легко</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_yaziknerv_in_text" value="">
 					</li>
 					<li>
 						<b>Прикус языка:</b>
@@ -721,7 +724,7 @@
 							<option>нет</option>
 							<option>есть</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_prikus_in_text" value="">
 					</li>
 					<li>
 						<b>Фибриллярные подергивания:</b>
@@ -729,7 +732,7 @@
 							<option>нет</option>
 							<option>есть</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_fibrpod_in_text" value="">
 					</li>
 					<li><b>Двигательная сфера:  
 					</b> <textarea class="medium" name="e_diag_dvigsph_in" from="firstView@Двигательная сфера">{{e_diag_dvigsph_in}}</textarea></li>
@@ -746,7 +749,7 @@
 							<option>нет</option>
 							<option>не изменено</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_poloztela_in_text" value="">
 					</li>
 					<li>
 						<b>Непроизвольные движения:</b>
@@ -759,7 +762,7 @@
 							<option>дистония</option>
 							<option>атетоз</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_neprdviz_in_text" value="">
 					</li>
 					<li>
 						<b>Мышечная масса:</b>
@@ -769,7 +772,7 @@
 							<option>гипертрофия</option>
 							<option>гипотрофия</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_musmass_in_text" value="">
 					</li>
 					<li>
 						<b>Мышечный тонус:</b>
@@ -790,7 +793,7 @@
 							<option>&lt;</option>
 							<option>=</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_masstonus_in_text" value="">
 					</li>
 					<li>
 						<b>Мышечная сила:</b>
@@ -818,7 +821,7 @@
 							<option>справа</option>
 							<option>гемиплегия</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_masssil_in_text" value="">
 					</li>
 					<li><b>Координаторная сфера: 
 					</b> <textarea class="medium" name="e_diag_coordsph_in" from="firstView@Координаторная сфера">{{e_diag_coordsph_in}}</textarea></li>
@@ -831,7 +834,7 @@
 							<option>выполнение точных движений</option>
 							<option>выполнение альтернирующих движений</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_koorddiz_in_text" value="">
 					</li>
 					<li>
 						<b>Походка:</b>
@@ -843,7 +846,7 @@
 							<option>паркинсоническая</option>
 							<option>не изменена</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_pohodka_in_text" value="">
 					</li>
 					<li>
 						<b>Застывание в определенных позах:</b>
@@ -851,7 +854,7 @@
 							<option>нет</option>
 							<option>есть</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_zast_in_text" value="">
 					</li>
 					<li>
 						<b>Координаторные пробы:</b>
@@ -873,7 +876,7 @@
 							<option>дисдиадохокинез</option>
 							<option>дисметрия</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_koordprob_in_text" value="">
 					</li>
 					<li>
 						<b>Статическое равновесие:</b>
@@ -892,7 +895,7 @@
 							<option>влево</option>
 							<option>вперед, назад, не проверялся, не проверялась</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_statravn_in_text" value="">
 					</li>
 					<li>
 						<b>Атаксия:</b>
@@ -905,7 +908,7 @@
 							<option>не исследовалась</option>
 							<option>не выявлена</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_staksia_in_text" value="">
 					</li>
 					<li>
 						<b>Нарушения чувствительности:</b>
@@ -926,7 +929,7 @@
 							<option>по сегментарному типу</option>
 							<option>изменена</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_narushchuvs_in_text" value="">
 					</li>
 					<li>
 						<b>Болевая чувствительность:</b>
@@ -936,7 +939,7 @@
 							<option>гипалгезия</option>
 							<option>не исследована</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_bolchuvst_in_text" value="">
 					</li>
 					<li>
 						<b>Температурная чувствительность:</b>
@@ -946,7 +949,7 @@
 							<option>терманестезия</option>
 							<option>не исследована</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_tempchuvst_in_text" value="">
 					</li>
 					<li>
 						<b>Тактильная чувствительность:</b>
@@ -955,7 +958,7 @@
 							<option>гиперестезия</option>
 							<option>гипестезия</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_tempchuvst_in_text" value="">
 					</li>
 					<li>
 						<b>Вибрационная чувствительность:</b>
@@ -964,7 +967,7 @@
 							<option>не нарушена</option>
 							<option>не исследована</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_vibrchuvst_in_text" value="">
 					</li>
 					<li>
 						<b>Проприоцептивная чувствительность:</b>
@@ -973,7 +976,7 @@
 							<option>не нарушена</option>
 							<option>не исследована</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_propchucst_in_text" value="">
 					</li>
 					<li>
 						<b>Дискриминационная чувствительность:</b>
@@ -990,7 +993,7 @@
 							<option>не нарушен</option>
 							<option>не исследовалась</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_discrchuvst_in_text" value="">
 					</li>
 					<li><b>Рефлекторная сфера: 
 					</b> <textarea class="medium" name="e_diag_reflsph_in" from="firstView@Рефлекторная сфера">{{e_diag_reflsph_in}}</textarea></li>
@@ -1014,7 +1017,7 @@
 							<option>снижены</option>
 							<option>низкие</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_porverhkozref_in_text" value="">
 					</li>
 					<li>
 						<b>Сухожильные и периостальные рефлексы:</b>
@@ -1047,7 +1050,7 @@
 							<option>надбровный</option>
 							<option>низкие</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_syhozhilirepref_in_text" value="">
 					</li>
 					<li>
 						<b>Клонусы:</b>
@@ -1060,7 +1063,7 @@
 							<option>длительность</option>
 							<option>надколенника</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_klonusi_in_text" value="">
 					</li>
 					<li>
 						<b>Тремор:</b>
@@ -1084,7 +1087,7 @@
 							<option>слева</option>
 							<option>с двух сторон</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_tremor_in_text" value="">
 					</li>
 					<li>
 						<b>Патологические кистевые знаки:</b>
@@ -1098,7 +1101,7 @@
 							<option>Бехтерева</option>
 							<option>Россолимо</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_patologkistznak_in_text" value="">
 					</li>
 					<li>
 						<b>Патологические стопные знаки:</b>
@@ -1117,7 +1120,7 @@
 							<option>Гордона</option>
 							<option>Шеффера</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_patologstopznak_in_text" value="">
 					</li>
 					<li>
 						<b>Вертебральный статус:</b>
@@ -1152,7 +1155,7 @@
 							<option>грудного отдела позвоночника</option>
 							<option>пояснично-крестцового отдела позвоночника</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_vertstat_in_text" value="">
 					</li>
 					<li>
 						<b>Симптомы натяжения:</b>
@@ -1168,7 +1171,7 @@
 							<option>градусов</option>
 							<option>нет</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_simptomnatyz_in_text" value="">
 					</li>
 					<li>
 						<b>Симптомы орального автоматизма:</b>
@@ -1181,7 +1184,7 @@
 							<option>есть</option>
 							<option>нет</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_symptomoralavt_in_text" value="">
 					</li>
 					<li>
 						<b>Симптомы повышенной нервно-мышечной возбудимости:</b>
@@ -1191,7 +1194,7 @@
 							<option>Труссо</option>
 							<option>Хвостека</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_spnmv_in_text" value="">
 					</li>
 					<li>
 						<b>Письмо и чтение:</b>
@@ -1200,7 +1203,7 @@
 							<option>не нарушено</option>
 							<option>ценить не предоставляется возможным</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_pismoichten_in_text" value="">
 					</li>
 					<li>
 						<b>Апраксия:</b>
@@ -1209,7 +1212,7 @@
 							<option>нет</option>
 							<option>оценить не предоставляется возможным</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_apraksia_in_text" value="">
 					</li>
 					<li>
 						<b>Агнозия:</b>
@@ -1218,7 +1221,7 @@
 							<option>нет</option>
 							<option>оценить не предоставляется возможным</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_agnosia_in_text" value="">
 					</li>
 					<li>
 						<b>Вегетативная нервная система:</b>
@@ -1239,7 +1242,7 @@
 							<option>справа</option>
 							<option>слева</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_vegnervnsys_in_text" value="">
 					</li>
 
 					<li>
@@ -1254,7 +1257,8 @@
 			</li>
 		</ul>
 
-
+		</ul>
+		</li>
 
 		<h2>Состояние при выписке</h2>
 		<ul>
@@ -1269,7 +1273,7 @@
 							<option>тяжелое</option>
 							<option>крайне тяжелое</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_sost_out_text" value="">
 					</li>
 					<li><b>Сознание:</b> <textarea class="medium" name="e_diag_mind_out" from="lastView@Сознание">{{e_diag_mind_out}}</textarea></li>
 					<li><b>Кожные покровы и видимые слизистые:</b> <textarea class="medium" name="e_diag_skin_in" from="lastView@Кожные покровы и видимые слизистые">{{e_diag_skin_out}}</textarea></li>
@@ -1296,7 +1300,7 @@
 							<option>симметрична</option>
 							<option>асимметрична</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_formgrkl_out_text" value="">
 					</li>
 					<li>
 						<b>Участвует в акте дыхания:</b>
@@ -1304,7 +1308,7 @@
 							<option>равномерно</option>
 							<option>нет</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_uchakdh_out_text" value="">
 					</li>
 					<li>
 						<b>Дыхание:</b>
@@ -1318,7 +1322,7 @@
 							<option>ослаблено в нижних отделах с обеих сторон</option>
 							<option>ослаблено в верхних отделах</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_dihan_out_text" value="">
 					</li>
 					<li>
 						<b>Хрипы:</b>
@@ -1341,7 +1345,7 @@
 							<option>слева</option>
 							<option>с обеих сторон</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_hrip_out_text" value="">
 					</li>
 
 				</ul>
@@ -1356,7 +1360,7 @@
 						<option>не изменена</option>
 						<option>расширена</option>
 					</select>
-<input name="" value="{{}}">
+					<input name="e_diag_oblserd_out_text" value="">
 				</li>
 				<li>
 					<b>Границы сердца:</b>
@@ -1370,7 +1374,7 @@
 						<option>верх</option>
 						<option>верхняя</option>
 					</select>
-<input name="" value="{{}}">
+					<input name="e_diag_granserd_out_text" value="">
 				</li>
 				<li>
 					<b>Тоны сердца:</b>
@@ -1384,7 +1388,7 @@
 						<option>на аорте</option>
 						<option>не легочной артерии</option>
 					</select>
-<input name="" value="{{}}">
+					<input name="e_diag_tonserd_out_text" value="">
 				</li>
 				<li>
 					<b>Шумы:</b>
@@ -1392,7 +1396,7 @@
 						<option>есть</option>
 						<option>нет</option>
 					</select>
-<input name="" value="{{}}">
+					<input name="e_diag_shumi_out_text" value="">
 				</li>
 				<li>
 					<b>Пульсация на периферических артериях</b>
@@ -1400,7 +1404,7 @@
 						<option>есть</option>
 						<option>нет</option>
 					</select>
-<input name="" value="{{}}">
+					<input name="e_diag_pulsnaperar_out_text" value="">
 				</li>
 				<li><b>ЧСС:</b> <textarea class="medium" name="e_diag_chss_out" from="lastView@ЧСС">{{e_diag_chss_out}}</textarea></li>
 				<li><b>PS:
@@ -1420,7 +1424,7 @@
 				<ul class="container">
 					<li>
 						<b>Живот:</b>
-						<select multiple="multiple"  multiple="multiple" name='e_diag_belly_out[]' value='{{e_diag_belly_out}}' from="lastView@Живот">
+						<select multiple="multiple" name='e_diag_belly_out[]' value='{{e_diag_belly_out}}' from="lastView@Живот">
 							<option>мягкий</option>
 							<option>безболезненный</option>
 							<option>обычной формы</option>
@@ -1430,7 +1434,7 @@
 							<option>увеличен в объеме за счет асцита</option>
 							<option>участвует в акте дыхания</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_belly_out_text" value="">
 					</li>
 					<li>
 						<b>Язык:</b>
@@ -1440,7 +1444,7 @@
 							<option>сухой</option>
 							<option>влажный</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_yazikpish_out_text" value="">
 					</li>
 					<li>
 						<b>Печень:</b>
@@ -1458,7 +1462,7 @@
 							<option>мягкий</option>
 							<option>закруглен</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="_text" value="e_diag_liver_out">
 					</li>
 					<li>
 						<b>Симптом поколачивания по поясничной области:</b>
@@ -1467,7 +1471,7 @@
 							<option>положительный справа</option>
 							<option>положительный слева</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_simpokpopoobl_out_text" value="">
 					</li>
 
 				</ul>
@@ -1487,7 +1491,7 @@
 							<option>спутанность</option>
 							<option>мед.седация</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_soznur_out_text" value="">
 					</li>
 					<li><b>ШКГ: 
 					</b> <textarea class="medium" name="e_diag_shkg_out" from="lastView@ШКГ">{{e_diag_shkg_out}}</textarea></li>
@@ -1506,7 +1510,7 @@
 							<option>недоступен из-за речевых нарушений</option>
 							<option>контакту недоступен по тяжести состояния</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_rechkont_out_text" value="">
 					</li>
 					<li>
 						<b>Простые инструкции:</b>
@@ -1515,7 +1519,7 @@
 							<option>выполняет частично</option>
 							<option>не выполняет</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_prostinsrt_out_text" value="">
 					</li>
 					<li>
 						<b>Речь:</b>
@@ -1533,7 +1537,7 @@
 							<option>сохранена</option>
 							<option>легкая</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_rech_out_text" value="">
 					</li>
 					<li>
 						<b>Реакция на осмотр:</b>
@@ -1543,7 +1547,7 @@
 							<option>вялая</option>
 							<option>отсутствует</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_reaktnaosm_out_text" value="">
 					</li>
 					<li>
 						<b>Изменения психики:</b>
@@ -1602,7 +1606,7 @@
 							<option>критика снижена</option>
 							<option>оценить не представляется возможным</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_izmpsyh_out_text" value="">
 					</li>
 					<li>
 						<b>Когнитивные функции:</b>
@@ -1611,7 +1615,7 @@
 							<option>снижены</option>
 							<option>оценить не представляется возможным</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_cognfun_out_text" value="">
 					</li>
 					<li>
 						<b>Менингеальный синдром:</b>
@@ -1627,7 +1631,7 @@
 							<option>Брудзинского нижний</option>
 							<option>Брудзинского верхний</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_miningalsynd_out_text" value="">
 					</li>
 					<li>
 						<b>Общемозговые симптомы:</b>
@@ -1641,7 +1645,7 @@
 							<option>есть</option>
 							<option>нет</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_obshemozg_out_text" value="">
 					</li>
 					<li><b>Черепно-мозговые нервы: 
 					</b> <textarea class="medium" name="e_diag_chemone_out" from="lastView@Черепно-мозговые нервы">{{e_diag_chemone_out}}</textarea></li>
@@ -1654,7 +1658,7 @@
 							<option>гиперосмия</option>
 							<option>не исследовалось</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_obon_out_text" value="">
 					</li>
 					<li>
 						<b>Острота зрения:</b>
@@ -1664,16 +1668,16 @@
 							<option>не исследована</option>
 							<option>снижена</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_ostrzren_out_text" value="">
 					</li>
 					<li>
 						<b>Поля зрения:</b>
-						<select multiple="multiple"  name="e_diag_polezren_out[]" value="{{e_diag_polezren_out}}" from="lastView@Поля зрения">
+						<select multiple="multiple" name="e_diag_polezren_out[]" value="{{e_diag_polezren_out}}" from="lastView@Поля зрения">
 							<option>выпадения контрольным путем не выявлено</option>
 							<option>выпадения контрольным путем выявлено</option>
 							<option>проверить невозможно</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_polezren_out_text" value="">
 					</li>
 					<li>
 						<b>Гемианопсия:</b>
@@ -1688,7 +1692,7 @@
 							<option>проверить невозможно</option>
 							<option>гемианопсия</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="_text" value="e_diag_gepoksia_out">
 					</li>
 					<li><b>Цветоощущение:
 					</b> <textarea class="medium" name="e_diag_cvetoosh_out" from="lastView@Цветоощущение">{{e_diag_cvetoosh_out}}</textarea></li>
@@ -1703,7 +1707,7 @@
 							<option>снижена</option>
 							<option>отсутствует</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_fotoreact_out_text" value="">
 					</li>
 					<li>
 						<b>Нистагм:</b>
@@ -1718,7 +1722,7 @@
 							<option>влево</option>
 							<option>вправо</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_nistagm_out_text" value="">
 					</li>
 					<li>
 						<b>Глазодвигательные нарушения:</b>
@@ -1737,7 +1741,7 @@
 							<option>установка взора</option>
 							<option>парез взора</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_glazovidnar_out_text" value="">
 					</li>
 					<li>
 						<b>Экзофтальм:</b>
@@ -1745,7 +1749,7 @@
 							<option>нет</option>
 							<option>есть</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_ekzoftalm_out_text" value="">
 					</li>
 					<li>
 						<b>Энофтальм:</b>
@@ -1753,7 +1757,7 @@
 							<option>нет</option>
 							<option>есть</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_enoftalm_out_text" value="">
 					</li>
 					<li>
 						<b>Птоз:</b>
@@ -1764,7 +1768,7 @@
 							<option>слева</option>
 							<option>с 2х сторон</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_ptoz_out_text" value="">
 					</li>
 					<li>
 						<b>Диплопия:</b>
@@ -1777,7 +1781,7 @@
 							<option>вверх</option>
 							<option>прямо</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_diplonia_out_text" value="">
 					</li>
 					<li>
 						<b>Движение нижней челюстью, жевательные мышцы:</b>
@@ -1785,7 +1789,7 @@
 							<option>не изменены</option>
 							<option>изменены</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_dvizhnizhnche_out_text" value="">
 					</li>
 					<li>
 						<b>Роговичный, конъюнктивальный рефлекс:</b>
@@ -1794,7 +1798,7 @@
 							<option>вялый</option>
 							<option>отсутствует</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_rogovichkon_out_text" value="">
 					</li>
 					<li>
 						<b>Чувствительность на лице:</b>
@@ -1810,7 +1814,7 @@
 							<option>триггерные точки</option>
 							<option>болезненны</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_chuvsctnalic_out_text" value="">
 					</li>
 					<li>
 						<b>Лицо:</b>
@@ -1822,7 +1826,7 @@
 							<option>за счет опущения правого угла рта, за счет опущения левого угла рта</option>
 							<option>симптом паруса</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_lico_out_text" value="">
 					</li>
 					<li>
 						<b>Лагофтальм:</b>
@@ -1832,7 +1836,7 @@
 							<option>справа</option>
 							<option>слева</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_lagoftalm_out_text" value="">
 					</li>
 					<li>
 						<b>Мимические пробы:</b>
@@ -1851,7 +1855,7 @@
 							<option>круговой мышцы глаза</option>
 							<option>щечной мышцы</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_mimiprob_out_text" value="">
 					</li>
 					<li>
 						<b>Гиперакузия:</b>
@@ -1859,7 +1863,7 @@
 							<option>нет</option>
 							<option>есть</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_giperakuz_out_text" value="">
 					</li>
 					<li>
 						<b>Сухость глаз:</b>
@@ -1867,7 +1871,7 @@
 							<option>нет</option>
 							<option>есть</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_suhglaz_out_text" value="">
 					</li>
 					<li>
 						<b>Слюноотделение:</b>
@@ -1875,7 +1879,7 @@
 							<option>нет</option>
 							<option>есть</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_slunotd_out_text" value="">
 					</li>
 					<li>
 						<b>Слух:</b>
@@ -1886,7 +1890,7 @@
 							<option>AD</option>
 							<option>AU</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_sluh_out_text" value="">
 					</li>
 					<li>
 						<b>Парез мягкого неба:</b>
@@ -1896,7 +1900,7 @@
 							<option>слева</option>
 							<option>справа</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_parezmyagneba_out_text" value="">
 					</li>
 					<li>
 						<b>Глоточный рефлекс:</b>
@@ -1905,7 +1909,7 @@
 							<option>дисфагия</option>
 							<option>дисфония</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_glotreflex_out_text" value="">
 					</li>
 					<li>
 						<b>Вкусовой анализатор:</b>
@@ -1916,7 +1920,7 @@
 							<option>есть</option>
 							<option>нет</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_vkusovoianalizator_out_text" value="">
 					</li>
 					<li>
 						<b>Положение головы и поднимание плеч:</b>
@@ -1925,7 +1929,7 @@
 							<option>насильственный поворот влево</option>
 							<option>насильственный поворот вправо</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_polozhgolov_out_text" value="">
 					</li>
 					<li>
 						<b>Язык:</b>
@@ -1935,7 +1939,7 @@
 							<option>девиирует влево</option>
 							<option>в полости рта легко</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_yaziknerv_out_text" value="">
 					</li>
 					<li>
 						<b>Прикус языка:</b>
@@ -1943,7 +1947,7 @@
 							<option>нет</option>
 							<option>есть</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_prikus_out_text" value="">
 					</li>
 					<li>
 						<b>Фибриллярные подергивания:</b>
@@ -1951,7 +1955,7 @@
 							<option>нет</option>
 							<option>есть</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_fibrpod_out_text" value="">
 					</li>
 					<li><b>Двигательная сфера:  
 					</b> <textarea class="medium" name="e_diag_dvigsph_out" from="lastView@Двигательная сфера">{{e_diag_dvigsph_out}}</textarea></li>
@@ -1968,7 +1972,7 @@
 							<option>нет</option>
 							<option>не изменено</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_poloztela_out_text" value="">
 					</li>
 					<li>
 						<b>Непроизвольные движения:</b>
@@ -1981,7 +1985,7 @@
 							<option>дистония</option>
 							<option>атетоз</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_neprdviz_out_text" value="">
 					</li>
 					<li>
 						<b>Мышечная масса:</b>
@@ -1991,7 +1995,7 @@
 							<option>гипертрофия</option>
 							<option>гипотрофия</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_musmass_out_text" value="">
 					</li>
 					<li>
 						<b>Мышечный тонус:</b>
@@ -2012,7 +2016,7 @@
 							<option>&lt;</option>
 							<option>=</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_masstonus_out_text" value="">
 					</li>
 					<li>
 						<b>Мышечная сила:</b>
@@ -2040,7 +2044,7 @@
 							<option>справа</option>
 							<option>гемиплегия</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_masssil_out_text" value="">
 					</li>
 					<li><b>Координаторная сфера: 
 					</b> <textarea class="medium" name="e_diag_coordsph_out" from="lastView@Координаторная сфера">{{e_diag_coordsph_out}}</textarea></li>
@@ -2053,7 +2057,7 @@
 							<option>выполнение точных движений</option>
 							<option>выполнение альтернирующих движений</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_koorddiz_out_text" value="">
 					</li>
 					<li>
 						<b>Походка:</b>
@@ -2065,7 +2069,7 @@
 							<option>паркинсоническая</option>
 							<option>не изменена</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_pohodka_out_text" value="">
 					</li>
 					<li>
 						<b>Застывание в определенных позах:</b>
@@ -2073,7 +2077,7 @@
 							<option>нет</option>
 							<option>есть</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_zast_out_text" value="">
 					</li>
 					<li>
 						<b>Координаторные пробы:</b>
@@ -2095,7 +2099,7 @@
 							<option>дисдиадохокинез</option>
 							<option>дисметрия</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_koordprob_out_text" value="">
 					</li>
 					<li>
 						<b>Статическое равновесие:</b>
@@ -2114,7 +2118,7 @@
 							<option>влево</option>
 							<option>вперед, назад, не проверялся, не проверялась</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_statravn_out_text" value="">
 					</li>
 					<li>
 						<b>Атаксия:</b>
@@ -2127,7 +2131,7 @@
 							<option>не исследовалась</option>
 							<option>не выявлена</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_staksia_out_text" value="">
 					</li>
 					<li>
 						<b>Нарушения чувствительности:</b>
@@ -2148,7 +2152,7 @@
 							<option>по сегментарному типу</option>
 							<option>изменена</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_narushchuvs_out_text" value="">
 					</li>
 					<li>
 						<b>Болевая чувствительность:</b>
@@ -2158,7 +2162,7 @@
 							<option>гипалгезия</option>
 							<option>не исследована</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_bolchuvst_out_text" value="">
 					</li>
 					<li>
 						<b>Температурная чувствительность:</b>
@@ -2168,7 +2172,7 @@
 							<option>терманестезия</option>
 							<option>не исследована</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_tempchuvst_out_text" value="">
 					</li>
 					<li>
 						<b>Тактильная чувствительность:</b>
@@ -2177,7 +2181,7 @@
 							<option>гиперестезия</option>
 							<option>гипестезия</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_tempchuvst_out_text" value="">
 					</li>
 					<li>
 						<b>Вибрационная чувствительность:</b>
@@ -2186,7 +2190,7 @@
 							<option>не нарушена</option>
 							<option>не исследована</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_vibrchuvst_out_text" value="">
 					</li>
 					<li>
 						<b>Проприоцептивная чувствительность:</b>
@@ -2195,7 +2199,7 @@
 							<option>не нарушена</option>
 							<option>не исследована</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_propchucst_out_text" value="">
 					</li>
 					<li>
 						<b>Дискриминационная чувствительность:</b>
@@ -2212,7 +2216,7 @@
 							<option>не нарушен</option>
 							<option>не исследовалась</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_discrchuvst_out_text" value="">
 					</li>
 					<li><b>Рефлекторная сфера: 
 					</b> <textarea class="medium" name="e_diag_reflsph_out" from="lastView@Рефлекторная сфера">{{e_diag_reflsph_out}}</textarea></li>
@@ -2236,7 +2240,7 @@
 							<option>снижены</option>
 							<option>низкие</option>
 						</select>
-<input name="" value="{{}}">
+					<input name="e_diag_porverhkozref_out_text" value="">
 					</li>
 					<li>
 						<b>Сухожильные и периостальные рефлексы:</b>
@@ -2269,7 +2273,7 @@
 							<option>надбровный</option>
 							<option>низкие</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_syhozhilirepref_out_text" value="">
 					</li>
 					<li>
 						<b>Клонусы:</b>
@@ -2282,7 +2286,7 @@
 							<option>длительность</option>
 							<option>надколенника</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_klonusi_out_text" value="">
 					</li>
 					<li>
 						<b>Тремор:</b>
@@ -2306,7 +2310,7 @@
 							<option>слева</option>
 							<option>с двух сторон</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_tremor_out_text" value="">
 					</li>
 					<li>
 						<b>Патологические кистевые знаки:</b>
@@ -2320,7 +2324,7 @@
 							<option>Бехтерева</option>
 							<option>Россолимо</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_patologkistznak_out_text" value="">
 					</li>
 					<li>
 						<b>Патологические стопные знаки:</b>
@@ -2339,7 +2343,7 @@
 							<option>Гордона</option>
 							<option>Шеффера</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_patologstopznak_out_text" value="">
 					</li>
 					<li>
 						<b>Вертебральный статус:</b>
@@ -2374,7 +2378,7 @@
 							<option>грудного отдела позвоночника</option>
 							<option>пояснично-крестцового отдела позвоночника</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_vertstat_out_text" value="">
 					</li>
 					<li>
 						<b>Симптомы натяжения:</b>
@@ -2390,7 +2394,7 @@
 							<option>градусов</option>
 							<option>нет</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_simptomnatyz_out_text" value="">
 					</li>
 					<li>
 						<b>Симптомы орального автоматизма:</b>
@@ -2403,7 +2407,7 @@
 							<option>есть</option>
 							<option>нет</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_symptomoralavt_out_text" value="">
 					</li>
 					<li>
 						<b>Симптомы повышенной нервно-мышечной возбудимости:</b>
@@ -2413,7 +2417,7 @@
 							<option>Труссо</option>
 							<option>Хвостека</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_spnmv_out_text" value="">
 					</li>
 					<li>
 						<b>Письмо и чтение:</b>
@@ -2422,7 +2426,7 @@
 							<option>не нарушено</option>
 							<option>ценить не предоставляется возможным</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_pismoichten_out_text" value="">
 					</li>
 					<li>
 						<b>Апраксия:</b>
@@ -2431,7 +2435,7 @@
 							<option>нет</option>
 							<option>оценить не предоставляется возможным</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_apraksia_out_text" value="">
 					</li>
 					<li>
 						<b>Агнозия:</b>
@@ -2440,7 +2444,7 @@
 							<option>нет</option>
 							<option>оценить не предоставляется возможным</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_agnosia_out_text" value="">
 					</li>
 					<li>
 						<b>Вегетативная нервная система:</b>
@@ -2461,7 +2465,7 @@
 							<option>справа</option>
 							<option>слева</option>
 						</select>
-<input name="" value="{{}}">
+						<input name="e_diag_vegnervnsys_out_text" value="">
 					</li>
 
 					<li>
@@ -2470,7 +2474,7 @@
 					</li>
 					<li>
 						<b><h3>Status localis</h3></b>
-						<textarea name="e_diag_statuslocalis_out" from="lastView@Status localis">{{e_diag_main}}</textarea>
+						<textarea name="e_diag_statuslocalis_out" from="lastView@Status localis">{{e_diag_statuslocalis_out}}</textarea>
 					</li>
 				</ul>
 			</li>
@@ -2479,7 +2483,7 @@
 <h2>Результаты диагностических исследований</h2>
 <ul class='container'>
 
-	<li><b><h3>Инструментальные методы исследования: </h3></b>
+	<li><b><h3>Результаты инструментальных методов исследований: </h3></b>
 	<ul>
 		<div data-role="foreach" from="res">
 			<li>
@@ -2489,7 +2493,7 @@
 		</div>
 	</ul><textarea name="e_researchText">{{e_researchText}}</textarea></li>
 
-	<li><b><h3>Лабораторная диагностика:</h3></b>
+	<li><b><h3>Результаты клинико-лабораторных методов исследований:</h3></b>
 	<ul>
 		<div data-role="foreach" from="lab">
 			<li>
@@ -2499,6 +2503,10 @@
 	</ul>
 	<textarea name="e_anayseText">{{e_anayseText}}</textarea></li>
 	
+	<li class='bottomtop-bord'>
+		<p><b>RW:</b> {{RW}}</p>
+		<p><b>Рентгенография органов грудной клетки:</b>{{rendgetnographia_organov_grudnoy_kletki}}</p>
+	</li>
 	<li><b><h3>Консультации специалистов: </h3></b>
 	<ul>
 		<div data-role="foreach" from="cons">
@@ -2515,7 +2523,7 @@
 		<select multiple="multiple"  name="e_dinamic" value="{{e_dinamic}}">
 			<option>на фоне проведенного лечения достигнут клинический результат</option>
 		</select>
-<input name="" value="{{}}">
+		<input name="e_dinamic_text" value="">
 	</li>
 	<li>
 		<b>Выписан:</b>
@@ -2524,7 +2532,7 @@
 			<option>с улучшением</option>
 			<option>без изменений в состоянии</option>
 		</select>
-<input name="" value="{{}}">
+	<input name="e_signout_text" value="">
 	</li>
 	<li>
 		<b>Трудоспособность</b>
@@ -2535,7 +2543,7 @@
 			<option>стойко утрачена в связи с данным заболеванием</option>
 			<option>стойко утрачена в связи с другими причинами</option>
 		</select>
-<input name="" value="{{}}">
+		<input name="e_jobabb_text" value="">
 	</li>
 	<li>
 		<b>Больничный лист</b>
@@ -2543,7 +2551,7 @@
 			<option>выдавался</option>
 			<option>не выдавался</option>
 		</select>
-<input name="" value="{{}}">
+		<input name="e_hosplist_text" value="">
 	</li>
 </ul>
 
