@@ -8,7 +8,7 @@ function epicrizOut_edit($form,$mode,$id,$datatype) {
 
 	$eventStart = strtotime($event['createDatetime']);
 	$uploadData = strtotime('2015-08-14');
-	if ($eventStart < $uploadData ) {
+	if ($eventStart > $uploadData ) {
 		return epicrizOut_edit_old($form,$mode,$id,$datatype);
 	}
 
@@ -207,7 +207,7 @@ foreach($out->find("select[multiple] option") as $opt) {
 	// устанавливаем option для multiple select
 	$selname=pq($opt)->parent("select")->attr("name");$selname=substr($selname,0,-2);
 
-	if (in_array(pq($opt)->text(),$Item[$selname])) {pq($opt)->attr("set","set");}
+	if (in_array(strtolower(pq($opt)->text()),array_map('mb_strtolower', $Item[$selname]))) {pq($opt)->attr("set","set");}
 }
 
 
@@ -329,10 +329,35 @@ function fields_msk36($event_id,$orgstr="") {
 	$lastView = getAction($action_id);
 	$lastView = $lastView["data"]["fields"];
 
+
+	$event=mysqlReadItem("Event",$event_id);
+	$Diag=patientGetDiagnosis($event_id);
+	$SQL="SELECT a.* FROM Action AS a
+	INNER JOIN  Event AS e ON (a.event_id = e.id)
+	INNER JOIN  ActionType AS t ON t.id = a.actionType_id
+	WHERE e.id = {$event_id} 
+	# AND (a.setPerson_id = e.execPerson_id OR a.person_id = e.execPerson_id )
+	AND a.deleted = 0 
+	AND a.status = 2 
+	AND t.name LIKE '%осмотр%'
+	ORDER BY endDate ASC LIMIT 1";
+	$res=mysql_query($SQL) or die ("Query failed fields_msk36(): [1]" . mysql_error());
+	while($data = mysql_fetch_array($res)) {
+		$action_id=$data[0];
+		$first_diag_view=getActionProperties($data[0],"");
+	}
+	$action_in=getActionDataIn($event_id); // Осмотр в приёмном отделении
+	$firstDiagView = getAction($action_id);
+	$firstDiagView = $firstView["data"]["fields"];
+
+
+
+
 	// print_r($action_id);
 	$f=array(); // $f[""]="";
 	$docs=array();
 	
+
 
 	$docs["FirstOsmotr"]=$first_osmotr1;
 	$docs["DiaryLast"]=$DiaryLast;
@@ -340,6 +365,7 @@ function fields_msk36($event_id,$orgstr="") {
 	$docs["firstView"]=$firstView;
 	$docs["secondView"]=$secondView;
 	$docs["lastView"]=$lastView;
+	$docs['firstDiagView'] = $firstDiagView;
 	// print_r('fsdfsd');
 	getTemplateValues($docs);
 	return $f;
@@ -603,7 +629,10 @@ function epicConsPrep($event_id) {
 				$info=array();
 				foreach($action["fields"] as $key => $val) {
 					$val=$val["value"]; 
-					if (!in_array($key,$excludefld) AND $val>"") {$info[]="<b>$key</b>: $val";}
+					$key = str_replace(':', '', $key);
+					if ($key == 'Заключение') {
+						if (!in_array($key,$excludefld) AND $val>"") {$info[]="<b>$key</b>: $val";}
+					}
 				}
 				$res[]["cons"]="<b>".$line["name"]."</b><br>".implode(", ",$info);
 			}

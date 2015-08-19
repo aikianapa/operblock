@@ -18,19 +18,19 @@
 </p>
 
 <ul class="fields">
-		<li><b>Фамилия, Имя, Отчество:</b> {{client}}, <b>возраст</b> {{age}}</li>
+		<li><b>Фамилия, Имя, Отчество:</b> {{client}}, <b>возраст</b> {{age}} лет</li>
 
 		<li class="bord">
 		<ul>
-		<li> <b>Находился(-лась) на стационарном лечении</b> с {{s_date1}} 	по {{s_date2}}   </li>
-		<li> <b>Проживает</b>: {{client_adress}} </li>
+		<li> <b>Находился(-лась) на стационарном лечении</b> с {{s_date1}} 	по <input type="text" class="medium" name="endDate" value="{{s_date2}}">  </li>
+		<li> <b>Проживает</b>: <input type="text" class="medium" name="client_adress" value="{{client_adress}}"> </li>
 
 		<li><b><h2>Диагноз при поступлении:</h2></b>
 			<ul class="block">
-				<li><b class="bottom-bord">Основное заболевание:</b><textarea name="e_diag_main_in" from="firstView@Основное заболевание">{{e_diag_main_in}}</textarea></li>
-				<li><b class="bottom-bord">Фоновые заболевания:</b><textarea name="e_diag_fon_in" from="firstView@Фоновые заболевания">{{e_diag_fon_in}}</textarea></li>
-				<li><b class="bottom-bord">Осложнения основного заболевания:</b><textarea name="e_diag_comp_in" from="firstView@Осложнения основного заболевания:">{{e_diag_comp_in}}</textarea></li>
-				<li><b class="bottom-bord">Сопутствующие заболевания:</b><textarea name="e_diag_satt_in" from="firstView@Сопутствующие заболевания:">{{e_diag_satt_in}}</textarea></li>
+				<li><b class="bottom-bord">Основное заболевание:</b><textarea name="e_diag_main_in" from="firstDiagView@Основное заболевание">{{e_diag_main_in}}</textarea></li>
+				<li><b class="bottom-bord">Фоновые заболевания:</b><textarea name="e_diag_fon_in" from="firstDiagView@Фоновые заболевания">{{e_diag_fon_in}}</textarea></li>
+				<li><b class="bottom-bord">Осложнения основного заболевания:</b><textarea name="e_diag_comp_in" from="firstDiagView@Осложнения основного заболевания:">{{e_diag_comp_in}}</textarea></li>
+				<li><b class="bottom-bord">Сопутствующие заболевания:</b><textarea name="e_diag_satt_in" from="firstDiagView@Сопутствующие заболевания:">{{e_diag_satt_in}}</textarea></li>
 			</ul>
 		</li>
 		<li><b><h2>Диагноз при выписке:</h2></b>
@@ -257,12 +257,12 @@
 			</li>
 
 			<li>
-				<b><h3>Неврологический и психический статус:</h3></b>
-				<ul class="container">
+				<b><h3>Неврологический и психический статус: <button name="nevr-toggle-in">Скрыть</button></h3></b>
+				<ul class="container" name='nevr-status-in'>
 					<li>
 						<b>Уровень сознания:</b>
-						<select multiple="multiple" name="e_diag_soznur_in[]" :value="{{e_diag_soznur_in}}" lol="lol" multiple="multiple" from="firstView@Уровень сознания">
-							<option>в сознании – 15 б</option>
+						<select multiple="multiple" name="e_diag_soznur_in[]" :value="{{e_diag_soznur_in}}" multiple="multiple" from="firstView@Уровень сознания">
+							<option> в сознании -15б</option>
 							<option>заторможенность</option>
 							<option>оглушенность 13-14 б</option>
 							<option>сопор 9-12 б</option>
@@ -1000,7 +1000,7 @@
 					<li>
 						<b>Поверхностные кожные рефлексы:</b>
 						<select multiple="multiple" name="e_diag_porverhkozref_in[]" value="{{e_diag_porverhkozref_in}}" from="firstView@Поверхностные кожные рефлексы">
-							<option>брюшные Th10-Th11-Th12 (верхний, средний, нижний),</option>
+							<option>брюшные Th10-Th11-Th12 (верхний, средний, нижний)</option>
 							<option>отсутствуют</option>
 							<option>вызывается</option>
 							<option>D</option>
@@ -1462,7 +1462,7 @@
 							<option>мягкий</option>
 							<option>закруглен</option>
 						</select>
-						<input name="_text" value="e_diag_liver_out">
+						<input name="e_diag_liver_out_text" value="">
 					</li>
 					<li>
 						<b>Симптом поколачивания по поясничной области:</b>
@@ -1478,8 +1478,8 @@
 			</li>
 
 			<li>
-				<b><h3>Неврологический и психический статус:</h3></b>
-				<ul class="container">
+				<b><h3>Неврологический и психический статус: <button name="nevr-toggle-in">Скрыть</button></h3></b>
+				<ul class="container" name='nevr-status-in'>
 					<li>
 						<b>Уровень сознания:</b>
 						<select multiple="multiple"  name="e_diag_soznur_out[]" value="{{e_diag_soznur_out}}" multiple="multiple" from="lastView@Уровень сознания">
@@ -1692,7 +1692,7 @@
 							<option>проверить невозможно</option>
 							<option>гемианопсия</option>
 						</select>
-						<input name="_text" value="e_diag_gepoksia_out">
+						<input name="e_diag_gepoksia_out_text" value="">
 					</li>
 					<li><b>Цветоощущение:
 					</b> <textarea class="medium" name="e_diag_cvetoosh_out" from="lastView@Цветоощущение">{{e_diag_cvetoosh_out}}</textarea></li>
@@ -2595,15 +2595,20 @@ console.log($('#form-027u .container li'));
 $("#form-027u select[multiple]").each(function(){
 	$(this).css("height",$(this).find("option").length*18+"px");
 });
-// $('#form-027u .container li').hover( function(e){
-// 	console.log(e);
-// 	console.log(this);
-// 	$( this ).css('border', '1px black solid');
-// }, function(){
-// 	console.log('металкоре');
-// 	$( this ).css('border', '');
-// });
-	
-// $(document).on("mouseenter","#form-027u .container li",function() {
+
+
+$(document).on("click","#form-027u button[name=nevr-toggle-in]",function(e) {
+	e.preventDefault();
+	if(e.handled !== true) {
+		e.handled = true;
+		console.log($(this).parent().parent().parent());
+		$(this).parent().parent().parent().find('ul[name=nevr-status-in]').slideToggle( "fast" );
+	  	if ($(this).html() == 'Показать') {
+	  		$(this).html('Скрыть');
+	  	} else {
+	  		$(this).html('Показать');
+	  	}
+  	}
+});
 
 </script>
