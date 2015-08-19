@@ -8,7 +8,7 @@ function epicrizOut_edit($form,$mode,$id,$datatype) {
 
 	$eventStart = strtotime($event['createDatetime']);
 	$uploadData = strtotime('2015-08-14');
-	if ($eventStart > $uploadData ) {
+	if ($eventStart < $uploadData ) {
 		return epicrizOut_edit_old($form,$mode,$id,$datatype);
 	}
 
