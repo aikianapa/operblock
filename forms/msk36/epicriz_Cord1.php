@@ -27,10 +27,10 @@
 
 		<li><b><h2>Диагноз при поступлении:</h2></b>
 			<ul class="block">
-				<li><b class="bottom-bord">Основное заболевание:</b><textarea name="e_diag_main_in" from="firstDiagView@Основное заболевание">{{e_diag_main_in}}</textarea></li>
-				<li><b class="bottom-bord">Фоновые заболевания:</b><textarea name="e_diag_fon_in" from="firstDiagView@Фоновые заболевания">{{e_diag_fon_in}}</textarea></li>
-				<li><b class="bottom-bord">Осложнения основного заболевания:</b><textarea name="e_diag_comp_in" from="firstDiagView@Осложнения основного заболевания:">{{e_diag_comp_in}}</textarea></li>
-				<li><b class="bottom-bord">Сопутствующие заболевания:</b><textarea name="e_diag_satt_in" from="firstDiagView@Сопутствующие заболевания:">{{e_diag_satt_in}}</textarea></li>
+				<li><b class="bottom-bord">Основное заболевание:</b><textarea name="e_diag_main_in" from="firstView@Основное заболевание">{{e_diag_main_in}}</textarea></li>
+				<li><b class="bottom-bord">Фоновые заболевания:</b><textarea name="e_diag_fon_in" from="firstView@Фоновые заболевания">{{e_diag_fon_in}}</textarea></li>
+				<li><b class="bottom-bord">Осложнения основного заболевания:</b><textarea name="e_diag_comp_in" from="firstView@Осложнения основного заболевания:">{{e_diag_comp_in}}</textarea></li>
+				<li><b class="bottom-bord">Сопутствующие заболевания:</b><textarea name="e_diag_satt_in" from="firstView@Сопутствующие заболевания:">{{e_diag_satt_in}}</textarea></li>
 			</ul>
 		</li>
 		<li><b><h2>Диагноз при выписке:</h2></b>
@@ -42,7 +42,11 @@
 			</ul>
 		</li>
 
-		
+		<li><p style="text-align:center;"><b>Код стандарта:</b> <input name="e_code1" class="small"> <b>Шифр по МКБ-10:</b> <input name="e_code2" class="small"></p></li>
+		<li><b>Жалобы при поступлении:</b><textarea name="e_complaint1" from="firstView@Жалобы">{{e_complaint1}}</textarea> </li>
+		<li><b>An.morbi:</b><textarea name="e_anamnez1" from="firstView@Anamnesis morbi">{{e_anamnez1}}</textarea> </li>
+		<li><b>An.vitae:</b><textarea name="e_an_vitae" from="firstView@Anamnesis vitae">{{e_an_vitae}}</textarea> </li>
+		<li><b>Состояние при поступлении:</b><textarea name="e_stateIn">{{e_stateIn}}</textarea></li>
 		<h2>Состояние при поступлении</h2>
 		<ul>
 			<li>
@@ -262,7 +266,7 @@
 					<li>
 						<b>Уровень сознания:</b>
 						<select multiple="multiple" name="e_diag_soznur_in[]" :value="{{e_diag_soznur_in}}" multiple="multiple" from="firstView@Уровень сознания">
-							<option> в сознании -15б</option>
+							<option>в сознании -15б</option>
 							<option>заторможенность</option>
 							<option>оглушенность 13-14 б</option>
 							<option>сопор 9-12 б</option>
@@ -1261,7 +1265,7 @@
 		</li>
 
 		<h2>Состояние при выписке</h2>
-		<ul>
+		<ul class='bottom-bord'>
 			<li>
 				<h3><b>Status praesens:</b></h3> 
 				<ul class="container">
@@ -1278,7 +1282,7 @@
 					<li><b>Сознание:</b> <textarea class="medium" name="e_diag_mind_out" from="lastView@Сознание">{{e_diag_mind_out}}</textarea></li>
 					<li><b>Кожные покровы и видимые слизистые:</b> <textarea class="medium" name="e_diag_skin_in" from="lastView@Кожные покровы и видимые слизистые">{{e_diag_skin_out}}</textarea></li>
 					<li><b>Отёки:</b>
-						<textarea class="medium" name="e_diag_edema_in" from="lastView@Отёки">{{e_diag_edema_out}}</textarea></li>
+						<textarea class="medium" name="e_diag_edema_in" from="lastView@Отёки">{{e_diag_edema_out}}</textarea>
 					</li>
 				</ul>
 			</li> 
@@ -2514,7 +2518,19 @@
 		</div>
 	</ul>
 	<textarea name="e_consultText">{{e_consultText}}</textarea></li>
+	<li>
+		<textarea name="e_therapy_text">
+			Пациент пролечен по ВМП-ОМС. -талон № 45.1110.18847.159
+			Профиль ВМП-сердечно–сосудистая хирургия
+			Код вида ВМП–14.00.21.001
+			Наименование вида ВМП:  коронарнаяреваскуляризация миокарда с применением ангиопластики в сочетание со стентирование при ишемической болезни сердца. 
+			Код диагноза по МКБ -10: I21.0
+			Модель пациента: ИБС, со стентированием 1-3 коронарный артерий
 
+			Метод лечения:баллоннаявазодилятация с установкой стента в сосуд-сосуды. 
+			ВМП выполнено, койко-дней - 8
+		</textarea>
+	</li>
 	<li> 
 		<b>Общая лучевая нагрузка:</b> 
 		<textarea class="medium" name="e_pulmFreq_in" from="firstView@Общая лучевая нагрузка"></textarea></li>
