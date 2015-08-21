@@ -23,7 +23,7 @@
 		<li class="bord">
 		<ul>
 		<li> <b>Находился(-лась) на стационарном лечении</b> с {{s_date1}} 	по <input type="text" class="medium" name="endDate" value="{{s_date2}}">  </li>
-		<li> <b>Проживает</b>: <input type="text" class="medium" name="client_adress" value="{{client_adress}}"> </li>
+		<li> <b>Адрес проживания</b>: <input type="text" class="medium" name="client_adress" value="{{client_adress}}"> </li>
 
 		<li><b><h2>Диагноз при поступлении:</h2></b>
 			<ul class="block">
@@ -43,12 +43,12 @@
 		</li>
 
 		<li><p style="text-align:center;"><b>Код стандарта:</b> <input name="e_code1" class="small"> <b>Шифр по МКБ-10:</b> <input name="e_code2" class="small"></p></li>
-		<li><b>Жалобы при поступлении:</b><textarea name="e_complaint1" from="firstView@Жалобы">{{e_complaint1}}</textarea> </li>
-		<li><b>An.morbi:</b><textarea name="e_anamnez1" from="firstView@Anamnesis morbi">{{e_anamnez1}}</textarea> </li>
-		<li><b>An.vitae:</b><textarea name="e_an_vitae" from="firstView@Anamnesis vitae">{{e_an_vitae}}</textarea> </li>
-		<li><b>Состояние при поступлении:</b><textarea name="e_stateIn">{{e_stateIn}}</textarea></li>
 		<h2>Состояние при поступлении</h2>
-		<ul>
+		<ul class="block">
+			<li><b>Жалобы при поступлении:</b><textarea name="e_complaint1" from="firstView@Жалобы">{{e_complaint1}}</textarea> </li>
+			<li><b>An.morbi:</b><textarea name="e_anamnez1" from="firstView@Anamnesis morbi">{{e_anamnez1}}</textarea> </li>
+			<li><b>An.vitae:</b><textarea name="e_an_vitae" from="firstView@Anamnesis vitae">{{e_an_vitae}}</textarea> </li>
+			<li><b>Состояние при поступлении:</b><textarea name="e_stateIn">{{e_stateIn}}</textarea></li>
 			<li>
 				<h3><b>Status praesens:</b></h3> 
 				<ul>
@@ -2520,11 +2520,11 @@
 	<textarea name="e_consultText">{{e_consultText}}</textarea></li>
 	<li>
 		<textarea name="e_therapy_text">
-			Пациент пролечен по ВМП-ОМС. -талон № 45.1110.18847.159
+			Пациент пролечен по ВМП-ОМС. -талон № 
 			Профиль ВМП-сердечно–сосудистая хирургия
 			Код вида ВМП–14.00.21.001
 			Наименование вида ВМП:  коронарнаяреваскуляризация миокарда с применением ангиопластики в сочетание со стентирование при ишемической болезни сердца. 
-			Код диагноза по МКБ -10: I21.0
+			Код диагноза по МКБ -10:
 			Модель пациента: ИБС, со стентированием 1-3 коронарный артерий
 
 			Метод лечения:баллоннаявазодилятация с установкой стента в сосуд-сосуды. 
@@ -2562,7 +2562,7 @@
 		<input name="e_jobabb_text" value="">
 	</li>
 	<li>
-		<b>Больничный лист</b>
+		<b>Лист нетрудоспособности № </b> <input class="small" name="e_hosplist_numb" value=""> 
 		<select multiple="multiple"  name="e_hosplist" value="{{e_hosplist}}">
 			<option>выдавался</option>
 			<option>не выдавался</option>
@@ -2570,7 +2570,6 @@
 		<input name="e_hosplist_text" value="">
 	</li>
 </ul>
-
 <h2><b>Рекомендации по дальнейшему ведению пациента: </b></h2>
 <ol>
 <li><b>Диета:</b>
@@ -2586,7 +2585,13 @@
 <textarea name="e_recom_kurort">{{e_recom_kurort}}</textarea>
 </li>
 <li><b>Диспансеризация и наблюдение врачами-специалистами:</b>
-<textarea name="e_recom_disp">{{e_recom_disp}}</textarea>
+<textarea name="e_recom_disp">{{e_recom_disp}}</textarea> 
+<br/>
+<b>Выписан под наблюдение врача <input class="medium" name="e_recom_homedoctor" /> по месту жительства
+</li>
+<br/>
+<li><b>Явка в поликлинику:</b>
+<textarea name="e_recom_policlinic">{{e_recom_policlinic}}</textarea> 
 </li>
 <br/>
 <textarea name="e_recom7" placeholder="Сохранять выписной эпикриз, ЭКГ. Предоставить выписку при последующих госпитализациях.">{{e_recom7}}</textarea>
