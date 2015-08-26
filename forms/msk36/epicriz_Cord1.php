@@ -54,7 +54,7 @@
 				<ul>
 					<li>
 						<b>Общее состояние:</b> 
-						<select multiple="multiple" name="e_diag_sost_in[]" value="{{e_diag_sost_in}}" from="firstView@Status praesens:Общее состояние">
+						<select multiple="multiple" name="e_diag_sost_in[]" value="{{e_diag_sost_in}}" from="firstView@Status praesens: Общее состояние">
 							<option>Удовлетворительное</option>
 							<option>Средней тяжести</option>
 							<option>Тяжелое</option>
@@ -1271,7 +1271,7 @@
 				<ul class="container">
 					<li>
 						<b>Общее состояние:</b> 
-						<select multiple="multiple" name="e_diag_sost_out[]" value="{{e_diag_sost_out}}" from="lastView@Общее состояние" >
+						<select multiple="multiple" name="e_diag_sost_out[]" value="{{e_diag_sost_out}}" from="lastView@Status praesens: Общее состояние:" >
 							<option>удовлетворительное</option>
 							<option>средней тяжести</option>
 							<option>тяжелое</option>
@@ -2508,8 +2508,8 @@
 	<textarea name="e_anayseText">{{e_anayseText}}</textarea></li>
 	
 	<li class='bottomtop-bord'>
-		<p><b>RW:</b> {{RW}}</p>
-		<p><b>Рентгенография органов грудной клетки:</b>{{rendgetnographia_organov_grudnoy_kletki}}</p>
+		<p><b>RW:</b><textarea name="RW">{{RW}}</textarea></p>
+		<p><b>Рентгенография органов грудной клетки:</b><textarea name="rendgetnographia_organov_grudnoy_kletki">{{rendgetnographia_organov_grudnoy_kletki}}</textarea></p>
 	</li>
 	<li><b><h3>Консультации специалистов: </h3></b>
 	<ul>
@@ -2576,23 +2576,17 @@
 <textarea name="e_recom_dieta">{{e_recom_dieta}}</textarea>
 </li>
 <li><b>Лекарственные препараты:</b>
-<textarea name="e_recom_drugs">{{e_recom_drugs}}</textarea>
+<textarea name="Drugs">{{Drugs}}</textarea>
 </li>
-<li><b>Санаторно-курортное лечение:</b>
-<textarea name="e_recom_kurort">{{e_recom_kurort}}</textarea>
+<li><b>Выписан под наблюдение врача <input class="medium" name="e_recom_homedoctor" /> по месту жительства
 </li>
-<li><b>Реабилитационные мероприятия:</b>
-<textarea name="e_recom_kurort">{{e_recom_kurort}}</textarea>
-</li>
-<li><b>Диспансеризация и наблюдение врачами-специалистами:</b>
-<textarea name="e_recom_disp">{{e_recom_disp}}</textarea> 
-<br/>
-<b>Выписан под наблюдение врача <input class="medium" name="e_recom_homedoctor" /> по месту жительства
-</li>
-<br/>
 <li><b>Явка в поликлинику:</b>
 <textarea name="e_recom_policlinic">{{e_recom_policlinic}}</textarea> 
 </li>
+<li><b>Дополнительная информация:</b>
+<textarea name="e_dop_information">{{e_dop_information}}</textarea> 
+</li>
+<br/>
 <br/>
 <textarea name="e_recom7" placeholder="Сохранять выписной эпикриз, ЭКГ. Предоставить выписку при последующих госпитализациях.">{{e_recom7}}</textarea>
 </ol>

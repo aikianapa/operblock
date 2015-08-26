@@ -307,6 +307,8 @@ function fields_msk36($event_id,$orgstr="") {
 	// $first_osmotr1=$first_osmotr1["data"]["fields"];
 	$firstView = getAction($action_id);
 	$firstView = $firstView["data"]["fields"];
+	print_r('firstView1');
+	print_r($firstView);
 
 	$SQL="SELECT a.* FROM Action AS a
 	INNER JOIN  Event AS e ON (a.event_id = e.id and a.person_id = e.execPerson_id)
@@ -403,10 +405,14 @@ function getTemplateValues($docs=array()) {
 					$val=array(); $val[0]=pq($inc)->attr("value");
 				}
 				foreach(pq($inc)->find("option") as $opt) {
+					$collective_output = '';
 					foreach($val as $k => $v) {
-						if (pq($opt)->text()==$v AND $multi==true) {pq($opt)->attr("set","set");}
+						if (mb_strtolower(pq($opt)->text(), 'UTF-8') == mb_strtolower($v,'UTF-8') AND $multi==true) {
+							pq($opt)->attr("set","set");
+						} 
 						if (pq($opt)->text()==$v AND $multi==false) {pq($opt)->attr("selected","selected");}
 					}
+					
 				}
 			}
 			
@@ -591,14 +597,16 @@ function epicLabPrep($event_id,$aType) {
 					pq($doc)->find("table")->prepend("<tr><th colspan='2'>{$time} {$line["name"]}</th><th>Норма</th><th>Ед.изм.</th></tr>");
 					foreach($action as $key => $val) {
 						if (!in_array($key,$exclude) AND $val>"") {
-							if (substr($key,-1)==":") {$name=$key;} else {$name=$key.":";}
-							if (is_array($val)) {
-								$value=htmlspecialchars($val["value"]); 
-								$unit=$val["unit"];
-								$norm=$val["norm"];
-							} else {$value=$val; $unit="";}
-							$info[]="<b>{$name}</b> {$value}";
-							pq($doc)->find("table")->append("<tr><td>{$name}</td><td>{$value}</td><td>{$norm}</td><td>{$unit}</td></tr>");
+							if (!($aType == "Инструментальная диагностика" and $key == "Описание:" and !preg_match('/эхо-кг/iu', $line['name'])) ) {
+								if (substr($key,-1)==":") {$name=$key;} else {$name=$key.":";}
+								if (is_array($val)) {
+									$value=htmlspecialchars($val["value"]); 
+									$unit=$val["unit"];
+									$norm=$val["norm"];
+								} else {$value=$val; $unit="";}
+								$info[]="<b>{$name}</b> {$value}";
+								pq($doc)->find("table")->append("<tr><td>{$name}</td><td>{$value}</td><td>{$norm}</td><td>{$unit}</td></tr>");
+							}
 						}
 					}
 					if ($aType!="Лабораторные исследования") {
@@ -607,7 +615,6 @@ function epicLabPrep($event_id,$aType) {
 							pq($tab)->find("th:eq(1),th:eq(2)")->remove();
 						}
 					}
-					
 					$res[]["lab"]=pq($doc)->htmlOuter();
 				}
 //			}
