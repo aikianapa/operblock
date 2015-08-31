@@ -148,6 +148,7 @@
 							<option>изменена</option>
 							<option>не изменена</option>
 						</select>
+						<input name="e_diag_obl_pochk_in_text" value="">
 					</li>
 					<li>
 						<b>Симптом поколачивания по поясничной области:</b>
@@ -156,6 +157,7 @@
 							<option>положительный справа</option>
 							<option>положительный слева</option>
 						</select>
+						<input name="e_diag_simp_pok_poys_obl_in_text" value="">
 					</li>
 					<li>
 						<b>Мочеиспускание:</b>
@@ -166,6 +168,7 @@
 							<option>анурия</option>
 							<option>никтурия</option>
 						</select>
+						<input name="e_diag_mocheisp_in" value="">
 					</li>
 				</ul>
 
@@ -1398,6 +1401,7 @@
 							<option>изменена</option>
 							<option>не изменена</option>
 						</select>
+						<input name="e_diag_obl_pochk_out_text" value="">
 					</li>
 					<li>
 						<b>Симптом поколачивания по поясничной области:</b>
@@ -1406,6 +1410,7 @@
 							<option>положительный справа</option>
 							<option>положительный слева</option>
 						</select>
+						<input name="e_diag_simp_pok_poys_obl_out_text" value="">
 					</li>
 					<li>
 						<b>Мочеиспускание:</b>
@@ -1416,6 +1421,7 @@
 							<option>анурия</option>
 							<option>никтурия</option>
 						</select>
+						<input name="e_diag_mocheisp_out_text" value="">
 					</li>
 				</ul>
 
