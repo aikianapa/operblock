@@ -597,7 +597,7 @@ function epicLabPrep($event_id,$aType) {
 					pq($doc)->find("table")->prepend("<tr><th colspan='2'>{$time} {$line["name"]}</th><th>Норма</th><th>Ед.изм.</th></tr>");
 					foreach($action as $key => $val) {
 						if (!in_array($key,$exclude) AND $val>"") {
-							if (!($aType == "Инструментальная диагностика" and $key == "Описание:" and !preg_match('/эхо-кг/iu', $line['name'])) ) {
+							if (!($aType == "Инструментальная диагностика" and $key == "Описание:" and !preg_match('/эхо/iu', $line['name'])) ) {
 								if (substr($key,-1)==":") {$name=$key;} else {$name=$key.":";}
 								if (is_array($val)) {
 									$value=htmlspecialchars($val["value"]); 

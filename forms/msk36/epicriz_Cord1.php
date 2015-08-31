@@ -7,8 +7,8 @@
 <input type="hidden" name="action_id">
 <input type="hidden" name="event_id">
 <input type="hidden" name="person_id">
-<p style="text-align:center;">
-<b>{{OrgName}} г.Москвы<br />
+<p style="text-align:center; font-size:14pt;">
+<b><b>{{OrgName}} г.Москвы </b><br />
 {{orgStr}}<br /></p>
 <hr />
 <p style="text-align:center;">
@@ -49,7 +49,7 @@
 
 		<li><p style="text-align:center;"><b>Код стандарта:</b> <input name="e_code1" class="small"> <b>Шифр по МКБ-10:</b> <input name="e_code2" class="small"></p></li>
 		<h2>Состояние при поступлении</h2>
-		<ul class="block">
+		<ul>
 			<li><b>Жалобы при поступлении:</b><textarea name="e_complaint1" from="FirstOsmotr@Жалобы">{{e_complaint1}}</textarea> </li>
 			<li><b>An.morbi:</b><textarea name="e_anamnez1" from="firstView@Anamnesis morbi">{{e_anamnez1}}</textarea> </li>
 			<li><b>An.vitae:</b><textarea name="e_an_vitae" from="firstView@Anamnesis vitae">{{e_an_vitae}}</textarea> </li>
@@ -140,7 +140,38 @@
 				</ul>
 			</li>
 			<li>
-				<b><h3>Органы кровообращения:</h3></b>
+				<b><h3>Органы мочевыделения</h3></b>
+				<ul class="container">
+					<li>
+						<b>Область почек:</b>
+						<select multiple="multiple" name='e_diag_obl_pochk_in[]' value='{{e_diag_obl_pochk_in}}' from="firstView@Область почек">
+							<option>изменена</option>
+							<option>не изменена</option>
+						</select>
+					</li>
+					<li>
+						<b>Симптом поколачивания по поясничной области:</b>
+						<select multiple="multiple" name='e_diag_simp_pok_poys_obl_in[]' value='{{e_diag_simp_pok_poys_obl_in}}' from="firstView@ОСимптом поколачивания по поясничной области">
+							<option>отрицательный с обеих сторон</option>
+							<option>положительный справа</option>
+							<option>положительный слева</option>
+						</select>
+					</li>
+					<li>
+						<b>Мочеиспускание:</b>
+						<select multiple="multiple" name='e_diag_mocheisp_in[]' value='{{e_diag_mocheisp_in}}' from="firstView@Мочеиспускание">
+							<option>дизурии нет</option>
+							<option>затруднено</option>
+							<option>учащенное</option>
+							<option>анурия</option>
+							<option>никтурия</option>
+						</select>
+					</li>
+				</ul>
+
+			</li>
+			<li>
+				<b><h3>Органы кровообращения</h3></b>
 				<ul class="container">
 					
 				<li>
@@ -188,7 +219,7 @@
 					<input name="e_diag_shumi_in_text" value="">
 				</li>
 				<li>
-					<b>Пульсация на периферических артериях</b>
+					<b>Пульсация на периферических артериях:</b>
 					<select multiple="multiple" name='e_diag_pulsnaperar_in[]' value='{{e_diag_pulsnaperar_in}}' from="firstView@Пульсация на периферических артериях">
 						<option>есть</option>
 						<option>нет</option>
@@ -207,7 +238,7 @@
 
 			</li>
 			<li>
-				<b><h3>Органы пищеварения:</h3></b>
+				<b><h3>Органы пищеварения</h3></b>
 				<ul class="container">
 					<li>
 						<b>Живот:</b>
@@ -252,7 +283,7 @@
 						<input name="e_diag_liver_in_text" value="">
 					</li>
 					<li>
-						<b>Симптом поколачивания по поясничной области</b>
+						<b>Симптом поколачивания по поясничной области:</b>
 						<select multiple="multiple" name='e_diag_simpokpopoobl_in[]' value='{{e_diag_simpokpopoobl_in}}' multiple="multiple" from="firstView@Симптом поколачивания по поясничной области">
 							<option>отрицательный с обеих сторон</option>
 							<option>положительный справа</option>
@@ -265,7 +296,7 @@
 			</li>
 
 			<li>
-				<b><h3>Неврологический и психический статус: <button name="nevr-toggle-in">Скрыть</button></h3></b>
+				<b><h3>Неврологический и психический статус <button name="nevr-toggle-in">Скрыть</button></h3></b>
 				<ul class="container" name='nevr-status-in'>
 					<li>
 						<b>Уровень сознания:</b>
@@ -1254,11 +1285,11 @@
 					</li>
 
 					<li>
-						<b><h3>Status vascularis</h3></b>
+						<b><h3>Status vascularis:</h3></b>
 						<textarea name="e_diag_statusvasc_in" from="firstView@Status vascularis">{{e_diag_statusvasc_in}}</textarea>
 					</li>
 					<li>
-						<b><h3>Status localis</h3></b>
+						<b><h3>Status localis</h3>:</b>
 						<textarea name="e_diag_statuslocalis_in" from="firstView@Status localis">{{e_diag_statuslocalis_in}}</textarea>
 					</li>
 				</ul>
@@ -1334,7 +1365,7 @@
 					</li>
 					<li>
 						<b>Хрипы:</b>
-						<select multiple="multiple"  name='e_diag_hrip_out[]' value='{{e_diag_hrip_out[]}}' from="lastView@Хрипы">
+						<select multiple="multiple"  name='e_diag_hrip_out[]' value='{{e_diag_hrip_out}}' from="lastView@Хрипы">
 							<option>есть</option>
 							<option>нет</option>
 							<option>влажные звонкие мелкопузырчатые</option>
@@ -1359,7 +1390,38 @@
 				</ul>
 			</li>
 			<li>
-				<b><h3>Органы кровообращения:</h3></b>
+				<b><h3>Органы мочевыделения</h3></b>
+				<ul class="container">
+					<li>
+						<b>Область почек:</b>
+						<select multiple="multiple" name='e_diag_obl_pochk_out[]' value='{{e_diag_obl_pochk_out}}' from="lastView@Область почек">
+							<option>изменена</option>
+							<option>не изменена</option>
+						</select>
+					</li>
+					<li>
+						<b>Симптом поколачивания по поясничной области:</b>
+						<select multiple="multiple" name='e_diag_simp_pok_poys_obl_out[]' value='{{e_diag_simp_pok_poys_obl_out}}' from="lastView@ОСимптом поколачивания по поясничной области">
+							<option>отрицательный с обеих сторон</option>
+							<option>положительный справа</option>
+							<option>положительный слева</option>
+						</select>
+					</li>
+					<li>
+						<b>Мочеиспускание:</b>
+						<select multiple="multiple" name='e_diag_mocheisp_out[]' value='{{e_diag_mocheisp_out}}' from="lastView@Мочеиспускание">
+							<option>дизурии нет</option>
+							<option>затруднено</option>
+							<option>учащенное</option>
+							<option>анурия</option>
+							<option>никтурия</option>
+						</select>
+					</li>
+				</ul>
+
+			</li>
+			<li>
+				<b><h3>Органы кровообращения</h3></b>
 				<ul class="container">
 					
 				<li>
@@ -1407,7 +1469,7 @@
 					<input name="e_diag_shumi_out_text" value="">
 				</li>
 				<li>
-					<b>Пульсация на периферических артериях</b>
+					<b>Пульсация на периферических артериях:</b>
 					<select multiple="multiple"  name='e_diag_pulsnaperar_out[]' value='{{e_diag_pulsnaperar_out}}' from="lastView@Пульсация на периферических артериях">
 						<option>есть</option>
 						<option>нет</option>
@@ -1428,7 +1490,7 @@
 
 			</li>
 			<li>
-				<b><h3>Органы пищеварения:</h3></b>
+				<b><h3>Органы пищеварения</h3></b>
 				<ul class="container">
 					<li>
 						<b>Живот:</b>
@@ -1486,7 +1548,7 @@
 			</li>
 
 			<li>
-				<b><h3>Неврологический и психический статус: <button name="nevr-toggle-in">Скрыть</button></h3></b>
+				<b><h3>Неврологический и психический статус <button name="nevr-toggle-in">Скрыть</button></h3></b>
 				<ul class="container" name='nevr-status-in'>
 					<li>
 						<b>Уровень сознания:</b>
@@ -2477,11 +2539,11 @@
 					</li>
 
 					<li>
-						<b><h3>Status vascularis</h3></b>
+						<b><h3>Status vascularis:</h3></b>
 						<textarea name="e_diag_statusvasc_out" from="lastView@Status vascularis">{{e_diag_statusvasc_out}}</textarea>
 					</li>
 					<li>
-						<b><h3>Status localis</h3></b>
+						<b><h3>Status localis:</h3></b>
 						<textarea name="e_diag_statuslocalis_out" from="lastView@Status localis">{{e_diag_statuslocalis_out}}</textarea>
 					</li>
 				</ul>
