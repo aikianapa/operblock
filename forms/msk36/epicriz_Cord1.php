@@ -2502,11 +2502,12 @@
 	</ul><textarea name="e_researchText">{{e_researchText}}</textarea></li>
 
 	<li><b><h3>Результаты клинико-лабораторных методов исследований:</h3></b>
-	<ul>
+	<ul class='lab-test'>
 		<div data-role="foreach" from="lab">
 			<li>
 				<a href='#del' class='del_fld'><span class="ui-icon ui-icon-circle-close"></span></a>
-				<p>{{lab}}</p></li>
+				<p>{{lab}}</p>
+			</li>
 		</div>
 	</ul>
 	<textarea name="e_anayseText">{{e_anayseText}}</textarea></li>
