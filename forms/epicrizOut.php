@@ -35,11 +35,11 @@ function epicrizOut_edit($form,$mode,$id,$datatype) {
 	// print_r($action);
 	if (isset($action["id"])) {
 		// $Item=array_merge($Item,$action);
-		foreach($action["epic_out"] as $key => $val) {
-			if (substr($key,0,2)=="e_") {
-				$Item[$key]=$val;
-			} 
-		}
+		// foreach($action["epic_out"] as $key => $val) {
+		// 	if (substr($key,0,2)=="e_") {
+		// 		$Item[$key]=$val;
+		// 	} 
+		// }
 		$Item["fields"]=$action["epic_out"];
 		$Item["action_id"]=$action["id"];
 	} else {
@@ -361,7 +361,7 @@ function fields_msk36($event_id,$orgstr="") {
 	
 
 
-	$docs["FirstOsmotr"]=$first_osmotr1;
+	$docs["FirstOsmotr"]=$action_in;
 	$docs["DiaryLast"]=$DiaryLast;
 	$docs["diaryLast"]=$DiaryLast;
 	$docs["firstView"]=$firstView;
@@ -477,7 +477,7 @@ function getActionDataIn($event_id) {
 	INNER JOIN  Event AS e ON a.event_id = e.id
 	INNER JOIN  ActionType AS t ON t.id = a.actionType_id
 	WHERE e.id = {$event_id} 
-	AND a.deleted = 0 AND a.status = 2 AND t.name LIKE '%осмотр%' AND t.name LIKE '%в приемном%'
+	AND a.deleted = 0 AND a.status = 2 AND t.name LIKE '%осмотр%'
 	ORDER BY endDate LIMIT 1";
 	// print_r($SQL);
 	$action_id=""; $res=mysql_query($SQL) or die ("Query failed getActionDataIn(): [1]" . mysql_error());
@@ -593,7 +593,7 @@ function epicLabPrep($event_id,$aType) {
 				if (checkActionTypeParrent($actionType_id,$aType)) {
 					$time=date("d/m/Y H:i",strtotime($action["data"]["endDate"]));
 					$action=$action["data"]["fields"];
-					$doc=phpQuery::newDocument("<table></table>");
+					$doc=phpQuery::newDocument("<table class = 'analyzes'></table>");
 					pq($doc)->find("table")->prepend("<tr><th colspan='2'>{$time} {$line["name"]}</th><th>Норма</th><th>Ед.изм.</th></tr>");
 					foreach($action as $key => $val) {
 						if (!in_array($key,$exclude) AND $val>"") {
