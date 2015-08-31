@@ -288,7 +288,7 @@ function fields_msk36($event_id,$orgstr="") {
 	$event=mysqlReadItem("Event",$event_id);
 	$Diag=patientGetDiagnosis($event_id);
 	$SQL="SELECT a.* FROM Action AS a
-	INNER JOIN  Event AS e ON (a.event_id = e.id and a.person_id = e.execPerson_id)
+	INNER JOIN  Event AS e ON (a.event_id = e.id)
 	INNER JOIN  ActionType AS t ON t.id = a.actionType_id
 	WHERE e.id = {$event_id} 
 	# AND (a.setPerson_id = e.execPerson_id OR a.person_id = e.execPerson_id )
