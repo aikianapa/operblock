@@ -35,11 +35,11 @@ function epicrizOut_edit($form,$mode,$id,$datatype) {
 	// print_r($action);
 	if (isset($action["id"])) {
 		// $Item=array_merge($Item,$action);
-		// foreach($action["epic_out"] as $key => $val) {
-		// 	if (substr($key,0,2)=="e_") {
-		// 		$Item[$key]=$val;
-		// 	} 
-		// }
+		foreach($action["epic_out"] as $key => $val) {
+			if (substr($key,0,2)=="e_") {
+				$Item[$key]=$val;
+			} 
+		}
 		$Item["fields"]=$action["epic_out"];
 		$Item["action_id"]=$action["id"];
 	} else {

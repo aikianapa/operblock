@@ -66,7 +66,7 @@
 						</select>
 						<input name="e_diag_sost_in_text">
 					</li>
-					<li><b>Сознание:</b> <textarea class="medium" name="e_diag_mind_out" from="firstView@Сознание">{{e_diag_mind_out}}</textarea></li>
+					<li><b>Сознание:</b> <textarea class="medium" name="e_diag_mind_in" from="firstView@Сознание">{{e_diag_mind_in}}</textarea></li>
 					<li><b>Кожные покровы и видимые слизистые:</b> <textarea class="medium" name="e_diag_skin_in" from="firstView@Кожные покровы">{{e_diag_skin_in}}</textarea></li>
 					<li><b>Отёки:</b>
 						<textarea class="medium" name="e_diag_edema_in" from="firstView@Отеки">{{e_diag_edema_in}}</textarea>
@@ -1318,9 +1318,9 @@
 						<input name="e_diag_sost_out_text" value="">
 					</li>
 					<li><b>Сознание:</b> <textarea class="medium" name="e_diag_mind_out" from="lastView@Сознание">{{e_diag_mind_out}}</textarea></li>
-					<li><b>Кожные покровы и видимые слизистые:</b> <textarea class="medium" name="e_diag_skin_in" from="lastView@Кожные покровы и видимые слизистые">{{e_diag_skin_out}}</textarea></li>
+					<li><b>Кожные покровы и видимые слизистые:</b> <textarea class="medium" name="e_diag_skin_out" from="lastView@Кожные покровы и видимые слизистые">{{e_diag_skin_out}}</textarea></li>
 					<li><b>Отёки:</b>
-						<textarea class="medium" name="e_diag_edema_in" from="lastView@Отёки">{{e_diag_edema_out}}</textarea>
+						<textarea class="medium" name="e_diag_edema_out" from="lastView@Отёки">{{e_diag_edema_out}}</textarea>
 					</li>
 				</ul>
 			</li> 
