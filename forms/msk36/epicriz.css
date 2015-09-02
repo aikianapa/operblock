@@ -33,6 +33,9 @@
 #form-027u select[multiple] {display:block; height: auto;}
 #form-027u h3 {font-size:17px;margin-bottom: 14px;margin-top: 20px;}
 #form-027u .noscreen {display:none;}
+#form-027u .nob b {
+    font-weight: normal;
+}
 
 }
 @media print {
@@ -58,9 +61,10 @@ body {display:none;}
 #form-027u ul.inline-block li {display: inline-block; vertical-align: top;}
 #form-027u .text {line-height:32px; }
 #form-027u .text .remark {position:absolute; width:100%; margin-top: 15px; text-align:center; font-size:70%;}
-#form-027u table {border:0; border-top:1px #000 solid; border-bottom:1px #000 solid; clear:both; width: auto; margin-bottom: 10px; width:100%;}
-#form-027u table td {text-align:center; vertical-align:top;border-right:1px #000 solid; }
+#form-027u table {border:0;/* border-top:1px #000 solid; border-bottom:1px #000 solid;*/ clear:both; width: auto; margin-bottom: 10px; width:100%;}
+#form-027u table td {text-align:center; vertical-align:top;/*border-right:1px #000 solid;*/ }
 #form-027u table td:last {border-right:0px;}
+/*#form-027u table.status {border:1px #000 solid;}*/
 /*#form-027u table td:first {width:50%;}*/
 /*#form-027u table tr { border: 1px #555 solid;}*/
 #form-027u table tr th { text-align:center; background-color: #bbb;}
@@ -72,5 +76,13 @@ body {display:none;}
 #form-027u .bottom-bord {border-bottom:1px black solid;}
 #form-027u .bottomtop-bord {border-bottom:1px black solid;border-top:1px black solid;}
 #form-027u button[name="nevr-toggle-in"] {display:none;}
-#form-027u .lab-test {font-size:12pt;}
+/*#form-027u .lab-test {font-size:12pt; }*/
+#form-027u .header {font-size:14pt;}
+#form-027u table.analyzes { font-size:12pt; border-collapse: collapse; border: 1px solid black;}
+#form-027u table.analyzes td { border: 1px solid black; }
+#form-027u table.status { border-collapse: collapse; border: 1px solid black;}
+#form-027u table.status td { border: 1px solid black; }
+#form-027u .nob b {
+    font-weight: normal;
+}
 }

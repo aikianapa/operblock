@@ -8,7 +8,7 @@
 <input type="hidden" name="event_id">
 <input type="hidden" name="person_id">
 <p style="text-align:center; font-size:14pt;">
-<b><b>{{OrgName}} г.Москвы </b><br />
+<b><b class='header'>{{OrgName}}</b><br />
 {{orgStr}}<br /></p>
 <hr />
 <p style="text-align:center;">
@@ -20,7 +20,7 @@
 <ul class="fields">
 		<li><b>Фамилия, Имя, Отчество:</b> {{client}}, <b>возраст</b> {{age}} лет</li>
 
-		<li class="bord">
+		<li class="">
 		<ul>
 		<li> <b>Находился(-лась) на стационарном лечении</b> с {{s_date1}} 	по <input type="text" class="medium" name="endDate" value="{{s_date2}}">  </li>
 		<ul>
@@ -55,7 +55,7 @@
 			<li><b>An.vitae:</b><textarea name="e_an_vitae" from="firstView@Anamnesis vitae">{{e_an_vitae}}</textarea> </li>
 			<li>
 				<h3><b>Status praesens:</b></h3> 
-				<ul>
+				<ul class="nob">
 					<li>
 						<b>Общее состояние:</b> 
 						<select multiple="multiple" name="e_diag_sost_in[]" value="{{e_diag_sost_in}}" from="firstView@Status praesens: Общее состояние">
@@ -75,7 +75,7 @@
 			</li> 
 			<li>
 				<b><h3>Органы дыхания</h3></b>
-				<ul class="container">
+				<ul class="container nob">
 					<li>
 						<b>Форма грудной клетки:</b>
 						<select multiple="multiple" name='e_diag_formgrkl_in[]' from="firstView@Форма грудной клетки" value="{{e_diag_formgrkl_in}}">
@@ -141,7 +141,7 @@
 			</li>
 			<li>
 				<b><h3>Органы мочевыделения</h3></b>
-				<ul class="container">
+				<ul class="container nob">
 					<li>
 						<b>Область почек:</b>
 						<select multiple="multiple" name='e_diag_obl_pochk_in[]' value='{{e_diag_obl_pochk_in}}' from="firstView@Область почек">
@@ -175,7 +175,7 @@
 			</li>
 			<li>
 				<b><h3>Органы кровообращения</h3></b>
-				<ul class="container">
+				<ul class="container nob">
 					
 				<li>
 					<b>Область сердца:</b>
@@ -242,7 +242,7 @@
 			</li>
 			<li>
 				<b><h3>Органы пищеварения</h3></b>
-				<ul class="container">
+				<ul class="container nob">
 					<li>
 						<b>Живот:</b>
 						<select multiple="multiple" name='e_diag_belly_in[]' value='{{e_diag_belly_in}}' from="lastView@Живот">
@@ -299,8 +299,8 @@
 			</li>
 
 			<li>
-				<b><h3>Неврологический и психический статус <button name="nevr-toggle-in">Скрыть</button></h3></b>
-				<ul class="container" name='nevr-status-in'>
+				<b><h3>Неврологический и психический статус: <button name="nevr-toggle-in">Скрыть</button></h3></b>
+				<ul class="container nob" name='nevr-status-in'>
 					<li>
 						<b>Уровень сознания:</b>
 						<select multiple="multiple" name="e_diag_soznur_in[]" :value="{{e_diag_soznur_in}}" multiple="multiple" from="firstView@Уровень сознания">
@@ -1287,14 +1287,46 @@
 						<input name="e_diag_vegnervnsys_in_text" value="">
 					</li>
 
-					<li>
+					<!-- <li>
 						<b><h3>Status vascularis:</h3></b>
 						<textarea name="e_diag_statusvasc_in" from="firstView@Status vascularis">{{e_diag_statusvasc_in}}</textarea>
+					</li> -->
+					<li><b><h3>Status vascularis:</h3></b>
+						<table class="status">
+							<tr><th colspan="2">Пульс справа</th><th colspan="2">Пульс слева</th></tr>
+							<tr><td>Сонные:</td><td><input name="e_sv_sonsprav_in" from="firstView@сонные справа"></input></td><td>Сонные:</td><td><input name="e_sv_sonslev_in" from="firstView@сонные слева"></input></td></tr>
+							<tr><td>Аскилярная:</td><td><input name="e_sv_aksilarspar_in" from="firstView@аксиллярная справа"></input></td><td>Аскилярная:</td><td><input name="e_sv_aksilslev_in" from="firstView@аксиллярная слева"></input></td></tr>
+							<tr><td>Плечевая на плече:</td><td><input name="e_sv_plecnaplecspar_in" from="firstView@плечевая на плече справа"></input></td><td>Плечевая на плече:</td><td><input name="e_sv_plechnaplechslev_n" from="firstView@плечевая на плече слева"></input></td></tr>
+							<tr><td>Локтевая:</td><td><input name="e_sv_loktspav_in" from="firstView@локтевая справа"></input></td><td>Локтевая:</td><td><input name="e_sv_loktslev_in" from="firstView@локтевая слева"></input></td></tr>
+							<tr><td>Лучевая:</td><td><input name="e_sv_luchspav_in" from="firstView@лучевая справа"></input></td><td>Лучевая:</td><td><input name="e_sv_luchslev_in" from="firstView@лучевая слева"></input></td></tr>
+							<tr><td colspan="4">Брюшная АОРТА: <input name="e_sv_brushaorta_in" from="firstView@Брюшная АОРТА"></input></td></tr>
+							<tr><th colspan="4">Артерии нижних конечностей</th></tr>
+							<tr><td>Над пупартовой связкой:</td><td><input name="e_sv_nadpupartsvyazspav_in" from="firstView@Над пупартовой связкой справа"></input></td><td>Над пупартовой связкой:</td><td><input name="e_sv_nadpupartsvyazslev_in" from="firstView@Над пупартовой связкой слева"></input></td></tr>
+							<tr><td>Под пупартовой связкой:</td><td><input name="e_sv_podpupartsvyazspav_in" from="firstView@Под пупартовой связкой справа"></input></td><td>Под пупартовой связкой:</td><td><input name="e_sv_podpupartsvyazslev_in" from="firstView@Под пупартовой связкой слева"></input></td></tr>
+							<tr><td>ПоА:</td><td><input name="e_sv_poasprav_in" from="firstView@ПоА справа"></input></td><td>ПоА:</td><td><input name="e_sv_poaslev_in" from="firstView@ПоА слева"></input></td></tr>
+							<tr><td>ПББА:</td><td><input name="e_sv_pbbasprav_in" from="firstView@ПББА справа"></input></td><td>ПББА:</td><td><input name="e_sv_pbbaslev_in" from="firstView@ПББА слева"></input></td></tr>
+							<tr><td>ЗББА:</td><td><input name="e_sv_zbbaspav_in" from="firstView@ЗББА справа"></input></td><td>ЗББА:</td><td><input name="e_sv_zbbaslev_in" from="firstView@ЗББА слева"></input></td></tr>
+							<tr><td>Положительные симптомы:</td><td><input name="e_sv_polozhsimpspav_in" from="firstView@Положительные симптомы справа"></input></td><td>Положительные симптомы:</td><td><input name="e_sv_polozhsimpslev_in" from="firstView@Положительные симптомы слева"></input></td></tr>
+						</table>
 					</li>
-					<li>
+					<li><b><h3>Status localis:</h3></b>
+						<table class="status">
+							<tr><th colspan="2">Справа</th><th colspan="2">Слева</th></tr>
+							<tr><td>Цвет:</td><td><input name="e_si_cvetspav_in" from="firstView@цвет справа"></input></td><td>Цвет:</td><td><input name="e_si_cvetsleva_in" from="firstView@Цвет слева"></input></td></tr>
+							<tr><td>Температура:</td><td><input name="e_si_tempsprav_in" from="firstView@температура справа"></input></td><td>Температура:</td><td><input name="e_si_tempslev_in" from="firstView@температура слева"></input></td></tr>
+							<tr><td>Чувствительность:</td><td><input name="e_si_chuvstsprav_in" from="firstView@чувствительность справа"></input></td><td>Чувствительность:</td><td><input name="e_si_chuvstslev_in" from="firstView@чувствительность слева"></input></td></tr>
+							<tr><td>Движения:</td><td><input name="e_si_dvizspav_in" from="firstView@движения справа"></input></td><td>Движения:</td><td><input name="e_si_dvizslev_in" from="firstView@движения слева"></input></td></tr>
+							<tr><td>Субфасциальный отек:</td><td><input name="e_si_subfcalnoteksprav_in" from="firstView@субфасциальный отек справа"></input></td><td>Субфасциальный отек:</td><td><input name="e_si_subfcalnotekslev_in" from="firstView@субфасциальный отек слева"></input></td></tr>
+							<tr><td>Контрактура:</td><td><input name="e_si_contracturasprav_in" from="firstView@контрактура справа"></input></td><td>Контрактура:</td><td><input name="e_si_contracturaslev_in" from="firstView@контрактура слева"></input></td></tr>
+							<tr><td>Трофические нарушения:</td><td><input name="e_si_trofnarsrav_in" from="firstView@трофические нарушения справа"></input></td><td>Трофические нарушения:</td><td><input name="e_si_trofnarslev_in" from="firstView@трофические нарушения слева"></input></td></tr>
+							<tr><td>Отек:</td><td><input name="e_si_oteksprav_in" from="firstView@отек справа"></input></td><td>Отек:</td><td><input name="e_si_otekslev_in" from="firstView@отек слева"></input></td></tr>
+							<tr><td>Подкожные вены:</td><td><input name="e_si_podkozhvensrav_in" from="firstView@подкожные вены справа"></input></td><td>Подкожные вены:</td><td><input name="e_si_podkozhvenslev_in" from="firstView@подкожные вены слева"></input></td></tr>
+						</table>
+					</li>
+					<!-- <li>
 						<b><h3>Status localis</h3>:</b>
 						<textarea name="e_diag_statuslocalis_in" from="firstView@Status localis">{{e_diag_statuslocalis_in}}</textarea>
-					</li>
+					</li> -->
 				</ul>
 			</li>
 		</ul>
@@ -1306,7 +1338,7 @@
 		<ul class='bottom-bord'>
 			<li>
 				<h3><b>Status praesens:</b></h3> 
-				<ul class="container">
+				<ul class="container nob">
 					<li>
 						<b>Общее состояние:</b> 
 						<select multiple="multiple" name="e_diag_sost_out[]" value="{{e_diag_sost_out}}" from="lastView@Status praesens: Общее состояние:" >
@@ -1328,7 +1360,7 @@
 
 			<li>
 				<b><h3>Органы дыхания</h3></b>
-				<ul class="container">
+				<ul class="container nob">
 					<li>
 						<b>Форма грудной клетки:</b>
 						<select multiple="multiple" name='e_diag_formgrkl_out[]' value='{{e_diag_formgrkl_out}}' from="lastView@Форма грудной клетки">
@@ -1394,7 +1426,7 @@
 			</li>
 			<li>
 				<b><h3>Органы мочевыделения</h3></b>
-				<ul class="container">
+				<ul class="container nob">
 					<li>
 						<b>Область почек:</b>
 						<select multiple="multiple" name='e_diag_obl_pochk_out[]' value='{{e_diag_obl_pochk_out}}' from="lastView@Область почек">
@@ -1428,7 +1460,7 @@
 			</li>
 			<li>
 				<b><h3>Органы кровообращения</h3></b>
-				<ul class="container">
+				<ul class="container nob">
 					
 				<li>
 					<b>Область сердца:</b>
@@ -1497,7 +1529,7 @@
 			</li>
 			<li>
 				<b><h3>Органы пищеварения</h3></b>
-				<ul class="container">
+				<ul class="container nob">
 					<li>
 						<b>Живот:</b>
 						<select multiple="multiple" name='e_diag_belly_out[]' value='{{e_diag_belly_out}}' from="lastView@Живот">
@@ -1555,7 +1587,7 @@
 
 			<li>
 				<b><h3>Неврологический и психический статус <button name="nevr-toggle-in">Скрыть</button></h3></b>
-				<ul class="container" name='nevr-status-in'>
+				<ul class="container nob" name='nevr-status-in'>
 					<li>
 						<b>Уровень сознания:</b>
 						<select multiple="multiple"  name="e_diag_soznur_out[]" value="{{e_diag_soznur_out}}" multiple="multiple" from="lastView@Уровень сознания">
@@ -2544,13 +2576,45 @@
 						<input name="e_diag_vegnervnsys_out_text" value="">
 					</li>
 
-					<li>
+<!-- 					<li>
 						<b><h3>Status vascularis:</h3></b>
 						<textarea name="e_diag_statusvasc_out" from="lastView@Status vascularis">{{e_diag_statusvasc_out}}</textarea>
 					</li>
 					<li>
 						<b><h3>Status localis:</h3></b>
 						<textarea name="e_diag_statuslocalis_out" from="lastView@Status localis">{{e_diag_statuslocalis_out}}</textarea>
+					</li> -->
+					<li><b><h3>Status vascularis:</h3></b>
+						<table class="status">
+						<tr><th colspan="2">Пульс справа</th><th colspan="2">Пульс слева</th></tr>
+						<tr><td>Сонные:</td><td><input name="e_sv_sonsprav_out" from="lastView@сонные справа"></input></td><td>Сонные:</td><td><input name="e_sv_sonslev_out" from="lastView@сонные слева"></input></td></tr>
+						<tr><td>Аскилярная:</td><td><input name="e_sv_aksilarspar_out" from="lastView@аксиллярная справа"></input></td><td>Аскилярная:</td><td><input name="e_sv_aksilslev_out" from="lastView@аксиллярная слева"></input></td></tr>
+						<tr><td>Плечевая на плече:</td><td><input name="e_sv_plecnaplecspar_out" from="lastView@плечевая на плече справа"></input></td><td>Плечевая на плече:</td><td><input name="e_sv_plechnaplechslev_n" from="lastView@плечевая на плече слева"></input></td></tr>
+						<tr><td>Локтевая:</td><td><input name="e_sv_loktspav_out" from="lastView@локтевая справа"></input></td><td>Локтевая:</td><td><input name="e_sv_loktslev_out" from="lastView@локтевая слева"></input></td></tr>
+						<tr><td>Лучевая:</td><td><input name="e_sv_luchspav_out" from="lastView@лучевая справа"></input></td><td>Лучевая:</td><td><input name="e_sv_luchslev_out" from="lastView@лучевая слева"></input></td></tr>
+						<tr><td colspan="4">Брюшная АОРТА: <input name="e_sv_brushaorta_out" from="lastView@Брюшная АОРТА"></input></td></tr>
+						<tr><th colspan="4">Артерии нижних конечностей</th></tr>
+						<tr><td>Над пупартовой связкой:</td><td><input name="e_sv_nadpupartsvyazspav_out" from="lastView@Над пупартовой связкой справа"></input></td><td>Над пупартовой связкой:</td><td><input name="e_sv_nadpupartsvyazslev_out" from="lastView@Над пупартовой связкой слева"></input></td></tr>
+						<tr><td>Под пупартовой связкой:</td><td><input name="e_sv_podpupartsvyazspav_out" from="lastView@Под пупартовой связкой справа"></input></td><td>Под пупартовой связкой:</td><td><input name="e_sv_podpupartsvyazslev_out" from="lastView@Под пупартовой связкой слева"></input></td></tr>
+						<tr><td>ПоА:</td><td><input name="e_sv_poasprav_out" from="lastView@ПоА справа"></input></td><td>ПоА:</td><td><input name="e_sv_poaslev_out" from="lastView@ПоА слева"></input></td></tr>
+						<tr><td>ПББА:</td><td><input name="e_sv_pbbasprav_out" from="lastView@ПББА справа"></input></td><td>ПББА:</td><td><input name="e_sv_pbbaslev_out" from="lastView@ПББА слева"></input></td></tr>
+						<tr><td>ЗББА:</td><td><input name="e_sv_zbbaspav_out" from="lastView@ЗББА справа"></input></td><td>ЗББА:</td><td><input name="e_sv_zbbaslev_out" from="lastView@ЗББА слева"></input></td></tr>
+						<tr><td>Положительные симптомы:</td><td><input name="e_sv_polozhsimpspav_out" from="lastView@Положительные симптомы справа"></input></td><td>Положительные симптомы:</td><td><input name="e_sv_polozhsimpslev_out" from="lastView@Положительные симптомы слева"></input></td></tr>
+						</table>
+					</li>
+					<li><b><h3>Status localis:</h3></b>
+						<table class="status">
+						<tr><th colspan="2">Справа</th><th colspan="2">Слева</th></tr>
+						<tr><td>Цвет:</td><td><input name="e_si_cvetspav_out" from="lastView@цвет справа"></input></td><td>Цвет:</td><td><input name="e_si_cvetsleva_out" from="lastView@Цвет слева"></input></td></tr>
+						<tr><td>Температура:</td><td><input name="e_si_tempsprav_out" from="lastView@температура справа"></input></td><td>Температура:</td><td><input name="e_si_tempslev_out" from="lastView@температура слева"></input></td></tr>
+						<tr><td>Чувствительность:</td><td><input name="e_si_chuvstsprav_out" from="lastView@чувствительность справа"></input></td><td>Чувствительность:</td><td><input name="e_si_chuvstslev_out" from="lastView@чувствительность слева"></input></td></tr>
+						<tr><td>Движения:</td><td><input name="e_si_dvizspav_out" from="lastView@движения справа"></input></td><td>Движения:</td><td><input name="e_si_dvizslev_out" from="lastView@движения слева"></input></td></tr>
+						<tr><td>Субфасциальный отек:</td><td><input name="e_si_subfcalnoteksprav_out" from="lastView@субфасциальный отек справа"></input></td><td>Субфасциальный отек:</td><td><input name="e_si_subfcalnotekslev_out" from="lastView@субфасциальный отек слева"></input></td></tr>
+						<tr><td>Контрактура:</td><td><input name="e_si_contracturasprav_out" from="lastView@контрактура справа"></input></td><td>Контрактура:</td><td><input name="e_si_contracturaslev_out" from="firstView@контрактура слева"></input></td></tr>
+						<tr><td>Трофические нарушения:</td><td><input name="e_si_trofnarsrav_out" from="lastView@трофические нарушения справа"></input></td><td>Трофические нарушения:</td><td><input name="e_si_trofnarslev_out" from="lastView@трофические нарушения слева"></input></td></tr>
+						<tr><td>Отек:</td><td><input name="e_si_oteksprav_out" from="lastView@отек справа"></input></td><td>Отек:</td><td><input name="e_si_otekslev_out" from="lastView@отек слева"></input></td></tr>
+						<tr><td>Подкожные вены:</td><td><input name="e_si_podkozhvensrav_out" from="lastView@подкожные вены справа"></input></td><td>Подкожные вены:</td><td><input name="e_si_podkozhvenslev_out" from="lastView@подкожные вены слева"></input></td></tr>
+						</table>
 					</li>
 				</ul>
 			</li>
