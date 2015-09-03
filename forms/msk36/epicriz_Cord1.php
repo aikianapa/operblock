@@ -54,11 +54,11 @@
 			<li><b>An.morbi:</b><textarea name="e_anamnez1" from="firstView@Anamnesis morbi">{{e_anamnez1}}</textarea> </li>
 			<li><b>An.vitae:</b><textarea name="e_an_vitae" from="firstView@Anamnesis vitae">{{e_an_vitae}}</textarea> </li>
 			<li>
-				<h3><b>Status praesens:</b></h3> 
+				<h3><b>Status Praesesns:</b></h3> 
 				<ul class="nob">
 					<li>
 						<b>Общее состояние:</b> 
-						<select multiple="multiple" name="e_diag_sost_in[]" value="{{e_diag_sost_in}}" from="firstView@Status praesens: Общее состояние">
+						<select multiple="multiple" name="e_diag_sost_in[]" value="{{e_diag_sost_in}}" from="firstView@Status Praesesns: Общее состояние">
 							<option>Удовлетворительное</option>
 							<option>Средней тяжести</option>
 							<option>Тяжелое</option>
@@ -101,7 +101,7 @@
 					</li>
 					<li>
 						<b>Дыхание:</b>
-						<select multiple="multiple" name='e_diag_dihan_in[]' value='{{e_diag_dihan_in[]}}' from="firstView@Дыхание" >
+						<select multiple="multiple" name='e_diag_dihan_in[]' value='{{e_diag_dihan_in}}' from="firstView@Дыхание" >
 							<option>везикулярное</option>
 							<option>жесткое</option>
 							<option>бронхиальное</option>
@@ -139,40 +139,7 @@
 
 				</ul>
 			</li>
-			<li>
-				<b><h3>Органы мочевыделения</h3></b>
-				<ul class="container nob">
-					<li>
-						<b>Область почек:</b>
-						<select multiple="multiple" name='e_diag_obl_pochk_in[]' value='{{e_diag_obl_pochk_in}}' from="firstView@Область почек">
-							<option>изменена</option>
-							<option>не изменена</option>
-						</select>
-						<input name="e_diag_obl_pochk_in_text" value="">
-					</li>
-					<li>
-						<b>Симптом поколачивания по поясничной области:</b>
-						<select multiple="multiple" name='e_diag_simp_pok_poys_obl_in[]' value='{{e_diag_simp_pok_poys_obl_in}}' from="firstView@ОСимптом поколачивания по поясничной области">
-							<option>отрицательный с обеих сторон</option>
-							<option>положительный справа</option>
-							<option>положительный слева</option>
-						</select>
-						<input name="e_diag_simp_pok_poys_obl_in_text" value="">
-					</li>
-					<li>
-						<b>Мочеиспускание:</b>
-						<select multiple="multiple" name='e_diag_mocheisp_in[]' value='{{e_diag_mocheisp_in}}' from="firstView@Мочеиспускание">
-							<option>дизурии нет</option>
-							<option>затруднено</option>
-							<option>учащенное</option>
-							<option>анурия</option>
-							<option>никтурия</option>
-						</select>
-						<input name="e_diag_mocheisp_in" value="">
-					</li>
-				</ul>
 
-			</li>
 			<li>
 				<b><h3>Органы кровообращения</h3></b>
 				<ul class="container nob">
@@ -187,7 +154,7 @@
 				</li>
 				<li>
 					<b>Границы сердца:</b>
-					<select multiple="multiple" name='e_diag_granserd_in[]' value='{{e_diag_granserd_in}}' from="firstView@Границы сердца">
+					<select multiple="multiple" name='e_diag_granserd_in[]'  from="firstView@Границы сердца">
 						<option>не расширены</option>
 						<option>расширены</option>
 						<option>относительно тупости сердца расширены</option>
@@ -209,7 +176,7 @@
 						<option>аритмичные</option>
 						<option>акцент II тона</option>
 						<option>на аорте</option>
-						<option>не легочной артерии</option>
+						<option>на легочной артерии</option>
 					</select>
 					<input name="e_diag_tonserd_in_text" value="">
 				</li>
@@ -285,19 +252,44 @@
 						</select>
 						<input name="e_diag_liver_in_text" value="">
 					</li>
-					<li>
-						<b>Симптом поколачивания по поясничной области:</b>
-						<select multiple="multiple" name='e_diag_simpokpopoobl_in[]' value='{{e_diag_simpokpopoobl_in}}' multiple="multiple" from="firstView@Симптом поколачивания по поясничной области">
-							<option>отрицательный с обеих сторон</option>
-							<option>положительный справа</option>
-							<option>положительный слева</option>
-						</select>
-						<input name="e_diag_simpokpopoobl_in_text" value="">
-					</li>
 
 				</ul>
 			</li>
 
+			<li>
+				<b><h3>Органы мочевыделения:</h3></b>
+				<ul class="container nob">
+					<li>
+						<b>Область почек:</b>
+						<select multiple="multiple" name='e_diag_obl_pochk_in[]' value='{{e_diag_obl_pochk_in}}' from="firstView@Область почек">
+							<option>изменена</option>
+							<option>не изменена</option>
+						</select>
+						<input name="e_diag_obl_pochk_in_text" value="">
+					</li>
+					<li>
+						<b>Симптом поколачивания по поясничной области:</b>
+						<select multiple="multiple" name='e_diag_simp_pok_poys_obl_in[]' value='{{e_diag_simp_pok_poys_obl_in}}' from="firstView@ОСимптом поколачивания по поясничной области">
+							<option>отрицательный с обеих сторон</option>
+							<option>положительный справа</option>
+							<option>положительный слева</option>
+						</select>
+						<input name="e_diag_simp_pok_poys_obl_in_text" value="">
+					</li>
+					<li>
+						<b>Мочеиспускание:</b>
+						<select multiple="multiple" name='e_diag_mocheisp_in[]' value='{{e_diag_mocheisp_in}}' from="firstView@Мочеиспускание">
+							<option>дизурии нет</option>
+							<option>затруднено</option>
+							<option>учащенное</option>
+							<option>анурия</option>
+							<option>никтурия</option>
+						</select>
+						<input name="e_diag_mocheisp_in" value="">
+					</li>
+				</ul>
+
+			</li>
 			<li>
 				<b><h3>Неврологический и психический статус: <button name="nevr-toggle-in">Скрыть</button></h3></b>
 				<ul class="container nob" name='nevr-status-in'>
@@ -1291,38 +1283,6 @@
 						<b><h3>Status vascularis:</h3></b>
 						<textarea name="e_diag_statusvasc_in" from="firstView@Status vascularis">{{e_diag_statusvasc_in}}</textarea>
 					</li> -->
-					<li><b><h3>Status vascularis:</h3></b>
-						<table class="status">
-							<tr><th colspan="2">Пульс справа</th><th colspan="2">Пульс слева</th></tr>
-							<tr><td>Сонные:</td><td><input name="e_sv_sonsprav_in" from="firstView@сонные справа"></input></td><td>Сонные:</td><td><input name="e_sv_sonslev_in" from="firstView@сонные слева"></input></td></tr>
-							<tr><td>Аскилярная:</td><td><input name="e_sv_aksilarspar_in" from="firstView@аксиллярная справа"></input></td><td>Аскилярная:</td><td><input name="e_sv_aksilslev_in" from="firstView@аксиллярная слева"></input></td></tr>
-							<tr><td>Плечевая на плече:</td><td><input name="e_sv_plecnaplecspar_in" from="firstView@плечевая на плече справа"></input></td><td>Плечевая на плече:</td><td><input name="e_sv_plechnaplechslev_n" from="firstView@плечевая на плече слева"></input></td></tr>
-							<tr><td>Локтевая:</td><td><input name="e_sv_loktspav_in" from="firstView@локтевая справа"></input></td><td>Локтевая:</td><td><input name="e_sv_loktslev_in" from="firstView@локтевая слева"></input></td></tr>
-							<tr><td>Лучевая:</td><td><input name="e_sv_luchspav_in" from="firstView@лучевая справа"></input></td><td>Лучевая:</td><td><input name="e_sv_luchslev_in" from="firstView@лучевая слева"></input></td></tr>
-							<tr><td colspan="4">Брюшная АОРТА: <input name="e_sv_brushaorta_in" from="firstView@Брюшная АОРТА"></input></td></tr>
-							<tr><th colspan="4">Артерии нижних конечностей</th></tr>
-							<tr><td>Над пупартовой связкой:</td><td><input name="e_sv_nadpupartsvyazspav_in" from="firstView@Над пупартовой связкой справа"></input></td><td>Над пупартовой связкой:</td><td><input name="e_sv_nadpupartsvyazslev_in" from="firstView@Над пупартовой связкой слева"></input></td></tr>
-							<tr><td>Под пупартовой связкой:</td><td><input name="e_sv_podpupartsvyazspav_in" from="firstView@Под пупартовой связкой справа"></input></td><td>Под пупартовой связкой:</td><td><input name="e_sv_podpupartsvyazslev_in" from="firstView@Под пупартовой связкой слева"></input></td></tr>
-							<tr><td>ПоА:</td><td><input name="e_sv_poasprav_in" from="firstView@ПоА справа"></input></td><td>ПоА:</td><td><input name="e_sv_poaslev_in" from="firstView@ПоА слева"></input></td></tr>
-							<tr><td>ПББА:</td><td><input name="e_sv_pbbasprav_in" from="firstView@ПББА справа"></input></td><td>ПББА:</td><td><input name="e_sv_pbbaslev_in" from="firstView@ПББА слева"></input></td></tr>
-							<tr><td>ЗББА:</td><td><input name="e_sv_zbbaspav_in" from="firstView@ЗББА справа"></input></td><td>ЗББА:</td><td><input name="e_sv_zbbaslev_in" from="firstView@ЗББА слева"></input></td></tr>
-							<tr><td>Положительные симптомы:</td><td><input name="e_sv_polozhsimpspav_in" from="firstView@Положительные симптомы справа"></input></td><td>Положительные симптомы:</td><td><input name="e_sv_polozhsimpslev_in" from="firstView@Положительные симптомы слева"></input></td></tr>
-						</table>
-					</li>
-					<li><b><h3>Status localis:</h3></b>
-						<table class="status">
-							<tr><th colspan="2">Справа</th><th colspan="2">Слева</th></tr>
-							<tr><td>Цвет:</td><td><input name="e_si_cvetspav_in" from="firstView@цвет справа"></input></td><td>Цвет:</td><td><input name="e_si_cvetsleva_in" from="firstView@Цвет слева"></input></td></tr>
-							<tr><td>Температура:</td><td><input name="e_si_tempsprav_in" from="firstView@температура справа"></input></td><td>Температура:</td><td><input name="e_si_tempslev_in" from="firstView@температура слева"></input></td></tr>
-							<tr><td>Чувствительность:</td><td><input name="e_si_chuvstsprav_in" from="firstView@чувствительность справа"></input></td><td>Чувствительность:</td><td><input name="e_si_chuvstslev_in" from="firstView@чувствительность слева"></input></td></tr>
-							<tr><td>Движения:</td><td><input name="e_si_dvizspav_in" from="firstView@движения справа"></input></td><td>Движения:</td><td><input name="e_si_dvizslev_in" from="firstView@движения слева"></input></td></tr>
-							<tr><td>Субфасциальный отек:</td><td><input name="e_si_subfcalnoteksprav_in" from="firstView@субфасциальный отек справа"></input></td><td>Субфасциальный отек:</td><td><input name="e_si_subfcalnotekslev_in" from="firstView@субфасциальный отек слева"></input></td></tr>
-							<tr><td>Контрактура:</td><td><input name="e_si_contracturasprav_in" from="firstView@контрактура справа"></input></td><td>Контрактура:</td><td><input name="e_si_contracturaslev_in" from="firstView@контрактура слева"></input></td></tr>
-							<tr><td>Трофические нарушения:</td><td><input name="e_si_trofnarsrav_in" from="firstView@трофические нарушения справа"></input></td><td>Трофические нарушения:</td><td><input name="e_si_trofnarslev_in" from="firstView@трофические нарушения слева"></input></td></tr>
-							<tr><td>Отек:</td><td><input name="e_si_oteksprav_in" from="firstView@отек справа"></input></td><td>Отек:</td><td><input name="e_si_otekslev_in" from="firstView@отек слева"></input></td></tr>
-							<tr><td>Подкожные вены:</td><td><input name="e_si_podkozhvensrav_in" from="firstView@подкожные вены справа"></input></td><td>Подкожные вены:</td><td><input name="e_si_podkozhvenslev_in" from="firstView@подкожные вены слева"></input></td></tr>
-						</table>
-					</li>
 					<!-- <li>
 						<b><h3>Status localis</h3>:</b>
 						<textarea name="e_diag_statuslocalis_in" from="firstView@Status localis">{{e_diag_statuslocalis_in}}</textarea>
@@ -1330,7 +1290,40 @@
 				</ul>
 			</li>
 		</ul>
-
+			<li class="status_vascularis_in"><b><h3>Status vascularis:</h3></b>
+				<span style="display:none;" name="status_vascularis_in" from='firstView@status_vascularis_in'></span>
+				<table class="status">
+					<tr><th colspan="2">Пульс справа</th><th colspan="2">Пульс слева</th></tr>
+					<tr><td>Сонные:</td><td><input name="e_sv_sonsprav_in" from="firstView@сонные справа"></input></td><td>Сонные:</td><td><input name="e_sv_sonslev_in" from="firstView@сонные слева"></input></td></tr>
+					<tr><td>Аскилярная:</td><td><input name="e_sv_aksilarspar_in" from="firstView@аксиллярная справа"></input></td><td>Аскилярная:</td><td><input name="e_sv_aksilslev_in" from="firstView@аксиллярная слева"></input></td></tr>
+					<tr><td>Плечевая на плече:</td><td><input name="e_sv_plecnaplecspar_in" from="firstView@плечевая на плече справа"></input></td><td>Плечевая на плече:</td><td><input name="e_sv_plechnaplechslev_n" from="firstView@плечевая на плече слева"></input></td></tr>
+					<tr><td>Локтевая:</td><td><input name="e_sv_loktspav_in" from="firstView@локтевая справа"></input></td><td>Локтевая:</td><td><input name="e_sv_loktslev_in" from="firstView@локтевая слева"></input></td></tr>
+					<tr><td>Лучевая:</td><td><input name="e_sv_luchspav_in" from="firstView@лучевая справа"></input></td><td>Лучевая:</td><td><input name="e_sv_luchslev_in" from="firstView@лучевая слева"></input></td></tr>
+					<tr><td colspan="4">Брюшная АОРТА: <input name="e_sv_brushaorta_in" from="firstView@Брюшная АОРТА"></input></td></tr>
+					<tr><th colspan="4">Артерии нижних конечностей</th></tr>
+					<tr><td>Над пупартовой связкой:</td><td><input name="e_sv_nadpupartsvyazspav_in" from="firstView@Над пупартовой связкой справа"></input></td><td>Над пупартовой связкой:</td><td><input name="e_sv_nadpupartsvyazslev_in" from="firstView@Над пупартовой связкой слева"></input></td></tr>
+					<tr><td>Под пупартовой связкой:</td><td><input name="e_sv_podpupartsvyazspav_in" from="firstView@Под пупартовой связкой справа"></input></td><td>Под пупартовой связкой:</td><td><input name="e_sv_podpupartsvyazslev_in" from="firstView@Под пупартовой связкой слева"></input></td></tr>
+					<tr><td>ПоА:</td><td><input name="e_sv_poasprav_in" from="firstView@ПоА справа"></input></td><td>ПоА:</td><td><input name="e_sv_poaslev_in" from="firstView@ПоА слева"></input></td></tr>
+					<tr><td>ПББА:</td><td><input name="e_sv_pbbasprav_in" from="firstView@ПББА справа"></input></td><td>ПББА:</td><td><input name="e_sv_pbbaslev_in" from="firstView@ПББА слева"></input></td></tr>
+					<tr><td>ЗББА:</td><td><input name="e_sv_zbbaspav_in" from="firstView@ЗББА справа"></input></td><td>ЗББА:</td><td><input name="e_sv_zbbaslev_in" from="firstView@ЗББА слева"></input></td></tr>
+					<tr><td>Положительные симптомы:</td><td><input name="e_sv_polozhsimpspav_in" from="firstView@Положительные симптомы справа"></input></td><td>Положительные симптомы:</td><td><input name="e_sv_polozhsimpslev_in" from="firstView@Положительные симптомы слева"></input></td></tr>
+				</table>
+			</li>
+			<li class="status_localis_in"><b><h3>Status localis:</h3></b>
+				<span style="display:none;" name="status_localis_in" from='firstView@status_localis_in'></span>
+				<table class="status">
+					<tr><th colspan="2">Справа</th><th colspan="2">Слева</th></tr>
+					<tr><td>Цвет:</td><td><input name="e_si_cvetspav_in" from="firstView@цвет справа"></input></td><td>Цвет:</td><td><input name="e_si_cvetsleva_in" from="firstView@Цвет слева"></input></td></tr>
+					<tr><td>Температура:</td><td><input name="e_si_tempsprav_in" from="firstView@температура справа"></input></td><td>Температура:</td><td><input name="e_si_tempslev_in" from="firstView@температура слева"></input></td></tr>
+					<tr><td>Чувствительность:</td><td><input name="e_si_chuvstsprav_in" from="firstView@чувствительность справа"></input></td><td>Чувствительность:</td><td><input name="e_si_chuvstslev_in" from="firstView@чувствительность слева"></input></td></tr>
+					<tr><td>Движения:</td><td><input name="e_si_dvizspav_in" from="firstView@движения справа"></input></td><td>Движения:</td><td><input name="e_si_dvizslev_in" from="firstView@движения слева"></input></td></tr>
+					<tr><td>Субфасциальный отек:</td><td><input name="e_si_subfcalnoteksprav_in" from="firstView@субфасциальный отек справа"></input></td><td>Субфасциальный отек:</td><td><input name="e_si_subfcalnotekslev_in" from="firstView@субфасциальный отек слева"></input></td></tr>
+					<tr><td>Контрактура:</td><td><input name="e_si_contracturasprav_in" from="firstView@контрактура справа"></input></td><td>Контрактура:</td><td><input name="e_si_contracturaslev_in" from="firstView@контрактура слева"></input></td></tr>
+					<tr><td>Трофические нарушения:</td><td><input name="e_si_trofnarsrav_in" from="firstView@трофические нарушения справа"></input></td><td>Трофические нарушения:</td><td><input name="e_si_trofnarslev_in" from="firstView@трофические нарушения слева"></input></td></tr>
+					<tr><td>Отек:</td><td><input name="e_si_oteksprav_in" from="firstView@отек справа"></input></td><td>Отек:</td><td><input name="e_si_otekslev_in" from="firstView@отек слева"></input></td></tr>
+					<tr><td>Подкожные вены:</td><td><input name="e_si_podkozhvensrav_in" from="firstView@подкожные вены справа"></input></td><td>Подкожные вены:</td><td><input name="e_si_podkozhvenslev_in" from="firstView@подкожные вены слева"></input></td></tr>
+				</table>
+			</li>
 		</ul>
 		</li>
 
@@ -1341,7 +1334,7 @@
 				<ul class="container nob">
 					<li>
 						<b>Общее состояние:</b> 
-						<select multiple="multiple" name="e_diag_sost_out[]" value="{{e_diag_sost_out}}" from="lastView@Status praesens: Общее состояние:" >
+						<select multiple="multiple" name="e_diag_sost_out[]"  from="lastView@Status praesens: Общее состояние:" >
 							<option>удовлетворительное</option>
 							<option>средней тяжести</option>
 							<option>тяжелое</option>
@@ -1424,40 +1417,7 @@
 
 				</ul>
 			</li>
-			<li>
-				<b><h3>Органы мочевыделения</h3></b>
-				<ul class="container nob">
-					<li>
-						<b>Область почек:</b>
-						<select multiple="multiple" name='e_diag_obl_pochk_out[]' value='{{e_diag_obl_pochk_out}}' from="lastView@Область почек">
-							<option>изменена</option>
-							<option>не изменена</option>
-						</select>
-						<input name="e_diag_obl_pochk_out_text" value="">
-					</li>
-					<li>
-						<b>Симптом поколачивания по поясничной области:</b>
-						<select multiple="multiple" name='e_diag_simp_pok_poys_obl_out[]' value='{{e_diag_simp_pok_poys_obl_out}}' from="lastView@ОСимптом поколачивания по поясничной области">
-							<option>отрицательный с обеих сторон</option>
-							<option>положительный справа</option>
-							<option>положительный слева</option>
-						</select>
-						<input name="e_diag_simp_pok_poys_obl_out_text" value="">
-					</li>
-					<li>
-						<b>Мочеиспускание:</b>
-						<select multiple="multiple" name='e_diag_mocheisp_out[]' value='{{e_diag_mocheisp_out}}' from="lastView@Мочеиспускание">
-							<option>дизурии нет</option>
-							<option>затруднено</option>
-							<option>учащенное</option>
-							<option>анурия</option>
-							<option>никтурия</option>
-						</select>
-						<input name="e_diag_mocheisp_out_text" value="">
-					</li>
-				</ul>
 
-			</li>
 			<li>
 				<b><h3>Органы кровообращения</h3></b>
 				<ul class="container nob">
@@ -1494,7 +1454,7 @@
 						<option>аритмичные</option>
 						<option>акцент II тона</option>
 						<option>на аорте</option>
-						<option>не легочной артерии</option>
+						<option>на легочной артерии</option>
 					</select>
 					<input name="e_diag_tonserd_out_text" value="">
 				</li>
@@ -1572,17 +1532,43 @@
 						</select>
 						<input name="e_diag_liver_out_text" value="">
 					</li>
+
+				</ul>
+			</li>
+
+			<li>
+				<b><h3>Органы мочевыделения</h3></b>
+				<ul class="container nob">
+					<li>
+						<b>Область почек:</b>
+						<select multiple="multiple" name='e_diag_obl_pochk_out[]' value='{{e_diag_obl_pochk_out}}' from="lastView@Область почек">
+							<option>изменена</option>
+							<option>не изменена</option>
+						</select>
+						<input name="e_diag_obl_pochk_out_text" value="">
+					</li>
 					<li>
 						<b>Симптом поколачивания по поясничной области:</b>
-						<select multiple="multiple"  name='e_diag_simpokpopoobl_out[]' value='{{e_diag_simpokpopoobl_out}}' from="lastView@Симптом поколачивания по поясничной области">
+						<select multiple="multiple" name='e_diag_simp_pok_poys_obl_out[]' value='{{e_diag_simp_pok_poys_obl_out}}' from="lastView@ОСимптом поколачивания по поясничной области">
 							<option>отрицательный с обеих сторон</option>
 							<option>положительный справа</option>
 							<option>положительный слева</option>
 						</select>
-						<input name="e_diag_simpokpopoobl_out_text" value="">
+						<input name="e_diag_simp_pok_poys_obl_out_text" value="">
 					</li>
-
+					<li>
+						<b>Мочеиспускание:</b>
+						<select multiple="multiple" name='e_diag_mocheisp_out[]' value='{{e_diag_mocheisp_out}}' from="lastView@Мочеиспускание">
+							<option>дизурии нет</option>
+							<option>затруднено</option>
+							<option>учащенное</option>
+							<option>анурия</option>
+							<option>никтурия</option>
+						</select>
+						<input name="e_diag_mocheisp_out_text" value="">
+					</li>
 				</ul>
+
 			</li>
 
 			<li>
@@ -2584,7 +2570,8 @@
 						<b><h3>Status localis:</h3></b>
 						<textarea name="e_diag_statuslocalis_out" from="lastView@Status localis">{{e_diag_statuslocalis_out}}</textarea>
 					</li> -->
-					<li><b><h3>Status vascularis:</h3></b>
+					<li class="status_vascularis_out"><b><h3>Status vascularis:</h3></b>
+						<span style="display:none;" name="status_vascularis_out" from='lastView@status_vascularis_out'></span>
 						<table class="status">
 						<tr><th colspan="2">Пульс справа</th><th colspan="2">Пульс слева</th></tr>
 						<tr><td>Сонные:</td><td><input name="e_sv_sonsprav_out" from="lastView@сонные справа"></input></td><td>Сонные:</td><td><input name="e_sv_sonslev_out" from="lastView@сонные слева"></input></td></tr>
@@ -2602,7 +2589,8 @@
 						<tr><td>Положительные симптомы:</td><td><input name="e_sv_polozhsimpspav_out" from="lastView@Положительные симптомы справа"></input></td><td>Положительные симптомы:</td><td><input name="e_sv_polozhsimpslev_out" from="lastView@Положительные симптомы слева"></input></td></tr>
 						</table>
 					</li>
-					<li><b><h3>Status localis:</h3></b>
+					<li class="status_localis_out"><b><h3>Status localis:</h3></b>
+						<span style="display:none;" name="status_localis_out" from='lastView@status_localis_out'></span>
 						<table class="status">
 						<tr><th colspan="2">Справа</th><th colspan="2">Слева</th></tr>
 						<tr><td>Цвет:</td><td><input name="e_si_cvetspav_out" from="lastView@цвет справа"></input></td><td>Цвет:</td><td><input name="e_si_cvetsleva_out" from="lastView@Цвет слева"></input></td></tr>
@@ -2766,6 +2754,22 @@ $(document).on("click","#form-027u button[name=nevr-toggle-in]",function(e) {
 	  		$(this).html('Показать');
 	  	}
   	}
+});
+
+$(document).ready(function(){
+
+	if ($('span[name=status_vascularis_in]').text() != '1') {
+		$('li.status_vascularis_in').hide();
+	}
+	if ($('span[name=status_localis_in]').text() != '1') {
+		$('li.status_localis_in').hide();
+	}
+	if ($('span[name=status_vascularis_out]').text() != '1') {
+		$('li.status_vascularis_out').hide();
+	}
+	if ($('span[name=status_localis_out]').text() != '1') {
+		$('li.status_localis_out').hide();
+	}
 });
 
 </script>

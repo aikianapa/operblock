@@ -305,8 +305,20 @@ function fields_msk36($event_id,$orgstr="") {
 	// print_r($action_in);
 	// $first_osmotr1=getAction($action_id);
 	// $first_osmotr1=$first_osmotr1["data"]["fields"];
+
 	$firstView = getAction($action_id);
 	$firstView = $firstView["data"]["fields"];
+
+	if (array_key_exists('сонные справа',$firstView)) {
+		$firstView['status_vascularis_in']['value'] = '1';
+	} else {
+		$firstView['status_vascularis_in']['value'] = '0';
+	}
+		if (array_key_exists('температура справа',$firstView)) {
+		$firstView['status_localis_in']['value'] = '1';
+	} else {
+		$firstView['status_localis_in']['value'] = '0';
+	}
 	print_r('firstView1');
 	print_r($firstView);
 
@@ -331,7 +343,16 @@ function fields_msk36($event_id,$orgstr="") {
 	$lastView = getAction($action_id);
 	$lastView = $lastView["data"]["fields"];
 
-
+	if (array_key_exists('сонные справа', $lastView)) {
+		$lastView['status_vascularis_out']['value'] = '1';
+	} else {
+		$lastView['status_vascularis_out']['value'] = '0';
+	}
+	if (array_key_exists('температура справа', $lastView)) {
+		$lastView['status_localis_out']['value'] = '1';
+	} else {
+		$lastView['status_localis_out']['value'] = '0';
+	}
 	$event=mysqlReadItem("Event",$event_id);
 	$Diag=patientGetDiagnosis($event_id);
 	$SQL="SELECT a.* FROM Action AS a
@@ -393,7 +414,7 @@ function getTemplateValues($docs=array()) {
 		if (isset($docs[$from[0]]) AND $fld>"") {
 	// ============ SELECT ==============
 			if (pq($inc)->is("select")) {
-			pq($inc)->attr("value",$docs[$from[0]][$fld]["value"]);
+				pq($inc)->attr("value",$docs[$from[0]][$fld]["value"]);
 				if (pq($inc)->attr("multiple")=="multiple") {
 					$multi=true;
 					$val=explode(",",pq($inc)->attr("value")); 
