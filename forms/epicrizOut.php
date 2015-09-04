@@ -288,8 +288,8 @@ function fields_msk36($event_id,$orgstr="") {
 	$event=mysqlReadItem("Event",$event_id);
 	$Diag=patientGetDiagnosis($event_id);
 	$SQL="SELECT a.* FROM Action AS a
-	INNER JOIN  Event AS e ON (a.event_id = e.id)
-	INNER JOIN  ActionType AS t ON t.id = a.actionType_id
+	INNER JOIN  Event AS e ON (a.event_id = e.id and a.person_id = e.execPerson_id)
+	INNER JOIN  ActionType AS t ON t.id = a.actionType_id 
 	WHERE e.id = {$event_id} 
 	# AND (a.setPerson_id = e.execPerson_id OR a.person_id = e.execPerson_id )
 	AND a.deleted = 0 
@@ -322,37 +322,7 @@ function fields_msk36($event_id,$orgstr="") {
 	print_r('firstView1');
 	print_r($firstView);
 
-	$SQL="SELECT a.* FROM Action AS a
-	INNER JOIN  Event AS e ON (a.event_id = e.id and a.person_id = e.execPerson_id)
-	INNER JOIN  ActionType AS t ON t.id = a.actionType_id
-	WHERE e.id = {$event_id} 
-	# AND (a.setPerson_id = e.execPerson_id OR a.person_id = e.execPerson_id )
-	AND a.deleted = 0 
-	AND a.status = 2 
-	AND t.name LIKE '%осмотр%' 
-	ORDER BY endDate DESC LIMIT 1";
-	$res=mysql_query($SQL) or die ("Query failed fields_msk36(): [1]" . mysql_error());
-	while($data = mysql_fetch_array($res)) {
-		$action_id=$data[0];
-		$last_osmotr=getActionProperties($data[0],"");
-	}
-	$action_in=getActionDataIn($event_id); // Осмотр в приёмном отделении
-	// print_r($action_in);
-	// $first_osmotr1=getAction($action_id);
-	// $first_osmotr1=$first_osmotr1["data"]["fields"];
-	$lastView = getAction($action_id);
-	$lastView = $lastView["data"]["fields"];
 
-	if (array_key_exists('сонные справа', $lastView)) {
-		$lastView['status_vascularis_out']['value'] = '1';
-	} else {
-		$lastView['status_vascularis_out']['value'] = '0';
-	}
-	if (array_key_exists('температура справа', $lastView)) {
-		$lastView['status_localis_out']['value'] = '1';
-	} else {
-		$lastView['status_localis_out']['value'] = '0';
-	}
 	$event=mysqlReadItem("Event",$event_id);
 	$Diag=patientGetDiagnosis($event_id);
 	$SQL="SELECT a.* FROM Action AS a
@@ -371,7 +341,68 @@ function fields_msk36($event_id,$orgstr="") {
 	}
 	$action_in=getActionDataIn($event_id); // Осмотр в приёмном отделении
 	$firstDiagView = getAction($action_id);
-	$firstDiagView = $firstView["data"]["fields"];
+	$firstDiagView = $firstDiagView["data"]["fields"];
+
+
+	$SQL="SELECT a.* FROM Action AS a
+	INNER JOIN  Event AS e ON (a.event_id = e.id)
+	INNER JOIN  ActionType AS t ON t.id = a.actionType_id
+	INNER JOIN  ActionProperty as ap on ap.action_id = a.id
+	INNER JOIN  ActionProperty_String as aps on aps.id = ap.id
+	INNER JOIN  ActionPropertyType as apt on (apt.id = ap.type_id)
+	WHERE e.id = {$event_id} 
+	# AND (a.setPerson_id = e.execPerson_id OR a.person_id = e.execPerson_id )
+	AND a.deleted = 0 
+	AND a.status = 2 
+	AND t.name LIKE '%осмотр%'
+	AND apt.name = 'Осмотр:'
+	AND aps.value like '%Осмотр зав. отделением%'
+	ORDER BY endDate DESC LIMIT 1";
+
+	print_r('Totot');
+	print_r($SQL);
+	$res=mysql_query($SQL) or die ("Query failed fields_msk36(): [1]" . mysql_error());
+	$action_id = '';
+	while($data = mysql_fetch_array($res)) {
+		$action_id=$data[0];
+		$lastView=getActionProperties($data[0],"");
+	}
+	$action_in=getActionDataIn($event_id); // Осмотр в приёмном отделении
+	$lastView = getAction($action_id);
+	$lastView = $lastView["data"]["fields"];
+	if (empty($action_id)) {
+		$SQL="SELECT a.* FROM Action AS a
+		INNER JOIN  Event AS e ON (a.event_id = e.id and a.person_id = e.execPerson_id)
+		INNER JOIN  ActionType AS t ON t.id = a.actionType_id
+		WHERE e.id = {$event_id} 
+		# AND (a.setPerson_id = e.execPerson_id OR a.person_id = e.execPerson_id )
+		AND a.deleted = 0 
+		AND a.status = 2 
+		AND t.name LIKE '%осмотр%' 
+		ORDER BY endDate DESC LIMIT 1";
+		$res=mysql_query($SQL) or die ("Query failed fields_msk36(): [1]" . mysql_error());
+		while($data = mysql_fetch_array($res)) {
+			$action_id=$data[0];
+			$last_osmotr=getActionProperties($data[0],"");
+		}
+		$action_in=getActionDataIn($event_id); // Осмотр в приёмном отделении
+		// print_r($action_in);
+		// $first_osmotr1=getAction($action_id);
+		// $first_osmotr1=$first_osmotr1["data"]["fields"];
+		$lastView = getAction($action_id);
+		$lastView = $lastView["data"]["fields"];
+	}
+	
+	if (array_key_exists('сонные справа', $lastView)) {
+		$lastView['status_vascularis_out']['value'] = '1';
+	} else {
+		$lastView['status_vascularis_out']['value'] = '0';
+	}
+	if (array_key_exists('температура справа', $lastView)) {
+		$lastView['status_localis_out']['value'] = '1';
+	} else {
+		$lastView['status_localis_out']['value'] = '0';
+	}
 
 
 

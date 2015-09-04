@@ -30,15 +30,15 @@
 		</ul>
 		<li> <b>Адрес</b>: <input type="text" class="medium" name="address" value="{{client_adress}}"> </li>
 
-		<li><b><h2>Диагноз при поступлении:</h2></b>
+		<li><b><h2>Диагноз при поступлении</h2></b>
 			<ul class="block">
-				<li><b class="bottom-bord">Основное заболевание:</b><textarea name="e_diag_main_in" from="FirstOsmotr@Основное заболевание">{{e_diag_main_in}}</textarea></li>
-				<li><b class="bottom-bord">Фоновые заболевания:</b><textarea name="e_diag_fon_in" from="FirstOsmotr@Фоновые заболевания">{{e_diag_fon_in}}</textarea></li>
-				<li><b class="bottom-bord">Осложнения основного заболевания:</b><textarea name="e_diag_comp_in" from="FirstOsmotr@Осложнения основного заболевания:">{{e_diag_comp_in}}</textarea></li>
-				<li><b class="bottom-bord">Сопутствующие заболевания:</b><textarea name="e_diag_satt_in" from="FirstOsmotr@Сопутствующие заболевания:">{{e_diag_satt_in}}</textarea></li>
+				<li><b class="bottom-bord">Основное заболевание:</b><textarea name="e_diag_main_in" from="firstView@Основное заболевание">{{e_diag_main_in}}</textarea></li>
+				<li><b class="bottom-bord">Фоновые заболевания:</b><textarea name="e_diag_fon_in" from="firstView@Фоновые заболевания">{{e_diag_fon_in}}</textarea></li>
+				<li><b class="bottom-bord">Осложнения основного заболевания:</b><textarea name="e_diag_comp_in" from="firstView@Осложнения основного заболевания:">{{e_diag_comp_in}}</textarea></li>
+				<li><b class="bottom-bord">Сопутствующие заболевания:</b><textarea name="e_diag_satt_in" from="firstView@Сопутствующие заболевания:">{{e_diag_satt_in}}</textarea></li>
 			</ul>
 		</li>
-		<li><b><h2>Диагноз при выписке:</h2></b>
+		<li><b><h2>Диагноз при выписке</h2></b>
 			<ul class="block">
 				<li><b class="bottom-bord">Основное заболевание:</b><textarea name="e_diag_main_out" from="lastView@Основное заболевание">{{e_diag_main_out}}</textarea></li>
 				<li><b class="bottom-bord">Фоновые заболевания:</b><textarea name="e_diag_fon_out" from="lastView@Фоновые заболевания">{{e_diag_fon_out}}</textarea></li>
@@ -50,7 +50,7 @@
 		<li><p style="text-align:center;"><b>Код стандарта:</b> <input name="e_code1" class="small"> <b>Шифр по МКБ-10:</b> <input name="e_code2" class="small"></p></li>
 		<h2>Состояние при поступлении</h2>
 		<ul>
-			<li><b>Жалобы при поступлении:</b><textarea name="e_complaint1" from="FirstOsmotr@Жалобы">{{e_complaint1}}</textarea> </li>
+			<li><b>Жалобы при поступлении:</b><textarea name="e_complaint1" from="firstDiagView@Жалобы">{{e_complaint1}}</textarea> </li>
 			<li><b>An.morbi:</b><textarea name="e_anamnez1" from="firstView@Anamnesis morbi">{{e_anamnez1}}</textarea> </li>
 			<li><b>An.vitae:</b><textarea name="e_an_vitae" from="firstView@Anamnesis vitae">{{e_an_vitae}}</textarea> </li>
 			<li>
@@ -2662,7 +2662,7 @@
 	</li>
 	<li>
 		<b>Проведенное лечение:</b>
-		<textarea class="medium"</textarea>
+		<textarea class="medium" name="e_treatment"</textarea>
 	</li>
 	<li>
 		<b>Динамика состояния пациента:</b>

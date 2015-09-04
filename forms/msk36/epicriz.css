@@ -78,7 +78,7 @@ body {display:none;}
 #form-027u button[name="nevr-toggle-in"] {display:none;}
 /*#form-027u .lab-test {font-size:12pt; }*/
 #form-027u .header {font-size:14pt;}
-#form-027u table.analyzes { font-size:8pt; border-collapse: collapse; border: 1px solid black;}
+#form-027u table.analyzes { font-size:10pt; border-collapse: collapse; border: 1px solid black;}
 #form-027u table.analyzes td { border: 1px solid black; }
 #form-027u table.status { border-collapse: collapse; border: 1px solid black;}
 #form-027u table.status td { border: 1px solid black; }
