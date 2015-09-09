@@ -28,7 +28,7 @@
 			<li>{{31}} - {{14}}</li>
 			</div>
 		</ul>
-		<li> <b>Адрес</b>: <input type="text" class="medium" name="address" value="{{client_adress}}"> </li>
+		<li> <b>Адрес</b>: <input type="text" class="medium" name="e_client_adress" value="{{e_client_adress}}"> </li>
 
 		<li><b><h2>Диагноз при поступлении</h2></b>
 			<ul class="block">
@@ -2633,8 +2633,8 @@
 	<textarea name="e_anayseText">{{e_anayseText}}</textarea></li>
 	
 	<li class='bottomtop-bord'>
-		<p><b>RW:</b><textarea name="RW">{{RW}}</textarea></p>
-		<p><b>Рентгенография органов грудной клетки:</b><textarea name="rendgetnographia_organov_grudnoy_kletki">{{rendgetnographia_organov_grudnoy_kletki}}</textarea></p>
+		<p><b>RW:</b><textarea name="e_RW">{{e_RW}}</textarea></p>
+		<p><b>Рентгенография органов грудной клетки:</b><textarea name="e_rendgetnographia_organov_grudnoy_kletki">{{e_rendgetnographia_organov_grudnoy_kletki}}</textarea></p>
 	</li>
 	<li><b><h3>Консультации специалистов: </h3></b>
 	<ul>
@@ -2662,7 +2662,7 @@
 	</li>
 	<li>
 		<b>Проведенное лечение:</b>
-		<textarea class="medium" name="e_treatment"</textarea>
+		<textarea class="medium" name="e_treatment"></textarea>
 	</li>
 	<li>
 		<b>Динамика состояния пациента:</b>
@@ -2706,7 +2706,7 @@
 <textarea name="e_recom_dieta">{{e_recom_dieta}}</textarea>
 </li>
 <li><b>Лекарственные препараты:</b>
-<textarea name="Drugs">{{Drugs}}</textarea>
+<textarea name="e_Drugs">{{e_Drugs}}</textarea>
 </li>
 <li><b>Выписан под наблюдение врача <input class="medium" name="e_recom_homedoctor" /> по месту жительства
 </li>

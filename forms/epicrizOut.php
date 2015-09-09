@@ -3,7 +3,7 @@ include($_SERVER["DOCUMENT_ROOT"]."/functions.php");
 prepareSessions();
 $_SESSION["allow"]=array("Врач");
 function epicrizOut_edit($form,$mode,$id,$datatype) {
-
+	mb_internal_encoding('UTF-8');
 	$event=mysqlReadItem("Event",$id);
 
 	$eventStart = strtotime($event['createDatetime']);
@@ -63,13 +63,13 @@ if ($_SESSION["settings"]["appId"]=="msk36") {
 }
 }	
 
-	$json_query_SQL="SELECT * FROM Action AS a 
+	$SQL="SELECT * FROM Action AS a 
 	INNER JOIN JsonData as jd on jd.id = concat('Action@',a.id)
 	WHERE a.actionType_id = 26618 
 	AND a.deleted = 0 
 	AND a.event_id = ".$id." 
 	LIMIT 1";
-	// $res=mysql_query($SQL) or die ("Query failed getEpicrizOut(): " . mysql_error());
+	$res=mysql_query($SQL) or die ("Query failed getEpicrizOut(): " . mysql_error());
 
 $event=mysqlReadItem("Event",$id);
 	$Item["execPerson_id"]=$event["execPerson_id"];
@@ -206,8 +206,9 @@ foreach($out->find("select option") as $opt) {
 foreach($out->find("select[multiple] option") as $opt) {
 	// устанавливаем option для multiple select
 	$selname=pq($opt)->parent("select")->attr("name");$selname=substr($selname,0,-2);
-
-	if (in_array(strtolower(pq($opt)->text()),array_map('mb_strtolower', $Item[$selname]))) {pq($opt)->attr("set","set");}
+	$temp_item = array_map('mb_strtolower',$Item[$selname]);
+	$temp_text = mb_strtolower(pq($opt)->text());
+	if (in_array($temp_text,$temp_item)) {pq($opt)->attr("set","set");}
 }
 
 
