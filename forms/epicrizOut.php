@@ -130,6 +130,15 @@ $event=mysqlReadItem("Event",$id);
 		$Item["s_date2"]=getRusDate(date("Y-m-d"))."г.";
 		$Item["endDate"]=date("d.m.Y");
 	}
+
+	$Item['dateDiff'] = floor((time() -  strtotime($event["setDate"]))/(60*60*24));
+
+	if ($Item['dateDiff'] % 10 > 4) {
+		$Item['dateDiff'] = $Item['dateDiff'] . ' дней';
+	}	else {
+		$Item['dateDiff'] = $Item['dateDiff'] . ' дня';
+	}
+
 		$Item["docDate"]=$Item["s_date2"];
 	$Item["orgStrBoss"]=getPersonInfo($orgstructure["chief_id"]); $Item["orgStrBoss"]=$Item["orgStrBoss"]["personShort"];
 // $Item["e_diag_in"] = print_r($action, true);
@@ -142,11 +151,7 @@ $event=mysqlReadItem("Event",$id);
 				foreach($tpl as $key => $arr) {
 
 					if (in_array($Item["OrgStrCode"],$arr[0])) {
-						if (false) {
-							$path = $_SERVER['DOCUMENT_ROOT']."/forms/msk36/epicriz_".$arr[1]."_".$arr[2].".php";
-						} else {
-							$path = $_SERVER['DOCUMENT_ROOT']."/forms/msk36/epicriz_Cord1.php";
-						}
+							$path = $_SERVER['DOCUMENT_ROOT']."/forms/msk36/epicriz_general_".$arr[2].".php";
 						$out=phpQuery::newDocumentFile($path);
 					}
 				}
