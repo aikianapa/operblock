@@ -148,13 +148,10 @@ $event=mysqlReadItem("Event",$id);
 			// =========================================================	
 			// ========= привязываем шаблоны к кодам отделений =========	
 			// =========================================================
-				foreach($tpl as $key => $arr) {
-
-					if (in_array($Item["OrgStrCode"],$arr[0])) {
-							$path = $_SERVER['DOCUMENT_ROOT']."/forms/msk36/epicriz_general_".$arr[2].".php";
-						$out=phpQuery::newDocumentFile($path);
-					}
-				}
+			$path = $_SERVER['DOCUMENT_ROOT']."/forms/msk36/epicriz_general_".$type.".php";
+			$out=phpQuery::newDocumentFile($path);
+					
+				
 
 			// ========= по-умолчанию простой эпикриз =========	
 			if ($out=="") {$out=phpQuery::newDocumentFile($_SERVER['DOCUMENT_ROOT']."/forms/epicrizOut_edit.php");}
@@ -286,6 +283,9 @@ function drugsPrepare($data) {
 
 function fields_msk36($event_id,$orgstr="") {
 	// print_r($event_id);
+		// print_r($action_id);
+	$f=array(); // $f[""]="";
+	$docs=array();
 	$tpl="";
 	foreach($_SESSION["epic_tpl"] as $key => $arr) {
 		if (in_array($orgstr,$arr[0])) {	$tpl=$arr[1];	}
@@ -313,41 +313,9 @@ function fields_msk36($event_id,$orgstr="") {
 	// $first_osmotr1=$first_osmotr1["data"]["fields"];
 
 	$firstView = getAction($action_id);
-	$firstView = $firstView["data"]["fields"];
-
-	if (array_key_exists('сонные справа',$firstView)) {
-		$firstView['status_vascularis_in']['value'] = '1';
-	} else {
-		$firstView['status_vascularis_in']['value'] = '0';
-	}
-		if (array_key_exists('температура справа',$firstView)) {
-		$firstView['status_localis_in']['value'] = '1';
-	} else {
-		$firstView['status_localis_in']['value'] = '0';
-	}
-	print_r('firstView1');
-	print_r($firstView);
+	$docs["firstView"] = $firstView["data"]["fields"];
 
 
-	$event=mysqlReadItem("Event",$event_id);
-	$Diag=patientGetDiagnosis($event_id);
-	$SQL="SELECT a.* FROM Action AS a
-	INNER JOIN  Event AS e ON (a.event_id = e.id)
-	INNER JOIN  ActionType AS t ON t.id = a.actionType_id
-	WHERE e.id = {$event_id} 
-	# AND (a.setPerson_id = e.execPerson_id OR a.person_id = e.execPerson_id )
-	AND a.deleted = 0 
-	AND a.status = 2 
-	AND t.name LIKE '%осмотр%'
-	ORDER BY endDate ASC LIMIT 1";
-	$res=mysql_query($SQL) or die ("Query failed fields_msk36(): [1]" . mysql_error());
-	while($data = mysql_fetch_array($res)) {
-		$action_id=$data[0];
-		$first_diag_view=getActionProperties($data[0],"");
-	}
-	$action_in=getActionDataIn($event_id); // Осмотр в приёмном отделении
-	$firstDiagView = getAction($action_id);
-	$firstDiagView = $firstDiagView["data"]["fields"];
 
 
 	$SQL="SELECT a.* FROM Action AS a
@@ -375,7 +343,7 @@ function fields_msk36($event_id,$orgstr="") {
 	}
 	$action_in=getActionDataIn($event_id); // Осмотр в приёмном отделении
 	$lastView = getAction($action_id);
-	$lastView = $lastView["data"]["fields"];
+	$docs["lastView"] = $lastView["data"]["fields"];
 	if (empty($action_id)) {
 		$SQL="SELECT a.* FROM Action AS a
 		INNER JOIN  Event AS e ON (a.event_id = e.id and a.person_id = e.execPerson_id)
@@ -396,36 +364,103 @@ function fields_msk36($event_id,$orgstr="") {
 		// $first_osmotr1=getAction($action_id);
 		// $first_osmotr1=$first_osmotr1["data"]["fields"];
 		$lastView = getAction($action_id);
-		$lastView = $lastView["data"]["fields"];
+		$docs["lastView"] = $lastView["data"]["fields"];
 	}
 	
-	if (array_key_exists('сонные справа', $lastView)) {
-		$lastView['status_vascularis_out']['value'] = '1';
-	} else {
-		$lastView['status_vascularis_out']['value'] = '0';
+
+
+	if ($_SESSION["epic_type"] == 'dead' or $_SESSION["epic_type"] == 'preoper') {
+
+		$SQL="SELECT a.* FROM Action AS a
+		INNER JOIN  Event AS e ON (a.event_id = e.id)
+		INNER JOIN  ActionType AS t ON t.id = a.actionType_id
+		INNER JOIN  ActionProperty as ap on ap.action_id = a.id
+		INNER JOIN  ActionProperty_String as aps on aps.id = ap.id
+		INNER JOIN  ActionPropertyType as apt on (apt.id = ap.type_id)
+		WHERE e.id = {$event_id} 
+		# AND (a.setPerson_id = e.execPerson_id OR a.person_id = e.execPerson_id )
+		AND a.deleted = 0 
+		AND a.status = 2 
+		AND t.name LIKE '%осмотр%'
+		AND apt.name = 'Осмотр:'
+		AND aps.value like '%Осмотр зав. отделением%'
+		ORDER BY endDate ASC LIMIT 1";
+		$res=mysql_query($SQL) or die ("Query failed fields_msk36(): [1]" . mysql_error());
+		$action_id = '';
+		while($data = mysql_fetch_array($res)) {
+			$action_id=$data[0];
+			$firstZavView=getActionProperties($data[0],"");
+		}
+			$firstZavView = getAction($action_id);
+			$docs['firstZavView'] = $firstZavView["data"]["fields"];
+			
+
+		$SQL="SELECT a.* FROM Action AS a
+		INNER JOIN  Event AS e ON (a.event_id = e.id)
+		INNER JOIN  ActionType AS t ON t.id = a.actionType_id
+		WHERE e.id = {$event_id} 
+		# AND (a.setPerson_id = e.execPerson_id OR a.person_id = e.execPerson_id )
+		AND a.deleted = 0 
+		AND a.status = 2 
+		AND t.name LIKE '%осмотр%'
+		ORDER BY endDate ASC LIMIT 1";
+		$res=mysql_query($SQL) or die ("Query failed fields_msk36(): [1]" . mysql_error());
+		while($data = mysql_fetch_array($res)) {
+			$action_id = $data[0];
+			$firstDiagView = getActionProperties($data[0],"");
+		}
+		$firstDiagView = getAction($action_id);
+		$docs['firstDiagView'] = $firstDiagView["data"]["fields"];
+
+		if (array_key_exists('сонные справа', $docs['firstZavView'])) {
+			$docs["firstZavView"]['status_vascularis_out']['value'] = '1';
+		} else {
+			$docs["firstZavView"]['status_vascularis_out']['value'] = '0';
+		}
+		if (array_key_exists('температура справа', $docs['firstZavView'])) {
+			$docs["firstZavView"]['status_localis_out']['value'] = '1';
+		} else {
+			$docs["firstZavView"]['status_localis_out']['value'] = '0';
+		}
+
+
+
+
+
 	}
-	if (array_key_exists('температура справа', $lastView)) {
-		$lastView['status_localis_out']['value'] = '1';
+
+		if (array_key_exists('сонные справа', $docs["lastView"])) {
+			$docs["lastView"]['status_vascularis_out']['value'] = '1';
+		} else {
+			$docs["lastView"]['status_vascularis_out']['value'] = '0';
+		}
+		if (array_key_exists('температура справа', $docs["lastView"])) {
+			$docs["lastView"]['status_localis_out']['value'] = '1';
+		} else {
+			$docs["lastView"]['status_localis_out']['value'] = '0';
+		}
+
+
+
+	if (array_key_exists('сонные справа',$docs["firstView"])) {
+		$docs["firstView"]['status_vascularis_in']['value'] = '1';
 	} else {
-		$lastView['status_localis_out']['value'] = '0';
+		$docs["firstView"]['status_vascularis_in']['value'] = '0';
 	}
-
-
-
-
-	// print_r($action_id);
-	$f=array(); // $f[""]="";
-	$docs=array();
-	
+	if (array_key_exists('температура справа',$docs["firstView"])) {
+		$docs["firstView"]['status_localis_in']['value'] = '1';
+	} else {
+		$docs["firstView"]['status_localis_in']['value'] = '0';
+	}
 
 
 	$docs["FirstOsmotr"]=$action_in;
 	$docs["DiaryLast"]=$DiaryLast;
 	$docs["diaryLast"]=$DiaryLast;
-	$docs["firstView"]=$firstView;
+	// $docs["firstView"]=$firstView;
 	$docs["secondView"]=$secondView;
-	$docs["lastView"]=$lastView;
-	$docs['firstDiagView'] = $firstDiagView;
+	// $docs["lastView"]=$lastView;
+	// $docs['firstDiagView'] = $firstDiagView;
 	// print_r('fsdfsd');
 	getTemplateValues($docs);
 	return $f;

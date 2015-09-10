@@ -50,7 +50,7 @@
 		<li><p style="text-align:center;"><b>Код стандарта:</b> <input name="e_code1" class="small"> <b>Шифр по МКБ-10:</b> <input name="e_code2" class="small"></p></li>
 		<h2>Состояние при поступлении</h2>
 		<ul>
-			<li><b>Жалобы при поступлении:</b><textarea name="e_complaint1" from="firstDiagView@Жалобы">{{e_complaint1}}</textarea> </li>
+			<li><b>Жалобы при поступлении:</b><textarea name="e_complaint1" from="firstView@Жалобы">{{e_complaint1}}</textarea> </li>
 			<li><b>An.morbi:</b><textarea name="e_anamnez1" from="firstView@Anamnesis morbi">{{e_anamnez1}}</textarea> </li>
 			<li><b>An.vitae:</b><textarea name="e_an_vitae" from="firstView@Anamnesis vitae">{{e_an_vitae}}</textarea> </li>
 			<li>
