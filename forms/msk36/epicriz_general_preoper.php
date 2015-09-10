@@ -8,21 +8,19 @@
 <input type="hidden" name="event_id">
 <input type="hidden" name="person_id">
 <p style="text-align:center; font-size:14pt;">
-<b><b class='header'>{{OrgName}}</b><br />
-{{orgStr}}<br /></p>
-<hr />
-<p style="text-align:center;">
-{{OrgAddr}}                                                   тел. +7 {{OrgPhone}}</b>
-<br />
-<h2 style="font-size:14pt;">ПРЕДОПЕРАЦИОННЫЙ ЭПИКРИЗ <div style="font-size:10px;">от <input style="width: 160px;font-size: 10pt;" class="small" type="text" name="s_date2" value="{{s_date2}}"> </div></h2>
+<h2 style="font-size:14pt;">ПРЕДОПЕРАЦИОННЫЙ ЭПИКРИЗ</h2>
+ <div>
+ 	<div style="font-size:10pt;   float: right; ">от <input style="width: 160px;font-size: 10pt;" class="small" type="text" name="s_date2" value="{{s_date2}}"> </div>
+ 	<div style="font-size:10pt;   float: left;">№ И/Б {{externalId}}</div>
+ 	<br/>
+ </div>
+
 </p>
 
 <ul class="fields">
 		<li><b>Фамилия, Имя, Отчество:</b> {{client}}, <b>возраст</b> {{age}} лет    И/Б {{externalId}}</li>
-		<li> <b>Адрес</b>: <input type="text" class="medium" name="e_client_adress" value="{{e_client_adress}}"> </li>
 		<li class="">
 		<ul>
-		<li> <b>Находился(-лась) на стационарном лечении</b> с {{s_date1}} 	по <input type="text" class="medium" name="endDate" value="{{s_date2}}">.  {{dateDiff}} </li>
 		<li> <b>Наименование отделения:</b> {{orgStr}}
 		<li><b><h2>Диагноз при поступлении</h2></b>
 			<ul class="block">
@@ -30,38 +28,39 @@
 				<li><b class="bottom-bord">Основное заболевание:</b><textarea name="e_diag_main_in" from="firstZavView@Основное заболевание">{{e_diag_main_in}}</textarea></li>
 				<li><b class="bottom-bord">Фоновые заболевания:</b><textarea name="e_diag_fon_in" from="firstZavView@Фоновые заболевания">{{e_diag_fon_in}}</textarea></li>
 				<li><b class="bottom-bord">Осложнения основного заболевания:</b><textarea name="e_diag_comp_in" from="firstZavView@Осложнения основного заболевания:">{{e_diag_comp_in}}</textarea></li>
-				<li><b class="bottom-bord">Сопутствующие заболевания:</b><textarea name="e_diag_satt_in" from="firstZavView@Сопутствующие заболевания:">{{e_diag_satt_in}}</textarea></li>
+				<li><b class="bottom-bord">Сопутствующие заболевания:</b><textarea name="e_diag_satt_in" from="firstZavView@Сопутствующие заболевания">{{e_diag_satt_in}}</textarea></li>
+				<li><b class="bottom-bord">Обоснование диагноза:</b><br/><textarea name="e_diag_satt_in" from="firstZavView@Обоснование диагноза">{{e_diag_satt_in}}</textarea></li>
+				<li><b>Согласие пациента получено:</b>
+					<select multiple="multiple" name="e_sogl_patient[]"  >
+							<option>Да</option>
+							<option>Нет</option>
+							<option>Либо решение об операции принято консилиумом врачей</option>
+					</select>
+				</li>
+				<li><b>Показания к операции:</b><br/>
+					<textarea name="e_pokaz_oper">{{e_pokaz_oper}}</textarea>
+				</li>
+				<li><b>Планируемое оперативное вмешательство:</b>
+					<textarea name="e_plan_oper_vmesh">{{e_plan_oper_vmesh}}</textarea>
+				</li>
+				<li><b>Группа крови и резус фактор:</b>
+					<textarea name="e_diag_grup_krovi" from="krovAnaliz@Группа крови ABO">{{e_diag_grup_krovi}}</textarea>
+				</li>
+				<li><b>Аллергический анамнез:</b>
+					<textarea name="e_al_anamnez" from="firstZavView@Аллергический анамнез">{{e_al_anamnez}}</textarea>
+				</li>
+				<li><b>Премедикация:</b>
+					<textarea name="e_premedication">{{e_premedication}}</textarea>
+				</li>
+				<li><b>Профилактика:</b>
+					<textarea name="e_profilactica">{{e_profilactica}}</textarea>
+				</li>
+				<li><b>Комментарий:</b>
+					<textarea name="e_commentarii">{{e_commentarii}}</textarea>
+				</li>
 			</ul>
 		</li>
 
-		<li>Согласие пациента получено:
-			<select multiple="multiple" name="e_sogl_patient[]"  >
-					<option>Да</option>
-					<option>Нет</option>
-					<option>Либо решение об операции принято консилиумом врачей</option>
-			</select>
-		</li>
-		<li>Показания к операции:
-			<textarea name="e_pokaz_oper">{{e_pokaz_oper}}</textarea>
-		</li>
-		<li>Планируемое оперативное вмешательство:
-			<textarea name="e_plan_oper_vmesh">{{e_plan_oper_vmesh}}</textarea>
-		</li>
-		<li>Группа крови и резус фактор:
-			<textarea name="e_diag_grup_krovi" from="krovAnaliz@Группа крови ABO">{{e_diag_grup_krovi}}</textarea>
-		</li>
-		<li>Аллергический анамнез:
-			<textarea name="e_al_anamnez" from="firstZavView@Аллергический анамнез">{{e_al_anamnez}}</textarea>
-		</li>
-		<li>Премедикация:
-			<textarea name="e_premedication">{{e_premedication}}</textarea>
-		</li>
-		<li>Профилактика:
-			<textarea name="e_profilactica">{{e_profilactica}}</textarea>
-		</li>
-		<li>Комментарий:
-			<textarea name="e_commentarii">{{e_commentarii}}</textarea>
-		</li>
 
 </ul>
 <h2>Результаты диагностических исследований</h2>
@@ -92,7 +91,7 @@
 
 <br>
 <br>
-<span class="docDate">{{docDate}}</span><br />
+<span class="docDate">{{docDate}}</span><br /> <br />
 Лечащий врач _________________ /{{person}}/<br>
 <br />
 Зав. отделением _________________ /{{orgStrBoss}}/<br>

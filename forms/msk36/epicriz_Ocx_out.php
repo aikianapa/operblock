@@ -39,7 +39,7 @@
 		<li><b>An.morbi:</b><textarea name="e_an_morbi" from="firstView@Anamnesis morbi">{{e_an_morbi}}</textarea> </li>
 		<li><b>An.vitae:</b><textarea name="e_an_vitae">{{e_an_vitae}}</textarea> </li>
 		<li><b>Status vascularis при поступлении:</b>
-			<table>
+			<table >
 			<tr><th colspan="2">Пульс справа</th><th colspan="2">Пульс слева</th></tr>
 			<tr><td>Сонные:</td><td><span from="firstView@сонные справа"></span></td><td>Сонные:</td><td><span from="firstView@сонные слева"></span></td></tr>
 			<tr><td>Аскилярная:</td><td><span from="firstView@аксиллярная справа"></span></td><td>Аскилярная:</td><td><span from="firstView@аксиллярная слева"></span></td></tr>

@@ -39,15 +39,15 @@
 
 		<h2>Текущее состояние</h2>
 		<ul class='bottom-bord'>
-			<li><b>Жалобы при поступлении:</b><textarea name="e_complaint1" from="lastView@Жалобы">{{e_complaint1}}</textarea> </li>
-			<li><b>An.morbi:</b><textarea name="e_anamnez1" from="lastView@Anamnesis morbi">{{e_anamnez1}}</textarea> </li>
-			<li><b>An.vitae:</b><textarea name="e_an_vitae" from="lastView@Anamnesis vitae">{{e_an_vitae}}</textarea> </li>
-			<li><b>Аллергологический анамнез:</b><textarea name="e_al_anamnez" from="lastView@Аллергологический анамнез">{{e_al_anamnez}}</textarea> </li>
+			<li><b>Жалобы на момент осмотра:</b><textarea name="e_complaint1" from="lastView@Жалобы">{{e_complaint1}}</textarea> </li>
+			<li><b>An.morbi:</b><br/><textarea name="e_anamnez1" from="lastView@Anamnesis morbi">{{e_anamnez1}}</textarea> </li>
+			<li><b>An.vitae:</b><br/><textarea name="e_an_vitae" from="lastView@Anamnesis vitae">{{e_an_vitae}}</textarea> </li>
+			<li><b>Аллергологический анамнез:</b><br/><textarea name="e_al_anamnez" from="lastView@Аллергологический анамнез">{{e_al_anamnez}}</textarea> </li>
 			<li>
-				<h3><b>Status praesens:</b></h3> 
+				<h3><b>Status praesens</b></h3> 
 				<ul class="container nob">
 					<li>
-						<b>Общее состояние:</b> 
+						<b>Общее состояние</b> 
 						<select multiple="multiple" name="e_diag_sost_out[]"  from="lastView@Status praesens: Общее состояние:" >
 							<option>удовлетворительное</option>
 							<option>средней тяжести</option>
@@ -56,7 +56,7 @@
 						</select>
 						<input name="e_diag_sost_out_text" value="">
 					</li>
-					<li><b>Сознание:</b> <textarea class="medium" name="e_diag_mind_out" from="lastView@Сознание">{{e_diag_mind_out}}</textarea></li>
+					<li><b>Сознание</b> <textarea class="medium" name="e_diag_mind_out" from="lastView@Сознание">{{e_diag_mind_out}}</textarea></li>
 					<li><b>Кожные покровы и видимые слизистые:</b> <textarea class="medium" name="e_diag_skin_out" from="lastView@Кожные покровы и видимые слизистые">{{e_diag_skin_out}}</textarea></li>
 					<li><b>Отёки:</b>
 						<textarea class="medium" name="e_diag_edema_out" from="lastView@Отёки">{{e_diag_edema_out}}</textarea>
@@ -69,7 +69,7 @@
 				<b><h3>Органы дыхания</h3></b>
 				<ul class="container nob">
 					<li>
-						<b>Форма грудной клетки:</b>
+						<b>Форма грудной клетки</b>
 						<select multiple="multiple" name='e_diag_formgrkl_out[]' value='{{e_diag_formgrkl_out}}' from="lastView@Форма грудной клетки">
 							<option>коническая</option>
 							<option>астеническая,</option>
@@ -84,7 +84,7 @@
 						<input name="e_diag_formgrkl_out_text" value="">
 					</li>
 					<li>
-						<b>Участвует в акте дыхания:</b>
+						<b>Участвует в акте дыхания</b>
 						<select multiple="multiple" name='e_diag_uchakdh_out[]' value='{{e_diag_uchakdh_out}}' from="lastView@Участвует в акте дыхания">
 							<option>равномерно</option>
 							<option>нет</option>
@@ -92,7 +92,7 @@
 						<input name="e_diag_uchakdh_out_text" value="">
 					</li>
 					<li>
-						<b>Дыхание:</b>
+						<b>Дыхание</b>
 						<select multiple="multiple" name='e_diag_dihan_out[]' value='{{e_diag_dihan_out}}' from="lastView@Аускультативно: Дыхание" >
 							<option>везикулярное</option>
 							<option>жесткое</option>
@@ -137,7 +137,7 @@
 				<ul class="container nob">
 					
 				<li>
-					<b>Область сердца:</b>
+					<b>Область сердца</b>
 					<select multiple="multiple"  name='e_diag_oblserd_out[]' value='{{e_diag_oblserd_out}}' from="lastView@Область сердца">
 						<option>не изменена</option>
 						<option>расширена</option>
@@ -159,7 +159,7 @@
 					<input name="e_diag_granserd_out_text" value="">
 				</li>
 				<li>
-					<b>Тоны сердца:</b>
+					<b>Тоны сердца</b>
 					<select multiple="multiple"  name='e_diag_tonserd_out[]' value='{{e_diag_tonserd_out}}' from="lastView@Тоны сердца">
 						<option>ясные</option>
 						<option>приглушенные</option>
@@ -190,11 +190,11 @@
 				</li>
 				<li><b>ЧСС:</b> <textarea class="medium" name="e_diag_chss_out" from="lastView@ЧСС">{{e_diag_chss_out}}</textarea></li>
 				<li><b>PS:
-				</b> <textarea class="medium" name="e_diag_ps_out" from="lastView@PS">{{e_diag_ps_out}}</textarea></li>
-				<li><b>АД систолическое:
-				</b> <textarea class="medium" name="e_diag_adsist_out" from="lastView@АД систолическое">{{e_diag_adsist_out}}</textarea></li>
-				<li><b>АД диастолическое:
-				</b> <textarea class="medium" name="e_diag_addist_out" from="lastView@АД диастолическое">{{e_diag_addist_out}}</textarea></li>			
+				</b> <textarea class="medium" name="e_diag_ps_out" from="lastView@PS">{{e_diag_ps_out}}</textarea>в минуту</li>
+				<li><b>АД систолическое
+				</b> <textarea class="medium" name="e_diag_adsist_out" from="lastView@АД систолическое">{{e_diag_adsist_out}}</textarea> мм. рт.ст.</li>
+				<li><b>АД диастолическое
+				</b> <textarea class="medium" name="e_diag_addist_out" from="lastView@АД диастолическое">{{e_diag_addist_out}}</textarea> мм. рт.ст.</li>			
 
 				</ul>
 
@@ -205,7 +205,7 @@
 				<b><h3>Органы пищеварения</h3></b>
 				<ul class="container nob">
 					<li>
-						<b>Живот:</b>
+						<b>Живот</b>
 						<select multiple="multiple" name='e_diag_belly_out[]' value='{{e_diag_belly_out}}' from="lastView@Живот">
 							<option>мягкий</option>
 							<option>безболезненный</option>
@@ -219,7 +219,7 @@
 						<input name="e_diag_belly_out_text" value="">
 					</li>
 					<li>
-						<b>Язык:</b>
+						<b>Язык</b>
 						<select multiple="multiple"  name='e_diag_yazikpish_out[]' value='{{e_diag_yazikpish_out}}' from="lastView@Язык">
 							<option>чистый</option>
 							<option>обложен налетом</option>
@@ -1331,14 +1331,14 @@
 			</li>
 		</ul>
 </ul>
-<h2>Течение заболевания в отделении</h2>
+<h2>Течение настоящего заболевания</h2>
 <ul>
 	<textarea class="medium" name="e_techenie_zabolevania" >{{e_techenie_zabolevania}}</textarea>
 </ul>
 <h2>Результаты диагностических исследований</h2>
 <ul class='container'>
 
-	<li><b><h3>Результаты инструментальных методов исследований: </h3></b>
+	<li><b><h3>Результаты инструментальных методов исследований</h3></b>
 	<ul>
 		<div data-role="foreach" from="res">
 			<li>
@@ -1348,7 +1348,7 @@
 		</div>
 	</ul><textarea name="e_researchText">{{e_researchText}}</textarea></li>
 
-	<li><b><h3>Результаты клинико-лабораторных методов исследований:</h3></b>
+	<li><b><h3>Результаты клинико-лабораторных методов исследований</h3></b>
 	<ul class='lab-test'>
 		<div data-role="foreach" from="lab">
 			<li>
@@ -1371,7 +1371,7 @@
 	</ul>
 	<textarea name="e_consultText">{{e_consultText}}</textarea></li>
 </ul>
-<h2><b>Рекомендации по дальнейшему ведению пациента: </b></h2>
+<h2><b>Рекомендации по дальнейшему ведению пациента </b></h2>
 <ol>
 <li><b>Диета:</b>
 <textarea name="e_recom_dieta">{{e_recom_dieta}}</textarea>
@@ -1386,7 +1386,7 @@
 </ol>
 <br>
 <br>
-<span class="docDate">{{docDate}}</span><br />
+<span class="docDate">{{docDate}}</span><br /><br />
 Лечащий врач _________________ /{{person}}/<br>
 <br />
 Зав. отделением _________________ /{{orgStrBoss}}/<br>

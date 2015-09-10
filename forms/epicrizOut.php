@@ -429,16 +429,36 @@ function fields_msk36($event_id,$orgstr="") {
 
 	}
 
-		if (array_key_exists('сонные справа', $docs["lastView"])) {
-			$docs["lastView"]['status_vascularis_out']['value'] = '1';
-		} else {
-			$docs["lastView"]['status_vascularis_out']['value'] = '0';
+
+	if ($_SESSION["epic_type"] == 'preoper') {
+		$SQL="SELECT a.* FROM Action AS a
+		INNER JOIN  Event AS e ON (a.event_id = e.id)
+		INNER JOIN  ActionType AS t ON t.id = a.actionType_id
+		WHERE e.id = {$event_id} 
+		# AND (a.setPerson_id = e.execPerson_id OR a.person_id = e.execPerson_id )
+		AND a.deleted = 0 
+		AND a.status = 2 
+		AND t.name = 'Группа крови' 
+		ORDER BY endDate DESC LIMIT 1";
+		$res=mysql_query($SQL) or die ("Query failed fields_msk36(): [1]" . mysql_error());
+		while($data = mysql_fetch_array($res)) {
+			$action_id = $data[0];
+			$krovAnaliz = getActionProperties($data[0],"");
 		}
-		if (array_key_exists('температура справа', $docs["lastView"])) {
-			$docs["lastView"]['status_localis_out']['value'] = '1';
-		} else {
-			$docs["lastView"]['status_localis_out']['value'] = '0';
-		}
+		
+		$krovAnaliz = getAction($action_id);
+		$docs['krovAnaliz'] = $krovAnaliz["data"]["fields"];
+	}
+	if (array_key_exists('сонные справа', $docs["lastView"])) {
+		$docs["lastView"]['status_vascularis_out']['value'] = '1';
+	} else {
+		$docs["lastView"]['status_vascularis_out']['value'] = '0';
+	}
+	if (array_key_exists('температура справа', $docs["lastView"])) {
+		$docs["lastView"]['status_localis_out']['value'] = '1';
+	} else {
+		$docs["lastView"]['status_localis_out']['value'] = '0';
+	}
 
 
 
