@@ -12,7 +12,7 @@
 {{orgStr}}<br /></p>
 <hr />
 <p style="text-align:center;">
-{{OrgAddr}}                                                   тел. +7 {{OrgPhone}}</b>
+{{OrgAddr}}                                                   тел. +7 {{OrgPhone}} <div class="container fields tel noprint">тел. отделения +7 <input type="text" class="small" name="e_depart_phone" value="{{e_depart_phone}}"></div></b>
 <br />
 <h2 style="font-size:14pt;">ЭТАПНЫЙ ЭПИКРИЗ <div style="font-size:10px;">от <input style="width: 160px;font-size: 10pt;" class="small" type="text" name="s_date2" value="{{s_date2}}"> </div></h2>
 </p>
@@ -33,13 +33,13 @@
 			</ul>
 		</li>
 
-		<li><p style="text-align:center;"><b>Код стандарта:</b> <input name="e_code1" class="small"> <b>Шифр по МКБ-10:</b> <input name="e_code2" class="small"></p></li>
+		<li><p style="text-align:center;"><b>Код стандарта:</b> <input name="e_code1" from="firstView@Код стандарта" class="small"> <b>Шифр по МКБ-10:</b> <input name="e_code2" from="firstView@Шифр по МКБ-10" class="small"></p></li>
 		</li>
 
 
 		<h2>Текущее состояние</h2>
 		<ul class='bottom-bord'>
-			<li><b>Жалобы на момент осмотра:</b><textarea name="e_complaint1" from="lastView@Жалобы">{{e_complaint1}}</textarea> </li>
+			<li><b>Жалобы на момент осмотра</b><textarea name="e_complaint1" from="lastView@Жалобы">{{e_complaint1}}</textarea> </li>
 			<li><b>An.morbi:</b><br/><textarea name="e_anamnez1" from="lastView@Anamnesis morbi">{{e_anamnez1}}</textarea> </li>
 			<li><b>An.vitae:</b><br/><textarea name="e_an_vitae" from="lastView@Anamnesis vitae">{{e_an_vitae}}</textarea> </li>
 			<li><b>Аллергологический анамнез:</b><br/><textarea name="e_al_anamnez" from="lastView@Аллергологический анамнез">{{e_al_anamnez}}</textarea> </li>
@@ -1417,7 +1417,16 @@ $(document).on("click","#form-027u button[name=nevr-toggle-in]",function(e) {
 	  	}
   	}
 });
-
+$(document).on('keyup','.tel input',function(e) {
+	if ($(this).val().trim() == '') {
+		console.log($(this).parent());
+		$('.tel').addClass('noprint')
+	} else {
+		if ($('.tel').hasClass('noprint')) {
+			$('.tel').removeClass('noprint');
+		}
+	}
+});
 $(document).ready(function(){
 
 	if ($('span[name=status_vascularis_in]').text() != '1') {

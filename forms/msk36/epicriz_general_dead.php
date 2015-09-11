@@ -33,15 +33,15 @@
 			</ul>
 		</li>
 
-		<li><p style="text-align:center;"><b>Код стандарта:</b> <input name="e_code1" class="small"> <b>Шифр по МКБ-10:</b> <input name="e_code2" class="small"></p></li>
+		<li><p style="text-align:center;"><b>Код стандарта:</b> <input name="e_code1" from="firstView@Код стандарта" class="small"> <b>Шифр по МКБ-10:</b> <input name="e_code2" from="firstView@Шифр по МКБ-10" class="small"></p></li>
 		</li>
 
 
 		<h2>Состояние при поступлении</h2>
 		<ul class='bottom-bord'>
 			<li><b>Жалобы при поступлении:</b><textarea name="e_complaint1" from="firstZavView@Жалобы">{{e_complaint1}}</textarea> </li>
-			<li><b>An.morbi:</b><textarea name="e_anamnez1" from="firstZavView@Anamnesis morbi">{{e_anamnez1}}</textarea> </li>
-			<li><b>An.vitae:</b><textarea name="e_an_vitae" from="firstZavView@Anamnesis vitae">{{e_an_vitae}}</textarea> </li>
+			<li><b>An.morbi:</b><br/><textarea name="e_anamnez1" from="firstZavView@Anamnesis morbi">{{e_anamnez1}}</textarea> </li>
+			<li><b>An.vitae:</b><br/><textarea name="e_an_vitae" from="firstZavView@Anamnesis vitae">{{e_an_vitae}}</textarea> </li>
 			<li><b>Аллергологический анамнез:</b><textarea name="e_al_anamnez" from="firstZavView@Аллергологический анамнез">{{e_al_anamnez}}</textarea> </li>
 			<li>
 				<h3><b>Status praesens</b></h3> 
