@@ -10,7 +10,7 @@
 <p style="text-align:center; font-size:14pt;">
 <h2 style="font-size:14pt;">ПРЕДОПЕРАЦИОННЫЙ ЭПИКРИЗ</h2>
  <div>
- 	<div style="font-size:10pt;   float: right; ">от <input style="width: 160px;font-size: 10pt;" class="small" type="text" name="s_date2" value="{{s_date2}}"> </div>
+ 	<div style="font-size:10pt;   float: right; ">от <input style="width: 160px;font-size: 10pt;" class="small" type="text" name="endDate" value="{{s_date2}}"> </div>
  	<div style="font-size:10pt;   float: left;">№ И/Б {{externalId}}</div>
  	<br/>
  </div>
@@ -18,7 +18,7 @@
 </p>
 
 <ul class="fields">
-		<li><b>Фамилия, Имя, Отчество:</b> {{client}}, <b>возраст</b> {{age}} лет    И/Б {{externalId}}</li>
+		<li><b>Фамилия, Имя, Отчество:</b> {{client}}, <b>возраст</b> {{age}} лет</li>
 		<li class="">
 		<ul>
 		<li> <b>Наименование отделения:</b> {{orgStr}}

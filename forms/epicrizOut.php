@@ -26,6 +26,7 @@ function epicrizOut_edit($form,$mode,$id,$datatype) {
 		case "etap":	$name="DoctorRoom: Этапный эпикриз"; $docType="ЭТАПНЫЙ"; break;
 		case "move":	$name="DoctorRoom: Переводной эпикриз"; $docType="ПЕРЕВОДНОЙ"; break;
 		case "dead":	$name="DoctorRoom: Посмертный эпикриз"; $docType="ПОСМЕРТНЫЙ"; break;
+		case "preoper":	$name="DoctorRoom: Предоперационный эпикриз"; $docType="Предоперационный"; break;
 		default:		$name="DoctorRoom: Выписной эпикриз"; $docType="ВЫПИСНОЙ"; break;
 	}
 	$_SESSION["epic_atid"]=getActionTypeByName($name);
