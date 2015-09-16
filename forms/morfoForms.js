@@ -20,7 +20,7 @@ $("div[data-url^='/morfoLab/list/list.htm']:hidden").remove();
 				if ($(this).attr("href")=="#nazn") {var form="morfoNazn";}
 				if ($(this).attr("href")=="#reg") {var form="morfoReg";}
 				if ($(this).attr("href")=="#lab") {var form="morfoLab";}
-				$.mobile.changePage( "/"+form+"/edit/"+$( document ).data("action")+".htm", { transition: "flip", changeHash: true, reloadPage: true });
+				$.mobile.changePage( "/"+form+"/edit/"+$( document ).data("action")+".htm", {  changeHash: true, reloadPage: true });
 				
 			}
 			$("#printMenu").popup("close");
