@@ -118,11 +118,14 @@ $(document).on("pageshow",function(){
 	$(document).delegate("#morfoReg input[name=fld_6]","keyup",function(){
 		$("#morfoReg a.submit").addClass("ui-disabled");
 		var that=$(this);
-		$.get("/json/morfology.php?mode=get_morfo_num",function(data){
+		var actionId = $("#morfoReg input[name=action_id]").val();
+		$.get("/json/morfology.php?mode=get_morfo_num&action_id=" + actionId,function(data){
 			var data = JSON.parse(data);
-			var units= data.units*1;
-			var count= data.count*1+1;
-			var pices= that.val()*1;
+			
+			var units = data.units*1;
+			var count = (!data.set ? data.count*1+1 : data.count*1);
+			var pices = that.val()*1;
+			
 			$("#morfoReg .morfoRegnum").find("u").html(units+"/"+(units+pices));
 			$("#morfoReg .morfoRegnum").find("span").html(count);
 			$("#morfoReg input[name=fld_0]").val(  units+"/"+(units+pices)+"/"+count );

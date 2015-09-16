@@ -47,6 +47,18 @@ function get_morfo_num($year=NULL) {
 	WHERE a.type_id = ".$type_id." ";
 	$result=mysql_query($SQL) or die ("Query failed getMorfoNum() [2]: " . mysql_error());
 	while($data = mysql_fetch_array($result)) {$res["units"]=$data[0];}
+	$actionId = $_GET["action_id"];
+	if ($actionId !== '_new') {
+	$SQL = "select value from ActionProperty as a
+			join ActionPropertyType as b ON a.type_id = b.id 
+			join ActionProperty_String as c ON a.id = c.id
+			where action_id = $actionId AND name LIKE '%Внутренний номер%'";
+	$result=mysql_query($SQL) or die ("Query failed getMorfoNum() [3]: " . mysql_error());
+	$number = mysql_fetch_array($result);
+	if ($number){
+	   $res['set'] = 1;
+	}
+	}
 	return json_encode($res);
 }
 
