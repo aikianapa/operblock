@@ -159,16 +159,15 @@ function morfoLabSubmit() {
 	$("#morfoLab a.submit").on("click",function(){
 		var formdata=$("form#morfoLab").serialize();
 		$.post("/json/morfology.php?mode=morfo_lab_submit",formdata,function(data){
-				setTimeout('$.mobile.back();',500);
-				top.postMessage('addAction', '*');
+			$.mobile.changePage( "/morfoLab/edit/"+$( document ).data("action")+".htm", {  changeHash: true, reloadPage: true });
 		});
 	});
 	
-	$("#morfoLabEdit").delegate(".add-morfo-loc","click",function(){
+	$(".add-morfo-loc").bind("click",function(){
 		$("ul.loc-list").show();
 	});
-	
-	$("#morfoLabEdit").delegate(".loc-list a, .loc-ready a","click",function(){
+
+		$(".loc-list a, .loc-ready a").bind("click",function(){
 		var atid=$(this).attr("value");
 		var item=$(this).attr("item");
 
