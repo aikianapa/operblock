@@ -13,6 +13,9 @@
 {{input}}
 </div>
 </div>
+<div data-role="fieldcontain"><label>Ассистенты</label>
+<select name="assist_id[]" multiple="multiple"  data-native-menu="false" ><option value="">Без ассистента</option></select>
+</div>
 <input type="hidden" name="status" value="1">
 <a href="#" class="submit ui-btn ui-btn-inline ui-corner-all">Сохранить</a>
 <a href="#" data-rel="back" class="list ui-btn ui-btn-inline ui-corner-all">Отмена</a>

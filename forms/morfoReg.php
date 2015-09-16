@@ -37,6 +37,16 @@ $out=contentSetData($out,$Item);
 return $out;
 }
 
+function setSelects($out) {
+$url="http://".$_SERVER["HTTP_HOST"]."/json/operation.php?mode=morfo_assist_list";
+$_hirurg=json_decode(file_get_contents($url));
+foreach($_hirurg as $key => $Hirurg) {
+	$opt="<option value=\"$Hirurg->id\">$Hirurg->lastName $Hirurg->firstName $Hirurg->patrName</option>";
+	// данные для формы утверждения операции // 
+	$out->find("#morfoReg select[name^=assist_id] option:last")->after($opt); 
+}
+return $out;
+}
 function morfoReg_edit($form,$mode,$id,$datatype) {
 $out=formGetForm($form,$mode);
 $Item=morfoReadReg($id);
@@ -44,6 +54,7 @@ if ($Item["fld_5"]=="") {
 	$Nazn=morfoReadNazn($id);
 	$Item["fld_5"]=$Nazn["fld_3"];
 }
+
 if ($Item["status"]>1) {
 	pq($out)->find("select[name=status]")->prev("label")->remove();
 	pq($out)->find("select[name=status]")->remove();
@@ -53,6 +64,11 @@ if ($Item["status"]>1) {
 $out=contentSetData($out,$Item);
 pq($out)->find("input[data-label=Внутренний номер биоматериала]")->attr("type","hidden");
 pq($out)->find("input[data-label=Внутренний номер биоматериала]")->after("<p class='morfoRegnum'><u></u><br /><span><span></p>");
+$out=setSelects($out);
+$action=getActionInfo($id);
+
+pq($out) -> find("select[multiple]")->val($action['assist_id']);
+
 return $out;
 }
 

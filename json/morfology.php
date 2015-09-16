@@ -175,6 +175,9 @@ function morfo_reg_submit() {
 		updateProperties($fldset,$Action["id"],$Action["setPerson_id"],$Action["actionType_id"]);
 	}
 	morfo_set_status($Action["parent_id"],getMorfoStatus($Action["parent_id"]));
+	$Action["assist_id"]=$_POST["assist_id"];
+	$Action["id"]= $Action["parent_id"];
+	actionAssistSave($Action,'morfoReg');
 }
 
 function morfo_lab_submit() {
