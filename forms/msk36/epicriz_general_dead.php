@@ -12,7 +12,7 @@
 {{orgStr}}<br /></p>
 <hr />
 <p style="text-align:center;">
-{{OrgAddr}}                                                   тел. +7 {{OrgPhone}}</b>
+{{OrgAddr}}                                                  </b>
 <br />
 <h2 style="font-size:14pt;">ПОСМЕТРНЫЙ ЭПИКРИЗ <div style="font-size:10px;">от <input style="width: 160px;font-size: 10pt;" class="small" type="text" name="s_date2" value="{{s_date2}}"> </div></h2>
 </p>
@@ -1333,7 +1333,17 @@
 </ul>
 <h2>Течение заболевания</h2>
 <ul>
-	<textarea class="medium" name="e_techenie_zabolevania" >{{e_techenie_zabolevania}}</textarea>
+	<li><textarea class="medium" name="e_techenie_zabolevania" >{{e_techenie_zabolevania}}</textarea></li>
+	<li> Дата: <input type="text" class="medium" name="e_tech_data" value="{{e_tech_data}}"> </li>
+	<li> Время констатации смерти: <input type="text" class="medium" name="e_death_time" value="{{e_death_time}}"> </li>
+</ul>
+
+<h2><b>Труп направляется на секцию с заключительным диагнозом </b></h2>
+<ul class="block">
+	<li><b class="bottom-bord">Основное заболевание:</b><textarea name="e_diag_main_in" from="firstZavView@Основное заболевание">{{e_diag_main_in}}</textarea></li>
+	<li><b class="bottom-bord">Фоновые заболевания:</b><textarea name="e_diag_fon_in" from="firstZavView@Фоновые заболевания">{{e_diag_fon_in}}</textarea></li>
+	<li><b class="bottom-bord">Осложнения основного заболевания:</b><textarea name="e_diag_comp_in" from="firstZavView@Осложнения основного заболевания:">{{e_diag_comp_in}}</textarea></li>
+	<li><b class="bottom-bord">Сопутствующие заболевания:</b><textarea name="e_diag_satt_in" from="firstZavView@Сопутствующие заболевания:">{{e_diag_satt_in}}</textarea></li>
 </ul>
 <h2>Результаты диагностических исследований</h2>
 <ul class='container'>
@@ -1370,13 +1380,6 @@
 		</div>
 	</ul>
 	<textarea name="e_consultText">{{e_consultText}}</textarea></li>
-</ul>
-<h2><b>Труп направляется на секцию с заключительным диагнозом </b></h2>
-<ul class="block">
-	<li><b class="bottom-bord">Основное заболевание:</b><textarea name="e_diag_main_in" from="firstZavView@Основное заболевание">{{e_diag_main_in}}</textarea></li>
-	<li><b class="bottom-bord">Фоновые заболевания:</b><textarea name="e_diag_fon_in" from="firstZavView@Фоновые заболевания">{{e_diag_fon_in}}</textarea></li>
-	<li><b class="bottom-bord">Осложнения основного заболевания:</b><textarea name="e_diag_comp_in" from="firstZavView@Осложнения основного заболевания:">{{e_diag_comp_in}}</textarea></li>
-	<li><b class="bottom-bord">Сопутствующие заболевания:</b><textarea name="e_diag_satt_in" from="firstZavView@Сопутствующие заболевания:">{{e_diag_satt_in}}</textarea></li>
 </ul>
 <br>
 <br>

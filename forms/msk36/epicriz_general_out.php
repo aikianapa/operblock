@@ -30,7 +30,7 @@
 		</ul>
 		<li> <b>Адрес</b>: <input type="text" class="medium" name="e_client_adress" value="{{e_client_adress}}"> </li>
 
-		<li><b><h2>Диагноз при поступлении</h2></b>
+		<li><b><h2 class="section">Диагноз при поступлении</h2></b>
 			<ul class="block">
 				<li><b class="bottom-bord">Основное заболевание:</b><textarea name="e_diag_main_in" from="firstView@Основное заболевание">{{e_diag_main_in}}</textarea></li>
 				<li><b class="bottom-bord">Фоновые заболевания:</b><textarea name="e_diag_fon_in" from="firstView@Фоновые заболевания">{{e_diag_fon_in}}</textarea></li>
@@ -38,7 +38,7 @@
 				<li><b class="bottom-bord">Сопутствующие заболевания:</b><textarea name="e_diag_satt_in" from="firstView@Сопутствующие заболевания:">{{e_diag_satt_in}}</textarea></li>
 			</ul>
 		</li>
-		<li><b><h2>Диагноз при выписке</h2></b>
+		<li><b><h2 class="section">Диагноз при выписке</h2></b>
 			<ul class="block">
 				<li><b class="bottom-bord">Основное заболевание:</b><textarea name="e_diag_main_out" from="lastView@Основное заболевание">{{e_diag_main_out}}</textarea></li>
 				<li><b class="bottom-bord">Фоновые заболевания:</b><textarea name="e_diag_fon_out" from="lastView@Фоновые заболевания">{{e_diag_fon_out}}</textarea></li>
@@ -49,7 +49,7 @@
 
 		<li><p style="text-align:center;"><b>Код стандарта:</b> <input name="e_code1" from="firstView@Код стандарта" class="small"> <b>Шифр по МКБ-10:</b> <input name="e_code2" from="firstView@Шифр по МКБ-10" class="small"></p></li>
 		<h2>Состояние при поступлении</h2>
-		<ul>
+		<ul class="sostpri">
 			<li><b>Жалобы при поступлении:</b><textarea name="e_complaint1" from="firstView@Жалобы">{{e_complaint1}}</textarea> </li>
 			<li><b>An.morbi:</b><br/><textarea name="e_anamnez1" from="firstView@Anamnesis morbi">{{e_anamnez1}}</textarea> </li>
 			<li><b>An.vitae:</b><br/><textarea name="e_an_vitae" from="firstView@Anamnesis vitae">{{e_an_vitae}}</textarea> </li>

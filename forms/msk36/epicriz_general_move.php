@@ -12,7 +12,7 @@
 {{orgStr}}<br /></p>
 <hr />
 <p style="text-align:center;">
-{{OrgAddr}}                                                   тел. +7 {{OrgPhone}}  <div class="container fields tel noprint">тел. отделения +7 <input type="text" class="small" name="e_depart_phone" value="{{e_depart_phone}}"></div></b>
+{{OrgAddr}}                                                  </b>
 <br />
 <h2 style="font-size:14pt;">ПЕРЕВОДНОЙ ЭПИКРИЗ <div style="font-size:10px;">от <input style="width: 160px;font-size: 10pt;" class="small" type="text" name="s_date2" value="{{s_date2}}"> </div></h2>
 </p>
@@ -1315,7 +1315,7 @@
 		</ul>
 		</li>
 
-		<h2>Течение заболевания в отделении</h2>
+		<h2>Течение заболевания</h2>
 		<ul>
 			<textarea class="medium" name="e_techenie_zabolevania" >{{e_techenie_zabolevania}}</textarea>
 		</ul>
@@ -2644,9 +2644,8 @@
 		</div>
 	</ul>
 	<textarea name="e_consultText">{{e_consultText}}</textarea></li>
-	<li>
+	<li name="transfer_orgstructure">
 		<b>Переводится в:</b>
-		<textarea class="medium" name="e_move_dest"></textarea>
 	</li>
 	<li>
 		<b>Причина перевода:</b>

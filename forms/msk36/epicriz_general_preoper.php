@@ -22,14 +22,14 @@
 		<li class="">
 		<ul>
 		<li> <b>Наименование отделения:</b> {{orgStr}}
-		<li><b><h2>Диагноз при поступлении</h2></b>
+		<li><b><h2>Клинический диагноз</h2></b>
 			<ul class="block">
 				<li><b class="bottom-bord">Клинический диагноз:</b><textarea name="e_diag_clin_in" from="firstZavView@Клинический диагноз">{{e_diag_clin_in}}</textarea></li>
 				<li><b class="bottom-bord">Основное заболевание:</b><textarea name="e_diag_main_in" from="firstZavView@Основное заболевание">{{e_diag_main_in}}</textarea></li>
 				<li><b class="bottom-bord">Фоновые заболевания:</b><textarea name="e_diag_fon_in" from="firstZavView@Фоновые заболевания">{{e_diag_fon_in}}</textarea></li>
 				<li><b class="bottom-bord">Осложнения основного заболевания:</b><textarea name="e_diag_comp_in" from="firstZavView@Осложнения основного заболевания:">{{e_diag_comp_in}}</textarea></li>
 				<li><b class="bottom-bord">Сопутствующие заболевания:</b><textarea name="e_diag_satt_in" from="firstZavView@Сопутствующие заболевания">{{e_diag_satt_in}}</textarea></li>
-				<li><b class="bottom-bord">Обоснование диагноза:</b><br/><textarea name="e_diag_satt_in" from="firstZavView@Обоснование диагноза">{{e_diag_satt_in}}</textarea></li>
+				<li><b class="bottom-bord">Обоснование диагноза:</b><br/><textarea name="e_diag_obosn_in" from="firstZavView@Обоснование диагноза">{{e_diag_satt_in}}</textarea></li>
 				<li><b>Согласие пациента получено:</b>
 					<select multiple="multiple" name="e_sogl_patient[]"  >
 							<option>Да</option>

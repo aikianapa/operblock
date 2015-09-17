@@ -101,6 +101,7 @@ $event=mysqlReadItem("Event",$id);
 	$Item["OrgStrCode"]=$orgstructure["code"];
 	$Item["externalId"]=$event["externalId"];
 	$Item["OrgName"]=$organisation["title"];
+	$Item["OrgId"]=$organisation["id"];
 	$Item["OrgAddr"]=$organisation["Address"];
 	$Item["OrgPhone"]=$organisation["phone"];
 	$Item["event_id"]=$id;
@@ -218,6 +219,24 @@ foreach($out->find("select[multiple] option") as $opt) {
 foreach(pq($out)->find("textarea[placeholder]") as $inp) {
 	// устанавливаем знечение placeholder для пустых текстов
 	if (pq($inp)->html()=="") {	pq($inp)->html(pq($inp)->attr("placeholder")); }
+}
+
+if ($_SESSION["epic_type"] == 'move') {
+
+	$SQL="SELECT os.code as code FROM OrgStructure AS os 
+	WHERE os.organisation_id = ".$organisation["id"]." 
+	AND os.deleted = 0
+	AND os.code != ''";
+	$res1=mysql_query($SQL) or die ("Query failed getEpicrizOut(): " . mysql_error());
+	// $data =  mysqli_fetch_assoc($res1);
+	$transfer_select = '<select multiple="multiple" name="e_transfer_orgstructure[]" value="{{e_transfer_orgstructure}}">';
+	while($data = mysql_fetch_assoc($res1)) {
+		$transfer_select .= "<option value='{$data['code']}'>{$data['code']}</option>";
+	}
+	$transfer_select .= '</select>';
+	pq($out)->find("li[name=transfer_orgstructure]")->append($transfer_select);
+	print_r('drake');
+	print_r($transfer_select);
 }
 
 if ($mode=="print") {
@@ -384,7 +403,7 @@ function fields_msk36($event_id,$orgstr="") {
 		AND a.status = 2 
 		AND t.name LIKE '%осмотр%'
 		AND apt.name = 'Осмотр:'
-		AND aps.value like '%Осмотр зав. отделением%'
+		AND aps.value like '%зав. отделением%'
 		ORDER BY endDate ASC LIMIT 1";
 		$res=mysql_query($SQL) or die ("Query failed fields_msk36(): [1]" . mysql_error());
 		$action_id = '';
@@ -698,6 +717,7 @@ function epicLabPrep($event_id,$aType) {
 		}}
 	}
 */
+
 	foreach($labHistory as $key => $labline) {
 		foreach($labline as $key =>$line) {		if ($line["status"]==2) {
 //			if (!in_array($line["name"],$present)) {
@@ -718,8 +738,34 @@ function epicLabPrep($event_id,$aType) {
 									$unit=$val["unit"];
 									$norm=$val["norm"];
 								} else {$value=$val; $unit="";}
+								$redSign = '';
+								if ($aType=="Лабораторные исследования") {
+									// $redSign = 'style="background-color:red;"';
+									$norm_arr = str_replace(',','.',explode( ' - ',$val["norm"]));
+									
+									if (is_numeric($norm_arr[0])) {
+										$upBound = floatval($norm_arr[1]);
+										$lowBound = floatval($norm_arr[0]);
+
+										$result = str_replace(',','.', $value);
+										$result = explode(';', $result)[0];
+										if (is_numeric($result)) {
+											$result = floatval($result);
+											if ($result < $lowBound || $result > $upBound) {
+												$redSign = 'class="bad-tests"';
+											}
+										}
+									} else if (!empty(trim($norm_arr[0]))) {
+										if ($value != $norm_arr[0] ) {
+											$redSign = 'class="bad-tests"';
+										}
+									}
+									
+								} else {
+									
+								}
 								$info[]="<b>{$name}</b> {$value}";
-								pq($doc)->find("table")->append("<tr><td>{$name}</td><td>{$value}</td><td>{$norm}</td><td>{$unit}</td></tr>");
+								pq($doc)->find("table")->append("<tr><td {$redSign}>{$name}</td><td {$redSign}>{$value}</td><td>{$norm}</td><td>{$unit}</td></tr>");
 							}
 						}
 					}

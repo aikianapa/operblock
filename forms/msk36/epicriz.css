@@ -36,7 +36,7 @@
 #form-027u .nob b {
     font-weight: normal;
 }
-
+#form-027u .bad-tests {background-color:red;}
 }
 @media print {
 body {display:none;}
@@ -85,4 +85,5 @@ body {display:none;}
 #form-027u .nob b {
     font-weight: normal;
 }
+#form-027u .bad-tests {font-weight: bold;}
 }

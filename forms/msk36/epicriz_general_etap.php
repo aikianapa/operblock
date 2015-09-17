@@ -12,7 +12,7 @@
 {{orgStr}}<br /></p>
 <hr />
 <p style="text-align:center;">
-{{OrgAddr}}                                                   тел. +7 {{OrgPhone}} <div class="container fields tel noprint">тел. отделения +7 <input type="text" class="small" name="e_depart_phone" value="{{e_depart_phone}}"></div></b>
+{{OrgAddr}}                                                   </b>
 <br />
 <h2 style="font-size:14pt;">ЭТАПНЫЙ ЭПИКРИЗ <div style="font-size:10px;">от <input style="width: 160px;font-size: 10pt;" class="small" type="text" name="s_date2" value="{{s_date2}}"> </div></h2>
 </p>
@@ -1373,16 +1373,9 @@
 </ul>
 <h2><b>Рекомендации по дальнейшему ведению пациента </b></h2>
 <ol>
-<li><b>Диета:</b>
-<textarea name="e_recom_dieta">{{e_recom_dieta}}</textarea>
-</li>
-<li><b>Лекарственные препараты:</b>
-<textarea name="e_Drugs">{{e_Drugs}}</textarea>
-</li>
-<li><b>Дополнительная информация:</b>
-<textarea name="e_dop_information">{{e_dop_information}}</textarea> 
-</li>
-<br/>
+	<li>
+		<textarea name="e_recomend"></textarea>
+	</li>
 </ol>
 <br>
 <br>
