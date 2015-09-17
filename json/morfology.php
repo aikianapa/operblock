@@ -6,7 +6,6 @@
 // 2 - завершено
 // 3 - отмена исследования
 // 4 - описано лаборантом
-
 include_once($_SERVER['DOCUMENT_ROOT']."/engine/phpQuery/phpQuery.php");
 include_once($_SERVER['DOCUMENT_ROOT']."/engine/functions.php");
 engineSettingsRead();
@@ -154,12 +153,13 @@ function morfo_reg_submit() {
 		$Action["actionType_id"]=$_POST["actionType_id"];
 		$Action["event_id"]=$_POST["event_id"];
 		$Action["parent_id"]=$_POST["parent_id"];
-		$Action["setPerson_id"]=$_POST["person_id"];
+		$Action["person_id"]=$_POST["person_id"];
 		$Action["createPerson_id"]=$Action["modifyPerson_id"]=$_POST["person_id"];
 		$Action["createDatetime"]=$Action["modifyDatetime"]=date("Y-m-d H:i:s");
 		$Action["begDate"]=date("Y-m-d H:i:s");
 		$Action["status"]=0;
 	}
+	
 	$Action["status"]=$_POST["status"];
 	//if ($Action["status"]<=2) {morfo_set_status($Action["parent_id"],$Action["status"]);}
 	$fldset=getActionTypeForm('Регистрация биоматериала');
@@ -188,7 +188,7 @@ function morfo_lab_submit() {
 		$Action["actionType_id"]=$_POST["actionType_id"];
 		$Action["event_id"]=$_POST["event_id"];
 		$Action["parent_id"]=$_POST["parent_id"];
-		$Action["setPerson_id"]=$_POST["person_id"];
+		$Action["person_id"]=$_POST["person_id"];
 		$Action["createPerson_id"]=$Action["modifyPerson_id"]=$_POST["person_id"];
 		$Action["createDatetime"]=$Action["modifyDatetime"]=date("Y-m-d H:i:s");
 		$Action["begDate"]=date("Y-m-d H:i:s");

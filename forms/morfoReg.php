@@ -66,8 +66,15 @@ pq($out)->find("input[data-label=Внутренний номер биомате�
 pq($out)->find("input[data-label=Внутренний номер биоматериала]")->after("<p class='morfoRegnum'><u></u><br /><span><span></p>");
 $out=setSelects($out);
 $action=getActionInfo($id);
-
-pq($out) -> find("select[multiple]")->val($action['assist_id']);
+$select = [];
+if (count($action['assist_id']) == 0){
+	$select[] = getMorfoLabPersonId($id);
+	$select[] = $_SESSION["person_id"];
+}
+else {
+	$select = $action['assist_id'];
+}
+pq($out) -> find("select[multiple]")->val($select);
 
 return $out;
 }

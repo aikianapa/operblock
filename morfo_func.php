@@ -155,4 +155,15 @@ function getMorfoLabPerson($id) {
 	return $person;
 }
 
+function getMorfoLabPersonId($id){
+	$SQL = "SELECT person_id 
+			FROM Action as a
+			INNER JOIN ActionType as b on a.actiontype_id = b.id
+			WHERE a.parent_id = $id AND name NOT LIKE '%Регистрация биоматериала%' AND a.deleted = 0
+			LIMIT 1";
+	$res = mysql_query($SQL) or die ("Query failed getMorfoLabPersonId(): " . mysql_error());
+	$data = mysql_fetch_array($res);
+	return $data['person_id'];
+}
+
 ?>
