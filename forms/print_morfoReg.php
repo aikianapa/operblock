@@ -12,7 +12,7 @@
 <li>Пол <u><b><i>{{sex}}</i></b></u></li>
 
 <li>Клинический диагноз<b><i><big>
-{{diagnose}}
+{{fld5}}
 </big></i></b></li>
 <div data-role="foreach" from="fields">
 <li>{{label}} <u><b><i>{{value}}</i></b></u></li>

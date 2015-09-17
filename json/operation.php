@@ -527,6 +527,19 @@ mysql_free_result($result);
 return json_encode($array);
 }
 
+function morfo_assist_list(){
+	$SQL="SELECT a.* FROM Person as a 
+	WHERE orgStructure_id = 175";
+
+$result = mysql_query($SQL) or die("Query failed: (nazn_hirurg_list) " . mysql_error());
+$array=array();
+while($data = mysql_fetch_array($result)) {
+	$array[]=$data;
+}
+mysql_free_result($result);
+return json_encode($array);
+}
+
 function nazn_sister_list() {
 $orgId=$_GET["orgId"];
 $SQL="SELECT * FROM rbSpeciality INNER JOIN Person ON Person.speciality_id = rbSpeciality.id 

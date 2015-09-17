@@ -612,6 +612,7 @@ $r=array(); $where="";
 $r["zavnazn"]=array(1,4,5); // id в справочнике rbActionAssistantType
 $r["mainsister"]=array(6,7);
 $r["anest"]=array(8,9);
+$r["morfoReg"]=array(1);
 foreach ($r[$role] as $val) {
 	if ($where=="") { 	$where.=" assistantType_id = ".$val;} else {
 						$where.=" OR assistantType_id = ".$val;}
@@ -653,6 +654,16 @@ switch($role) {
 		$data=actionAssistItem($action,"an_person_id"); mysqlSaveItem($assistsTable,$data);
 		$data=actionAssistItem($action,"an_sister_id"); mysqlSaveItem($assistsTable,$data);
 		break;
+	case "morfoReg":
+		foreach($action["assist_id"] as $inx => $assist_id) {
+			$data=actionAssistItem($action,"assist_id",$inx);
+			mysqlSaveItem($assistsTable,$data);
+		}
+
+		break;
+
+	
+
 }
 }
 

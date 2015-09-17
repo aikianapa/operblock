@@ -47,6 +47,18 @@ function get_morfo_num($year=NULL) {
 	WHERE a.type_id = ".$type_id." ";
 	$result=mysql_query($SQL) or die ("Query failed getMorfoNum() [2]: " . mysql_error());
 	while($data = mysql_fetch_array($result)) {$res["units"]=$data[0];}
+	$actionId = $_GET["action_id"];
+	if ($actionId !== '_new') {
+	$SQL = "select value from ActionProperty as a
+			join ActionPropertyType as b ON a.type_id = b.id 
+			join ActionProperty_String as c ON a.id = c.id
+			where action_id = $actionId AND name LIKE '%Внутренний номер%'";
+	$result=mysql_query($SQL) or die ("Query failed getMorfoNum() [3]: " . mysql_error());
+	$number = mysql_fetch_array($result);
+	if ($number){
+	   $res['set'] = 1;
+	}
+	}
 	return json_encode($res);
 }
 
@@ -163,6 +175,9 @@ function morfo_reg_submit() {
 		updateProperties($fldset,$Action["id"],$Action["setPerson_id"],$Action["actionType_id"]);
 	}
 	morfo_set_status($Action["parent_id"],getMorfoStatus($Action["parent_id"]));
+	$Action["assist_id"]=$_POST["assist_id"];
+	$Action["id"]= $Action["parent_id"];
+	actionAssistSave($Action,'morfoReg');
 }
 
 function morfo_lab_submit() {

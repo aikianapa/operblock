@@ -42,7 +42,7 @@ $content["head"]->append('<script type="text/javascript" src="/js/jquery.selecti
 } 
 
 $content=phpQuery::newDocument(engine($content));
-	echo $content;
+
 if ($content["ul.commonGallery"]->length()) {
 // PhotoSwipe
 	$content["head"]->append('<script src="/engine/js/photoswipe/klass.min.js" type="text/javascript" ></script>');
@@ -79,7 +79,6 @@ if ( $tmp["mode"]=="print") {
 	$content["div[data-role=page]"]->remove();
 }
 
-
-// echo print_r($_GET,true).'dsggfgsdgfb;ld;gldfgbkd;flgkdf;lkghldkh;lfkd'.$content->htmlOuter();
+echo $content->htmlOuter();
 mysql_close();
 ?>

@@ -20,7 +20,7 @@ $("div[data-url^='/morfoLab/list/list.htm']:hidden").remove();
 				if ($(this).attr("href")=="#nazn") {var form="morfoNazn";}
 				if ($(this).attr("href")=="#reg") {var form="morfoReg";}
 				if ($(this).attr("href")=="#lab") {var form="morfoLab";}
-				$.mobile.changePage( "/"+form+"/edit/"+$( document ).data("action")+".htm", { transition: "flip", changeHash: true, reloadPage: true });
+				$.mobile.changePage( "/"+form+"/edit/"+$( document ).data("action")+".htm", {  changeHash: true, reloadPage: true });
 				
 			}
 			$("#printMenu").popup("close");
@@ -118,11 +118,14 @@ $(document).on("pageshow",function(){
 	$(document).delegate("#morfoReg input[name=fld_6]","keyup",function(){
 		$("#morfoReg a.submit").addClass("ui-disabled");
 		var that=$(this);
-		$.get("/json/morfology.php?mode=get_morfo_num",function(data){
+		var actionId = $("#morfoReg input[name=action_id]").val();
+		$.get("/json/morfology.php?mode=get_morfo_num&action_id=" + actionId,function(data){
 			var data = JSON.parse(data);
-			var units= data.units*1;
-			var count= data.count*1+1;
-			var pices= that.val()*1;
+			
+			var units = data.units*1;
+			var count = (!data.set ? data.count*1+1 : data.count*1);
+			var pices = that.val()*1;
+			
 			$("#morfoReg .morfoRegnum").find("u").html(units+"/"+(units+pices));
 			$("#morfoReg .morfoRegnum").find("span").html(count);
 			$("#morfoReg input[name=fld_0]").val(  units+"/"+(units+pices)+"/"+count );
@@ -156,16 +159,15 @@ function morfoLabSubmit() {
 	$("#morfoLab a.submit").on("click",function(){
 		var formdata=$("form#morfoLab").serialize();
 		$.post("/json/morfology.php?mode=morfo_lab_submit",formdata,function(data){
-				setTimeout('$.mobile.back();',500);
-				top.postMessage('addAction', '*');
+			$.mobile.changePage( "/morfoLab/edit/"+$( document ).data("action")+".htm", {  changeHash: true, reloadPage: true });
 		});
 	});
 	
-	$("#morfoLabEdit").delegate(".add-morfo-loc","click",function(){
+	$(".add-morfo-loc").bind("click",function(){
 		$("ul.loc-list").show();
 	});
-	
-	$("#morfoLabEdit").delegate(".loc-list a, .loc-ready a","click",function(){
+
+		$(".loc-list a, .loc-ready a").bind("click",function(){
 		var atid=$(this).attr("value");
 		var item=$(this).attr("item");
 
