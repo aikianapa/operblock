@@ -30,7 +30,7 @@
 		</ul>
 		<li> <b>Адрес</b>: <input type="text" class="medium" name="e_client_adress" value="{{e_client_adress}}"> </li>
 
-		<li><b><h2 class="section">Диагноз при поступлении</h2></b>
+		<li><b><h2 name="diag_pri_postup" class="section">Диагноз при поступлении</h2></b>
 			<ul class="block">
 				<li><b class="bottom-bord">Основное заболевание:</b><textarea name="e_diag_main_in" from="firstView@Основное заболевание">{{e_diag_main_in}}</textarea></li>
 				<li><b class="bottom-bord">Фоновые заболевания:</b><textarea name="e_diag_fon_in" from="firstView@Фоновые заболевания">{{e_diag_fon_in}}</textarea></li>
@@ -38,7 +38,7 @@
 				<li><b class="bottom-bord">Сопутствующие заболевания:</b><textarea name="e_diag_satt_in" from="firstView@Сопутствующие заболевания:">{{e_diag_satt_in}}</textarea></li>
 			</ul>
 		</li>
-		<li><b><h2 class="section">Диагноз при выписке</h2></b>
+		<li><b><h2 name="diag_pri_vipiks" class="section">Диагноз при выписке</h2></b>
 			<ul class="block">
 				<li><b class="bottom-bord">Основное заболевание:</b><textarea name="e_diag_main_out" from="lastView@Основное заболевание">{{e_diag_main_out}}</textarea></li>
 				<li><b class="bottom-bord">Фоновые заболевания:</b><textarea name="e_diag_fon_out" from="lastView@Фоновые заболевания">{{e_diag_fon_out}}</textarea></li>
@@ -48,14 +48,14 @@
 		</li>
 
 		<li><p style="text-align:center;"><b>Код стандарта:</b> <input name="e_code1" from="firstView@Код стандарта" class="small"> <b>Шифр по МКБ-10:</b> <input name="e_code2" from="firstView@Шифр по МКБ-10" class="small"></p></li>
-		<h2>Состояние при поступлении</h2>
-		<ul class="sostpri">
+		<h2 name="sost_pri_post" class="section">Состояние при поступлении</h2>
+		<ul>
 			<li><b>Жалобы при поступлении:</b><textarea name="e_complaint1" from="firstView@Жалобы">{{e_complaint1}}</textarea> </li>
 			<li><b>An.morbi:</b><br/><textarea name="e_anamnez1" from="firstView@Anamnesis morbi">{{e_anamnez1}}</textarea> </li>
 			<li><b>An.vitae:</b><br/><textarea name="e_an_vitae" from="firstView@Anamnesis vitae">{{e_an_vitae}}</textarea> </li>
 			<li><b>Аллергологический анамнез:</b><br/><textarea name="e_al_anamnez" from="firstView@Аллергологический анамнез">{{e_al_anamnez}}</textarea> </li>
 			<li>
-				<h3><b>Status Praesesns:</b></h3> 
+				<h3 name="status_para_in" class="section subsection"><b>Status Praesesns</b></h3> 
 				<ul class="nob">
 					<li>
 						<b>Общее состояние</b> 
@@ -75,7 +75,7 @@
 				</ul>
 			</li> 
 			<li>
-				<b><h3>Органы дыхания</h3></b>
+				<b><h3  name="org_dyh_in" class="section subsection">Органы дыхания</h3></b>
 				<ul class="container nob">
 					<li>
 						<b>Форма грудной клетки</b>
@@ -142,7 +142,7 @@
 			</li>
 
 			<li>
-				<b><h3>Органы кровообращения</h3></b>
+				<b><h3 name="org_krov_in" class="section subsection">Органы кровообращения</h3></b>
 				<ul class="container nob">
 					
 				<li>
@@ -209,7 +209,7 @@
 
 			</li>
 			<li>
-				<b><h3>Органы пищеварения</h3></b>
+				<b><h3 name="org_pish_in" class="section subsection">Органы пищеварения</h3></b>
 				<ul class="container nob">
 					<li>
 						<b>Живот</b>
@@ -258,7 +258,7 @@
 			</li>
 
 			<li>
-				<b><h3>Органы мочевыделения</h3></b>
+				<b><h3 name="org_moch_in" class="section subsection">Органы мочевыделения</h3></b>
 				<ul class="container nob">
 					<li>
 						<b>Область почек</b>
@@ -292,7 +292,7 @@
 
 			</li>
 			<li>
-				<b><h3>Неврологический и психический статус <button name="nevr-toggle-in">Скрыть</button></h3></b>
+				<span><b><h3 name="nevr_in"class="section subsection" style=" display: inline;">Неврологический и психический статус</h3> <button name="nevr-toggle-in">Скрыть</button></b></span>
 				<ul class="container nob" name='nevr-status-in'>
 					<li>
 						<b>Уровень сознания:</b>
@@ -1291,7 +1291,7 @@
 				</ul>
 			</li>
 		</ul>
-			<li class="status_vascularis_in"><b><h3>Status vascularis:</h3></b>
+			<li class="status_vascularis_in"><b><h3 name="status_vascularis_in" class="section subsection">Status vascularis:</h3></b>
 				<span style="display:none;" name="status_vascularis_in" from='firstView@status_vascularis_in'></span>
 				<table class="status">
 					<tr><th colspan="2">Пульс справа</th><th colspan="2">Пульс слева</th></tr>
@@ -1310,7 +1310,7 @@
 					<tr><td>Положительные симптомы:</td><td><input name="e_sv_polozhsimpspav_in" from="firstView@Положительные симптомы справа"></input></td><td>Положительные симптомы:</td><td><input name="e_sv_polozhsimpslev_in" from="firstView@Положительные симптомы слева"></input></td></tr>
 				</table>
 			</li>
-			<li class="status_localis_in"><b><h3>Status localis:</h3></b>
+			<li class="status_localis_in"><b><h3 name="status_localis_in" class="section subsection"> Status localis:</h3></b>
 				<span style="display:none;" name="status_localis_in" from='firstView@status_localis_in'></span>
 				<table class="status">
 					<tr><th colspan="2">Справа</th><th colspan="2">Слева</th></tr>
@@ -1328,10 +1328,10 @@
 		</ul>
 		</li>
 
-		<h2>Состояние при выписке</h2>
+		<h2 name="sost_out" class="section">Состояние при выписке</h2>
 		<ul class='bottom-bord'>
 			<li>
-				<h3><b>Status praesens</b></h3> 
+				<h3 name="status_praesenss_out" class="section subsection"><b>Status praesens</b></h3> 
 				<ul class="container nob">
 					<li>
 						<b>Общее состояние</b> 
@@ -1353,7 +1353,7 @@
 
 
 			<li>
-				<b><h3>Органы дыхания</h3></b>
+				<b><h3 name="org_dih_out" class="section subsection">Органы дыхания</h3></b>
 				<ul class="container nob">
 					<li>
 						<b>Форма грудной клетки</b>
@@ -1420,7 +1420,7 @@
 			</li>
 
 			<li>
-				<b><h3>Органы кровообращения</h3></b>
+				<b><h3 name="org_krov_out" class="section subsection">Органы кровообращения</h3></b>
 				<ul class="container nob">
 					
 				<li>
@@ -1489,7 +1489,7 @@
 
 			</li>
 			<li>
-				<b><h3>Органы пищеварения</h3></b>
+				<b><h3 name="org_pish_out" class="section subsection">Органы пищеварения</h3></b>
 				<ul class="container nob">
 					<li>
 						<b>Живот</b>
@@ -1538,7 +1538,7 @@
 			</li>
 
 			<li>
-				<b><h3>Органы мочевыделения</h3></b>
+				<b><h3 name="org_moch_out" class="section subsection">Органы мочевыделения</h3></b>
 				<ul class="container nob">
 					<li>
 						<b>Область почек</b>
@@ -1573,7 +1573,7 @@
 			</li>
 
 			<li>
-				<b><h3>Неврологический и психический статус <button name="nevr-toggle-in">Скрыть</button></h3></b>
+				<span><b><h3 name="org_nevr_out" class="section subsection" style=" display: inline;">Неврологический и психический статус</h3> <button name="nevr-toggle-in">Скрыть</button></b></span>
 				<ul class="container nob" name='nevr-status-in'>
 					<li>
 						<b>Уровень сознания:</b>
@@ -2571,7 +2571,7 @@
 						<b><h3>Status localis:</h3></b>
 						<textarea name="e_diag_statuslocalis_out" from="lastView@Status localis">{{e_diag_statuslocalis_out}}</textarea>
 					</li> -->
-					<li class="status_vascularis_out"><b><h3>Status vascularis:</h3></b>
+					<li class="status_vascularis_out"><b><h3 name="status_vascularis_out" class="section subsection">Status vascularis:</h3></b>
 						<span style="display:none;" name="status_vascularis_out" from='lastView@status_vascularis_out'></span>
 						<table class="status">
 						<tr><th colspan="2">Пульс справа</th><th colspan="2">Пульс слева</th></tr>
@@ -2590,7 +2590,7 @@
 						<tr><td>Положительные симптомы:</td><td><input name="e_sv_polozhsimpspav_out" from="lastView@Положительные симптомы справа"></input></td><td>Положительные симптомы:</td><td><input name="e_sv_polozhsimpslev_out" from="lastView@Положительные симптомы слева"></input></td></tr>
 						</table>
 					</li>
-					<li class="status_localis_out"><b><h3>Status localis:</h3></b>
+					<li class="status_localis_out" class="section subsection"><b><h3 name="status_localis_out" class="section subsection">Status localis:</h3></b>
 						<span style="display:none;" name="status_localis_out" from='lastView@status_localis_out'></span>
 						<table class="status">
 						<tr><th colspan="2">Справа</th><th colspan="2">Слева</th></tr>
@@ -2609,10 +2609,10 @@
 			</li>
 		</ul>
 </ul>
-<h2>Результаты диагностических исследований</h2>
+<h2 name="rez_diag_isl" class="section">Результаты диагностических исследований</h2>
 <ul class='container'>
 
-	<li><b><h3>Результаты инструментальных методов исследований </h3></b>
+	<li><b><h3 >Результаты инструментальных методов исследований </h3></b>
 	<ul>
 		<div data-role="foreach" from="res">
 			<li>
@@ -2701,7 +2701,7 @@
 		<input name="e_hosplist_text" value="">
 	</li>
 </ul>
-<h2><b>Рекомендации по дальнейшему ведению пациента </b></h2>
+<h2 name="rekom_po_daln_ved" class="section" class="section subsection"><b>Рекомендации по дальнейшему ведению пациента </b></h2>
 <ol>
 <li><b>Диета:</b>
 <textarea name="e_recom_dieta">{{e_recom_dieta}}</textarea>

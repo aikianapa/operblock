@@ -22,18 +22,15 @@
 		<li class="">
 		<ul>
 		<li> <b>Наименование отделения:</b> {{orgStr}}
-		<li><b><h2>Клинический диагноз</h2></b>
+		<li><b><h2 name="klin_diagnoz" class="section">Клинический диагноз</h2></b>
 			<ul class="block">
-				<li><b class="bottom-bord">Клинический диагноз:</b><textarea name="e_diag_clin_in" from="firstZavView@Клинический диагноз">{{e_diag_clin_in}}</textarea></li>
 				<li><b class="bottom-bord">Основное заболевание:</b><textarea name="e_diag_main_in" from="firstZavView@Основное заболевание">{{e_diag_main_in}}</textarea></li>
 				<li><b class="bottom-bord">Фоновые заболевания:</b><textarea name="e_diag_fon_in" from="firstZavView@Фоновые заболевания">{{e_diag_fon_in}}</textarea></li>
 				<li><b class="bottom-bord">Осложнения основного заболевания:</b><textarea name="e_diag_comp_in" from="firstZavView@Осложнения основного заболевания:">{{e_diag_comp_in}}</textarea></li>
 				<li><b class="bottom-bord">Сопутствующие заболевания:</b><textarea name="e_diag_satt_in" from="firstZavView@Сопутствующие заболевания">{{e_diag_satt_in}}</textarea></li>
-				<li><b class="bottom-bord">Обоснование диагноза:</b><br/><textarea name="e_diag_obosn_in" from="firstZavView@Обоснование диагноза">{{e_diag_satt_in}}</textarea></li>
 				<li><b>Согласие пациента получено:</b>
 					<select multiple="multiple" name="e_sogl_patient[]"  >
 							<option>Да</option>
-							<option>Нет</option>
 							<option>Либо решение об операции принято консилиумом врачей</option>
 					</select>
 				</li>
@@ -43,8 +40,14 @@
 				<li><b>Планируемое оперативное вмешательство:</b>
 					<textarea name="e_plan_oper_vmesh">{{e_plan_oper_vmesh}}</textarea>
 				</li>
-				<li><b>Группа крови и резус фактор:</b>
+				<li><b>Группа крови</b>
 					<textarea name="e_diag_grup_krovi" from="krovAnaliz@Группа крови ABO">{{e_diag_grup_krovi}}</textarea>
+				</li>
+				<li><b>Резус-фактор:</b>
+					<textarea name="e_diag_rezus_faktor" from="krovAnaliz@Резус-фактор">{{e_diag_rezus_faktor}}</textarea>
+				</li>
+				<li><b>Kell-антиген:</b>
+					<textarea name="e_diag_kell_antigen" from="krovAnaliz@Kell-антиген">{{e_diag_kell_antigen}}</textarea>
 				</li>
 				<li><b>Аллергический анамнез:</b>
 					<textarea name="e_al_anamnez" from="firstZavView@Аллергический анамнез">{{e_al_anamnez}}</textarea>
@@ -63,7 +66,7 @@
 
 
 </ul>
-<h2>Результаты диагностических исследований</h2>
+<h2 name="rezl_diagn_issl" class="section">Результаты диагностических исследований</h2>
 <ul class='container'>
 
 	<li><b><h3>Результаты инструментальных методов исследований: </h3></b>

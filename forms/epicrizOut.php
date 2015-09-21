@@ -99,6 +99,7 @@ $event=mysqlReadItem("Event",$id);
 		 '. $orgStr_id;
 	}
 	$Item["OrgStrCode"]=$orgstructure["code"];
+	$_SESSION["OrgStrCode"] = $orgstructure["code"];
 	$Item["externalId"]=$event["externalId"];
 	$Item["OrgName"]=$organisation["title"];
 	$Item["OrgId"]=$organisation["id"];
@@ -139,6 +140,30 @@ $event=mysqlReadItem("Event",$id);
 		$Item['dateDiff'] = $Item['dateDiff'] . ' дней';
 	}	else {
 		$Item['dateDiff'] = $Item['dateDiff'] . ' дня';
+	}
+
+
+	if ($_SESSION['epic_type'] == 'dead') {
+		$SQL="SELECT a.* FROM Action AS a
+		INNER JOIN  Event AS e ON (a.event_id = e.id)
+		INNER JOIN  ActionType AS t ON t.id = a.actionType_id
+		WHERE e.id = {$event['id']} 
+		# AND (a.setPerson_id = e.execPerson_id OR a.person_id = e.execPerson_id )
+		AND a.deleted = 0 
+		AND a.status = 2 
+		AND t.name = 'Протокол операции' 
+		ORDER BY endDate ASC";
+		$operation_res = mysql_query($SQL) or die ("Query failed fields_msk36(): [1]" . mysql_error());
+		$operation_data = array();
+		while($data = mysql_fetch_array($operation_res)) {
+			$operation_data[] = array('endDate' => explode(' ',$data['endDate'])[0], 'operationName' => getAction($data[0])["data"]["fields"]['Наименование операции:']['value']);
+			$temp_e_techenie_zabolevania .=  explode(' ',$data['endDate'])[0] . '  ' . getAction($data[0])["data"]["fields"]['Наименование операции:']['value'] . '
+';
+		}
+		if (!empty($temp_e_techenie_zabolevania)) {
+			$Item['e_techenie_zabolevania'] = 'Операции:
+'			.$temp_e_techenie_zabolevania;
+		}
 	}
 
 		$Item["docDate"]=$Item["s_date2"];
@@ -182,6 +207,25 @@ $Item['rendgetnographia_organov_grudnoy_kletki'] = $Item['firstView']['Рент�
 // $Item["e_diag_in"]=print_r($Item, true);
 pq($out)->find("form")->prepend("<input type='hidden' name='actionType_id' value='{$_SESSION["epic_atid"]}'>");
 
+if ($_SESSION["epic_type"] == 'move') {
+
+	$SQL="SELECT os.code as code FROM OrgStructure AS os 
+	WHERE os.organisation_id = ".$organisation["id"]." 
+	AND os.deleted = 0
+	AND os.code != ''
+	AND os.hasHospitalBeds = 1";
+	$res1=mysql_query($SQL) or die ("Query failed getEpicrizOut(): " . mysql_error());
+	// $data =  mysqli_fetch_assoc($res1);
+	$transfer_select = '<select name="e_transfer_orgstructure" value="{{e_transfer_orgstructure}}">';
+	while($data = mysql_fetch_assoc($res1)) {
+		$transfer_select .= "<option value='{$data['code']}'>{$data['code']}</option>";
+	}
+	$transfer_select .= '</select>';
+	pq($out)->find("li[name=transfer_orgstructure]")->append($transfer_select);
+	print_r('drake');
+	print_r($transfer_select);
+}
+
 $i=0; foreach(pq($out)->find("[name=e_recom_sel] option") as $recom) {
 	if (pq($recom)->html()==$Item["e_recom_sel"]) {
 		pq($out)->find(".recom_tab > li:eq({$i}) textarea")->attr("name","e_recom_text");
@@ -221,23 +265,9 @@ foreach(pq($out)->find("textarea[placeholder]") as $inp) {
 	if (pq($inp)->html()=="") {	pq($inp)->html(pq($inp)->attr("placeholder")); }
 }
 
-if ($_SESSION["epic_type"] == 'move') {
 
-	$SQL="SELECT os.code as code FROM OrgStructure AS os 
-	WHERE os.organisation_id = ".$organisation["id"]." 
-	AND os.deleted = 0
-	AND os.code != ''";
-	$res1=mysql_query($SQL) or die ("Query failed getEpicrizOut(): " . mysql_error());
-	// $data =  mysqli_fetch_assoc($res1);
-	$transfer_select = '<select multiple="multiple" name="e_transfer_orgstructure[]" value="{{e_transfer_orgstructure}}">';
-	while($data = mysql_fetch_assoc($res1)) {
-		$transfer_select .= "<option value='{$data['code']}'>{$data['code']}</option>";
-	}
-	$transfer_select .= '</select>';
-	pq($out)->find("li[name=transfer_orgstructure]")->append($transfer_select);
-	print_r('drake');
-	print_r($transfer_select);
-}
+
+
 
 if ($mode=="print") {
 	pq($out)->html(pq($out)->find("#form-027u"));
@@ -310,11 +340,16 @@ function fields_msk36($event_id,$orgstr="") {
 	foreach($_SESSION["epic_tpl"] as $key => $arr) {
 		if (in_array($orgstr,$arr[0])) {	$tpl=$arr[1];	}
 	}
-	
+
+	if (!in_array($_SESSION["OrgStrCode"], array('ОАР инфаркт', 'ОАР ОНМК'))) {
+		$isReanim = ' and person_id = e.execPerson_id';
+	} else {
+		$isReanim = '';
+	}
 	$event=mysqlReadItem("Event",$event_id);
 	$Diag=patientGetDiagnosis($event_id);
 	$SQL="SELECT a.* FROM Action AS a
-	INNER JOIN  Event AS e ON (a.event_id = e.id and a.person_id = e.execPerson_id)
+	INNER JOIN  Event AS e ON (a.event_id = e.id {$isReanim})
 	INNER JOIN  ActionType AS t ON t.id = a.actionType_id 
 	WHERE e.id = {$event_id} 
 	# AND (a.setPerson_id = e.execPerson_id OR a.person_id = e.execPerson_id )
@@ -353,8 +388,6 @@ function fields_msk36($event_id,$orgstr="") {
 	AND aps.value like '%Осмотр зав. отделением%'
 	ORDER BY endDate DESC LIMIT 1";
 
-	print_r('Totot');
-	print_r($SQL);
 	$res=mysql_query($SQL) or die ("Query failed fields_msk36(): [1]" . mysql_error());
 	$action_id = '';
 	while($data = mysql_fetch_array($res)) {
@@ -366,7 +399,7 @@ function fields_msk36($event_id,$orgstr="") {
 	$docs["lastView"] = $lastView["data"]["fields"];
 	if (empty($action_id)) {
 		$SQL="SELECT a.* FROM Action AS a
-		INNER JOIN  Event AS e ON (a.event_id = e.id and a.person_id = e.execPerson_id)
+		INNER JOIN  Event AS e ON (a.event_id = e.id {$isReanim})
 		INNER JOIN  ActionType AS t ON t.id = a.actionType_id
 		WHERE e.id = {$event_id} 
 		# AND (a.setPerson_id = e.execPerson_id OR a.person_id = e.execPerson_id )
@@ -468,6 +501,8 @@ function fields_msk36($event_id,$orgstr="") {
 		
 		$krovAnaliz = getAction($action_id);
 		$docs['krovAnaliz'] = $krovAnaliz["data"]["fields"];
+
+
 	}
 	if (array_key_exists('сонные справа', $docs["lastView"])) {
 		$docs["lastView"]['status_vascularis_out']['value'] = '1';

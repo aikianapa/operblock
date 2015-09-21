@@ -24,7 +24,7 @@
 		<ul>
 		<li> <b>Находился(-лась) на стационарном лечении</b> с {{s_date1}} 	по <input type="text" class="medium" name="endDate" value="{{s_date2}}">.  {{dateDiff}} </li>
 		<li> <b>Наименование отделения:</b> {{orgStr}}
-		<li><b><h2>Диагноз при поступлении</h2></b>
+		<li><b><h2 name="diag_pri_postup" class="section">Диагноз при поступлении</h2></b>
 			<ul class="block">
 				<li><b class="bottom-bord">Основное заболевание:</b><textarea name="e_diag_main_in" from="firstDiagView@Основное заболевание">{{e_diag_main_in}}</textarea></li>
 				<li><b class="bottom-bord">Фоновые заболевания:</b><textarea name="e_diag_fon_in" from="firstDiagView@Фоновые заболевания">{{e_diag_fon_in}}</textarea></li>
@@ -37,7 +37,7 @@
 		</li>
 
 
-		<h2>Состояние при поступлении</h2>
+		<h2 name="sost_pri_post" class="section">Состояние при поступлении</h2>
 		<ul class='bottom-bord'>
 			<li><b>Жалобы при поступлении:</b><textarea name="e_complaint1" from="firstZavView@Жалобы">{{e_complaint1}}</textarea> </li>
 			<li><b>An.morbi:</b><br/><textarea name="e_anamnez1" from="firstZavView@Anamnesis morbi">{{e_anamnez1}}</textarea> </li>
@@ -66,7 +66,7 @@
 
 
 			<li>
-				<b><h3>Органы дыхания</h3></b>
+				<b><h3 name="org_dyh_in" class="section subsection">Органы дыхания</h3></b>
 				<ul class="container nob">
 					<li>
 						<b>Форма грудной клетки</b>
@@ -133,7 +133,7 @@
 			</li>
 
 			<li>
-				<b><h3>Органы кровообращения</h3></b>
+				<b><h3 name="org_krov_in" class="section subsection">Органы кровообращения</h3></b>
 				<ul class="container nob">
 					
 				<li>
@@ -202,7 +202,7 @@
 
 			</li>
 			<li>
-				<b><h3>Органы пищеварения</h3></b>
+				<b><h3 name="org_pish_in" class="section subsection">Органы пищеварения</h3></b>
 				<ul class="container nob">
 					<li>
 						<b>Живот</b>
@@ -295,7 +295,7 @@
 			</li> -->
 
 			<li>
-				<b><h3>Неврологический и психический статус <button name="nevr-toggle-in">Скрыть</button></h3></b>
+				<span><b><h3 name="nevr_in"class="section subsection" style=" display: inline;">Неврологический и психический статус</h3> <button name="nevr-toggle-in">Скрыть</button></b></span>
 				<ul class="container nob" name='nevr-status-in'>
 					<li>
 						<b>Уровень сознания:</b>
@@ -1294,7 +1294,7 @@
 						<textarea name="e_diag_statuslocalis_out" from="firstZavView@Status localis">{{e_diag_statuslocalis_out}}</textarea>
 					</li> -->
 				</ul>
-					<li class="status_vascularis_out"><b><h3>Status vascularis при переводе:</h3></b>
+					<li class="status_vascularis_out"><b><h3 name="status_vascularis_in" class="section subsection">Status vascularis при переводе:</h3></b>
 						<span style="display:none;" name="status_vascularis_out" from='firstZavView@status_vascularis_out'></span>
 						<table class="status">
 						<tr><th colspan="2">Пульс справа</th><th colspan="2">Пульс слева</th></tr>
@@ -1313,7 +1313,7 @@
 						<tr><td>Положительные симптомы:</td><td><input name="e_sv_polozhsimpspav_out" from="firstZavView@Положительные симптомы справа"></input></td><td>Положительные симптомы:</td><td><input name="e_sv_polozhsimpslev_out" from="firstZavView@Положительные симптомы слева"></input></td></tr>
 						</table>
 					</li>
-					<li class="status_localis_out"><b><h3>Status localis при переводе:</h3></b>
+					<li class="status_localis_out"><b><h3 name="status_localis_in" class="section subsection">Status localis при переводе:</h3></b>
 						<span style="display:none;" name="status_localis_out" from='firstZavView@status_localis_out'></span>
 						<table class="status">
 						<tr><th colspan="2">Справа</th><th colspan="2">Слева</th></tr>
@@ -1331,21 +1331,21 @@
 			</li>
 		</ul>
 </ul>
-<h2>Течение заболевания</h2>
+<h2 name="tech_zabolev" class="section">Течение заболевания</h2>
 <ul>
 	<li><textarea class="medium" name="e_techenie_zabolevania" >{{e_techenie_zabolevania}}</textarea></li>
 	<li> Дата: <input type="text" class="medium" name="e_tech_data" value="{{e_tech_data}}"> </li>
 	<li> Время констатации смерти: <input type="text" class="medium" name="e_death_time" value="{{e_death_time}}"> </li>
 </ul>
 
-<h2><b>Труп направляется на секцию с заключительным диагнозом </b></h2>
+<h2 name="trup_naprv_na_sek" class="section"><b>Труп направляется на секцию с заключительным диагнозом </b></h2>
 <ul class="block">
 	<li><b class="bottom-bord">Основное заболевание:</b><textarea name="e_diag_main_in" from="firstZavView@Основное заболевание">{{e_diag_main_in}}</textarea></li>
 	<li><b class="bottom-bord">Фоновые заболевания:</b><textarea name="e_diag_fon_in" from="firstZavView@Фоновые заболевания">{{e_diag_fon_in}}</textarea></li>
 	<li><b class="bottom-bord">Осложнения основного заболевания:</b><textarea name="e_diag_comp_in" from="firstZavView@Осложнения основного заболевания:">{{e_diag_comp_in}}</textarea></li>
 	<li><b class="bottom-bord">Сопутствующие заболевания:</b><textarea name="e_diag_satt_in" from="firstZavView@Сопутствующие заболевания:">{{e_diag_satt_in}}</textarea></li>
 </ul>
-<h2>Результаты диагностических исследований</h2>
+<h2 name="rezl_diagn_issl" class="section">Результаты диагностических исследований</h2>
 <ul class='container'>
 
 	<li><b><h3>Результаты инструментальных методов исследований </h3></b>
