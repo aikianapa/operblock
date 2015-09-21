@@ -26,14 +26,21 @@ function test($action_id) {
 }
 
 function get_morfo_num($year=NULL) {
+	$res = [];
+	$parentAction = [];
 	if ($year==NULL) {$year=date('Y');}
-	$res=array();
-	$res["count"]=0;
+
+	$actionId = $_GET["parent_id"];
+	$parentAction = mysqlReadItem('Action',$actionId);
+	$tissueId = $parentAction['takenTissueJournal_id'];
+	if (isset($tissueId)){
+		$tissue = [];
+		$tissue = mysqlReadItem('TakenTissueJournal',$tissueId);
+		$res["count"] = $tissue['externalId'];
+	}
+	else $res["count"] = recountTissueExternalId(5);
 	$res["units"]=0;
-	$reg=getActionTypeByName('Регистрация биоматериала');
-	$SQL="SELECT COUNT(*) FROM Action WHERE actionType_id = {$reg} AND createDatetime > '".$year."-01-01 00:00:00' ";
-	$result=mysql_query($SQL) or die ("Query failed getMorfoNum() [1]: " . mysql_error());
-	while($data = mysql_fetch_array($result)) {$res["count"]=$data[0];}
+	
 	$form=getActionTypeForm('Регистрация биоматериала');
 	foreach($form as $key => $line) {
 		if ($line["label"]=="Количество кусочков") {
@@ -46,18 +53,6 @@ function get_morfo_num($year=NULL) {
 	WHERE a.type_id = ".$type_id." ";
 	$result=mysql_query($SQL) or die ("Query failed getMorfoNum() [2]: " . mysql_error());
 	while($data = mysql_fetch_array($result)) {$res["units"]=$data[0];}
-	$actionId = $_GET["action_id"];
-	if ($actionId !== '_new') {
-	$SQL = "select value from ActionProperty as a
-			join ActionPropertyType as b ON a.type_id = b.id 
-			join ActionProperty_String as c ON a.id = c.id
-			where action_id = $actionId AND name LIKE '%Внутренний номер%'";
-	$result=mysql_query($SQL) or die ("Query failed getMorfoNum() [3]: " . mysql_error());
-	$number = mysql_fetch_array($result);
-	if ($number){
-	   $res['set'] = 1;
-	}
-	}
 	return json_encode($res);
 }
 
@@ -146,6 +141,7 @@ if ($_GET["copy"]>0) {
 }
 
 function morfo_reg_submit() {
+	
 	if ($_POST["action_id"]!="_new" AND $_POST["action_id"]!="") {
 		$Action=mysqlReadItem("Action",$_POST["action_id"]);
 	} else {
@@ -178,6 +174,17 @@ function morfo_reg_submit() {
 	$Action["assist_id"]=$_POST["assist_id"];
 	$Action["id"]= $Action["parent_id"];
 	actionAssistSave($Action,'morfoReg');
+
+	$tissueNumber = $_POST['fld_0'];
+	$numbers = explode('/',$tissueNumber);
+	$lowNumber = $numbers[2];
+	$event = mysqlReadItem("Event",$_POST['event_id']);
+	$tissueId = saveTakenTissueRecord($lowNumber,$event["client_id"],$Action["person_id"],5);
+	$parentAction= [];
+	$parentAction['id'] = $Action['parent_id'];
+	$parentAction['takenTissueJournal_id'] = $tissueId;
+	mysqlSaveItem('Action',$parentAction); 
+ 
 }
 
 function morfo_lab_submit() {
@@ -363,4 +370,25 @@ if (!isset($_POST["details"])) {pq($doc)->find("td.details")->remove();} else {
 }
 return $out;
 }
+
+function recountTissueExternalId($tissueType){
+	$SQL = "SELECT COUNT(id) as cnt
+			FROM pato.TakenTissueJournal
+			WHERE tissueType_id = $tissueType";
+	$result = mysql_query($SQL) or die ("Query failed recountTissueExternalId() [2]: " . mysql_error());
+	$data = mysql_fetch_array($result);
+	$existCountValue = $data['cnt'];
+	$existCountValue += 1;
+	return $existCountValue;
+
+}
+function saveTakenTissueRecord($externalId,$client_id,$personId,$tissueType){
+	$dateToday = date("Y-m-d H:i:s");
+	$SQL = "INSERT INTO TakenTissueJournal(createDatetime,createPerson_id,client_id,tissueType_id,externalId,number,datetimeTaken,execPerson_id,status)
+	VALUES('$dateToday',$personId,$client_id,$tissueType,$externalId,$externalId,'$dateToday',$personId,3)";
+	mysql_query($SQL) or die ("Query failed saveTakenTissueRecord() [2]: " . mysql_error());
+	$tissueId = mysql_insert_id();
+	return $tissueId;
+}
+
 ?>
