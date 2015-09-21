@@ -166,9 +166,9 @@ function morfo_reg_submit() {
 	mysqlSaveItem("Action",$Action);
 	if ($_POST["action_id"]=="_new" OR $_POST["action_id"]=="") {
 		$Action["id"]=mysql_insert_id();
-		insertProperties($fldset,$Action["id"],$Action["setPerson_id"],$Action["actionType_id"]);
+		insertProperties($fldset,$Action["id"],$Action["person_id"],$Action["actionType_id"]);
 	} else {
-		updateProperties($fldset,$Action["id"],$Action["setPerson_id"],$Action["actionType_id"]);
+		updateProperties($fldset,$Action["id"],$Action["person_id"],$Action["actionType_id"]);
 	}
 	morfo_set_status($Action["parent_id"],getMorfoStatus($Action["parent_id"]));
 	$Action["assist_id"]=$_POST["assist_id"];
@@ -219,9 +219,9 @@ function morfo_lab_submit() {
 	mysqlSaveItem("Action",$Action);
 	if ($_POST["action_id"]=="_new" OR $_POST["action_id"]=="") {
 		$Action["id"]=mysql_insert_id();
-		insertProperties($fldset,$Action["id"],$Action["setPerson_id"],$Action["actionType_id"]);
+		insertProperties($fldset,$Action["id"],$Action["person_id"],$Action["actionType_id"]);
 	} else {
-		updateProperties($fldset,$Action["id"],$Action["setPerson_id"],$Action["actionType_id"]);
+		updateProperties($fldset,$Action["id"],$Action["person_id"],$Action["actionType_id"]);
 	}
 	morfo_set_status($Action["parent_id"],getMorfoStatus($Action["parent_id"]));
 }
