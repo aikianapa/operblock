@@ -37,6 +37,29 @@
     font-weight: normal;
 }
 #form-027u .bad-tests {background-color:red;}
+.tosection {display: block; border-bottom:1px dashed black; font-weight: bold; margin-bottom: -10px;}
+div#container {
+        width: 580px;
+        margin: 20px auto 0 auto;
+        padding: 20px;
+        background: #000;
+        border: 1px solid #1a1a1a;
+      }
+      
+      /* HOVER STYLES */
+      div#pop-up {
+        display: none;
+        position: fixed;
+        width: 280px;
+        padding: 10px;
+        background: #eeeeee;
+        color: #000000;
+        border: 1px solid #1a1a1a;
+        font-size: 90%;
+      }
+.tosubsection {margin-left: 20px; }
+.tosubsection:before {content:"•";}
+.close-pop-up {float: right !important; position: relative !important; margin-right: -10px !important;}
 }
 @media print {
 body {display:none;}
