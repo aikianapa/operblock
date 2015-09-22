@@ -184,6 +184,9 @@ function morfo_reg_submit() {
 	$parentAction['id'] = $Action['parent_id'];
 	$parentAction['takenTissueJournal_id'] = $tissueId;
 	mysqlSaveItem('Action',$parentAction); 
+	$parentActionType = getActionTypeByActionId($parentAction['id']);
+	$parentPersonId = $Action['person_id'];
+	setProperty($Action['parent_id'],'№ исследования',$lowNumber,$parentActionType,$parentPersonId);
  
 }
 

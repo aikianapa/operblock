@@ -435,6 +435,12 @@ function getActionTypeByCode($code) {
 	return $result;
 }
 
+function getActionTypeByActionId($actionId) {
+	$SQL="SELECT actionType_id as id FROM Action WHERE id = $actionId LIMIT 1";
+	$res=mysql_query($SQL);
+	$data = mysql_fetch_array($res);
+	return $data['id'];
+}
 
 function getZamglavName() {
 	$name="";
@@ -1147,5 +1153,31 @@ return $arr;
 
 function cmp($a, $b) {
     return strcmp($a['drugName'], $b['drugName']);
+}
+
+function setProperty($actionId,$typeName,$value,$actionTypeId,$personId){
+	$SQL = "SELECT a.id
+			FROM ActionProperty as a
+			INNER JOIN ActionProperty_String as b on a.id = b.id
+			INNER JOIN ActionPropertyType as c on a.type_id = c.id
+			WHERE action_id = $actionId AND name = '$typeName' AND a.deleted = 0";
+	$result = mysql_query($SQL) or die("Query failed: setProperty()" . mysql_error());
+	$res =mysql_fetch_array($result);
+	if($res){
+		$SQL = "UPDATE ActionProperty_String
+				SET value = $value
+				WHERE id = {$res['id']}";
+	}
+	else{
+		$SQL = "SELECT id FROM ActionPropertyType WHERE name = '$typeName' AND actionType_id = $actionTypeId AND deleted = 0";
+		$result = mysql_query($SQL) or die("Query failed: setProperty()" . mysql_error());
+		$res =mysql_fetch_array($result);
+		$fldset[0]["value"] = $value;
+		$fldset[0]["type"] = 'String';
+		$fldset[0]["type_id"] = $res['id'];
+
+		insertProperties($fldset,$actionId,$personId,$actionTypeId);
+	}
+
 }
 ?>
