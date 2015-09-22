@@ -13,7 +13,11 @@ $("div[data-url^='/morfoLab/list/list.htm']:hidden").remove();
 
 		$("#printMenu a").on("click",function(){
 			if ($(this).attr("data")>"") {
-				$(this).attr("href",$(this).attr("data")+"&action="+$( document ).data( "action"));
+				window.open(
+			        $(this).attr("data")+"&action="+$( document ).data( "action"),
+			        'print_win',
+			        'width=900,height=900,scrollbars'
+			    );
 			} else {
 				$(document).data("copy_nazn",false);
 				if ($(this).attr("href")=="#new") {var form="morfoNazn"; $(document).data("copy_nazn",true);}
