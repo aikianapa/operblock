@@ -1317,7 +1317,7 @@
 
 		<h2>Течение заболевания</h2>
 		<ul>
-			<textarea class="medium" name="e_techenie_zabolevania" >{{e_techenie_zabolevania}}</textarea>
+			<input type="text" class="medium" name="e_techenie_zabolevania" />
 		</ul>
 		<h2 name="sost_out" class="section">Состояние при переводе</h2>
 		<ul class='bottom-bord'>

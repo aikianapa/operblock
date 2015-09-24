@@ -1333,7 +1333,7 @@
 </ul>
 <h2 name="tech_zabolev" class="section">Течение заболевания</h2>
 <ul>
-	<li><textarea class="medium" name="e_techenie_zabolevania" >{{e_techenie_zabolevania}}</textarea></li>
+	<li><div class="ui-widget"><input class="medium suggest" suggest="dead_techenie_zabolevania" type="text" name="e_techenie_zabolevania" /></div></li>
 	<li> Дата: <input type="text" class="medium" name="e_tech_data" value="{{e_tech_data}}"> </li>
 	<li> Время констатации смерти: <input type="text" class="medium" name="e_death_time" value="{{e_death_time}}"> </li>
 </ul>
