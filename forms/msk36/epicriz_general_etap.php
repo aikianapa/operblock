@@ -22,7 +22,7 @@
 		<li> <b>Адрес</b>: <input type="text" class="medium" name="e_client_adress" value="{{e_client_adress}}"> </li>
 		<li class="">
 		<ul>
-		<li> <b>Находился(-лась) на стационарном лечении</b> с {{s_date1}} 	по <input type="text" class="medium" name="endDate" value="{{s_date2}}">.  {{dateDiff}} </li>
+		<li> <b>Находится(-лась) на стационарном лечении</b> с {{s_date1}} 	по <input type="text" class="medium" name="endDate" value="{{s_date2}}">.  {{dateDiff}} </li>
 		<li> <b>Наименование отделения:</b> {{orgStr}}
 		<li><b><h2 name="diag_pri_postup" class="section">Диагноз при поступлении</h2></b>
 			<ul class="block">

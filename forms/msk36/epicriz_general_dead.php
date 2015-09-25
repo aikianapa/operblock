@@ -1331,20 +1331,6 @@
 			</li>
 		</ul>
 </ul>
-<h2 name="tech_zabolev" class="section">Течение заболевания</h2>
-<ul>
-	<li><div class="ui-widget"><input class="medium suggest" suggest="dead_techenie_zabolevania" type="text" name="e_techenie_zabolevania" /></div></li>
-	<li> Дата: <input type="text" class="medium" name="e_tech_data" value="{{e_tech_data}}"> </li>
-	<li> Время констатации смерти: <input type="text" class="medium" name="e_death_time" value="{{e_death_time}}"> </li>
-</ul>
-
-<h2 name="trup_naprv_na_sek" class="section"><b>Труп направляется на секцию с заключительным диагнозом </b></h2>
-<ul class="block">
-	<li><b class="bottom-bord">Основное заболевание:</b><textarea name="e_diag_main_in" from="firstZavView@Основное заболевание">{{e_diag_main_in}}</textarea></li>
-	<li><b class="bottom-bord">Фоновые заболевания:</b><textarea name="e_diag_fon_in" from="firstZavView@Фоновые заболевания">{{e_diag_fon_in}}</textarea></li>
-	<li><b class="bottom-bord">Осложнения основного заболевания:</b><textarea name="e_diag_comp_in" from="firstZavView@Осложнения основного заболевания:">{{e_diag_comp_in}}</textarea></li>
-	<li><b class="bottom-bord">Сопутствующие заболевания:</b><textarea name="e_diag_satt_in" from="firstZavView@Сопутствующие заболевания:">{{e_diag_satt_in}}</textarea></li>
-</ul>
 <h2 name="rezl_diagn_issl" class="section">Результаты диагностических исследований</h2>
 <ul class='container'>
 
@@ -1380,6 +1366,20 @@
 		</div>
 	</ul>
 	<textarea name="e_consultText">{{e_consultText}}</textarea></li>
+</ul>
+<h2 name="tech_zabolev" class="section">Течение заболевания</h2>
+<ul>
+	<li><div class="ui-widget sugc"><input style="position: relative;" class="large suggest" suggest="dead_techenie_zabolevania" type="text" name="e_techenie_zabolevania" /></div></li>
+	<li> Дата: <input type="text" class="medium" name="e_tech_data" value="{{e_tech_data}}"> </li>
+	<li> Время констатации смерти: <input type="text" class="medium" name="e_death_time" value="{{e_death_time}}"> </li>
+</ul>
+
+<h2 name="trup_naprv_na_sek" class="section"><b>Труп направляется на секцию с заключительным диагнозом </b></h2>
+<ul class="block">
+	<li><b class="bottom-bord">Основное заболевание:</b><textarea name="e_diag_main_in" from="firstZavView@Основное заболевание">{{e_diag_main_in}}</textarea></li>
+	<li><b class="bottom-bord">Фоновые заболевания:</b><textarea name="e_diag_fon_in" from="firstZavView@Фоновые заболевания">{{e_diag_fon_in}}</textarea></li>
+	<li><b class="bottom-bord">Осложнения основного заболевания:</b><textarea name="e_diag_comp_in" from="firstZavView@Осложнения основного заболевания:">{{e_diag_comp_in}}</textarea></li>
+	<li><b class="bottom-bord">Сопутствующие заболевания:</b><textarea name="e_diag_satt_in" from="firstZavView@Сопутствующие заболевания:">{{e_diag_satt_in}}</textarea></li>
 </ul>
 <br>
 <br>

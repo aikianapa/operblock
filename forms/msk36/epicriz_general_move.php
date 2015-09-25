@@ -1317,7 +1317,7 @@
 
 		<h2>Течение заболевания</h2>
 		<ul>
-			<input type="text" class="medium" name="e_techenie_zabolevania" />
+			<input type="text" class="large suggest" suggest="move_techenie_zabolevania" type="text" name="e_techenie_zabolevania" />
 		</ul>
 		<h2 name="sost_out" class="section">Состояние при переводе</h2>
 		<ul class='bottom-bord'>
