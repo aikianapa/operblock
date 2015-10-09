@@ -1322,7 +1322,7 @@
 						<tr><td>Чувствительность:</td><td><input name="e_si_chuvstsprav_out" from="lastView@чувствительность справа"></input></td><td>Чувствительность:</td><td><input name="e_si_chuvstslev_out" from="lastView@чувствительность слева"></input></td></tr>
 						<tr><td>Движения:</td><td><input name="e_si_dvizspav_out" from="lastView@движения справа"></input></td><td>Движения:</td><td><input name="e_si_dvizslev_out" from="lastView@движения слева"></input></td></tr>
 						<tr><td>Субфасциальный отек:</td><td><input name="e_si_subfcalnoteksprav_out" from="lastView@субфасциальный отек справа"></input></td><td>Субфасциальный отек:</td><td><input name="e_si_subfcalnotekslev_out" from="lastView@субфасциальный отек слева"></input></td></tr>
-						<tr><td>Контрактура:</td><td><input name="e_si_contracturasprav_out" from="lastView@контрактура справа"></input></td><td>Контрактура:</td><td><input name="e_si_contracturaslev_out" from="firstView@контрактура слева"></input></td></tr>
+						<tr><td>Контрактура:</td><td><input name="e_si_contracturasprav_out" from="lastView@контрактура справа"></input></td><td>Контрактура:</td><td><input name="e_si_contracturaslev_out" from="lastView@контрактура слева"></input></td></tr>
 						<tr><td>Трофические нарушения:</td><td><input name="e_si_trofnarsrav_out" from="lastView@трофические нарушения справа"></input></td><td>Трофические нарушения:</td><td><input name="e_si_trofnarslev_out" from="lastView@трофические нарушения слева"></input></td></tr>
 						<tr><td>Отек:</td><td><input name="e_si_oteksprav_out" from="lastView@отек справа"></input></td><td>Отек:</td><td><input name="e_si_otekslev_out" from="lastView@отек слева"></input></td></tr>
 						<tr><td>Подкожные вены:</td><td><input name="e_si_podkozhvensrav_out" from="lastView@подкожные вены справа"></input></td><td>Подкожные вены:</td><td><input name="e_si_podkozhvenslev_out" from="lastView@подкожные вены слева"></input></td></tr>
@@ -1333,7 +1333,7 @@
 </ul>
 <h2 name="tech_nast_zabol" class="section subsection">Течение настоящего заболевания</h2>
 <ul>
-	<textarea class="medium" name="e_techenie_zabolevania" >{{e_techenie_zabolevania}}</textarea>
+	<div class="ui-widget sugc"><textarea class="large suggest"  suggest="etap_techenie_zabolevania" name="e_techenie_zabolevania" >{{e_techenie_zabolevania}}</textarea><a href="#saveTechen" class="ui-button" title="Сохранить"><span class="ui-icon ui-icon-disk"></span></a></div>
 </ul>
 <h2 name="rezl_diagn_issl" class="section">Результаты диагностических исследований</h2>
 <ul class='container'>

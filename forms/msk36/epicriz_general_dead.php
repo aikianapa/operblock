@@ -1367,9 +1367,9 @@
 	</ul>
 	<textarea name="e_consultText">{{e_consultText}}</textarea></li>
 </ul>
-<h2 name="tech_zabolev" class="section">Течение заболевания</h2>
+<h2 name="tech_zabolev" class="section">Течение заболевания </h2>
 <ul>
-	<li><div class="ui-widget sugc"><input style="position: relative;" class="large suggest" suggest="dead_techenie_zabolevania" type="text" name="e_techenie_zabolevania" /></div></li>
+	<li><div class="ui-widget sugc"><textarea style="position: relative;" class="large suggest" suggest="dead_techenie_zabolevania" type="text" name="e_techenie_zabolevania">{{e_techenie_zabolevania}}</textarea><a href="#saveTechen" class="ui-button" title="Сохранить"><span class="ui-icon ui-icon-disk"></span></a></div></li>
 	<li> Дата: <input type="text" class="medium" name="e_tech_data" value="{{e_tech_data}}"> </li>
 	<li> Время констатации смерти: <input type="text" class="medium" name="e_death_time" value="{{e_death_time}}"> </li>
 </ul>

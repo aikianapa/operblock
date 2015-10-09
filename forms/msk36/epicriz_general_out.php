@@ -237,7 +237,7 @@
 					</li>
 					<li>
 						<b>Печень:</b>
-						<select multiple="multiple" name='e_diag_liver_in[]' value='{{e_diag_liver_in}}' from="lastView@Печень">
+						<select class="constructor" multiple="multiple" name='e_diag_liver_in[]' value='{{e_diag_liver_in}}' from="lastView@Печень">
 							<option>у края реберной дуги, по среднеключичной линии справа</option>
 							<option>с острым краем</option>
 							<option>бугристая</option>
@@ -811,7 +811,7 @@
 					</li>
 					<li>
 						<b>Мышечный тонус:</b>
-						<select multiple="multiple" name="e_diag_masstonus_in[]" value="{{e_diag_masstonus_in}}" from="firstView@Мышечный тонус">
+						<select class="constructor" multiple="multiple" name="e_diag_masstonus_in[]" value="{{e_diag_masstonus_in}}" from="firstView@Мышечный тонус">
 							<option>в руках существенно</option>
 							<option>&gt;</option>
 							<option>S</option>
@@ -1034,7 +1034,7 @@
 					</b> <textarea class="medium" name="e_diag_reflsph_in" from="firstView@Рефлекторная сфера">{{e_diag_reflsph_in}}</textarea></li>
 					<li>
 						<b>Поверхностные кожные рефлексы:</b>
-						<select multiple="multiple" name="e_diag_porverhkozref_in[]" value="{{e_diag_porverhkozref_in}}" from="firstView@Поверхностные кожные рефлексы">
+						<select class="constructor" multiple="multiple" name="e_diag_porverhkozref_in[]" value="{{e_diag_porverhkozref_in}}" from="firstView@Поверхностные кожные рефлексы">
 							<option>брюшные Th10-Th11-Th12 (верхний, средний, нижний)</option>
 							<option>отсутствуют</option>
 							<option>вызывается</option>
@@ -1056,7 +1056,7 @@
 					</li>
 					<li>
 						<b>Сухожильные и периостальные рефлексы:</b>
-						<select multiple="multiple" name="e_diag_syhozhilirepref_in[]" value="{{e_diag_syhozhilirepref_in}}" from="firstView@Сухожильные и периостальные рефлексы">
+						<select class="constructor" multiple="multiple" name="e_diag_syhozhilirepref_in[]" value="{{e_diag_syhozhilirepref_in}}" from="firstView@Сухожильные и периостальные рефлексы">
 							<option>рефлекс</option>
 							<option>мандибулярный</option>
 							<option>костно-абдоминальный</option>
@@ -1517,7 +1517,7 @@
 					</li>
 					<li>
 						<b>Печень:</b>
-						<select multiple="multiple"  name='e_diag_liver_out[]' value='{{e_diag_liver_out}}' from="lastView@Печень">
+						<select class="constructor" multiple="multiple"  name='e_diag_liver_out[]' value='{{e_diag_liver_out}}' from="lastView@Печень">
 							<option>у края реберной дуги, по среднеключичной линии справа</option>
 							<option>с острым краем</option>
 							<option>бугристая</option>
@@ -2094,7 +2094,7 @@
 					</li>
 					<li>
 						<b>Мышечный тонус:</b>
-						<select multiple="multiple"  name="e_diag_masstonus_out[]" value="{{e_diag_masstonus_out[]}}" from="lastView@Мышечный тонус">
+						<select class="constructor" multiple="multiple"  name="e_diag_masstonus_out[]" value="{{e_diag_masstonus_out[]}}" from="lastView@Мышечный тонус">
 							<option>в руках существенно</option>
 							<option>&gt;</option>
 							<option>S</option>
@@ -2317,7 +2317,7 @@
 					</b> <textarea class="medium" name="e_diag_reflsph_out" from="lastView@Рефлекторная сфера">{{e_diag_reflsph_out}}</textarea></li>
 					<li>
 						<b>Поверхностные кожные рефлексы:</b>
-						<select multiple="multiple"  name="e_diag_porverhkozref_out[]" value="{{e_diag_porverhkozref_out}}" from="lastView@Поверхностные кожные рефлексы">
+						<select class="constructor" multiple="multiple"  name="e_diag_porverhkozref_out[]" value="{{e_diag_porverhkozref_out}}" from="lastView@Поверхностные кожные рефлексы">
 							<option>брюшные Th10-Th11-Th12 (верхний, средний, нижний),</option>
 							<option>отсутствуют</option>
 							<option>вызывается</option>
@@ -2339,7 +2339,7 @@
 					</li>
 					<li>
 						<b>Сухожильные и периостальные рефлексы:</b>
-						<select multiple="multiple"  name="e_diag_syhozhilirepref_out[]" value="{{e_diag_syhozhilirepref_out}}" from="lastView@Сухожильные и периостальные рефлексы">
+						<select class="constructor" multiple="multiple"  name="e_diag_syhozhilirepref_out[]" value="{{e_diag_syhozhilirepref_out}}" from="lastView@Сухожильные и периостальные рефлексы">
 							<option>рефлекс</option>
 							<option>мандибулярный</option>
 							<option>костно-абдоминальный</option>
@@ -2632,7 +2632,9 @@
 		</div>
 	</ul>
 	<textarea name="e_anayseText">{{e_anayseText}}</textarea></li>
-	
+	<li><b><h3>Протоколы операций</h3></b>
+		{{operations}}
+	<textarea name="e_anayseText">{{e_anayseText}}</textarea></li>
 	<li class='bottomtop-bord'>
 		<p><b>RW:</b><textarea name="e_RW">{{e_RW}}</textarea></p>
 		<p><b>Рентгенография органов грудной клетки:</b><textarea name="e_rendgetnographia_organov_grudnoy_kletki">{{e_rendgetnographia_organov_grudnoy_kletki}}</textarea></p>
@@ -2659,7 +2661,7 @@
 	</li>
 	<li> 
 		<b>Общая лучевая нагрузка:</b> 
-		<textarea class="medium" name="e_pulmFreq_in" from="firstView@Общая лучевая нагрузка"></textarea>
+		<textarea class="medium" name="e_luchnagruz">{{e_luchnagruz}}</textarea>
 	</li>
 	<li>
 		<b>Проведенное лечение:</b>
@@ -2670,7 +2672,7 @@
 		<select multiple="multiple"  name="e_dinamic" value="{{e_dinamic}}">
 			<option>на фоне проведенного лечения достигнут клинический результат</option>
 		</select>
-		<input name="e_dinamic_text" value="">
+		<div class="ui-widget sugc"><textarea class="large suggest" suggest="out_techenie_zabolevania"  name="e_techenie_zabolevania" value="">{{e_techenie_zabolevania}}</textarea></div>
 	</li>
 	<li>
 		<b>Выписан:</b>
@@ -2765,11 +2767,26 @@ $(document).on('keyup','.tel input',function(e) {
 			$('.tel').removeClass('noprint');
 		}
 	}
+
+});
+// $()
+$(document).on('change', '#form-027u select.constructor', function(e){
+	if(e.handled !== true) {
+		e.handled = true;
+		$(this).find('option[set=set]').removeAttr('set');
+		console.log($(this).parent().find('input'));
+		$(this).parent().find('input').val($(this).parent().find('input').val()  + this.value  + ', '  );
+	}
 });
 
 
 $(document).ready(function(){
 
+	// $('#form-027u select.constructor').on('change', function(e){
+	// 	$(this).find('option[set=set]').removeAttr('set');
+	// 	console.log($(this).parent().find('input'));
+	// 	$(this).parent().find('input').val($(this).parent().find('input').val()  + this.value  + ', '  );
+	// });
 	if ($('span[name=status_vascularis_in]').text() != '1') {
 		$('li.status_vascularis_in').hide();
 	}

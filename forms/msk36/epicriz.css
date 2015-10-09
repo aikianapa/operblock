@@ -36,7 +36,7 @@
 #form-027u .nob b {
     font-weight: normal;
 }
-#form-027u .bad-tests {background-color:red;}
+#form-027u .bad-tests {background-color:#FFB2B2;}
 .tosection {display: block; border-bottom:1px dashed black; font-weight: bold; margin-bottom: -10px;}
 div#container {
         width: 580px;
@@ -67,6 +67,7 @@ div#container {
 .autocomplete-suggestions strong { font-weight: normal; color: #3399FF; }
 .autocomplete-group { padding: 2px 5px; }
 .autocomplete-group strong { display: block; border-bottom: 1px solid #000; }
+.sugc textarea,a {display:inline-block !important;}
 }
 @media print {
 body {display:none;}
@@ -116,4 +117,8 @@ body {display:none;}
     font-weight: normal;
 }
 #form-027u .bad-tests {font-weight: bold;}
+#form-027u ul[name^=nevr-status-] {
+	display:block !important; 
+}
+#form-027u .constructor {display:none;}
 }

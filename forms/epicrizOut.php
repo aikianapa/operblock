@@ -61,6 +61,7 @@ if ($_SESSION["settings"]["appId"]=="msk36") {
 	$Item["lab"]=epicLabPrep($id,"Лабораторные исследования");
 	$Item["res"]=epicLabPrep($id,"Инструментальная диагностика");
 	$Item["cons"]=epicConsPrep($id);
+	$Item["operations"]=epicOperations($id);
 }
 }	
 
@@ -142,8 +143,41 @@ $event=mysqlReadItem("Event",$id);
 		$Item['dateDiff'] = $Item['dateDiff'] . ' дня';
 	}
 
+	//Лекарства
+	$treat_id_sql = "SELECT a.id FROM Action as a
+							INNER JOIN ActionType as at on (a.actionType_id = at.id)
+							where at.name like '%Лекарственная терапия%' and a.event_id = {$id}";
+	$treat_id_res = mysql_query($treat_id_sql) or die ("Query failed fields_msk36(): [1]" . mysql_error());
+	$treat_id_arr = array();
+	while($data = mysql_fetch_array($treat_id_res)) {
+		$treat_id_arr[] = $data['id'];
+	}
+	$treatments = '';
+	foreach ($treat_id_arr as $treat_id){
+		$treat_props_sql = "Select  rsn.name from ActionProperty as a
+								join ActionPropertyType as b ON a.type_id = b.id 
+								join ActionProperty_Integer as c ON a.id = c.id
+								join rbStockNomenclature as rsn on c.value = rsn.id
+								where action_id = {$treat_id} and b.name = 'Код номенлатуры'";
+		$treat_prop_res = mysql_query($treat_props_sql) or die ("Query failed fields_msk36(): [1]" . mysql_error());
+		$treat_prop_arr = array();
+		while($data = mysql_fetch_array($treat_prop_res)) {
+			$treat_prop_arr['name'] = $data['name'];
+		}
+		$treat_props_sql = "Select  c.value as dosage  from ActionProperty as a
+								join ActionPropertyType as b ON a.type_id = b.id 
+								join ActionProperty_Double as c ON a.id = c.id
+								where action_id = {$treat_id} and b.name = 'Доза'";
+		$treat_prop_res = mysql_query($treat_props_sql) or die ("Query failed fields_msk36(): [1]" . mysql_error());
+		while($data = mysql_fetch_array($treat_prop_res)) {
+			$treat_prop_arr['dosage'] = $data['dosage'];
+		}
+		$treatments .= $treat_prop_arr['name'] .' ---------- ' . $treat_prop_arr['dosage'].' 
+';
+	}
+	$Item['e_treatment'] = 'Лекарственная терапия:
+'.$treatments;
 
-	if ($_SESSION['epic_type'] == 'dead') {
 		$SQL="SELECT a.* FROM Action AS a
 		INNER JOIN  Event AS e ON (a.event_id = e.id)
 		INNER JOIN  ActionType AS t ON t.id = a.actionType_id
@@ -155,11 +189,20 @@ $event=mysqlReadItem("Event",$id);
 		ORDER BY endDate ASC";
 		$operation_res = mysql_query($SQL) or die ("Query failed fields_msk36(): [1]" . mysql_error());
 		$operation_data = array();
-		while($data = mysql_fetch_array($operation_res)) {
-			$operation_data[] = array('endDate' => explode(' ',$data['endDate'])[0], 'operationName' => getAction($data[0])["data"]["fields"]['Наименование операции:']['value']);
-			$temp_e_techenie_zabolevania .=  explode(' ',$data['endDate'])[0] . '  ' . getAction($data[0])["data"]["fields"]['Наименование операции:']['value'] . '
+		$opertaion_string = 'Операции:
 ';
+		while($data = mysql_fetch_array($operation_res)) {
+			$actionData = getAction($data[0]);
+			$operation_data[] = array('endDate' => explode(' ',$data['endDate'])[0], 'operationName' => $actionData["data"]["fields"]['Наименование операции:']['value']);
+			$temp_e_techenie_zabolevania .=  explode(' ',$data['endDate'])[0] . '  ' . $actionData["data"]["fields"]['Наименование операции:']['value'] . '
+
+';		
+			$opertaion_string .= $actionData["data"]["fields"]['Код операции:']['value'] . ' ---- ' . $actionData["data"]["fields"]['Наименование операции:']['value'] . ' ---- ' . $actionData["data"]['begDateShow'].'
+';
+		// $Item['e_treatment'] .= print_r(getAction($data[0]), true);
 		}
+		$Item['e_treatment'] .= $opertaion_string;
+	if ($_SESSION['epic_type'] == 'dead') {
 		if (!empty($temp_e_techenie_zabolevania)) {
 			$Item['e_techenie_zabolevania'] = 'Операции:
 '			.$temp_e_techenie_zabolevania;
@@ -226,6 +269,24 @@ if ($_SESSION["epic_type"] == 'move') {
 	print_r($transfer_select);
 }
 
+if ($_SESSION["epic_type"] == 'out') {
+	//Общая лучевая нагрузка
+	$luchnagr_query = "SELECT aps.value as luch_nagr FROM `ActionProperty` as ap
+								inner join Action as a on (ap.action_id = a.id)
+							    inner join ActionPropertyType as apt on (ap.type_id = apt.id )
+							    inner join ActionProperty_String as aps on (ap.id = aps.id)
+							    where apt.name = 'Лучевая нагрузка:' and a.event_id = {$id}";
+
+	$luchnagr_result = mysql_query($luchnagr_query) or die ("Query failed epicrizOut.php: " . mysql_error());
+	$luchnagr_arr = mysql_result($luchnagr_result, 0);
+	$luch_nagr_value = 0;
+	foreach ($luchnagr_arr as $luchnagr) {
+		if (is_numeric($luchnagr['luch_nagr'])) {
+			$luch_nagr_value += $luchnagr['luch_nagr'];
+		}
+	}
+	$Item['e_luchnagruz'] = $luch_nagr_value;
+}
 $i=0; foreach(pq($out)->find("[name=e_recom_sel] option") as $recom) {
 	if (pq($recom)->html()==$Item["e_recom_sel"]) {
 		pq($out)->find(".recom_tab > li:eq({$i}) textarea")->attr("name","e_recom_text");
@@ -346,83 +407,81 @@ function fields_msk36($event_id,$orgstr="") {
 	} else {
 		$isReanim = '';
 	}
-	$event=mysqlReadItem("Event",$event_id);
-	$Diag=patientGetDiagnosis($event_id);
-	$SQL="SELECT a.* FROM Action AS a
-	INNER JOIN  Event AS e ON (a.event_id = e.id {$isReanim})
-	INNER JOIN  ActionType AS t ON t.id = a.actionType_id 
-	WHERE e.id = {$event_id} 
-	# AND (a.setPerson_id = e.execPerson_id OR a.person_id = e.execPerson_id )
-	AND a.deleted = 0 
-	AND a.status = 2 
-	AND t.name LIKE '%осмотр%'
-	ORDER BY endDate ASC LIMIT 1";
-	$res=mysql_query($SQL) or die ("Query failed fields_msk36(): [1]" . mysql_error());
-	while($data = mysql_fetch_array($res)) {
-		$action_id=$data[0];
-		$first_osmotr=getActionProperties($data[0],"");
-	}
-	$action_in=getActionDataIn($event_id); // Осмотр в приёмном отделении
-	// print_r($action_in);
-	// $first_osmotr1=getAction($action_id);
-	// $first_osmotr1=$first_osmotr1["data"]["fields"];
-
-	$firstView = getAction($action_id);
-	$docs["firstView"] = $firstView["data"]["fields"];
-
-
-
-
-	$SQL="SELECT a.* FROM Action AS a
-	INNER JOIN  Event AS e ON (a.event_id = e.id)
-	INNER JOIN  ActionType AS t ON t.id = a.actionType_id
-	INNER JOIN  ActionProperty as ap on ap.action_id = a.id
-	INNER JOIN  ActionProperty_String as aps on aps.id = ap.id
-	INNER JOIN  ActionPropertyType as apt on (apt.id = ap.type_id)
-	WHERE e.id = {$event_id} 
-	# AND (a.setPerson_id = e.execPerson_id OR a.person_id = e.execPerson_id )
-	AND a.deleted = 0 
-	AND a.status = 2 
-	AND t.name LIKE '%осмотр%'
-	AND apt.name = 'Осмотр:'
-	AND aps.value like '%Осмотр зав. отделением%'
-	ORDER BY endDate DESC LIMIT 1";
-
-	$res=mysql_query($SQL) or die ("Query failed fields_msk36(): [1]" . mysql_error());
-	$action_id = '';
-	while($data = mysql_fetch_array($res)) {
-		$action_id=$data[0];
-		$lastView=getActionProperties($data[0],"");
-	}
-	$action_in=getActionDataIn($event_id); // Осмотр в приёмном отделении
-	$lastView = getAction($action_id);
-	$docs["lastView"] = $lastView["data"]["fields"];
-	if (empty($action_id)) {
+	// Первый осмотр лечащим врачем
+	if (in_array($_SESSION["epic_type"], array('out', 'move','etap'))) {
 		$SQL="SELECT a.* FROM Action AS a
 		INNER JOIN  Event AS e ON (a.event_id = e.id {$isReanim})
-		INNER JOIN  ActionType AS t ON t.id = a.actionType_id
+		INNER JOIN  ActionType AS t ON t.id = a.actionType_id 
 		WHERE e.id = {$event_id} 
 		# AND (a.setPerson_id = e.execPerson_id OR a.person_id = e.execPerson_id )
 		AND a.deleted = 0 
 		AND a.status = 2 
-		AND t.name LIKE '%осмотр%' 
-		ORDER BY endDate DESC LIMIT 1";
+		AND t.name LIKE '%осмотр%'
+		ORDER BY endDate ASC LIMIT 1";
 		$res=mysql_query($SQL) or die ("Query failed fields_msk36(): [1]" . mysql_error());
 		while($data = mysql_fetch_array($res)) {
 			$action_id=$data[0];
-			$last_osmotr=getActionProperties($data[0],"");
+			// $first_osmotr=getActionProperties($data[0],"");
 		}
-		$action_in=getActionDataIn($event_id); // Осмотр в приёмном отделении
-		// print_r($action_in);
-		// $first_osmotr1=getAction($action_id);
-		// $first_osmotr1=$first_osmotr1["data"]["fields"];
+		$action_in=getActionDataIn($event_id); // Осмотр в приёмном отделени
+		$firstView = getAction($action_id);
+		$docs["firstView"] = $firstView["data"]["fields"];
+	}
+
+	//Осмотр зав. отделением, если такого нет, то подгружаем самый поздний осмотр
+	if (in_array($_SESSION["epic_type"], array('out', 'move','etap'))) {
+		$SQL="SELECT a.* FROM Action AS a
+		INNER JOIN  Event AS e ON (a.event_id = e.id)
+		INNER JOIN  ActionType AS t ON t.id = a.actionType_id
+		INNER JOIN  ActionProperty as ap on ap.action_id = a.id
+		INNER JOIN  ActionProperty_String as aps on aps.id = ap.id
+		INNER JOIN  ActionPropertyType as apt on (apt.id = ap.type_id)
+		WHERE e.id = {$event_id} 
+		# AND (a.setPerson_id = e.execPerson_id OR a.person_id = e.execPerson_id )
+		AND a.deleted = 0 
+		AND a.status = 2 
+		AND t.name LIKE '%осмотр%'
+		AND apt.name = 'Осмотр:'
+		AND aps.value like '%зав. отделением%'
+		ORDER BY endDate DESC LIMIT 1";
+
+		$res=mysql_query($SQL) or die ("Query failed fields_msk36(): [1]" . mysql_error());
+		$action_id = '';
+		while($data = mysql_fetch_array($res)) {
+			$action_id=$data[0];
+			// $lastView=getActionProperties($data[0],"");
+		}
+		// $action_in=getActionDataIn($event_id); // Осмотр в приёмном отделении
 		$lastView = getAction($action_id);
 		$docs["lastView"] = $lastView["data"]["fields"];
-	}
+		if (empty($action_id)) {
+			$SQL="SELECT a.* FROM Action AS a
+			INNER JOIN  Event AS e ON (a.event_id = e.id {$isReanim})
+			INNER JOIN  ActionType AS t ON t.id = a.actionType_id
+			WHERE e.id = {$event_id} 
+			# AND (a.setPerson_id = e.execPerson_id OR a.person_id = e.execPerson_id )
+			AND a.deleted = 0 
+			AND a.status = 2 
+			AND t.name LIKE '%осмотр%' 
+			ORDER BY endDate DESC LIMIT 1";
+			$res=mysql_query($SQL) or die ("Query failed fields_msk36(): [1]" . mysql_error());
+			while($data = mysql_fetch_array($res)) {
+				$action_id=$data[0];
+				// $last_osmotr=getActionProperties($data[0],"");
+			}
+			$action_in=getActionDataIn($event_id); // Осмотр в приёмном отделении
+			// print_r($action_in);
+			// $first_osmotr1=getAction($action_id);
+			// $first_osmotr1=$first_osmotr1["data"]["fields"];
+			$lastView = getAction($action_id);
+			$docs["lastView"] = $lastView["data"]["fields"];
+		}
 	
+	}
 
 
-	if ($_SESSION["epic_type"] == 'dead' or $_SESSION["epic_type"] == 'preoper') {
+	//Первый осмотр зав.отделением
+	if ((in_array($_SESSION["epic_type"], array('dead', 'preoper')))) {
 
 		$SQL="SELECT a.* FROM Action AS a
 		INNER JOIN  Event AS e ON (a.event_id = e.id)
@@ -442,12 +501,14 @@ function fields_msk36($event_id,$orgstr="") {
 		$action_id = '';
 		while($data = mysql_fetch_array($res)) {
 			$action_id=$data[0];
-			$firstZavView=getActionProperties($data[0],"");
+			// $firstZavView=getActionProperties($data[0],"");
 		}
 			$firstZavView = getAction($action_id);
 			$docs['firstZavView'] = $firstZavView["data"]["fields"];
 			
-
+	}
+	//Последний осмотр любого типа
+	if ((in_array($_SESSION["epic_type"], array('dead','preoper')))) {
 		$SQL="SELECT a.* FROM Action AS a
 		INNER JOIN  Event AS e ON (a.event_id = e.id)
 		INNER JOIN  ActionType AS t ON t.id = a.actionType_id
@@ -460,7 +521,7 @@ function fields_msk36($event_id,$orgstr="") {
 		$res=mysql_query($SQL) or die ("Query failed fields_msk36(): [1]" . mysql_error());
 		while($data = mysql_fetch_array($res)) {
 			$action_id = $data[0];
-			$firstDiagView = getActionProperties($data[0],"");
+			// $firstDiagView = getActionProperties($data[0],"");
 		}
 		$firstDiagView = getAction($action_id);
 		$docs['firstDiagView'] = $firstDiagView["data"]["fields"];
@@ -476,14 +537,10 @@ function fields_msk36($event_id,$orgstr="") {
 			$docs["firstZavView"]['status_localis_out']['value'] = '0';
 		}
 
-
-
-
-
 	}
 
 
-	if ($_SESSION["epic_type"] == 'preoper') {
+	if ((in_array($_SESSION["epic_type"], array('preoper')))) {
 		$SQL="SELECT a.* FROM Action AS a
 		INNER JOIN  Event AS e ON (a.event_id = e.id)
 		INNER JOIN  ActionType AS t ON t.id = a.actionType_id
@@ -528,7 +585,23 @@ function fields_msk36($event_id,$orgstr="") {
 		$docs["firstView"]['status_localis_in']['value'] = '0';
 	}
 
-
+	$an_vitae_arr = array('Хронические и перенесенные заболевания:','Аллергологический анамнез:','Постоянно принимает лекарственные препараты:' 
+							 ,'Перенесенные операции:' 
+							 ,'Наследственный и семейный анамнез:' 
+							 ,'Трудовой анамнез: работает:' 
+							 ,'Вредные привычки:' 
+							 ,'Профессиональные вредности:' 
+							 ,'Эпидемиологический анамнез:' 
+							 ,'Семейное положение:');
+	if (!array_key_exists('Anamnesis vitae:', $docs["firstView"])) {
+			$docs["firstView"]['Anamnesis vitae:'] = array('value' => '');
+	}
+	foreach ($an_vitae_arr as $propName) {
+		if (array_key_exists($propName, $docs["firstView"])) {
+			$docs["firstView"]['Anamnesis vitae:']['value'] .= $propName .$docs["firstView"][$propName]['value'] . ', ';
+		}
+	}
+	// $docs["firstView"]['Anamnesis vitae']['value'] = print_r($docs["firstView"], true);
 	$docs["FirstOsmotr"]=$action_in;
 	$docs["DiaryLast"]=$DiaryLast;
 	$docs["diaryLast"]=$DiaryLast;
@@ -720,7 +793,31 @@ function field_multi($value) {
 	}
 	return implode($ret,", ");
 }
+function epicOperations($event_id){
+	$SQL="SELECT a.* FROM Action AS a
+		INNER JOIN  Event AS e ON (a.event_id = e.id)
+		INNER JOIN  ActionType AS t ON t.id = a.actionType_id
+		WHERE e.id = {$event_id} 
+		# AND (a.setPerson_id = e.execPerson_id OR a.person_id = e.execPerson_id )
+		AND a.deleted = 0 
+		AND a.status = 2 
+		AND t.name = 'Протокол операции' 
+		ORDER BY endDate ASC";
+		$operation_res = mysql_query($SQL) or die ("Query failed fields_msk36(): [1]" . mysql_error());
+		$operation_data = array();
+		while($data = mysql_fetch_array($operation_res)) {
+			// $operation_data[] = array('endDate' => explode(' ',$data['endDate'])[0], 'operationName' => getAction($data[0])["data"]["fields"]['Наименование операции:']['value']);
+			// $temp_e_techenie_zabolevania .=  explode(' ',$data['endDate'])[0] . '  ' . getAction($data[0])["data"]["fields"]['Наименование операции:']['value'] . '
+// ';		
+			$operation_data[] = getAction($data[0]);
 
+		}
+	$doc=phpQuery::newDocument("<table class = 'analyzes'></table>");
+					pq($doc)->find("table")->prepend("<tr><th colspan='2'>{$time} {$line["name"]}</th><th>Норма</th><th>Ед.изм.</th></tr>");
+
+		return print_r($operation_data, true);
+
+}
 function epicLabPrep($event_id,$aType) {
 	$actionHistory=getActionsHistory($event_id);
 	$labHistory=$actionHistory["data"][1];
