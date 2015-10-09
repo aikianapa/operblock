@@ -155,7 +155,7 @@
 				</li>
 				<li>
 					<b>Границы сердца:</b>
-					<select multiple="multiple" name='e_diag_granserd_in[]'  from="firstView@Границы сердца">
+					<select class="constructor" multiple="multiple" name='e_diag_granserd_in[]'  from="firstView@Границы сердца">
 						<option>не расширены</option>
 						<option>расширены</option>
 						<option>относительно тупости сердца расширены</option>
@@ -1433,7 +1433,7 @@
 				</li>
 				<li>
 					<b>Границы сердца:</b>
-					<select multiple="multiple"  name='e_diag_granserd_out[]' value='{{e_diag_granserd_out}}' from="lastView@Границы сердца">
+					<select class="constructor" multiple="multiple"  name='e_diag_granserd_out[]' value='{{e_diag_granserd_out}}' from="lastView@Границы сердца">
 						<option>не расширены</option>
 						<option>расширены</option>
 						<option>относительно тупости сердца расширены</option>
@@ -2633,7 +2633,6 @@
 	</ul>
 	<textarea name="e_anayseText">{{e_anayseText}}</textarea></li>
 	<li><b><h3>Протоколы операций</h3></b>
-		{{operations}}
 	<textarea name="e_anayseText">{{e_anayseText}}</textarea></li>
 	<li class='bottomtop-bord'>
 		<p><b>RW:</b><textarea name="e_RW">{{e_RW}}</textarea></p>
