@@ -256,7 +256,11 @@ $SQL="SELECT a.name, a.idx, a.typeName, a.id, a.valueDomain, a.userProfile_id, b
 
 function morfo_actions_list() {
 $actionType_id=getActionTypeByName("Патоморфологические исследования");
-$SQL="SELECT * FROM ActionType WHERE group_id = $actionType_id ORDER BY name ASC";
+$SQL="SELECT b.id,title
+FROM OrgStructure_ActionType as a
+INNER JOIN ActionType as b on a.actionType_id = b.id
+WHERE master_id = 175
+ORDER BY name ASC";
 $result = mysql_query($SQL) or die("Query failed: (nazn_oper_list) " . mysql_error());
 $array=array();
 while($data = mysql_fetch_array($result)) {
