@@ -380,7 +380,7 @@ return $out;
 
 function recountTissueExternalId($tissueType){
 	$SQL = "SELECT COUNT(id) as cnt
-			FROM pato.TakenTissueJournal
+			FROM TakenTissueJournal
 			WHERE tissueType_id = $tissueType";
 	$result = mysql_query($SQL) or die ("Query failed recountTissueExternalId() [2]: " . mysql_error());
 	$data = mysql_fetch_array($result);
