@@ -2632,8 +2632,6 @@
 		</div>
 	</ul>
 	<textarea name="e_anayseText">{{e_anayseText}}</textarea></li>
-	<li><b><h3>Протоколы операций</h3></b>
-	<textarea name="e_anayseText">{{e_anayseText}}</textarea></li>
 	<li class='bottomtop-bord'>
 		<p><b>RW:</b><textarea name="e_RW">{{e_RW}}</textarea></p>
 		<p><b>Рентгенография органов грудной клетки:</b><textarea name="e_rendgetnographia_organov_grudnoy_kletki">{{e_rendgetnographia_organov_grudnoy_kletki}}</textarea></p>
@@ -2671,11 +2669,11 @@
 		<select multiple="multiple"  name="e_dinamic" value="{{e_dinamic}}">
 			<option>на фоне проведенного лечения достигнут клинический результат</option>
 		</select>
-		<div class="ui-widget sugc"><textarea class="large suggest" suggest="out_techenie_zabolevania"  name="e_techenie_zabolevania" value="">{{e_techenie_zabolevania}}</textarea></div>
+		<div class="ui-widget sugc"><textarea class="large suggest" suggest="out_techenie_zabolevania"  name="e_techenie_zabolevania" value="">{{e_techenie_zabolevania}}</textarea><a href="#saveTechen" class="ui-button" title="Сохранить"><span class="ui-icon ui-icon-disk"></span></a></div>
 	</li>
 	<li>
 		<b>Выписан:</b>
-		<select multiple="multiple" name="e_signout" value="{{e_signout}}">
+		<select multiple="multiple" name="e_signout[]" value="{{e_signout}}">
 			<option>с выздоровлением</option>
 			<option>с улучшением</option>
 			<option>без изменений в состоянии</option>
@@ -2684,7 +2682,7 @@
 	</li>
 	<li>
 		<b>Трудоспособность</b>
-		<select multiple="multiple"  name="e_jobabb" value="{{e_jobabb}}">
+		<select multiple="multiple"  name="e_jobabb[]" value="{{e_jobabb}}">
 			<option>восстановлена полностью</option>
 			<option>снижена</option>
 			<option>утрачена временно</option>
@@ -2695,7 +2693,7 @@
 	</li>
 	<li>
 		<b>Лист нетрудоспособности № </b> <input class="small" name="e_hosplist_numb" value=""> 
-		<select multiple="multiple"  name="e_hosplist" value="{{e_hosplist}}">
+		<select multiple="multiple"  name="e_hosplist[]" value="{{e_hosplist}}">
 			<option>выдавался</option>
 			<option>не выдавался</option>
 		</select>
@@ -2710,7 +2708,7 @@
 <li><b>Лекарственные препараты:</b>
 <textarea name="e_Drugs">{{e_Drugs}}</textarea>
 </li>
-<li><b>Выписан под наблюдение врача <input class="medium" name="e_recom_homedoctor" /> по месту жительства
+<li><b>Выписан под наблюдение врача <input class="medium" name="e_recom_homedoctor" > по месту жительства
 </li>
 <li><b>Явка в поликлинику:</b>
 <textarea name="e_recom_policlinic">{{e_recom_policlinic}}</textarea> 
@@ -2765,7 +2763,7 @@ $(document).on('keyup','.tel input',function(e) {
 		if ($('.tel').hasClass('noprint')) {
 			$('.tel').removeClass('noprint');
 		}
-	}
+}
 
 });
 // $()

@@ -61,8 +61,31 @@ if ($_SESSION["settings"]["appId"]=="msk36") {
 	$Item["lab"]=epicLabPrep($id,"Лабораторные исследования");
 	$Item["res"]=epicLabPrep($id,"Инструментальная диагностика");
 	$Item["cons"]=epicConsPrep($id);
-	$Item["operations"]=epicOperations($id);
+	// $Item["operations"]=epicOperations($id);
 }
+
+	if ($_SESSION["epic_type"] == 'out') {
+		//Общая лучевая нагрузка
+		if (empty($Item['e_luchnagruz'])) {
+			$luchnagr_query = "SELECT aps.value as luch_nagr FROM `ActionProperty` as ap
+										inner join Action as a on (ap.action_id = a.id)
+									    inner join ActionPropertyType as apt on (ap.type_id = apt.id )
+									    inner join ActionProperty_String as aps on (ap.id = aps.id)
+									    where apt.name = 'Лучевая нагрузка:' and a.event_id = {$id}";
+
+			$luchnagr_result = mysql_query($luchnagr_query) or die ("Query failed epicrizOut.php: " . mysql_error());
+			$luch_nagr_value = '';
+			while ($luchnagr =  mysql_fetch_array($luchnagr_result)) {
+				$luchnagr['luch_nagr'] = explode(' ',$luchnagr['luch_nagr'])[0];
+				$luchnagr['luch_nagr'] = str_replace(',','.',$luchnagr['luch_nagr']);
+				if (is_numeric($luchnagr['luch_nagr'])) {
+					$luch_nagr_value += $luchnagr['luch_nagr'];
+				}
+				// $luch_nagr_value .= $luchnagr['luch_nagr'];
+			}
+			$Item['e_luchnagruz'] = $luch_nagr_value;
+		}
+	}
 }	
 
 	$SQL="SELECT * FROM Action AS a 
@@ -265,28 +288,9 @@ if ($_SESSION["epic_type"] == 'move') {
 	}
 	$transfer_select .= '</select>';
 	pq($out)->find("li[name=transfer_orgstructure]")->append($transfer_select);
-	print_r('drake');
-	print_r($transfer_select);
 }
 
-if ($_SESSION["epic_type"] == 'out') {
-	//Общая лучевая нагрузка
-	$luchnagr_query = "SELECT aps.value as luch_nagr FROM `ActionProperty` as ap
-								inner join Action as a on (ap.action_id = a.id)
-							    inner join ActionPropertyType as apt on (ap.type_id = apt.id )
-							    inner join ActionProperty_String as aps on (ap.id = aps.id)
-							    where apt.name = 'Лучевая нагрузка:' and a.event_id = {$id}";
 
-	$luchnagr_result = mysql_query($luchnagr_query) or die ("Query failed epicrizOut.php: " . mysql_error());
-	$luchnagr_arr = mysql_result($luchnagr_result, 0);
-	$luch_nagr_value = 0;
-	foreach ($luchnagr_arr as $luchnagr) {
-		if (is_numeric($luchnagr['luch_nagr'])) {
-			$luch_nagr_value += $luchnagr['luch_nagr'];
-		}
-	}
-	$Item['e_luchnagruz'] = $luch_nagr_value;
-}
 $i=0; foreach(pq($out)->find("[name=e_recom_sel] option") as $recom) {
 	if (pq($recom)->html()==$Item["e_recom_sel"]) {
 		pq($out)->find(".recom_tab > li:eq({$i}) textarea")->attr("name","e_recom_text");
