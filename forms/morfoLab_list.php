@@ -25,11 +25,10 @@
     </fieldset>
     <input id="filterTable-input" data-type="search" style="display: inline-block;">
 		<table data-role="table" data-filter="true" data-input="#filterTable-input" class="ui-responsive" id="clientlist">
-		<thead><tr><th>№ ИБ</th><th>Ф.И.О.&nbsp;пациента</th><th>Исследование</th><th>Дата назначения</th><th>&nbsp;</th></tr></thead>
+		<thead><tr><th>Ф.И.О.&nbsp;пациента</th><th>Исследование</th><th>Дата назначения</th><th>&nbsp;</th></tr></thead>
 		<tbody>
 		<div data-role="foreach" from="result">
 		<tr aid="{{action_id}}" class="status-{{status}}" sid="{{spisanie_an}}">
-		<td>{{externalId}}</td>
 		<td>{{client}}<br />({{age}} лет)</td>
 		<td>{{operation}}</td>
 		<td>{{begDate}}</td>
@@ -43,8 +42,6 @@
             <!--li><a href="#nazn" data-transition="flip">Назначение</a></li-->
             <li><a href="#reg" data-transition="flip">Регистрация</a></li>
             <li><a href="#lab" data-transition="flip">Описание</a></li>
-            <li><a href="" data="/json/print_forms.php?mode=morfoReg"  target="_blank">Печать регистрации</a></li>
-            <li><a href="" data="/json/print_forms.php?mode=morfoLab"  target="_blank">Печать описания</a></li>
         </ul>
 	</div>
 
