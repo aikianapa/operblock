@@ -37,11 +37,10 @@
     <input id="filterTable-input" data-type="search" style="display: inline-block;">
 </div>
 		<table data-role="table" data-filter="true" data-input="#filterTable-input" class="ui-responsive" id="clientlist">
-		<thead><tr><th>№ ИБ</th><th>Ф.И.О.&nbsp;пациента</th><th>Контакты</th><th>Отделение</th><th>Исследование</th><th>Дата назначения</th><th>&nbsp;</th></tr></thead>
+		<thead><tr><th>Ф.И.О.&nbsp;пациента</th><th>Контакты</th><th>Отделение</th><th>Исследование</th><th>Дата назначения</th><th>&nbsp;</th></tr></thead>
 		<tbody>
 		<div data-role="foreach" from="result">
 		<tr aid="{{action_id}}" class="status-{{status}}" is-hosp={{isHosp}}>
-		<td>{{externalId}}</td>
 		<td>{{client}}<br />({{age}} лет)</td>
 		<td>{{contacts}}</td>
 		<td>{{orgStrShort}}</td>
@@ -56,8 +55,6 @@
             <li data-role="list-divider">Выберите действие</li>
             <li><a href="#new" data-transition="flip">Доп. исследование</a></li>
             <li><a href="#reg" data-transition="flip">Регистрация</a></li>
-            <li><a href="" data="/json/print_forms.php?mode=morfoReg"  target="_blank">Печать регистрации</a></li>
-            <li><a href="" data="/json/print_forms.php?mode=morfoLab"  target="_blank">Печать исследования</a></li>
             <li><a href="" data="/json/print_forms.php?mode=morfoNazn" payed="1"  target="_blank">Печать заключения</a></li>
         </ul>
 	</div>
