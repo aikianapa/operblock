@@ -24,6 +24,15 @@
         <input type="radio" name="status" id="status-off" value="off">
         <label for="status-off">Выполненные</label>
     </fieldset>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <fieldset data-role="controlgroup" data-type="horizontal"  style="display: inline-block;">
+        <input type="radio" name="place" id="hosp-all" value="all" checked="checked">
+        <label for="hosp-all">Все</label>
+        <input type="radio" name="place" id="hosp-on" value="on">
+        <label for="hosp-on">Стационар</label>
+        <input type="radio" name="place" id="hosp-off" value="off">
+        <label for="hosp-off">Амбулатория</label>
+    </fieldset>
     <a href="" class="print_list ui-btn ui-corner-all ui-btn-inline" target="_blank">Печать журнала</a>
     <input id="filterTable-input" data-type="search" style="display: inline-block;">
 </div>
@@ -31,7 +40,7 @@
 		<thead><tr><th>№ ИБ</th><th>Ф.И.О.&nbsp;пациента</th><th>Контакты</th><th>Отделение</th><th>Исследование</th><th>Дата назначения</th><th>&nbsp;</th></tr></thead>
 		<tbody>
 		<div data-role="foreach" from="result">
-		<tr aid="{{action_id}}" class="status-{{status}}" payed="{{payed}}">
+		<tr aid="{{action_id}}" class="status-{{status}}" is-hosp={{isHosp}}>
 		<td>{{externalId}}</td>
 		<td>{{client}}<br />({{age}} лет)</td>
 		<td>{{contacts}}</td>

@@ -14,7 +14,14 @@ $Item["workDate"]=$Item["date1"];
 $Item["endDate"]=$Item["date2"];
 $out=formGetForm($form,$mode);
 $actionType_id=getActionTypeByName("Патоморфологические исследования");
-	$SQL="SELECT * FROM Action AS a
+	$SQL="SELECT *,
+		(SELECT IF(aid.id IN ('1', '2', '3', '7'),1,0)
+		 FROM Event as e
+		 INNER JOIN EventType as et ON e.eventType_id = et.id
+		 INNER JOIN rbMedicalAidType as aid ON et.medicalAidType_id = aid.id
+		 WHERE e.id = a.event_id
+		 LIMIT 1) as isHosp 
+	FROM Action AS a
 	INNER JOIN ActionType AS b
 	WHERE a.actionType_id = b.id
 	AND a.deleted = 0 
@@ -22,13 +29,14 @@ $actionType_id=getActionTypeByName("Патоморфологические ис�
 	AND ( (a.begDate BETWEEN '{$Item["workDate"]}' AND '{$Item["endDate"]} 23:59:59' ) 
 	OR 
 	( a.plannedEndDate BETWEEN '{$Item["workDate"]}' AND '{$Item["endDate"]} 23:59:59' ) )
-	ORDER BY a.begDate DESC";
+	ORDER BY a.begDate DESC ";
 	$res=mysql_query($SQL) or die ("Query failed morfoReg_list(): " . mysql_error());
 	while($data = mysql_fetch_array($res)) {
 		$action=getActionInfo($data[0]);
 		$action["status"]=getMorfoStatus($action["id"]);
 		$action["begDate"]=dmyDate($action["begDate"]);
 		$action["contacts"]=$action["_Client"]["contacts"];
+		$action["isHosp"] = $data['isHosp'];
 		$result[]=$action;
 	}
 $Item["person_id"]=$_SESSION["person_id"];

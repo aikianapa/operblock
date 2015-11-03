@@ -47,13 +47,18 @@ $(document).on("pageinit",function(){
 	$("#morfoReportList").next("div#report.print-area").remove();
 
 	var page=$("#morfoNaznList, #morfoReportList, #morfoRegList, #morfoLabList");
-	page.find("input[name=status]").on("change",function(){
+	page.find("input[name=status],input[name=place]").on("change",function(){
 		var status=page.find("input[name=status]:checked").val();
+		var place=page.find("input[name=place]:checked").val();
 		page.find("#clientlist tbody tr").each(function(){
 			$(this).addClass("ui-hidden");
-			if (status=="all") {$(this).removeClass("ui-hidden");}
-			if (status=="on" && $(this).hasClass("status-1")) {$(this).removeClass("ui-hidden");}
-			if (status=="off" && $(this).hasClass("status-2")) {$(this).removeClass("ui-hidden");} 
+			$(this).addClass("ui-hidden-1");
+			if (place=="all") {$(this).removeClass("ui-hidden");}
+			if (place=="on" && $(this).attr("is-hosp",1)) {$(this).removeClass("ui-hidden");}
+			if (place=="off" && !$(this).attr("is-hosp",1)) {$(this).removeClass("ui-hidden");}
+			if (status=="all") {$(this).removeClass("ui-hidden-1");}
+			if (status=="on" && !$(this).hasClass("status-2")) {$(this).removeClass("ui-hidden-1");}
+			if (status=="off" && $(this).hasClass("status-2")) {$(this).removeClass("ui-hidden-1");} 
 		});
 	});
 		morfoNaznPrepare();

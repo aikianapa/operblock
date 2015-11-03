@@ -23,12 +23,21 @@
         <input type="radio" name="status" id="status-off" value="off">
         <label for="status-off">Выполненные</label>
     </fieldset>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <fieldset data-role="controlgroup" data-type="horizontal"  style="display: inline-block;">
+        <input type="radio" name="place" id="hosp-all" value="all" checked="checked">
+        <label for="hosp-all">Все</label>
+        <input type="radio" name="place" id="hosp-on" value="on">
+        <label for="hosp-on">Стационар</label>
+        <input type="radio" name="place" id="hosp-off" value="off">
+        <label for="hosp-off">Амбулатория</label>
+    </fieldset>
     <input id="filterTable-input" data-type="search" style="display: inline-block;">
 		<table data-role="table" data-filter="true" data-input="#filterTable-input" class="ui-responsive" id="clientlist">
 		<thead><tr><th>Ф.И.О.&nbsp;пациента</th><th>Исследование</th><th>Дата назначения</th><th>&nbsp;</th></tr></thead>
 		<tbody>
 		<div data-role="foreach" from="result">
-		<tr aid="{{action_id}}" class="status-{{status}}" sid="{{spisanie_an}}">
+		<tr aid="{{action_id}}" class="status-{{status}}" is-hosp={{isHosp}}>
 		<td>{{client}}<br />({{age}} лет)</td>
 		<td>{{operation}}</td>
 		<td>{{begDate}}</td>
