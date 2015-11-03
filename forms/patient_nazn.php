@@ -422,10 +422,7 @@ function operation_list_action() {
 			} 
 			
 			if (href=="#histo" ) {
-				$("#patient_histo_form")[0].reset();
-				histo_defaults();
-				$("#patientNazn a.uniprint").attr("href",$(this).attr("data")+"&action="+$( "#patientNazn" ).data( "action")); 
-				setTimeout(function(){ $("#patientNazn #histo").popup("open"); },500);
+				top.postMessage('addHistology', '*');
 			} 
 			if (href=="#cito" ) {
 				$("#patient_cito_form")[0].reset();
