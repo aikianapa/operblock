@@ -54,8 +54,8 @@ $(document).on("pageinit",function(){
 			$(this).addClass("ui-hidden");
 			$(this).addClass("ui-hidden-1");
 			if (place=="all") {$(this).removeClass("ui-hidden");}
-			if (place=="on" && $(this).attr("is-hosp",1)) {$(this).removeClass("ui-hidden");}
-			if (place=="off" && !$(this).attr("is-hosp",1)) {$(this).removeClass("ui-hidden");}
+			if (place=="on" && $(this).attr("is-hosp") === '1' {$(this).removeClass("ui-hidden");}
+			if (place=="off" && $(this).attr("is-hosp") !== '1') {$(this).removeClass("ui-hidden");}
 			if (status=="all") {$(this).removeClass("ui-hidden-1");}
 			if (status=="on" && !$(this).hasClass("status-2")) {$(this).removeClass("ui-hidden-1");}
 			if (status=="off" && $(this).hasClass("status-2")) {$(this).removeClass("ui-hidden-1");} 
