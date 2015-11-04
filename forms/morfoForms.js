@@ -12,13 +12,8 @@ $("div[data-url^='/morfoLab/list/list.htm']:hidden").remove();
 		});
 
 		$("#printMenu a").on("click",function(){
-			if ($(this).attr("data")>"") {
-				window.open(
-			        $(this).attr("data")+"&action="+$( document ).data( "action"),
-			        'print_win',
-			        'width=900,height=900,scrollbars'
-			    );
-			} else {
+			if ($(this).hasClass('print')) window.open("/proxy.php?action_id=" + $( document ).data("action") + "&template_id=543&repeat=0&dialog=");
+			 else {
 				$(document).data("copy_nazn",false);
 				if ($(this).attr("href")=="#new") {var form="morfoNazn"; $(document).data("copy_nazn",true);}
 				if ($(this).attr("href")=="#nazn") {var form="morfoNazn";}
