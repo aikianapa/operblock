@@ -12,7 +12,7 @@ function epicrizOut_edit($form,$mode,$id,$datatype) {
 		return epicrizOut_edit_old($form,$mode,$id,$datatype);
 	}
 
-	print_r($event);
+	// print_r($event);
 	parse_str($_SERVER["REQUEST_URI"]);
 	$tpl=array();
 	$tpl[]=array(array("КО (ОНК) РСЦ","2 КО РСЦ"),"Cord",$type);
@@ -165,7 +165,7 @@ $event=mysqlReadItem("Event",$id);
 	}	else {
 		$Item['dateDiff'] = $Item['dateDiff'] . ' дня';
 	}
-
+	if (!isset($Item['e_treatment'])){
 	//Лекарства
 	$treat_id_sql = "SELECT a.id FROM Action as a
 							INNER JOIN ActionType as at on (a.actionType_id = at.id)
@@ -225,6 +225,7 @@ $event=mysqlReadItem("Event",$id);
 		// $Item['e_treatment'] .= print_r(getAction($data[0]), true);
 		}
 		$Item['e_treatment'] .= $opertaion_string;
+	}
 	if ($_SESSION['epic_type'] == 'dead') {
 		if (!empty($temp_e_techenie_zabolevania)) {
 			$Item['e_techenie_zabolevania'] = 'Операции:
